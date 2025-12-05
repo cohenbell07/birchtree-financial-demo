@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with BirchTree Financial to discuss your financial goals and schedule a consultation.",
+  description: "Get in touch with Birchtree Financial to discuss your financial goals and schedule a consultation.",
 }
 
 export default function ContactLayout({

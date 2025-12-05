@@ -106,7 +106,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
         subtitle="Project your retirement savings and plan for your future"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
@@ -114,24 +114,24 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading flex items-center text-midnight">
-                      <Calculator className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
+                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
+                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
                       Calculate Your Retirement
                     </CardTitle>
-                    <CardDescription className="text-sm sm:text-base text-midnight/70">
+                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
                       Enter your information to see your projected RRSP and TFSA retirement savings
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4 sm:p-6 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
                         <Label htmlFor="currentAge">Current Age</Label>
@@ -231,7 +231,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full"
+                        className="relative z-10 w-full text-white"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Projection"}
@@ -249,70 +249,75 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl sm:text-2xl font-heading text-white">
+                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-4 sm:p-6">
+                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
                           Projected Retirement Savings
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-mint">
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-mint">
                           ${result.projectedSavings.toLocaleString()}
                         </div>
-                        <p className="text-sm sm:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
                       </CardContent>
                     </Card>
 
-                    <Card className="glass shadow-glow-hover border-emerald/20">
-                      <CardHeader>
-                        <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
+                    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-4 sm:p-6">
+                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                           Growth Projection
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
-                          <LineChart data={result.chartData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
-                            <XAxis
-                              dataKey="age"
-                              stroke="#0B1A2C"
-                              label={{
-                                value: "Age",
-                                position: "insideBottom",
-                                offset: -5,
-                              }}
-                            />
-                            <YAxis
-                              stroke="#0B1A2C"
-                              label={{ value: "Savings ($)", angle: -90, position: "insideLeft" }}
-                              tickFormatter={(value) =>
-                                `$${(value / 1000).toFixed(0)}k`
-                              }
-                            />
-                            <Tooltip
-                              formatter={(value: number) =>
-                                `$${value.toLocaleString()}`
-                              }
-                              labelFormatter={(label) => `Age: ${label}`}
-                              contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085" }}
-                            />
-                            <Legend />
-                            <Line
-                              type="monotone"
-                              dataKey="savings"
-                              stroke="#16A085"
-                              strokeWidth={3}
-                              dot={{ fill: "#7CFFC4", r: 4 }}
-                              name="Projected Savings"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <div className="w-full max-w-full overflow-hidden px-2">
+                          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
+                            <LineChart data={result.chartData}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
+                              <XAxis
+                                dataKey="age"
+                                stroke="#0B1A2C"
+                                tick={{ fontSize: 10 }}
+                                label={{
+                                  value: "Age",
+                                  position: "insideBottom",
+                                  offset: -5,
+                                  style: { fontSize: 10 }
+                                }}
+                              />
+                              <YAxis
+                                stroke="#0B1A2C"
+                                tick={{ fontSize: 10 }}
+                                label={{ value: "Savings ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
+                                tickFormatter={(value) =>
+                                  `$${(value / 1000).toFixed(0)}k`
+                                }
+                              />
+                              <Tooltip
+                                formatter={(value: number) =>
+                                  `$${value.toLocaleString()}`
+                                }
+                                labelFormatter={(label) => `Age: ${label}`}
+                                contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085", fontSize: "12px" }}
+                              />
+                              <Legend wrapperStyle={{ fontSize: "12px" }} />
+                              <Line
+                                type="monotone"
+                                dataKey="savings"
+                                stroke="#16A085"
+                                strokeWidth={2}
+                                dot={{ fill: "#7CFFC4", r: 3 }}
+                                name="Projected Savings"
+                              />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
                       </CardContent>
                     </Card>
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50">
-                      <CardContent className="pt-6">
-                        <p className="text-sm text-midnight/80 italic">
+                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                      <CardContent className="p-4 sm:p-6">
+                        <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This calculator provides
                           estimates based on the assumptions you entered. Actual
                           returns may vary, and this does not constitute
@@ -324,9 +329,9 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     </Card>
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20">
-                    <CardContent className="pt-6 text-center text-midnight/70">
-                      <p>
+                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                      <p className="text-sm sm:text-base">
                         Enter your information and calculate to see your
                         retirement projection.
                       </p>

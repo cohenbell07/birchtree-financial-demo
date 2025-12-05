@@ -15,8 +15,8 @@ export default function NotFound() {
         <p className="text-base sm:text-lg text-slate mb-6 sm:mb-8 max-w-md mx-auto px-4">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <Button asChild size="lg">
-          <Link href="/">
+        <Button asChild size="lg" className="relative z-10 text-white [&>*]:text-white">
+          <Link href="/" className="text-white">
             <Home className="mr-2 h-4 w-4" />
             Return Home
           </Link>

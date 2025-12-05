@@ -84,39 +84,39 @@ export default function ResourcesPage() {
         subtitle="Educational content, guides, and tools to empower your financial decisions"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12">
+          <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 md:space-y-12">
             {/* Newsletter Signup */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                <CardHeader>
-                  <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                    <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+              <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto md:max-w-none">
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-white flex items-center">
+                    <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
                     Stay Informed
                   </CardTitle>
-                  <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base">
+                  <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base mt-2">
                     Subscribe to our newsletter for monthly financial insights, market
                     updates, and exclusive resources.
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <form className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <Input
                       type="email"
                       placeholder="Enter your email address"
                       className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
                     />
-                    <Button type="submit" className="bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-sm sm:text-base w-full sm:w-auto">
+                    <Button type="submit" className="relative z-10 bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-sm sm:text-base w-full sm:w-auto text-white">
                       Subscribe
                     </Button>
                   </form>
@@ -133,10 +133,10 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               >
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-4 sm:mb-6">
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
                   {category.category}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                   {category.items.map((item, itemIndex) => (
                     <motion.div
                       key={item.title}
@@ -149,8 +149,8 @@ export default function ResourcesPage() {
                       }}
                       whileHover={{ y: -5 }}
                     >
-                      <Card className="h-full glass shadow-glow-hover border-emerald/20">
-                        <CardHeader>
+                      <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
+                        <CardHeader className="p-4 sm:p-6">
                           <div className="flex items-center justify-between mb-2">
                             {item.type === "Tool" && (
                               <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
@@ -167,25 +167,25 @@ export default function ResourcesPage() {
                               </span>
                             )}
                           </div>
-                          <CardTitle className="text-base sm:text-lg font-heading text-midnight">
+                          <CardTitle className="text-sm sm:text-base md:text-lg font-heading text-midnight mb-2">
                             {item.title}
                           </CardTitle>
-                          <CardDescription className="text-xs sm:text-sm text-midnight/70">
+                          <CardDescription className="text-xs sm:text-sm text-midnight/70 leading-relaxed">
                             {item.description}
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-4 sm:p-6 pt-0">
                           {"href" in item ? (
-                            <Button asChild variant="outline" size="sm" className="w-full border-emerald/50 text-emerald hover:bg-emerald/10">
-                              <Link href={item.href}>
+                            <Button asChild variant="outline" size="sm" className="relative z-10 w-full border-emerald/50 text-emerald hover:bg-emerald/10 [&>*]:text-emerald text-sm">
+                              <Link href={item.href} className="text-emerald">
                                 Use Tool
-                                <ArrowRight className="ml-2 h-4 w-4" />
+                                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                               </Link>
                             </Button>
                           ) : (
-                            <Button variant="outline" size="sm" className="w-full border-emerald/50 text-emerald hover:bg-emerald/10">
+                            <Button variant="outline" size="sm" className="relative z-10 w-full border-emerald/50 text-emerald hover:bg-emerald/10 text-sm">
                               Read More
-                              <ArrowRight className="ml-2 h-4 w-4" />
+                              <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                           )}
                         </CardContent>
@@ -204,18 +204,18 @@ export default function ResourcesPage() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
-                <CardContent className="pt-6 text-center">
-                  <h3 className="text-2xl font-heading font-bold text-midnight mb-4">
+              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
+                <CardContent className="p-4 sm:p-6 md:pt-6 text-center">
+                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4 px-2">
                     Need Personalized Guidance?
                   </h3>
-                  <p className="text-midnight/70 mb-6 max-w-2xl mx-auto">
+                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
                     While our resources provide valuable information, personalized
                     financial planning requires understanding your unique situation.
                     Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg" className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow">
-                    <Link href="/contact">Schedule a Consultation</Link>
+                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white [&>*]:text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
+                    <Link href="/contact" className="text-white">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>
               </Card>

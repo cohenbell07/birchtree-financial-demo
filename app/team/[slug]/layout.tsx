@@ -6,7 +6,7 @@ const teamMembers = [
     slug: "john-anderson",
     name: "John Anderson",
     role: "Principal & Senior Financial Advisor",
-    bio: "With over 20 years of experience in financial planning and wealth management, John founded BirchTree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
+    bio: "With over 20 years of experience in financial planning and wealth management, John founded Birchtree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
   },
   {
     slug: "maria-gonzalez",

@@ -188,7 +188,7 @@ export default function AIAdvisorPage() {
                     <Button
                       type="submit"
                       disabled={!input.trim() || isLoading}
-                      className="w-full"
+                      className="relative z-10 w-full text-white"
                     >
                       {isLoading ? "Thinking..." : "Send Message"}
                       <Send className="ml-2 h-4 w-4" />
@@ -211,8 +211,8 @@ export default function AIAdvisorPage() {
                     Need personalized financial advice? Schedule a consultation
                     with one of our expert advisors.
                   </p>
-                  <Button asChild size="lg" className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow">
-                    <a href="/contact">Schedule a Consultation</a>
+                  <Button asChild size="lg" className="relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white [&>*]:text-white">
+                    <a href="/contact" className="text-white">Schedule a Consultation</a>
                   </Button>
                 </CardContent>
               </Card>

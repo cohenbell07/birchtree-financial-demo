@@ -152,7 +152,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
         subtitle="Discover your investment risk profile with our AI-powered assessment tool"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
@@ -160,23 +160,23 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
+                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
                       Your Profile
                     </CardTitle>
-                    <CardDescription className="text-sm sm:text-base text-midnight/70">
+                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
                       Answer a few questions to determine your risk profile
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4 sm:p-6 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
                         <Label htmlFor="age">Age</Label>
@@ -301,7 +301,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                         </div>
                       </div>
 
-                      <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                      <Button type="submit" size="lg" className="relative z-10 w-full text-white" disabled={isLoading}>
                         {isLoading ? "Analyzing..." : "Analyze My Risk Profile"}
                       </Button>
                     </form>
@@ -317,45 +317,55 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                      <CardHeader>
-                        <CardTitle className="text-xl sm:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
+                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-4 sm:p-6">
+                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
+                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
                           Your Risk Profile: {result.category}
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <p className="text-sm sm:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
                       </CardContent>
                     </Card>
 
-                    <Card className="glass shadow-glow-hover border-emerald/20">
-                      <CardHeader>
-                        <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
+                    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-4 sm:p-6">
+                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                           Risk Profile Breakdown
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
-                          <RadarChart data={result.scores}>
-                            <PolarGrid stroke="#16A085" opacity={0.3} />
-                            <PolarAngleAxis dataKey="category" tick={{ fill: "#0B1A2C" }} />
-                            <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "#0B1A2C" }} />
-                            <Radar
-                              name="Risk Score"
-                              dataKey="value"
-                              stroke="#16A085"
-                              fill="#7CFFC4"
-                              fillOpacity={0.6}
-                            />
-                          </RadarChart>
-                        </ResponsiveContainer>
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <div className="w-full max-w-full overflow-hidden px-2">
+                          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
+                            <RadarChart data={result.scores}>
+                              <PolarGrid stroke="#16A085" opacity={0.3} />
+                              <PolarAngleAxis 
+                                dataKey="category" 
+                                tick={{ fill: "#0B1A2C", fontSize: 10 }} 
+                                className="text-xs"
+                              />
+                              <PolarRadiusAxis 
+                                angle={90} 
+                                domain={[0, 100]} 
+                                tick={{ fill: "#0B1A2C", fontSize: 10 }} 
+                              />
+                              <Radar
+                                name="Risk Score"
+                                dataKey="value"
+                                stroke="#16A085"
+                                fill="#7CFFC4"
+                                fillOpacity={0.6}
+                              />
+                            </RadarChart>
+                          </ResponsiveContainer>
+                        </div>
                       </CardContent>
                     </Card>
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50">
-                      <CardContent className="pt-6">
-                        <p className="text-sm text-midnight/80 italic">
+                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                      <CardContent className="p-4 sm:p-6">
+                        <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This assessment provides general
                           information only and does not constitute personalized financial
                           advice. Please consult with a qualified financial advisor for
@@ -365,9 +375,9 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                     </Card>
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20">
-                    <CardContent className="pt-6 text-center text-midnight/70">
-                      <p>
+                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                      <p className="text-sm sm:text-base">
                         Complete the form to see your personalized risk profile
                         analysis.
                       </p>

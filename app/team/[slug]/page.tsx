@@ -14,8 +14,8 @@ const teamMembers = [
     slug: "john-anderson",
     name: "John Anderson",
     role: "Principal & Senior Financial Advisor",
-    bio: "With over 20 years of experience in financial planning and wealth management, John founded BirchTree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
-    fullBio: "John Anderson brings more than two decades of expertise in financial planning and wealth management to BirchTree Financial. As the firm's founder and principal advisor, John is passionate about helping clients achieve their financial goals through comprehensive, personalized planning.",
+    bio: "With over 20 years of experience in financial planning and wealth management, John founded Birchtree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
+    fullBio: "John Anderson brings more than two decades of expertise in financial planning and wealth management to Birchtree Financial. As the firm's founder and principal advisor, John is passionate about helping clients achieve their financial goals through comprehensive, personalized planning.",
     credentials: "CFP®, CFA",
     education: "MBA in Finance, Rotman School of Management, University of Toronto",
     specialties: ["Retirement Planning", "Wealth Management", "Portfolio Strategy"],
@@ -90,7 +90,7 @@ const teamMembers = [
     name: "Jennifer Thompson",
     role: "Client Relations Manager",
     bio: "Jennifer ensures every client receives exceptional service and support. With a background in client service and operations, she helps streamline the advisory experience.",
-    fullBio: "Jennifer Thompson manages client relations and ensures seamless communication between clients and advisors. Her background in operations and client service helps create an exceptional experience for every BirchTree Financial client.",
+    fullBio: "Jennifer Thompson manages client relations and ensures seamless communication between clients and advisors. Her background in operations and client service helps create an exceptional experience for every Birchtree Financial client.",
     credentials: "CSC, CPH",
     education: "BBA, Schulich School of Business, York University",
     specialties: ["Client Relations", "Operations", "Service Excellence"],
@@ -240,8 +240,8 @@ export default function TeamMemberPage() {
             </div>
 
             <div className="mt-8 text-center">
-              <Button asChild size="lg">
-                <Link href="/contact">Schedule a Consultation</Link>
+              <Button asChild size="lg" className="relative z-10 text-white [&>*]:text-white">
+                <Link href="/contact" className="text-white">Schedule a Consultation</Link>
               </Button>
             </div>
           </div>

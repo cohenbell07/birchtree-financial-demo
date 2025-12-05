@@ -28,6 +28,8 @@ export default function Footer() {
     <footer className="bg-midnight text-white relative overflow-hidden">
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-teal/20 to-transparent" />
+      {/* Ultra-light noise texture */}
+      <div className="absolute inset-0 texture-noise pointer-events-none opacity-30" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12">
@@ -62,7 +64,7 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald">Company</h3>
+            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -79,7 +81,7 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald">Resources</h3>
+            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Resources</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
@@ -96,7 +98,7 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald">Legal</h3>
+            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
@@ -133,9 +135,9 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-emerald/20 text-center text-xs sm:text-sm text-silver/60">
           <p className="px-4">
-            © {new Date().getFullYear()} BirchTree Financial. All rights
+            © {new Date().getFullYear()} Birchtree Financial. All rights
             reserved. Registered investment advisor in Canada. Investment advisory services 
-            offered through BirchTree Financial, a registered investment advisor.
+            offered through Birchtree Financial, a registered investment advisor.
           </p>
         </div>
       </div>

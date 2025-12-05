@@ -5,20 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden button-shimmer",
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-emerald to-emerald-light text-white hover:shadow-glow hover:scale-105",
+        default: "bg-gradient-to-r from-emerald to-emerald-light text-white hover:shadow-lg hover:scale-[1.02] hover:from-emerald-light hover:to-emerald shadow-md",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md",
         outline:
-          "border-2 border-emerald text-emerald hover:bg-emerald/10 hover:shadow-glow",
+          "border-2 border-emerald text-emerald hover:bg-emerald/10 hover:shadow-md hover:border-emerald-light [&>*]:text-emerald",
         secondary:
-          "bg-teal text-white hover:bg-teal-light hover:shadow-glow",
-        ghost: "hover:bg-white/50 hover:text-emerald",
-        link: "text-emerald underline-offset-4 hover:underline",
-        champagne: "bg-gradient-to-r from-gold to-gold-light text-white hover:shadow-lg",
+          "bg-teal text-white hover:bg-teal-light hover:shadow-md shadow-md",
+        ghost: "text-midnight hover:bg-white/50 hover:text-emerald [&>*]:text-midnight [&>*]:hover:text-emerald",
+        link: "text-emerald underline-offset-4 hover:underline [&>*]:text-emerald",
+        champagne: "bg-gradient-to-r from-gold to-gold-light text-white hover:shadow-lg shadow-md [&>*]:text-white",
       },
       size: {
         default: "h-10 px-6 py-2",

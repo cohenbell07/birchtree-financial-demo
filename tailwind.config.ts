@@ -50,9 +50,19 @@ const config = {
           dark: "#5AE5A8",
         },
         gold: {
-          DEFAULT: "#C6A667",
-          light: "#D4B882",
-          dark: "#A8914F",
+          DEFAULT: "#D7C38A",
+          light: "#E4D5A8",
+          dark: "#C4B076",
+        },
+        sage: {
+          DEFAULT: "#2ECC71",
+          light: "#4DD689",
+          dark: "#1FA85A",
+        },
+        mist: {
+          DEFAULT: "#F3F7F6",
+          light: "#FFFFFF",
+          dark: "#E8EDEB",
         },
         // Legacy names for compatibility (will update gradually)
         forest: {
@@ -115,9 +125,9 @@ const config = {
         },
       },
       fontFamily: {
-        heading: ['Sora', 'var(--font-heading)', 'Inter', 'sans-serif'],
+        heading: ['var(--font-sora)', 'Sora', 'sans-serif'],
         body: ['var(--font-inter)', 'Inter', 'sans-serif'],
-        subhead: ['var(--font-ibm-plex)', 'IBM Plex Sans', 'sans-serif'],
+        subhead: ['var(--font-inter)', 'Inter', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

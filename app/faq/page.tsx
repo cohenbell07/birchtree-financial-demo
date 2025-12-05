@@ -14,9 +14,9 @@ import {
 
 const faqs = [
   {
-    question: "What services does BirchTree Financial provide?",
+    question: "What services does Birchtree Financial provide?",
     answer:
-      "BirchTree Financial offers comprehensive financial planning and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We work with individuals, families, and business owners to create personalized financial strategies.",
+      "Birchtree Financial offers comprehensive financial planning and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We work with individuals, families, and business owners to create personalized financial strategies.",
   },
   {
     question: "How do you charge for your services?",
@@ -26,10 +26,10 @@ const faqs = [
   {
     question: "What is a fiduciary, and why does it matter?",
     answer:
-      "A fiduciary is a legal and ethical obligation to act in your best interest at all times. As a registered investment advisor, BirchTree Financial is held to a fiduciary standard, meaning we must prioritize your financial well-being above all else. This differs from brokers who may only be required to recommend 'suitable' investments.",
+      "A fiduciary is a legal and ethical obligation to act in your best interest at all times. As a registered investment advisor, Birchtree Financial is held to a fiduciary standard, meaning we must prioritize your financial well-being above all else. This differs from brokers who may only be required to recommend 'suitable' investments.",
   },
   {
-    question: "Do I need a minimum amount of assets to work with BirchTree Financial?",
+    question: "Do I need a minimum amount of assets to work with Birchtree Financial?",
     answer:
       "We work with clients across a range of asset levels and life stages. While we do have minimum requirements for certain services, we offer solutions for individuals just starting their financial journey as well as those with substantial wealth. Contact us to discuss whether our services are a good fit for your situation.",
   },
@@ -54,7 +54,7 @@ const faqs = [
       "Absolutely. We believe in a team approach to financial planning and regularly coordinate with our clients' accountants, attorneys, insurance agents, and other professionals. This ensures all aspects of your financial life work together cohesively.",
   },
   {
-    question: "What makes BirchTree Financial different from other advisors?",
+    question: "What makes Birchtree Financial different from other advisors?",
     answer:
       "We combine deep expertise with a personalized, client-first approach. As a fee-only fiduciary, we eliminate conflicts of interest. We take time to truly understand your goals, values, and concerns, creating customized strategies rather than one-size-fits-all solutions. Our team's experience and commitment to ongoing education ensure you receive the best possible guidance.",
   },
@@ -66,7 +66,7 @@ const faqs = [
   {
     question: "Are you registered with any regulatory bodies?",
     answer:
-      "Yes, BirchTree Financial is a registered investment advisor in Canada, regulated by provincial securities commissions and member of IIROC (Investment Industry Regulatory Organization of Canada). Our team holds relevant licenses and professional certifications, including CFP®, CFA, and professional designations where applicable. We maintain strict compliance with all Canadian regulatory requirements.",
+      "Yes, Birchtree Financial is a registered investment advisor in Canada, regulated by provincial securities commissions and member of IIROC (Investment Industry Regulatory Organization of Canada). Our team holds relevant licenses and professional certifications, including CFP®, CFA, and professional designations where applicable. We maintain strict compliance with all Canadian regulatory requirements.",
   },
   {
     question: "What should I bring to my first meeting?",
@@ -152,8 +152,8 @@ export default function FAQPage() {
                     available to discuss your specific situation and answer any
                     questions you may have.
                   </p>
-                  <Button asChild size="lg" className="bg-gradient-to-r from-mint to-emerald hover:shadow-glow">
-                    <Link href="/contact">Contact Us</Link>
+                  <Button asChild size="lg" className="relative z-10 bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-white [&>*]:text-white">
+                    <Link href="/contact" className="text-white">Contact Us</Link>
                   </Button>
                 </CardContent>
               </Card>

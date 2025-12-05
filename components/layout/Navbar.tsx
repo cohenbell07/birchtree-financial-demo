@@ -38,7 +38,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 sm:h-20 items-center justify-between">
           {/* Logo */}
           <Logo />
 
@@ -51,25 +51,25 @@ export default function Navbar() {
                 className="relative px-4 py-2 text-sm font-medium text-midnight hover:text-emerald transition-colors group"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald group-hover:w-full transition-all duration-300 ease-out opacity-0 group-hover:opacity-100" />
               </Link>
             ))}
             <Button
               asChild
               size="sm"
-              className="ml-4 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow hover:scale-105 transition-all duration-300"
+              className="relative z-10 ml-4 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow hover:scale-105 transition-all duration-300 text-white [&>*]:text-white"
             >
-              <Link href="/contact">Book Consultation</Link>
+              <Link href="/contact" className="text-white">Book Consultation</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-midnight hover:text-emerald transition-colors"
+            className="md:hidden p-2 text-midnight hover:text-emerald transition-colors z-50"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} className="sm:w-6 sm:h-6" /> : <Menu size={20} className="sm:w-6 sm:h-6" />}
           </button>
         </div>
       </div>
@@ -82,9 +82,9 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden bg-white/98 backdrop-blur-xl border-t border-silver/20"
+            className="md:hidden overflow-hidden bg-white/98 backdrop-blur-xl border-t border-silver/20 relative z-40"
           >
-            <div className="container mx-auto px-4 py-6 space-y-4">
+            <div className="container mx-auto px-4 py-4 sm:py-6 space-y-3 sm:space-y-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -97,9 +97,9 @@ export default function Navbar() {
               ))}
               <Button
                 asChild
-                className="w-full bg-gradient-to-r from-emerald to-emerald-light"
+                className="relative z-10 w-full bg-gradient-to-r from-emerald to-emerald-light text-white [&>*]:text-white text-sm sm:text-base mt-2"
               >
-                <Link href="/contact" onClick={() => setIsOpen(false)}>
+                <Link href="/contact" onClick={() => setIsOpen(false)} className="text-white">
                   Book Consultation
                 </Link>
               </Button>

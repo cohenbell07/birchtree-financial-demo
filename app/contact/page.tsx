@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
+import CalendarWidget from "@/components/CalendarWidget"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ export default function ContactPage() {
         subtitle="Get in touch to discuss your financial goals and how we can help"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
@@ -67,21 +68,21 @@ export default function ContactPage() {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12">
               {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
+                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
                       Send Us a Message
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <form onSubmit={handleSubmit} id="form" className="space-y-4 sm:space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="name">Name *</Label>
@@ -116,7 +117,7 @@ export default function ContactPage() {
                           type="tel"
                           value={formData.phone}
                           onChange={handleChange}
-                          placeholder="(555) 123-4567"
+                          placeholder="(416) 555-1234"
                         />
                       </div>
 
@@ -146,7 +147,7 @@ export default function ContactPage() {
                       </div>
 
                       {submitStatus === "success" && (
-                        <div className="p-4 bg-moss/10 text-forest rounded-md">
+                        <div className="p-4 bg-emerald/10 text-emerald-dark rounded-md">
                           Thank you for your message! We&apos;ll get back to you soon.
                         </div>
                       )}
@@ -161,7 +162,7 @@ export default function ContactPage() {
                         type="submit"
                         size="lg"
                         disabled={isSubmitting}
-                        className="w-full"
+                        className="relative z-10 w-full bg-gradient-to-r from-emerald to-teal hover:from-teal hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200"
                       >
                         {isSubmitting ? (
                           "Sending..."
@@ -184,13 +185,13 @@ export default function ContactPage() {
                 transition={{ duration: 0.5 }}
                 className="space-y-6"
               >
-                <Card className="glass shadow-glow-hover border-emerald/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
+                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
                       Get in Touch
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-6">
+                  <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-6">
                     <div className="flex items-start space-x-3 sm:space-x-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
                         <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
@@ -231,38 +232,51 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                  <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading text-white">
+                <Card className="gradient-bg text-white shadow-lg border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
                       Schedule a Consultation
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-sm sm:text-base text-silver/90 mb-4 sm:mb-6">
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <p className="text-xs sm:text-sm md:text-base text-silver/90 mb-3 sm:mb-4 md:mb-6">
                       Ready to take the next step? Schedule a complimentary
                       consultation to discuss your financial goals and discover
                       how we can help you achieve them.
                     </p>
-                    <Button asChild variant="champagne" size="lg" className="w-full">
-                      <a href="#form">Book Consultation</a>
+                    <Button 
+                      asChild 
+                      size="lg" 
+                      className="relative z-10 w-full bg-gradient-to-r from-emerald to-teal hover:from-teal hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200 [&>*]:text-white text-sm sm:text-base"
+                    >
+                      <a href="#calendar" className="text-white">Book Consultation</a>
                     </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Map Placeholder */}
-                <Card>
-                  <CardContent className="p-0">
-                    <div className="aspect-video bg-slate-light flex items-center justify-center">
-                      <MapPin className="h-12 w-12 text-slate" />
-                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
             </div>
+
+            {/* Calendar Widget Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              id="calendar"
+              className="max-w-md sm:max-w-2xl mx-auto px-2 sm:px-4"
+            >
+              <div className="text-center mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-midnight mb-2 px-2">
+                  Select a Date & Time
+                </h2>
+                <p className="text-sm sm:text-base text-midnight/70 px-4">
+                  Choose a convenient time for your consultation
+                </p>
+              </div>
+              <CalendarWidget />
+            </motion.div>
           </div>
         </div>
       </section>
     </div>
   )
 }
-

@@ -70,10 +70,10 @@ export default function Logo() {
         <div className="absolute inset-0 bg-emerald/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       
-      {/* Text */}
+      {/* Text - Updated to Birchtree (lowercase t) */}
       <div className="flex flex-col">
         <span className="text-xl font-heading font-bold text-midnight leading-tight tracking-tight">
-          BirchTree
+          Birchtree
         </span>
         <span className="text-xs font-subhead font-medium text-teal leading-tight tracking-wider">
           Financial
@@ -82,4 +82,3 @@ export default function Logo() {
     </Link>
   )
 }
-

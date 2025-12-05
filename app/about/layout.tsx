@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about BirchTree Financial's mission, values, and commitment to helping clients achieve their financial goals.",
+  description: "Learn about Birchtree Financial's mission, values, and commitment to helping clients achieve their financial goals.",
 }
 
 export default function AboutLayout({

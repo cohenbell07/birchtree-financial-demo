@@ -13,7 +13,7 @@ const teamMembers = [
     slug: "john-anderson",
     name: "John Anderson",
     role: "Principal & Senior Financial Advisor",
-    bio: "With over 20 years of experience in financial planning and wealth management, John founded BirchTree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
+    bio: "With over 20 years of experience in financial planning and wealth management, John founded Birchtree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
     credentials: "CFP®, CFA",
     image: "https://ui-avatars.com/api/?name=John+Anderson&size=400&background=0B1A2C&color=16A085",
   },
@@ -123,9 +123,9 @@ export default function TeamPage() {
                       asChild
                       variant="outline"
                       size="sm"
-                      className="w-full text-sm border-emerald/50 text-emerald hover:bg-emerald/10 hover:border-emerald transition-all"
+                      className="relative z-10 w-full text-sm border-emerald/50 text-emerald hover:bg-emerald/10 hover:border-emerald transition-all [&>*]:text-emerald"
                     >
-                      <Link href={`/team/${member.slug}`}>
+                      <Link href={`/team/${member.slug}`} className="text-emerald">
                         Learn More
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
