@@ -59,8 +59,13 @@ export default function ContactPage() {
         subtitle="Get in touch to discuss your financial goals and how we can help"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Contact Form */}
@@ -69,9 +74,9 @@ export default function ContactPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card>
+                <Card className="glass shadow-glow-hover border-emerald/20">
                   <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading">
+                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
                       Send Us a Message
                     </CardTitle>
                   </CardHeader>
@@ -179,61 +184,61 @@ export default function ContactPage() {
                 transition={{ duration: 0.5 }}
                 className="space-y-6"
               >
-                <Card>
+                <Card className="glass shadow-glow-hover border-emerald/20">
                   <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading">
+                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
                       Get in Touch
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-moss/10 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-forest" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-1">Phone</h3>
-                        <p className="text-sm sm:text-base text-slate">(555) 123-4567</p>
-                        <p className="text-xs sm:text-sm text-slate">Mon-Fri, 9am-5pm EST</p>
+                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Phone</h3>
+                        <p className="text-sm sm:text-base text-midnight/70">(416) 555-1234</p>
+                        <p className="text-xs sm:text-sm text-midnight/60">Mon-Fri, 9am-5pm EST</p>
                       </div>
                     </div>
 
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-moss/10 flex items-center justify-center flex-shrink-0">
-                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-forest" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-1">Email</h3>
-                        <p className="text-xs sm:text-sm text-slate break-all">info@birchtreefinancial.com</p>
-                        <p className="text-xs sm:text-sm text-slate">
+                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Email</h3>
+                        <p className="text-xs sm:text-sm text-midnight/70 break-all">info@birchtreefinancial.ca</p>
+                        <p className="text-xs sm:text-sm text-midnight/60">
                           We typically respond within 24 hours
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-moss/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-forest" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-1">Office</h3>
-                        <p className="text-xs sm:text-sm text-slate">
-                          123 Financial District
+                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Office</h3>
+                        <p className="text-xs sm:text-sm text-midnight/70">
+                          123 Bay Street, Suite 500
                           <br />
-                          New York, NY 10004
+                          Toronto, ON M5J 2T3
                         </p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-forest text-white">
+                <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                   <CardHeader>
                     <CardTitle className="text-xl sm:text-2xl font-heading text-white">
                       Schedule a Consultation
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm sm:text-base text-cream mb-4 sm:mb-6">
+                    <p className="text-sm sm:text-base text-silver/90 mb-4 sm:mb-6">
                       Ready to take the next step? Schedule a complimentary
                       consultation to discuss your financial goals and discover
                       how we can help you achieve them.

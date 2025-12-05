@@ -84,8 +84,13 @@ export default function ResourcesPage() {
         subtitle="Educational content, guides, and tools to empower your financial decisions"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12">
             {/* Newsletter Signup */}
             <motion.div
@@ -93,13 +98,13 @@ export default function ResourcesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="bg-forest text-white">
+              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                 <CardHeader>
                   <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                     <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     Stay Informed
                   </CardTitle>
-                  <CardDescription className="text-cream text-xs sm:text-sm md:text-base">
+                  <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base">
                     Subscribe to our newsletter for monthly financial insights, market
                     updates, and exclusive resources.
                   </CardDescription>
@@ -109,9 +114,9 @@ export default function ResourcesPage() {
                     <Input
                       type="email"
                       placeholder="Enter your email address"
-                      className="flex-1 bg-white text-slate text-sm sm:text-base"
+                      className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
                     />
-                    <Button type="submit" variant="champagne" className="text-slate text-sm sm:text-base w-full sm:w-auto">
+                    <Button type="submit" className="bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-sm sm:text-base w-full sm:w-auto">
                       Subscribe
                     </Button>
                   </form>
@@ -128,7 +133,7 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               >
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-forest mb-4 sm:mb-6">
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-4 sm:mb-6">
                   {category.category}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -142,43 +147,43 @@ export default function ResourcesPage() {
                         duration: 0.5,
                         delay: categoryIndex * 0.1 + itemIndex * 0.1,
                       }}
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ y: -5 }}
                     >
-                      <Card className="h-full hover:shadow-lg transition-shadow">
+                      <Card className="h-full glass shadow-glow-hover border-emerald/20">
                         <CardHeader>
                           <div className="flex items-center justify-between mb-2">
                             {item.type === "Tool" && (
-                              <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-moss" />
+                              <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
                             )}
                             {item.type === "Article" && (
-                              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-moss" />
+                              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
                             )}
                             {item.type === "Guide" && (
-                              <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-moss" />
+                              <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
                             )}
                             {"readTime" in item && (
-                              <span className="text-xs text-slate">
+                              <span className="text-xs text-midnight/60">
                                 {item.readTime}
                               </span>
                             )}
                           </div>
-                          <CardTitle className="text-base sm:text-lg font-heading">
+                          <CardTitle className="text-base sm:text-lg font-heading text-midnight">
                             {item.title}
                           </CardTitle>
-                          <CardDescription className="text-xs sm:text-sm text-slate">
+                          <CardDescription className="text-xs sm:text-sm text-midnight/70">
                             {item.description}
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
                           {"href" in item ? (
-                            <Button asChild variant="outline" size="sm" className="w-full">
+                            <Button asChild variant="outline" size="sm" className="w-full border-emerald/50 text-emerald hover:bg-emerald/10">
                               <Link href={item.href}>
                                 Use Tool
                                 <ArrowRight className="ml-2 h-4 w-4" />
                               </Link>
                             </Button>
                           ) : (
-                            <Button variant="outline" size="sm" className="w-full">
+                            <Button variant="outline" size="sm" className="w-full border-emerald/50 text-emerald hover:bg-emerald/10">
                               Read More
                               <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
@@ -199,17 +204,17 @@ export default function ResourcesPage() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <Card className="glass">
+              <Card className="glass shadow-glow-hover border-emerald/20">
                 <CardContent className="pt-6 text-center">
-                  <h3 className="text-2xl font-heading font-bold text-forest mb-4">
+                  <h3 className="text-2xl font-heading font-bold text-midnight mb-4">
                     Need Personalized Guidance?
                   </h3>
-                  <p className="text-slate mb-6 max-w-2xl mx-auto">
+                  <p className="text-midnight/70 mb-6 max-w-2xl mx-auto">
                     While our resources provide valuable information, personalized
                     financial planning requires understanding your unique situation.
                     Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg">
+                  <Button asChild size="lg" className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow">
                     <Link href="/contact">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>

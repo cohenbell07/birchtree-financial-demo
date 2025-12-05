@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import { Inter, IBM_Plex_Sans } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
@@ -10,10 +10,19 @@ const inter = Inter({
   display: "swap",
 })
 
-const playfair = Playfair_Display({
+// Use Inter for headings with tighter tracking as fallback for Sora
+const headingFont = Inter({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-heading",
   display: "swap",
+  weight: ["600", "700", "800"],
+})
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  variable: "--font-ibm-plex",
+  display: "swap",
+  weight: ["400", "500", "600"],
 })
 
 export const metadata: Metadata = {
@@ -21,12 +30,12 @@ export const metadata: Metadata = {
     default: "BirchTree Financial | Premium Financial Advisory Services",
     template: "%s | BirchTree Financial",
   },
-  description: "Expert financial planning and wealth management services. Helping you achieve your financial goals with personalized strategies and trusted guidance.",
-  keywords: ["financial advisor", "wealth management", "retirement planning", "investment management", "financial planning"],
+  description: "Modern Canadian financial advisory firm delivering clarity, confidence, and strategic financial insight. Expert RRSP, TFSA, and retirement planning services.",
+  keywords: ["Canadian financial advisor", "RRSP planning", "TFSA strategies", "Canadian retirement planning", "wealth management Canada", "financial planning Canada"],
   authors: [{ name: "BirchTree Financial" }],
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_CA",
     url: "https://birchtreefinancial.com",
     siteName: "BirchTree Financial",
     title: "BirchTree Financial | Premium Financial Advisory Services",
@@ -49,8 +58,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="font-body antialiased bg-cream text-slate">
+    <html lang="en" className={`${inter.variable} ${headingFont.variable} ${ibmPlexSans.variable}`}>
+      <body className="font-body antialiased bg-white text-midnight">
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

@@ -28,15 +28,15 @@ const serviceDetails: Record<
       "Planning for retirement is one of the most important financial decisions you'll make. Our retirement planning services help you create a roadmap to financial security, ensuring you have the resources to enjoy your golden years with confidence and peace of mind.",
     benefits: [
       "Clear understanding of your retirement needs and timeline",
-      "Maximized Social Security benefits through strategic planning",
-      "Optimized retirement account contributions and distributions",
+      "Maximized CPP and OAS benefits through strategic planning",
+      "Optimized RRSP and TFSA contributions and distributions",
       "Tax-efficient withdrawal strategies to preserve your wealth",
       "Confidence knowing you're on track to meet your goals",
     ],
     whatWeDo: [
       "Analyze your current retirement savings and projected needs",
       "Develop personalized retirement income strategies",
-      "Optimize Social Security claiming strategies",
+      "Optimize CPP and OAS claiming strategies",
       "Create tax-efficient withdrawal plans",
       "Provide ongoing monitoring and adjustments as needed",
     ],
@@ -104,7 +104,7 @@ const serviceDetails: Record<
     ],
     whatWeDo: [
       "Develop tax-efficient investment strategies",
-      "Optimize retirement account contributions and distributions",
+      "Optimize RRSP and TFSA contributions and distributions",
       "Implement tax-loss harvesting strategies",
       "Coordinate charitable giving for tax benefits",
       "Work with your tax professional to minimize your overall tax burden",
@@ -173,8 +173,13 @@ export default function ServiceDetailPage() {
     <div>
       <PageHeader title={service.title} subtitle={service.description} />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             {/* Overview */}
             <motion.div
@@ -182,12 +187,12 @@ export default function ServiceDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card>
+              <Card className="glass shadow-glow-hover border-emerald/20">
                 <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading">Overview</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-base sm:text-lg text-slate leading-relaxed">
+                  <p className="text-base sm:text-lg text-midnight/80 leading-relaxed">
                     {service.overview}
                   </p>
                 </CardContent>
@@ -200,18 +205,18 @@ export default function ServiceDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <Card>
+              <Card className="glass shadow-glow-hover border-emerald/20">
                 <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading">Key Benefits</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">Key Benefits</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
                     {service.benefits.map((benefit) => (
                       <li
                         key={benefit}
-                        className="flex items-start space-x-2 sm:space-x-3 text-sm sm:text-base text-slate"
+                        className="flex items-start space-x-2 sm:space-x-3 text-sm sm:text-base text-midnight/80"
                       >
-                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-moss mt-0.5 flex-shrink-0" />
+                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mt-0.5 flex-shrink-0" />
                         <span>{benefit}</span>
                       </li>
                     ))}
@@ -226,18 +231,18 @@ export default function ServiceDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Card>
+              <Card className="glass shadow-glow-hover border-emerald/20">
                 <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading">What We Do</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">What We Do</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
                     {service.whatWeDo.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start space-x-3 text-slate"
+                        className="flex items-start space-x-3 text-midnight/80 text-sm sm:text-base"
                       >
-                        <ArrowRight className="h-5 w-5 text-forest mt-0.5 flex-shrink-0" />
+                        <ArrowRight className="h-5 w-5 text-emerald mt-0.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -252,14 +257,14 @@ export default function ServiceDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <Card className="bg-forest text-white">
+              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                 <CardHeader>
                   <CardTitle className="text-xl sm:text-2xl font-heading text-white">
                     Who It&apos;s For
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-cream leading-relaxed">
+                  <p className="text-base sm:text-lg text-silver/90 leading-relaxed">
                     {service.whoItsFor}
                   </p>
                 </CardContent>
@@ -273,7 +278,7 @@ export default function ServiceDetailPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-center"
             >
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow hover:scale-105 transition-all">
                 <Link href="/contact">Schedule a Consultation</Link>
               </Button>
             </motion.div>

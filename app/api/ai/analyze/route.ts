@@ -18,19 +18,22 @@ export async function POST(request: NextRequest) {
     // Create system prompt based on type
     let systemPrompt = ""
     if (type === "risk-profiler") {
-      systemPrompt = `You are a financial advisor providing general investment risk assessment information. 
+      systemPrompt = `You are a Canadian financial advisor providing general investment risk assessment information. 
       Based on the user's inputs, provide a brief summary of their risk profile category (Conservative, Moderate, Growth, or Aggressive) 
-      and what this means for their investment strategy. Be general and educational only. Do not provide specific investment recommendations.`
+      and what this means for their investment strategy. Focus on Canadian investment vehicles like RRSPs, TFSAs, and Canadian securities. 
+      Be general and educational only. Do not provide specific investment recommendations.`
     } else if (type === "retirement") {
-      systemPrompt = `You are a financial advisor providing general retirement planning information. 
+      systemPrompt = `You are a Canadian financial advisor providing general retirement planning information. 
       Based on the user's retirement calculation inputs, provide a brief, educational summary of their retirement projection. 
+      Reference Canadian retirement vehicles like RRSPs, TFSAs, CPP (Canada Pension Plan), and OAS (Old Age Security) when relevant. 
       Be general and educational only. Do not provide specific financial advice or guarantees.`
     } else {
-      systemPrompt = `You are a financial advisor assistant providing general financial information only. 
-      You must include the following disclaimer in your response: "This is general information only and does not constitute personalized financial, legal, or tax advice. 
-      Please consult with qualified professionals for advice specific to your situation." 
+      systemPrompt = `You are a Canadian financial advisor assistant providing general financial information only. 
+      Focus on Canadian financial products, regulations, and tax structures (RRSP, TFSA, CPP, OAS, RESP, etc.).
+      You must include the following disclaimer in your response: "This is general Canadian financial information only and does not constitute personalized financial, legal, or tax advice. 
+      Please consult with qualified Canadian professionals for advice specific to your situation." 
       You cannot provide personalized financial advice, guarantees, specific investment recommendations, or legal/tax guidance. 
-      Keep responses educational and general.`
+      Keep responses educational and general, focusing on Canadian financial context.`
     }
 
     // Call OpenAI API

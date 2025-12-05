@@ -76,8 +76,13 @@ export default function AIAdvisorPage() {
         subtitle="Get general financial information and answers to your questions"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             {/* Disclaimer */}
             <motion.div
@@ -86,19 +91,19 @@ export default function AIAdvisorPage() {
               transition={{ duration: 0.5 }}
               className="mb-6"
             >
-              <Card className="border-amber-200 bg-amber-50">
+              <Card className="glass border-amber-200/50 bg-amber-50/50 shadow-glow-hover">
                 <CardContent className="pt-6">
                   <div className="flex items-start space-x-3">
                     <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-xs sm:text-sm text-amber-900">
+                    <div className="text-xs sm:text-sm text-midnight/90">
                       <p className="font-semibold mb-1">Important Disclaimer</p>
                       <p>
-                        This AI assistant provides general financial information
+                        This AI assistant provides general Canadian financial information
                         only and does not constitute personalized financial,
                         legal, or tax advice. It cannot provide specific
                         investment recommendations, guarantees, or legal/tax
                         guidance. For personalized advice tailored to your
-                        specific situation, please consult with a qualified
+                        specific Canadian financial situation, please consult with a qualified
                         financial advisor.
                       </p>
                     </div>
@@ -113,9 +118,9 @@ export default function AIAdvisorPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <Card className="h-[500px] sm:h-[600px] flex flex-col">
-                <CardHeader className="border-b">
-                  <CardTitle className="text-lg sm:text-xl font-heading">
+              <Card className="h-[500px] sm:h-[600px] flex flex-col glass shadow-glow-hover border-emerald/20">
+                <CardHeader className="border-b border-emerald/20">
+                  <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
                     Chat with AI Advisor
                   </CardTitle>
                 </CardHeader>
@@ -134,8 +139,8 @@ export default function AIAdvisorPage() {
                         <div
                           className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-3 sm:p-4 ${
                             message.role === "user"
-                              ? "bg-forest text-white"
-                              : "bg-cream-dark text-slate"
+                              ? "bg-gradient-to-r from-emerald to-emerald-light text-white shadow-glow"
+                              : "glass border-emerald/20 text-midnight"
                           }`}
                         >
                           <p className="text-sm sm:text-base whitespace-pre-wrap">{message.content}</p>
@@ -200,13 +205,13 @@ export default function AIAdvisorPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-center"
             >
-              <Card className="glass">
+              <Card className="glass shadow-glow-hover border-emerald/20">
                 <CardContent className="pt-6">
-                  <p className="text-base sm:text-lg text-slate mb-3 sm:mb-4">
+                  <p className="text-base sm:text-lg text-midnight/80 mb-3 sm:mb-4">
                     Need personalized financial advice? Schedule a consultation
                     with one of our expert advisors.
                   </p>
-                  <Button asChild size="lg">
+                  <Button asChild size="lg" className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow">
                     <a href="/contact">Schedule a Consultation</a>
                   </Button>
                 </CardContent>

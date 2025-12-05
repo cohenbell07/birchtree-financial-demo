@@ -152,8 +152,13 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
         subtitle="Discover your investment risk profile with our AI-powered assessment tool"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Form */}
@@ -162,12 +167,12 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card>
+                <Card className="glass shadow-glow-hover border-emerald/20">
                   <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading">
+                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
                       Your Profile
                     </CardTitle>
-                    <CardDescription className="text-sm sm:text-base">
+                    <CardDescription className="text-sm sm:text-base text-midnight/70">
                       Answer a few questions to determine your risk profile
                     </CardDescription>
                   </CardHeader>
@@ -312,7 +317,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="bg-forest text-white">
+                    <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                       <CardHeader>
                         <CardTitle className="text-xl sm:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
@@ -320,27 +325,27 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm sm:text-base text-cream leading-relaxed">{result.summary}</p>
+                        <p className="text-sm sm:text-base text-silver/90 leading-relaxed">{result.summary}</p>
                       </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="glass shadow-glow-hover border-emerald/20">
                       <CardHeader>
-                        <CardTitle className="text-lg sm:text-xl font-heading">
+                        <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
                           Risk Profile Breakdown
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                           <RadarChart data={result.scores}>
-                            <PolarGrid />
-                            <PolarAngleAxis dataKey="category" />
-                            <PolarRadiusAxis angle={90} domain={[0, 100]} />
+                            <PolarGrid stroke="#16A085" opacity={0.3} />
+                            <PolarAngleAxis dataKey="category" tick={{ fill: "#0B1A2C" }} />
+                            <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "#0B1A2C" }} />
                             <Radar
                               name="Risk Score"
                               dataKey="value"
-                              stroke="#12372A"
-                              fill="#89A17F"
+                              stroke="#16A085"
+                              fill="#7CFFC4"
                               fillOpacity={0.6}
                             />
                           </RadarChart>
@@ -348,20 +353,20 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                       </CardContent>
                     </Card>
 
-                    <Card className="glass">
+                    <Card className="glass border-amber-200/50 bg-amber-50/50">
                       <CardContent className="pt-6">
-                        <p className="text-sm text-slate italic">
+                        <p className="text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This assessment provides general
                           information only and does not constitute personalized financial
                           advice. Please consult with a qualified financial advisor for
-                          personalized recommendations based on your specific situation.
+                          personalized recommendations based on your specific Canadian financial situation.
                         </p>
                       </CardContent>
                     </Card>
                   </div>
                 ) : (
-                  <Card>
-                    <CardContent className="pt-6 text-center text-slate">
+                  <Card className="glass shadow-glow-hover border-emerald/20">
+                    <CardContent className="pt-6 text-center text-midnight/70">
                       <p>
                         Complete the form to see your personalized risk profile
                         analysis.

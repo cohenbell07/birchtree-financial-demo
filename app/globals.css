@@ -2,28 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+
 @layer base {
   :root {
-    --background: 47 33 89%;
-    --foreground: 47 16 19%;
-    --card: 47 50 97%;
-    --card-foreground: 47 16 19%;
+    --background: 215 28 95%;
+    --foreground: 215 41 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 41 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 47 16 19%;
-    --primary: 153 41 21%;
+    --popover-foreground: 215 41 11%;
+    --primary: 170 100 34%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 73 23 70%;
-    --secondary-foreground: 47 16 19%;
-    --muted: 47 20 95%;
-    --muted-foreground: 47 8 45%;
-    --accent: 45 38 75%;
-    --accent-foreground: 47 16 19%;
+    --secondary: 124 100 85%;
+    --secondary-foreground: 215 41 11%;
+    --muted: 215 20 95%;
+    --muted-foreground: 215 8 45%;
+    --accent: 45 43 67%;
+    --accent-foreground: 215 41 11%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 47 15 85%;
-    --input: 47 15 85%;
-    --ring: 153 41 21%;
-    --radius: 0.5rem;
+    --border: 215 20 85%;
+    --input: 215 20 85%;
+    --ring: 170 100 34%;
+    --radius: 0.75rem;
   }
 }
 
@@ -32,17 +34,60 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-midnight antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/80 backdrop-blur-md border border-white/20;
+    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-2xl;
+  }
+  
+  .glass-dark {
+    @apply bg-midnight/80 backdrop-blur-xl border border-emerald/20 shadow-2xl;
   }
   
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald to-emerald-light;
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #0B1A2C 0%, #0E3B3F 50%, #16A085 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  .vignette {
+    position: relative;
+  }
+  
+  .vignette::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(11, 26, 44, 0.1) 100%);
+    pointer-events: none;
+  }
+  
+  .shadow-glow {
+    box-shadow: 0 0 30px rgba(124, 255, 196, 0.3), 0 10px 40px rgba(11, 26, 44, 0.2);
+  }
+  
+  .shadow-glow-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .shadow-glow-hover:hover {
+    box-shadow: 0 0 40px rgba(124, 255, 196, 0.5), 0 15px 50px rgba(11, 26, 44, 0.3);
+    transform: translateY(-2px);
   }
 }
 

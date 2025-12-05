@@ -44,9 +44,9 @@ const faqs = [
       "We believe in a disciplined, evidence-based approach to investing. Our philosophy emphasizes diversification, long-term thinking, risk management, and cost efficiency. We focus on building well-balanced portfolios that align with your risk tolerance and financial goals, using a combination of strategic asset allocation and regular rebalancing.",
   },
   {
-    question: "Can you help me with my employer's 401(k) or other retirement accounts?",
+    question: "Can you help me with my employer's Group RRSP or other retirement accounts?",
     answer:
-      "Yes, we can provide guidance on your employer-sponsored retirement accounts, including 401(k)s, 403(b)s, and pensions. While we may not directly manage these accounts, we can help you understand your options, optimize your contributions, and ensure these accounts align with your overall financial strategy.",
+      "Yes, we can provide guidance on your employer-sponsored retirement accounts, including Group RRSPs, pension plans, and DPSPs (Deferred Profit Sharing Plans). While we may not directly manage these accounts, we can help you understand your options, optimize your contributions, and ensure these accounts align with your overall financial strategy. We also help coordinate with your RRSP and TFSA strategies.",
   },
   {
     question: "Do you work with other professionals like accountants and attorneys?",
@@ -66,7 +66,7 @@ const faqs = [
   {
     question: "Are you registered with any regulatory bodies?",
     answer:
-      "Yes, BirchTree Financial is a registered investment advisor with the Securities and Exchange Commission (SEC) or appropriate state regulatory bodies. Our team holds relevant licenses and professional certifications, including CFP®, CFA, and CPA designations where applicable. We maintain strict compliance with all regulatory requirements.",
+      "Yes, BirchTree Financial is a registered investment advisor in Canada, regulated by provincial securities commissions and member of IIROC (Investment Industry Regulatory Organization of Canada). Our team holds relevant licenses and professional certifications, including CFP®, CFA, and professional designations where applicable. We maintain strict compliance with all Canadian regulatory requirements.",
   },
   {
     question: "What should I bring to my first meeting?",
@@ -76,7 +76,7 @@ const faqs = [
   {
     question: "Do you provide tax advice?",
     answer:
-      "While we provide tax planning strategies and work closely with tax professionals, we do not provide specific tax preparation or detailed tax advice. We focus on tax-efficient investment and planning strategies, and we recommend coordinating with a qualified CPA or tax attorney for specific tax matters.",
+      "While we provide tax planning strategies and work closely with tax professionals, we do not provide specific tax preparation or detailed tax advice. We focus on tax-efficient investment and planning strategies, and we recommend coordinating with a qualified Canadian tax professional or accountant for specific tax matters.",
   },
   {
     question: "What happens to my accounts if something happens to my advisor?",
@@ -93,8 +93,13 @@ export default function FAQPage() {
         subtitle="Answers to common questions about our services and processes"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -110,15 +115,15 @@ export default function FAQPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
                   >
-                    <Card>
+                    <Card className="glass shadow-glow-hover border-emerald/20">
                       <AccordionItem value={`item-${index}`} className="border-none">
                         <AccordionTrigger className="px-4 sm:px-6 py-3 sm:py-4 hover:no-underline">
-                          <CardTitle className="text-left text-base sm:text-lg font-heading">
+                          <CardTitle className="text-left text-base sm:text-lg font-heading text-midnight">
                             {faq.question}
                           </CardTitle>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 sm:px-6 pb-3 sm:pb-4">
-                          <p className="text-sm sm:text-base text-slate leading-relaxed">{faq.answer}</p>
+                          <p className="text-sm sm:text-base text-midnight/80 leading-relaxed">{faq.answer}</p>
                         </AccordionContent>
                       </AccordionItem>
                     </Card>
@@ -134,20 +139,20 @@ export default function FAQPage() {
               transition={{ duration: 0.5, delay: 0.7 }}
               className="mt-12"
             >
-              <Card className="bg-forest text-white">
+              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                 <CardHeader>
                   <CardTitle className="text-xl sm:text-2xl font-heading text-white">
                     Still Have Questions?
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-base sm:text-lg text-cream mb-4 sm:mb-6">
+                  <p className="text-base sm:text-lg text-silver/90 mb-4 sm:mb-6">
                     We&apos;re here to help. If you don&apos;t see the answer to your question
                     here, please don&apos;t hesitate to reach out. Our team is always
                     available to discuss your specific situation and answer any
                     questions you may have.
                   </p>
-                  <Button asChild variant="champagne" size="lg">
+                  <Button asChild size="lg" className="bg-gradient-to-r from-mint to-emerald hover:shadow-glow">
                     <Link href="/contact">Contact Us</Link>
                   </Button>
                 </CardContent>

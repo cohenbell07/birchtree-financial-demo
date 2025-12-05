@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react"
+import Logo from "@/components/Logo"
 
 const footerLinks = {
   company: [
@@ -24,46 +25,50 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate text-cream">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="bg-midnight text-white relative overflow-hidden">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-teal/20 to-transparent" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="text-2xl font-heading font-bold">BirchTree</div>
-              <span className="text-sm text-moss">Financial</span>
-            </div>
-            <p className="text-cream-dark text-sm mb-4 max-w-md">
-              Your trusted partner in financial planning and wealth management.
-              Building your future, one decision at a time.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="text-cream-dark hover:text-champagne transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-cream-dark hover:text-champagne transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
+            <div className="mb-6">
+              <div className="flex items-center mb-4">
+                <Logo />
+              </div>
+              <p className="text-silver/80 text-sm sm:text-base mb-6 max-w-md leading-relaxed">
+                Your trusted partner in Canadian financial planning and wealth management.
+                Building your future, one decision at a time.
+              </p>
+              <div className="flex space-x-4">
+                <a
+                  href="#"
+                  className="text-silver/70 hover:text-mint transition-colors duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={20} />
+                </a>
+                <a
+                  href="#"
+                  className="text-silver/70 hover:text-mint transition-colors duration-300"
+                  aria-label="Twitter"
+                >
+                  <Twitter size={20} />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4">Company</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold mb-4 text-emerald">Company</h3>
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cream-dark hover:text-champagne text-sm transition-colors"
+                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -74,13 +79,13 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold mb-4 text-emerald">Resources</h3>
+            <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cream-dark hover:text-champagne text-sm transition-colors"
+                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -91,13 +96,13 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold mb-4 text-emerald">Legal</h3>
+            <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cream-dark hover:text-champagne text-sm transition-colors"
+                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -108,34 +113,32 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className="mt-8 pt-8 border-t border-slate-light">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm text-cream-dark">
-            <div className="flex items-start sm:items-center space-x-2">
-              <Phone size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-              <span className="break-words">(555) 123-4567</span>
+        <div className="mt-12 pt-8 border-t border-emerald/20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-sm text-silver/70">
+            <div className="flex items-start space-x-3">
+              <Phone size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <span className="break-words">(416) 555-1234</span>
             </div>
-            <div className="flex items-start sm:items-center space-x-2">
-              <Mail size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-              <span className="break-all">info@birchtreefinancial.com</span>
+            <div className="flex items-start space-x-3">
+              <Mail size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <span className="break-all">info@birchtreefinancial.ca</span>
             </div>
-            <div className="flex items-start sm:items-center space-x-2">
-              <MapPin size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-              <span className="break-words">123 Financial District, New York, NY 10004</span>
+            <div className="flex items-start space-x-3">
+              <MapPin size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <span className="break-words">123 Bay Street, Suite 500, Toronto, ON M5J 2T3</span>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-slate-light text-center text-xs sm:text-sm text-cream-dark">
+        <div className="mt-8 pt-8 border-t border-emerald/20 text-center text-xs sm:text-sm text-silver/60">
           <p className="px-4">
             © {new Date().getFullYear()} BirchTree Financial. All rights
-            reserved. Securities offered through [Broker-Dealer Name], Member
-            FINRA/SIPC. Investment advisory services offered through
-            BirchTree Financial, a registered investment advisor.
+            reserved. Registered investment advisor in Canada. Investment advisory services 
+            offered through BirchTree Financial, a registered investment advisor.
           </p>
         </div>
       </div>
     </footer>
   )
 }
-

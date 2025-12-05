@@ -15,8 +15,8 @@ const services = [
       "Create a comprehensive retirement strategy that ensures financial security and peace of mind during your golden years.",
     features: [
       "Retirement income planning",
-      "Social Security optimization",
-      "401(k) and IRA management",
+      "CPP and OAS optimization",
+      "RRSP and TFSA management",
       "Withdrawal strategies",
     ],
   },
@@ -54,7 +54,7 @@ const services = [
       "Minimize your tax burden while maximizing financial efficiency through strategic tax planning and optimization.",
     features: [
       "Tax-efficient investing",
-      "Retirement account strategies",
+      "RRSP and TFSA strategies",
       "Tax-loss harvesting",
       "Charitable giving strategies",
     ],
@@ -95,23 +95,28 @@ export default function ServicesPage() {
         subtitle="Comprehensive financial solutions for every stage of life"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12 max-w-3xl mx-auto"
+            className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto px-4"
           >
-            <p className="text-base sm:text-lg text-slate leading-relaxed">
-              At BirchTree Financial, we offer a comprehensive suite of financial
+            <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed">
+              At BirchTree Financial, we offer a comprehensive suite of Canadian financial
               planning and investment management services. Each service is
               designed to work independently or as part of a complete financial
               strategy tailored to your unique situation.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => {
               const Icon = service.icon
               return (
@@ -121,18 +126,18 @@ export default function ServicesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -5 }}
                   className="h-full"
                 >
-                  <Card className="h-full hover:shadow-lg transition-shadow flex flex-col">
+                  <Card className="h-full glass shadow-glow-hover border-emerald/20 flex flex-col">
                     <CardHeader>
-                      <div className="w-12 h-12 rounded-lg bg-moss/10 flex items-center justify-center mb-4">
-                        <Icon className="h-6 w-6 text-forest" />
+                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center mb-4">
+                        <Icon className="h-7 w-7 text-emerald" />
                       </div>
-                      <CardTitle className="text-lg sm:text-xl font-heading">
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
                         {service.title}
                       </CardTitle>
-                      <CardDescription className="text-slate">
+                      <CardDescription className="text-midnight/70 text-sm sm:text-base">
                         {service.description}
                       </CardDescription>
                     </CardHeader>
@@ -141,16 +146,16 @@ export default function ServicesPage() {
                         {service.features.map((feature) => (
                           <li
                             key={feature}
-                            className="flex items-start space-x-2 text-sm text-slate"
+                            className="flex items-start space-x-2 text-sm text-midnight/80"
                           >
-                            <ArrowRight className="h-4 w-4 text-moss mt-0.5 flex-shrink-0" />
+                            <ArrowRight className="h-4 w-4 text-emerald mt-0.5 flex-shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
                       <Link
                         href={`/services/${service.slug}`}
-                        className="text-forest hover:text-moss font-medium text-sm inline-flex items-center group mt-auto"
+                        className="text-emerald hover:text-emerald-light font-medium text-sm inline-flex items-center group mt-auto"
                       >
                         Learn more
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

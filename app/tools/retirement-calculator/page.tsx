@@ -106,8 +106,13 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
         subtitle="Project your retirement savings and plan for your future"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-cream">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {/* Form */}
@@ -116,14 +121,14 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card>
+                <Card className="glass shadow-glow-hover border-emerald/20">
                   <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl font-heading flex items-center">
-                      <Calculator className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
+                    <CardTitle className="text-xl sm:text-2xl font-heading flex items-center text-midnight">
+                      <Calculator className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       Calculate Your Retirement
                     </CardTitle>
-                    <CardDescription className="text-sm sm:text-base">
-                      Enter your information to see your projected retirement savings
+                    <CardDescription className="text-sm sm:text-base text-midnight/70">
+                      Enter your information to see your projected RRSP and TFSA retirement savings
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -244,32 +249,33 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="bg-forest text-white">
+                    <Card className="gradient-bg text-white shadow-glow border-emerald/30">
                       <CardHeader>
                         <CardTitle className="text-xl sm:text-2xl font-heading text-white">
                           Projected Retirement Savings
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                        <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-mint">
                           ${result.projectedSavings.toLocaleString()}
                         </div>
-                        <p className="text-sm sm:text-base text-cream leading-relaxed">{result.summary}</p>
+                        <p className="text-sm sm:text-base text-silver/90 leading-relaxed">{result.summary}</p>
                       </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="glass shadow-glow-hover border-emerald/20">
                       <CardHeader>
-                        <CardTitle className="text-lg sm:text-xl font-heading">
+                        <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
                           Growth Projection
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                           <LineChart data={result.chartData}>
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
                             <XAxis
                               dataKey="age"
+                              stroke="#0B1A2C"
                               label={{
                                 value: "Age",
                                 position: "insideBottom",
@@ -277,6 +283,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                               }}
                             />
                             <YAxis
+                              stroke="#0B1A2C"
                               label={{ value: "Savings ($)", angle: -90, position: "insideLeft" }}
                               tickFormatter={(value) =>
                                 `$${(value / 1000).toFixed(0)}k`
@@ -287,13 +294,15 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                                 `$${value.toLocaleString()}`
                               }
                               labelFormatter={(label) => `Age: ${label}`}
+                              contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085" }}
                             />
                             <Legend />
                             <Line
                               type="monotone"
                               dataKey="savings"
-                              stroke="#12372A"
-                              strokeWidth={2}
+                              stroke="#16A085"
+                              strokeWidth={3}
+                              dot={{ fill: "#7CFFC4", r: 4 }}
                               name="Projected Savings"
                             />
                           </LineChart>
@@ -301,22 +310,22 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                       </CardContent>
                     </Card>
 
-                    <Card className="glass">
+                    <Card className="glass border-amber-200/50 bg-amber-50/50">
                       <CardContent className="pt-6">
-                        <p className="text-sm text-slate italic">
+                        <p className="text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This calculator provides
                           estimates based on the assumptions you entered. Actual
                           returns may vary, and this does not constitute
                           personalized financial advice. Please consult with a
-                          qualified financial advisor for personalized retirement
-                          planning.
+                          qualified Canadian financial advisor for personalized retirement
+                          planning including RRSP and TFSA strategies.
                         </p>
                       </CardContent>
                     </Card>
                   </div>
                 ) : (
-                  <Card>
-                    <CardContent className="pt-6 text-center text-slate">
+                  <Card className="glass shadow-glow-hover border-emerald/20">
+                    <CardContent className="pt-6 text-center text-midnight/70">
                       <p>
                         Enter your information and calculate to see your
                         retirement projection.

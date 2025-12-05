@@ -19,31 +19,66 @@ const config = {
     },
     extend: {
       colors: {
-        // Brand colors
+        // Futuristic brand colors
+        midnight: {
+          DEFAULT: "#0B1A2C",
+          light: "#152439",
+          dark: "#050E18",
+        },
+        teal: {
+          DEFAULT: "#0E3B3F",
+          light: "#16535A",
+          dark: "#082A2E",
+        },
+        emerald: {
+          DEFAULT: "#16A085",
+          light: "#2ECC71",
+          dark: "#138A72",
+        },
+        silver: {
+          DEFAULT: "#D9D9D9",
+          light: "#E8E8E8",
+          dark: "#B0B0B0",
+        },
+        white: {
+          DEFAULT: "#F5F7FA",
+          pure: "#FFFFFF",
+        },
+        mint: {
+          DEFAULT: "#7CFFC4",
+          light: "#9EFFD4",
+          dark: "#5AE5A8",
+        },
+        gold: {
+          DEFAULT: "#C6A667",
+          light: "#D4B882",
+          dark: "#A8914F",
+        },
+        // Legacy names for compatibility (will update gradually)
         forest: {
-          DEFAULT: "#12372A",
-          dark: "#0A2418",
-          light: "#1A4A3C",
+          DEFAULT: "#0B1A2C",
+          dark: "#050E18",
+          light: "#152439",
         },
         moss: {
-          DEFAULT: "#89A17F",
-          light: "#A8B9A0",
-          dark: "#6B8560",
+          DEFAULT: "#16A085",
+          light: "#2ECC71",
+          dark: "#138A72",
         },
         slate: {
-          DEFAULT: "#2E2F33",
-          light: "#4A4B4F",
-          dark: "#1E1F23",
+          DEFAULT: "#0B1A2C",
+          light: "#152439",
+          dark: "#050E18",
         },
         champagne: {
-          DEFAULT: "#D8C792",
-          light: "#E5D8B0",
-          dark: "#C4B070",
+          DEFAULT: "#C6A667",
+          light: "#D4B882",
+          dark: "#A8914F",
         },
         cream: {
-          DEFAULT: "#F7F5EE",
-          light: "#FCFBF8",
-          dark: "#F0EDE0",
+          DEFAULT: "#F5F7FA",
+          light: "#FFFFFF",
+          dark: "#E8EDF3",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -80,8 +115,9 @@ const config = {
         },
       },
       fontFamily: {
-        heading: ['"Playfair Display"', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        heading: ['Sora', 'var(--font-heading)', 'Inter', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        subhead: ['var(--font-ibm-plex)', 'IBM Plex Sans', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -97,10 +133,33 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px rgba(124, 255, 196, 0.5)" },
+          "50%": { opacity: "0.8", boxShadow: "0 0 40px rgba(124, 255, 196, 0.8)" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.6s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
+      },
+      backgroundSize: {
+        "gradient": "200% 200%",
       },
     },
   },
