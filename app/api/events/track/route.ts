@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/supabaseServer"
+import { db, Event } from "@/lib/supabaseServer"
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      event_id: result.data?.id,
+      event_id: (result.data as Event | null)?.id,
     })
   } catch (error: any) {
     // Silently fail - event tracking should never break the app

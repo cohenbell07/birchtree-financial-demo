@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/supabaseServer"
+import { db, Event } from "@/lib/supabaseServer"
 import { sendDripSequenceEmail } from "@/lib/email"
 import { sendSmsFollowup } from "@/lib/sms"
 
@@ -51,9 +51,9 @@ export async function GET(request: NextRequest) {
     let errors = 0
 
     // Process each due event
-    for (const event of dripEvents.data) {
+    for (const event of dripEvents.data as Event[]) {
       try {
-        const meta = event.meta || {}
+        const meta = (event.meta || {}) as Record<string, any>
         const leadId = event.lead_id
 
         if (!leadId) {

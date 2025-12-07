@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/supabaseServer"
+import { db, Lead } from "@/lib/supabaseServer"
 import { sendToolResultsEmail, sendEmail } from "@/lib/email"
 import { sendSmsFollowup } from "@/lib/sms"
 import { generateToolReportPDF } from "@/lib/pdf"
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       status: "new",
     })
 
-    const leadId = leadResult.data?.id
+    const leadId = (leadResult.data as Lead | null)?.id
 
     // Track event
     if (leadId) {

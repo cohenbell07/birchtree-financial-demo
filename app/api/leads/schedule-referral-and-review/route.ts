@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/supabaseServer"
+import { db, Referral } from "@/lib/supabaseServer"
 import { sendReviewRequestEmail, sendReferralInviteEmail } from "@/lib/email"
 
 export async function POST(request: NextRequest) {
@@ -41,8 +41,9 @@ export async function POST(request: NextRequest) {
         status: "invited",
       })
 
-      if (referralResult.data) {
-        const referralLink = body.referral_link || `https://birchtreefinancial.ca/referral?ref=${referralResult.data.id}`
+      const referralData = referralResult.data as Referral | null
+      if (referralData) {
+        const referralLink = body.referral_link || `https://birchtreefinancial.ca/referral?ref=${referralData.id}`
         await sendReferralInviteEmail(lead, body.referral_email, referralLink)
       }
     }

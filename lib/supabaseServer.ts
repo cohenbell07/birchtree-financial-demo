@@ -80,7 +80,7 @@ export const db = {
           tool_data: lead.tool_data || null,
           status: lead.status || "new",
           tags: lead.tags || [],
-        })
+        } as any)
         .select()
         .single()
 
@@ -135,12 +135,12 @@ export const db = {
     }
 
     try {
-      const { data, error } = await supabaseClient
+      const { data, error } = await ((supabaseClient as any)
         .from("leads")
         .update({ status })
         .eq("id", id)
         .select()
-        .single()
+        .single())
 
       return { data, error }
     } catch (error: any) {
@@ -163,7 +163,7 @@ export const db = {
           lead_id: event.lead_id || null,
           type: event.type,
           meta: event.meta || {},
-        })
+        } as any)
         .select()
         .single()
 
@@ -206,7 +206,7 @@ export const db = {
           lead_id: referral.lead_id,
           referred_email: referral.referred_email,
           status: referral.status || "invited",
-        })
+        } as any)
         .select()
         .single()
 
@@ -230,7 +230,7 @@ export const db = {
           lead_id: review.lead_id,
           platform: review.platform,
           status: review.status || "requested",
-        })
+        } as any)
         .select()
         .single()
 
@@ -269,14 +269,14 @@ export const db = {
     }
 
     try {
-      const { data, error } = await supabaseClient
+      const { data, error } = await ((supabaseClient as any)
         .from("events")
         .update({
           meta: { sent: true, sent_at: new Date().toISOString() },
         })
         .eq("id", eventId)
         .select()
-        .single()
+        .single())
 
       return { data, error }
     } catch (error: any) {
