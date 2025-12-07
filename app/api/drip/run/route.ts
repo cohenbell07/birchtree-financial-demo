@@ -8,6 +8,7 @@ import { sendSmsFollowup } from "@/lib/sms"
  * 
  * Setup instructions:
  * 1. Vercel Cron: Add to vercel.json:
+ *    Example vercel.json configuration:
  *    {
  *      "crons": [{
  *        "path": "/api/drip/run",
