@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts"
 import { TrendingUp } from "lucide-react"
+import LeadCapture from "@/components/LeadCapture"
 
 export default function RiskProfilerPage() {
   const [formData, setFormData] = useState({
@@ -102,6 +103,21 @@ export default function RiskProfilerPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+
+    // Track tool usage event
+    try {
+      await fetch("/api/events/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "tool_used",
+          meta: { tool: "risk-profiler" },
+        }),
+      })
+    } catch (error) {
+      // Silently fail - event tracking is optional
+      console.warn("Event tracking failed:", error)
+    }
 
     // Calculate risk profile
     const riskProfile = calculateRiskProfile()
@@ -373,6 +389,17 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                         </p>
                       </CardContent>
                     </Card>
+
+                    {/* Lead Capture */}
+                    <LeadCapture
+                      source="risk-profiler"
+                      toolData={{
+                        category: result.category,
+                        summary: result.summary,
+                        scores: result.scores,
+                        formData: formData,
+                      }}
+                    />
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">

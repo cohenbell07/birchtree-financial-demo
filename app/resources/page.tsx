@@ -6,7 +6,7 @@ import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, BookOpen, Calculator, FileText, Mail } from "lucide-react"
+import { ArrowRight, BookOpen, Calculator, FileText, Mail, Book } from "lucide-react"
 
 
 const resources = [
@@ -71,6 +71,41 @@ const resources = [
           "Calculate your retirement savings needs and project your financial future.",
         type: "Tool",
         href: "/tools/retirement-calculator",
+      },
+      {
+        title: "TFSA vs RRSP Analyzer",
+        description:
+          "Compare tax benefits and determine which account is right for your situation.",
+        type: "Tool",
+        href: "/tools/tfsa-rrsp-analyzer",
+      },
+      {
+        title: "RESP Planner",
+        description:
+          "Plan for your child's education with RESP savings and government grant calculations.",
+        type: "Tool",
+        href: "/tools/resp-planner",
+      },
+      {
+        title: "Tax Optimization Calculator",
+        description:
+          "Maximize your tax savings with strategic RRSP and TFSA planning strategies.",
+        type: "Tool",
+        href: "/tools/tax-optimization-calculator",
+      },
+      {
+        title: "CPP/OAS Timing Optimizer",
+        description:
+          "Determine the optimal age to start CPP and OAS benefits for maximum lifetime value.",
+        type: "Tool",
+        href: "/tools/cpp-oas-optimizer",
+      },
+      {
+        title: "Net Worth & Debt Payoff Tracker",
+        description:
+          "Calculate your net worth and plan your debt payoff strategy.",
+        type: "Tool",
+        href: "/tools/net-worth-tracker",
       },
     ],
   },
@@ -196,13 +231,45 @@ export default function ResourcesPage() {
               </motion.div>
             ))}
 
+            {/* Blog Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mt-8 sm:mt-12"
+            >
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
+                Financial Insights Blog
+              </h2>
+              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center mb-3 sm:mb-4">
+                    <Book className="h-5 w-5 sm:h-6 sm:w-6 text-emerald mr-2" />
+                    <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
+                      Expert Financial Articles
+                    </h3>
+                  </div>
+                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
+                    Read our latest articles on RRSP strategies, tax optimization, retirement planning, and more.
+                  </p>
+                  <Button asChild variant="outline" size="lg" className="w-full sm:w-auto border-emerald/50 text-emerald hover:bg-emerald/10">
+                    <Link href="/blog">
+                      Visit Blog
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
             {/* Additional CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-center"
+              className="text-center mt-6 sm:mt-8"
             >
               <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
                 <CardContent className="p-4 sm:p-6 md:pt-6 text-center">

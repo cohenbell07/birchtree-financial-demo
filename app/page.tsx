@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2 } from "lucide-react"
 import HeroBackground from "@/components/HeroBackground"
 import BirchTreeIcon from "@/components/BirchTreeIcon"
+import AutoplayHeroVideo from "@/components/home/AutoplayHeroVideo"
 
 // Optimized animation - respects reduced motion preference
 const useAnimations = () => {
@@ -200,6 +201,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Autoplay Hero Video Section */}
+      <AutoplayHeroVideo />
 
       {/* Services Overview - MOVED BEFORE MISSION */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-28 bg-white relative">

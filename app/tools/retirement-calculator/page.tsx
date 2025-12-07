@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 import { Calculator } from "lucide-react"
+import LeadCapture from "@/components/LeadCapture"
 
 export default function RetirementCalculatorPage() {
   const [formData, setFormData] = useState({
@@ -61,6 +62,21 @@ export default function RetirementCalculatorPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+
+    // Track tool usage event
+    try {
+      await fetch("/api/events/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "tool_used",
+          meta: { tool: "retirement-calculator" },
+        }),
+      })
+    } catch (error) {
+      // Silently fail - event tracking is optional
+      console.warn("Event tracking failed:", error)
+    }
 
     const calculation = calculateRetirement()
 
@@ -327,6 +343,17 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                         </p>
                       </CardContent>
                     </Card>
+
+                    {/* Lead Capture */}
+                    <LeadCapture
+                      source="retirement-calculator"
+                      toolData={{
+                        projectedSavings: result.projectedSavings,
+                        summary: result.summary,
+                        chartData: result.chartData,
+                        formData: formData,
+                      }}
+                    />
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
