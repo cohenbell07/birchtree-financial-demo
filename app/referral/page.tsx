@@ -78,7 +78,7 @@ export default function ReferralPage() {
                     Thank You!
                   </h3>
                   <p className="text-base text-midnight/70">
-                    Your referral has been sent. We'll reach out to your friend with information about Birchtree Financial.
+                    Your referral has been sent. We&apos;ll reach out to your friend with information about Birchtree Financial.
                   </p>
                 </CardContent>
               </Card>
@@ -124,7 +124,7 @@ export default function ReferralPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="friendEmail">Friend's Email *</Label>
+                      <Label htmlFor="friendEmail">Friend&apos;s Email *</Label>
                       <Input
                         id="friendEmail"
                         name="friendEmail"

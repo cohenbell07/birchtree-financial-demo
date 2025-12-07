@@ -83,7 +83,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             Thank You!
           </h3>
           <p className="text-sm sm:text-base text-midnight/70">
-            Your results have been sent to your email. We'll also keep you updated with valuable financial insights.
+            Your results have been sent to your email. We&apos;ll also keep you updated with valuable financial insights.
           </p>
         </CardContent>
       </Card>

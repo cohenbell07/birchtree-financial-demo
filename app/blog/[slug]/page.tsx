@@ -54,7 +54,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-heading font-bold text-midnight mb-2">Post Not Found</h1>
-          <p className="text-midnight/70 mb-4">The blog post you're looking for doesn't exist.</p>
+          <p className="text-midnight/70 mb-4">The blog post you&apos;re looking for doesn&apos;t exist.</p>
           <Button asChild variant="outline">
             <Link href="/blog">← Back to Blog</Link>
           </Button>

@@ -116,7 +116,7 @@ export default function RESPPlannerPage() {
     <div>
       <PageHeader
         title="RESP Planner"
-        subtitle="Plan for your child's education with RESP savings and government grants"
+        subtitle="Plan for your child&apos;s education with RESP savings and government grants"
       />
 
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
@@ -145,7 +145,7 @@ export default function RESPPlannerPage() {
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                       <div className="space-y-2">
-                        <Label htmlFor="childAge">Child's Current Age</Label>
+                        <Label htmlFor="childAge">Child&apos;s Current Age</Label>
                         <Input
                           id="childAge"
                           type="number"
