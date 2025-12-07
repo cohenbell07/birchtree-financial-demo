@@ -12,7 +12,7 @@ import { sendSmsFollowup } from "@/lib/sms"
  *    {
  *      "crons": [{
  *        "path": "/api/drip/run",
- *        "schedule": "0 */6 * * *"
+ *        "schedule": "0 *\/6 * * *"
  *      }]
  *    }
  * 
