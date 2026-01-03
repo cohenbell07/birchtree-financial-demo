@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
           },
           {
             role: "user",
-            content: `Write a comprehensive blog post about: ${topic}. Make it 800-1200 words, well-structured with headings, and include internal links to relevant tools on birchtreefinancial.ca. Focus on Canadian financial planning.`,
+            content: `Write a comprehensive blog post about: ${topic}. Make it 800-1200 words, well-structured with headings, and include internal links to relevant tools on birchtreefinancial.ca. Focus on Canadian financial advisory services.`,
           },
         ],
         temperature: 0.7,
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
     const publishedAt = new Date().toISOString().split("T")[0]
     
     // Extract tags (simplified - in production, use AI to suggest tags)
-    const tags = ["Financial Planning", "Canadian Finance"]
+    const tags = ["Financial Advisory", "Canadian Finance"]
     if (topic.toLowerCase().includes("rrsp")) tags.push("RRSP")
     if (topic.toLowerCase().includes("tfsa")) tags.push("TFSA")
     if (topic.toLowerCase().includes("retirement")) tags.push("Retirement Planning")

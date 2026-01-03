@@ -21,22 +21,45 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
+    let ticking = false
+    let lastScrollY = window.scrollY
+    
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          setScrolled(currentScrollY > 20)
+          
+          // Hide navbar when scrolling down, show when scrolling up
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down
+            setIsVisible(false)
+          } else if (currentScrollY < lastScrollY) {
+            // Scrolling up
+            setIsVisible(true)
+          }
+          
+          lastScrollY = currentScrollY
+          setLastScrollY(currentScrollY)
+          ticking = false
+        })
+        ticking = true
+      }
     }
-    window.addEventListener("scroll", handleScroll)
+    
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-xl border-b border-silver/20 shadow-lg"
-          : "bg-transparent"
-      }`}
+      className={`sticky top-0 z-50 w-full transition-transform duration-300 ease-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } bg-white border-b border-silver/20 shadow-lg`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 sm:h-20 items-center justify-between">
@@ -58,9 +81,10 @@ export default function Navbar() {
             <Button
               asChild
               size="sm"
-              className="relative z-10 ml-4 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow hover:scale-105 transition-all duration-300 text-white [&>*]:text-white"
+              variant="default"
+              className="relative z-10 ml-4 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
             >
-              <Link href="/contact" className="text-white">Book Consultation</Link>
+              <Link href="/contact" className="!text-white">Book Consultation</Link>
             </Button>
           </div>
 
@@ -83,7 +107,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden bg-white/98 backdrop-blur-xl border-t border-silver/20 relative z-40"
+            className="md:hidden overflow-hidden bg-white border-t border-silver/20 relative z-40"
           >
             <div className="container mx-auto px-4 py-4 sm:py-6 space-y-3 sm:space-y-4">
               {navLinks.map((link) => (
@@ -98,9 +122,10 @@ export default function Navbar() {
               ))}
               <Button
                 asChild
-                className="relative z-10 w-full bg-gradient-to-r from-emerald to-emerald-light text-white [&>*]:text-white text-sm sm:text-base mt-2"
+                variant="default"
+                className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] !text-white [&>*]:!text-white text-sm sm:text-base mt-2 transition-all duration-200 ease-out"
               >
-                <Link href="/contact" onClick={() => setIsOpen(false)} className="text-white">
+                <Link href="/contact" onClick={() => setIsOpen(false)} className="!text-white">
                   Book Consultation
                 </Link>
               </Button>

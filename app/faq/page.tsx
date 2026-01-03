@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "What services does Birchtree Financial provide?",
     answer:
-      "Birchtree Financial offers comprehensive financial planning and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We work with individuals, families, and business owners to create personalized financial strategies.",
+      "Birchtree Financial offers comprehensive financial advisory and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We work with individuals, families, and business owners to create personalized financial strategies.",
   },
   {
     question: "How do you charge for your services?",
@@ -51,7 +51,7 @@ const faqs = [
   {
     question: "Do you work with other professionals like accountants and attorneys?",
     answer:
-      "Absolutely. We believe in a team approach to financial planning and regularly coordinate with our clients' accountants, attorneys, insurance agents, and other professionals. This ensures all aspects of your financial life work together cohesively.",
+      "Absolutely. We believe in a team approach to financial advisory services and regularly coordinate with our clients' accountants, attorneys, insurance agents, and other professionals. This ensures all aspects of your financial life work together cohesively.",
   },
   {
     question: "What makes Birchtree Financial different from other advisors?",
@@ -71,7 +71,7 @@ const faqs = [
   {
     question: "What should I bring to my first meeting?",
     answer:
-      "For your first consultation, it's helpful to bring a general overview of your financial situation, including your assets, liabilities, income, and expenses. You don't need detailed documentation initially—we'll guide you on what additional information we'll need as we develop your financial plan.",
+      "For your first consultation, it's helpful to bring a general overview of your financial situation, including your assets, liabilities, income, and expenses. You don't need detailed documentation initially—we'll guide you on what additional information we'll need as we develop your financial strategy.",
   },
   {
     question: "Do you provide tax advice?",
@@ -152,8 +152,8 @@ export default function FAQPage() {
                     available to discuss your specific situation and answer any
                     questions you may have.
                   </p>
-                  <Button asChild size="lg" className="relative z-10 bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-white [&>*]:text-white">
-                    <Link href="/contact" className="text-white">Contact Us</Link>
+                  <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+                    <Link href="/contact" className="!text-white">Contact Us</Link>
                   </Button>
                 </CardContent>
               </Card>

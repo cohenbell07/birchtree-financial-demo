@@ -53,8 +53,8 @@ export async function POST(request: NextRequest) {
                 </div>
                 <div class="content">
                   <p>Hi ${name || "there"},</p>
-                  <p>We noticed you might be interested in professional financial planning services.</p>
-                  <p>Birchtree Financial offers comprehensive financial planning and investment management tailored to your unique needs.</p>
+                  <p>We noticed you might be interested in professional financial advisory services.</p>
+                  <p>Birchtree Financial offers comprehensive financial advisory and investment management tailored to your unique needs.</p>
                   <a href="https://birchtreefinancial.ca/contact" class="button">Learn More</a>
                   <p style="margin-top: 30px; font-size: 12px; color: #666;">
                     Best regards,<br>
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 
         const emailResult = await sendEmail(
           email,
-          "Professional Financial Planning Services",
+          "Professional Financial Advisory Services",
           html
         )
 

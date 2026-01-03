@@ -1,12 +1,13 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2 } from "lucide-react"
 import HeroBackground from "@/components/HeroBackground"
-import BirchTreeIcon from "@/components/BirchTreeIcon"
+import LogoTreeIcon from "@/components/LogoTreeIcon"
 import AutoplayHeroVideo from "@/components/home/AutoplayHeroVideo"
 
 // Optimized animation - respects reduced motion preference
@@ -17,12 +18,12 @@ const useAnimations = () => {
     heroText: {
       initial: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
     fadeIn: {
       initial: { opacity: 0, y: shouldReduceMotion ? 0 : 15 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.4 },
+      transition: { duration: 0.35 },
     },
   }
 }
@@ -70,7 +71,7 @@ const whyChooseUs = [
   {
     icon: Users,
     title: "Expert Team",
-    description: "Certified financial planners with decades of combined experience.",
+    description: "Certified financial advisors with decades of combined experience.",
   },
   {
     icon: Shield,
@@ -101,7 +102,7 @@ const testimonials = [
     name: "Michael Chen",
     role: "Business Owner",
     content:
-      "As a business owner, I needed strategic financial planning. Birchtree provided comprehensive solutions that aligned perfectly with my business goals.",
+      "As a business owner, I needed strategic financial advisory services. Birchtree provided comprehensive solutions that aligned perfectly with my business goals.",
     initials: "MC",
   },
   {
@@ -115,14 +116,81 @@ const testimonials = [
 
 export default function Home() {
   const animations = useAnimations()
+  const tickerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!tickerRef.current) return
+
+    // Check if script already exists
+    if (tickerRef.current.querySelector('script')) return
+
+    // Create widget container div if it doesn't exist
+    let widgetDiv = tickerRef.current.querySelector('.tradingview-widget-container__widget')
+    if (!widgetDiv) {
+      widgetDiv = document.createElement('div')
+      widgetDiv.className = 'tradingview-widget-container__widget'
+      tickerRef.current.appendChild(widgetDiv)
+    }
+
+    // Create and configure TradingView script
+    const script = document.createElement('script')
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js'
+    script.type = 'text/javascript'
+    script.async = true
+    script.textContent = JSON.stringify({
+      symbols: [
+        {
+          proName: 'OANDA:SPX500USD',
+          title: 'S&P 500',
+        },
+        {
+          proName: 'DJ:DJI',
+          title: 'Dow Jones',
+        },
+        {
+          proName: 'TSX:TSX',
+          title: 'TSX Composite',
+        },
+      ],
+      showSymbolLogo: true,
+      colorTheme: 'dark',
+      isTransparent: false,
+      displayMode: 'adaptive',
+      locale: 'en',
+    })
+
+    tickerRef.current.appendChild(script)
+
+    return () => {
+      // Cleanup on unmount
+      if (tickerRef.current) {
+        const scriptElement = tickerRef.current.querySelector('script')
+        if (scriptElement) {
+          tickerRef.current.removeChild(scriptElement)
+        }
+      }
+    }
+  }, [])
 
   return (
     <div className="min-h-screen">
+      {/* TradingView Ticker Banner */}
+      <div 
+        ref={tickerRef}
+        className="tradingview-widget-container"
+        style={{
+          height: '46px',
+          backgroundColor: '#101820',
+          overflow: 'hidden',
+          marginBottom: '0',
+        }}
+      />
+
       {/* Premium Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <HeroBackground />
-        {/* Additional gradient blob for depth */}
-        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-emerald/3 rounded-full blur-3xl" />
+        {/* Additional gradient blob for depth - optimized blur */}
+        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-emerald/3 rounded-full blur-2xl" />
         
         {/* Main Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -154,7 +222,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] [&>*]:text-white"
+                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
               >
                 <Link href="/contact" className="text-white">
                   Book a Consultation
@@ -163,11 +231,10 @@ export default function Home() {
               </Button>
               <Button
                 asChild
-                variant="outline"
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 border-2 border-silver/40 text-silver hover:bg-white/10 hover:border-silver/60 transition-all duration-200 [&>*]:text-silver"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white border-0"
               >
-                <Link href="/services" className="text-silver">Explore Services</Link>
+                <Link href="/services" className="text-white">Explore Services</Link>
               </Button>
             </motion.div>
             
@@ -213,7 +280,7 @@ export default function Home() {
               Comprehensive Financial Services
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-midnight/70 max-w-3xl mx-auto leading-relaxed font-subhead px-4">
-              We offer a full spectrum of Canadian financial planning and investment
+              We offer a full spectrum of Canadian financial advisory and investment
               management services tailored to your unique needs.
             </p>
           </div>
@@ -224,7 +291,7 @@ export default function Home() {
               return (
                 <Card
                   key={service.title}
-                  className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-200 max-w-md mx-auto md:max-w-none"
+                  className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-150 ease-out max-w-md mx-auto md:max-w-none"
                 >
                   <CardHeader className="p-4 sm:p-6">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-teal/15 flex items-center justify-center mb-3 sm:mb-4">
@@ -240,10 +307,10 @@ export default function Home() {
                     </CardDescription>
                     <Link
                       href={service.href}
-                      className="text-emerald hover:text-emerald-light font-semibold text-sm inline-flex items-center group transition-colors"
+                      className="text-emerald hover:text-emerald-light font-semibold text-sm inline-flex items-center group transition-colors duration-150 ease-out"
                     >
                       Learn more
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-150 ease-out will-change-transform" />
                     </Link>
                   </CardContent>
                 </Card>
@@ -256,7 +323,7 @@ export default function Home() {
       {/* Section Divider */}
       <div className="section-divider">
         <div className="section-divider-icon">
-          <BirchTreeIcon className="h-6 w-6 text-emerald/40" />
+          <LogoTreeIcon className="h-9 w-9 opacity-40" />
         </div>
       </div>
 
@@ -277,8 +344,8 @@ export default function Home() {
           <div className="max-w-2xl mx-auto text-center">
             {/* Elegant birch tree icon */}
             <div className="flex justify-center mb-6 sm:mb-8">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald/10 flex items-center justify-center">
-                <BirchTreeIcon className="h-10 w-10 sm:h-12 sm:w-12 text-emerald" />
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-emerald/10 flex items-center justify-center">
+                <LogoTreeIcon className="h-[60px] w-[60px] sm:h-[72px] sm:w-[72px]" />
               </div>
             </div>
             
@@ -286,7 +353,7 @@ export default function Home() {
               Our Mission
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed font-body max-w-xl mx-auto px-4">
-              At Birchtree Financial, we believe that financial planning is not
+              At Birchtree Financial, we believe that financial advisory services are not
               just about numbers—it&apos;s about empowering you to live the life you
               envision. Our team of experienced advisors combines deep expertise
               with personalized attention, crafting strategies that align with
@@ -300,7 +367,7 @@ export default function Home() {
       {/* Section Divider */}
       <div className="section-divider">
         <div className="section-divider-icon">
-          <BirchTreeIcon className="h-6 w-6 text-emerald/40" />
+          <LogoTreeIcon className="h-9 w-9 opacity-40" />
         </div>
       </div>
 
@@ -353,7 +420,7 @@ export default function Home() {
       {/* Section Divider */}
       <div className="section-divider">
         <div className="section-divider-icon">
-          <BirchTreeIcon className="h-6 w-6 text-emerald/40" />
+          <LogoTreeIcon className="h-9 w-9 opacity-40" />
         </div>
       </div>
 
@@ -416,7 +483,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] [&>*]:text-white"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-150 ease-out hover:scale-[1.02] will-change-transform [&>*]:text-white"
               >
                 <Link href="/contact" className="text-white">
                   Book Your Consultation
@@ -425,11 +492,10 @@ export default function Home() {
               </Button>
               <Button
                 asChild
-                variant="outline"
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 border-2 border-silver/40 text-silver hover:bg-white/10 hover:border-silver/60 transition-all duration-200 [&>*]:text-silver"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
               >
-                <Link href="/faq" className="text-silver">Learn More</Link>
+                <Link href="/faq" className="text-white">Learn More</Link>
               </Button>
             </div>
           </div>

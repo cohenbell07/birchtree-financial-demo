@@ -6,7 +6,7 @@ import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, BookOpen, Calculator, FileText, Mail, Book } from "lucide-react"
+import { ArrowRight, BookOpen, Calculator, FileText, Mail, Book, Globe } from "lucide-react"
 
 
 const resources = [
@@ -19,6 +19,7 @@ const resources = [
           "A comprehensive guide to getting started with retirement planning, covering key concepts and strategies.",
         type: "Article",
         readTime: "5 min read",
+        href: "/resources/understanding-retirement-planning-basics",
       },
       {
         title: "Tax-Efficient Investment Strategies",
@@ -26,6 +27,7 @@ const resources = [
           "Learn how to minimize taxes on your investments while maximizing returns.",
         type: "Article",
         readTime: "7 min read",
+        href: "/resources/tax-efficient-investment-strategies",
       },
       {
         title: "Estate Planning Essentials",
@@ -33,6 +35,7 @@ const resources = [
           "Important considerations for creating an effective estate plan that protects your legacy.",
         type: "Article",
         readTime: "6 min read",
+        href: "/resources/estate-planning-essentials",
       },
     ],
   },
@@ -40,11 +43,12 @@ const resources = [
     category: "Guides",
     items: [
       {
-        title: "Financial Planning Checklist",
+        title: "Financial Advisory Checklist",
         description:
           "A step-by-step guide to organizing your financial life and planning for the future.",
         type: "Guide",
         readTime: "10 min read",
+        href: "/resources/financial-advisory-checklist",
       },
       {
         title: "Investment Portfolio Basics",
@@ -52,6 +56,7 @@ const resources = [
           "Understanding asset allocation, diversification, and building a solid investment portfolio.",
         type: "Guide",
         readTime: "12 min read",
+        href: "/resources/investment-portfolio-basics",
       },
     ],
   },
@@ -107,6 +112,20 @@ const resources = [
         type: "Tool",
         href: "/tools/net-worth-tracker",
       },
+      {
+        title: "Bank Loan Calculator",
+        description:
+          "Calculate monthly or biweekly loan payments and see total interest over the life of your loan.",
+        type: "Tool",
+        href: "/tools/bank-loan-calculator",
+      },
+      {
+        title: "Savings Calculator",
+        description:
+          "Plan for short- or medium-term savings goals and see how your savings will grow over time.",
+        type: "Tool",
+        href: "/tools/savings-calculator",
+      },
     ],
   },
 ]
@@ -151,10 +170,37 @@ export default function ResourcesPage() {
                       placeholder="Enter your email address"
                       className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
                     />
-                    <Button type="submit" className="relative z-10 bg-gradient-to-r from-mint to-emerald hover:shadow-glow text-sm sm:text-base w-full sm:w-auto text-white">
+                    <Button type="submit" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white">
                       Subscribe
                     </Button>
                   </form>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Helpful Tools Prominent Link */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center mb-3 sm:mb-4">
+                    <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-emerald mr-3" />
+                    <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
+                      Helpful Tools & Resources
+                    </h3>
+                  </div>
+                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
+                    Access government pension benefits information, registered savings plans, will planning checklists, and essential financial resources for Canadians.
+                  </p>
+                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                    <Link href="/helpful-tools" className="!text-white">
+                      View Helpful Tools
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
@@ -211,14 +257,14 @@ export default function ResourcesPage() {
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
                           {"href" in item ? (
-                            <Button asChild variant="outline" size="sm" className="relative z-10 w-full border-emerald/50 text-emerald hover:bg-emerald/10 [&>*]:text-emerald text-sm">
-                              <Link href={item.href} className="text-emerald">
-                                Use Tool
+                            <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
+                              <Link href={item.href} className="!text-white">
+                                {item.type === "Tool" ? "Use Tool" : "Read More"}
                                 <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                               </Link>
                             </Button>
                           ) : (
-                            <Button variant="outline" size="sm" className="relative z-10 w-full border-emerald/50 text-emerald hover:bg-emerald/10 text-sm">
+                            <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
                               Read More
                               <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
@@ -253,8 +299,8 @@ export default function ResourcesPage() {
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
                     Read our latest articles on RRSP strategies, tax optimization, retirement planning, and more.
                   </p>
-                  <Button asChild variant="outline" size="lg" className="w-full sm:w-auto border-emerald/50 text-emerald hover:bg-emerald/10">
-                    <Link href="/blog">
+                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                    <Link href="/blog" className="!text-white">
                       Visit Blog
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -278,11 +324,11 @@ export default function ResourcesPage() {
                   </h3>
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
                     While our resources provide valuable information, personalized
-                    financial planning requires understanding your unique situation.
+                    financial advisory services require understanding your unique situation.
                     Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white [&>*]:text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
-                    <Link href="/contact" className="text-white">Schedule a Consultation</Link>
+                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
+                    <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -278,8 +278,8 @@ export default function ServiceDetailPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-center"
             >
-              <Button asChild size="lg" className="relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow hover:scale-105 transition-all text-white [&>*]:text-white">
-                <Link href="/contact" className="text-white">Schedule a Consultation</Link>
+              <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+                <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
               </Button>
             </motion.div>
           </div>

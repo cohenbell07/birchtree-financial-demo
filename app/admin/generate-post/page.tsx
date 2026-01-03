@@ -136,7 +136,7 @@ export default function GeneratePostPage() {
                               </div>
                             )}
                             <div className="mt-4">
-                              <Button asChild variant="outline" size="sm">
+                              <Button asChild size="sm" className="bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white [&>*]:text-white border-0">
                                 <a href={`/blog/${result.slug}`} target="_blank">
                                   View Post
                                 </a>

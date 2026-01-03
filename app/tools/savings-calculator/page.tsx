@@ -8,53 +8,61 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
-import { Calculator } from "lucide-react"
+import { Calculator, PiggyBank } from "lucide-react"
 import LeadCapture from "@/components/LeadCapture"
 
-export default function RetirementCalculatorPage() {
+export default function SavingsCalculatorPage() {
   const [formData, setFormData] = useState({
-    currentAge: "",
-    retirementAge: "",
-    currentSavings: "",
-    annualContribution: "",
-    expectedReturn: "7",
+    initialDeposit: "",
+    monthlyContribution: "",
+    expectedReturn: "5",
+    savingsDuration: "",
   })
   const [result, setResult] = useState<{
-    projectedSavings: number
-    summary: string
-    chartData: { age: number; savings: number }[]
+    totalSavings: number
+    totalContributions: number
+    interestEarned: number
+    chartData: { year: number; savings: number; contributions: number }[]
   } | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const calculateRetirement = () => {
-    const currentAge = parseInt(formData.currentAge) || 30
-    const retirementAge = parseInt(formData.retirementAge) || 65
-    const currentSavings = parseFloat(formData.currentSavings) || 0
-    const annualContribution = parseFloat(formData.annualContribution) || 0
-    const expectedReturn = parseFloat(formData.expectedReturn) || 7
+  const calculateSavings = () => {
+    const initialDeposit = parseFloat(formData.initialDeposit) || 0
+    const monthlyContribution = parseFloat(formData.monthlyContribution) || 0
+    const expectedReturn = parseFloat(formData.expectedReturn) || 5
+    const savingsDuration = parseInt(formData.savingsDuration) || 0
 
-    const yearsToRetirement = retirementAge - currentAge
+    if (savingsDuration <= 0) {
+      return null
+    }
+
     const monthlyReturn = expectedReturn / 100 / 12
-    const monthsToRetirement = yearsToRetirement * 12
-
-    let savings = currentSavings
-    const chartData: { age: number; savings: number }[] = [
-      { age: currentAge, savings: Math.round(savings) },
+    let savings = initialDeposit
+    const chartData: { year: number; savings: number; contributions: number }[] = [
+      { year: 0, savings: Math.round(savings), contributions: initialDeposit },
     ]
 
-    for (let i = 1; i <= yearsToRetirement; i++) {
+    let totalContributions = initialDeposit
+
+    for (let year = 1; year <= savingsDuration; year++) {
       // Compound monthly
       for (let month = 0; month < 12; month++) {
-        savings = savings * (1 + monthlyReturn) + annualContribution / 12
+        savings = savings * (1 + monthlyReturn) + monthlyContribution
+        totalContributions += monthlyContribution
       }
       chartData.push({
-        age: currentAge + i,
+        year,
         savings: Math.round(savings),
+        contributions: Math.round(totalContributions),
       })
     }
 
+    const interestEarned = savings - totalContributions
+
     return {
-      projectedSavings: Math.round(savings),
+      totalSavings: Math.round(savings),
+      totalContributions: Math.round(totalContributions),
+      interestEarned: Math.round(interestEarned),
       chartData,
     }
   }
@@ -70,56 +78,25 @@ export default function RetirementCalculatorPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "tool_used",
-          meta: { tool: "retirement-calculator" },
+          meta: { tool: "savings-calculator" },
         }),
       })
     } catch (error) {
-      // Silently fail - event tracking is optional
       console.warn("Event tracking failed:", error)
     }
 
-    const calculation = calculateRetirement()
-
-    // Generate AI summary
-    const prompt = `Retirement Calculation Results:
-- Current Age: ${formData.currentAge}
-- Retirement Age: ${formData.retirementAge}
-- Current Savings: $${parseFloat(formData.currentSavings || "0").toLocaleString()}
-- Annual Contribution: $${parseFloat(formData.annualContribution || "0").toLocaleString()}
-- Expected Return: ${formData.expectedReturn}%
-- Years to Retirement: ${parseInt(formData.retirementAge || "65") - parseInt(formData.currentAge || "30")}
-- Projected Savings at Retirement: $${calculation.projectedSavings.toLocaleString()}
-
-Provide a brief, educational summary (2-3 sentences) of this retirement projection. Include observations about whether this seems adequate for retirement and general considerations. Keep it general and educational only. Do not provide specific financial advice.`
-
-    try {
-      const response = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, type: "retirement" }),
-      })
-
-      const data = await response.json()
-      setResult({
-        ...calculation,
-        summary: data.content || "Calculation complete. Please consult with a financial advisor for personalized guidance.",
-      })
-    } catch (error) {
-      console.error("Error generating summary:", error)
-      setResult({
-        ...calculation,
-        summary: "Your retirement projection has been calculated. Please consult with a financial advisor for personalized guidance.",
-      })
-    } finally {
-      setIsLoading(false)
+    const calculation = calculateSavings()
+    if (calculation) {
+      setResult(calculation)
     }
+    setIsLoading(false)
   }
 
   return (
     <div>
       <PageHeader
-        title="Retirement Calculator"
-        subtitle="Project your retirement savings and plan for your future"
+        title="Savings Calculator"
+        subtitle="Plan for your short- or medium-term savings goals. Calculate how your savings will grow over time"
       />
 
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
@@ -140,99 +117,59 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                 <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
-                      Calculate Your Retirement
+                      <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
+                      Calculate Your Savings Growth
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
-                      Enter your information to see your projected RRSP and TFSA retirement savings
+                      Perfect for planning short- or medium-term savings goals like a down payment, vacation, or emergency fund
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
-                        <Label htmlFor="currentAge">Current Age</Label>
+                        <Label htmlFor="initialDeposit">Initial Deposit (CAD)</Label>
                         <Input
-                          id="currentAge"
+                          id="initialDeposit"
                           type="number"
-                          value={formData.currentAge}
+                          value={formData.initialDeposit}
                           onChange={(e) =>
-                            setFormData({ ...formData, currentAge: e.target.value })
-                          }
-                          required
-                          min="18"
-                          max="100"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="retirementAge">Desired Retirement Age</Label>
-                        <Input
-                          id="retirementAge"
-                          type="number"
-                          value={formData.retirementAge}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              retirementAge: e.target.value,
-                            })
-                          }
-                          required
-                          min="50"
-                          max="100"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="currentSavings">Current Retirement Savings</Label>
-                        <Input
-                          id="currentSavings"
-                          type="number"
-                          value={formData.currentSavings}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              currentSavings: e.target.value,
-                            })
+                            setFormData({ ...formData, initialDeposit: e.target.value })
                           }
                           required
                           min="0"
-                          step="1000"
+                          step="100"
                         />
+                        <p className="text-xs text-slate">
+                          Your starting savings amount
+                        </p>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="annualContribution">
-                          Annual Contribution
-                        </Label>
+                        <Label htmlFor="monthlyContribution">Monthly Contribution (CAD)</Label>
                         <Input
-                          id="annualContribution"
+                          id="monthlyContribution"
                           type="number"
-                          value={formData.annualContribution}
+                          value={formData.monthlyContribution}
                           onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              annualContribution: e.target.value,
-                            })
+                            setFormData({ ...formData, monthlyContribution: e.target.value })
                           }
                           required
                           min="0"
-                          step="1000"
+                          step="100"
                         />
+                        <p className="text-xs text-slate">
+                          Amount you plan to save each month
+                        </p>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="expectedReturn">
-                          Expected Annual Return (%)
-                        </Label>
+                        <Label htmlFor="expectedReturn">Expected Annual Return (%)</Label>
                         <Input
                           id="expectedReturn"
                           type="number"
                           value={formData.expectedReturn}
                           onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              expectedReturn: e.target.value,
-                            })
+                            setFormData({ ...formData, expectedReturn: e.target.value })
                           }
                           required
                           min="0"
@@ -240,7 +177,25 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                           step="0.1"
                         />
                         <p className="text-xs text-slate">
-                          Historical average for a balanced portfolio: 7-8%
+                          Conservative estimate: 3-4% (savings account). Moderate: 5-7% (balanced investments)
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="savingsDuration">Savings Duration (years)</Label>
+                        <Input
+                          id="savingsDuration"
+                          type="number"
+                          value={formData.savingsDuration}
+                          onChange={(e) =>
+                            setFormData({ ...formData, savingsDuration: e.target.value })
+                          }
+                          required
+                          min="1"
+                          max="30"
+                        />
+                        <p className="text-xs text-slate">
+                          How long you plan to save (1-5 years for short-term, 5-15 for medium-term)
                         </p>
                       </div>
 
@@ -250,7 +205,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                         className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
-                        {isLoading ? "Calculating..." : "Calculate Projection"}
+                        {isLoading ? "Calculating..." : "Calculate Savings"}
                       </Button>
                     </form>
                   </CardContent>
@@ -268,34 +223,52 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
-                          Projected Retirement Savings
+                          Future Savings Total
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-mint">
-                          ${result.projectedSavings.toLocaleString()}
+                      <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
+                        <div>
+                          <div className="text-xs sm:text-sm text-silver/80 mb-1">
+                            Total Savings
+                          </div>
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint">
+                            ${result.totalSavings.toLocaleString()}
+                          </div>
                         </div>
-                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-emerald/30">
+                          <div>
+                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Your Contributions</div>
+                            <div className="text-lg sm:text-xl font-bold text-white">
+                              ${result.totalContributions.toLocaleString()}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Interest Earned</div>
+                            <div className="text-lg sm:text-xl font-bold text-white">
+                              ${result.interestEarned.toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
                       </CardContent>
                     </Card>
 
                     <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
-                          Growth Projection
+                          Savings Growth Over Time
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="w-full max-w-full overflow-hidden px-2">
-                          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
+                          <ResponsiveContainer width="100%" height={300}>
                             <LineChart data={result.chartData}>
                               <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
                               <XAxis
-                                dataKey="age"
+                                dataKey="year"
                                 stroke="#0B1A2C"
                                 tick={{ fontSize: 10 }}
                                 label={{
-                                  value: "Age",
+                                  value: "Year",
                                   position: "insideBottom",
                                   offset: -5,
                                   style: { fontSize: 10 }
@@ -304,7 +277,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                               <YAxis
                                 stroke="#0B1A2C"
                                 tick={{ fontSize: 10 }}
-                                label={{ value: "Savings ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
+                                label={{ value: "Amount ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
                                 tickFormatter={(value) =>
                                   `$${(value / 1000).toFixed(0)}k`
                                 }
@@ -313,7 +286,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                                 formatter={(value: number) =>
                                   `$${value.toLocaleString()}`
                                 }
-                                labelFormatter={(label) => `Age: ${label}`}
+                                labelFormatter={(label) => `Year: ${label}`}
                                 contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085", fontSize: "12px" }}
                               />
                               <Legend wrapperStyle={{ fontSize: "12px" }} />
@@ -323,7 +296,15 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                                 stroke="#16A085"
                                 strokeWidth={2}
                                 dot={{ fill: "#7CFFC4", r: 3 }}
-                                name="Projected Savings"
+                                name="Total Savings"
+                              />
+                              <Line
+                                type="monotone"
+                                dataKey="contributions"
+                                stroke="#7CFFC4"
+                                strokeWidth={2}
+                                dot={false}
+                                name="Your Contributions"
                               />
                             </LineChart>
                           </ResponsiveContainer>
@@ -334,23 +315,18 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides
-                          estimates based on the assumptions you entered. Actual
-                          returns may vary, and this does not constitute
-                          personalized financial advice. Please consult with a
-                          qualified Canadian financial advisor for personalized retirement
-                          planning including RRSP and TFSA strategies.
+                          <strong>Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual returns may vary significantly, and this does not constitute personalized financial advice. For retirement planning (long-term goals), please use our Retirement Calculator. Please consult with a qualified Canadian financial advisor for personalized savings planning including TFSA and other registered account strategies.
                         </p>
                       </CardContent>
                     </Card>
 
                     {/* Lead Capture */}
                     <LeadCapture
-                      source="retirement-calculator"
+                      source="savings-calculator"
                       toolData={{
-                        projectedSavings: result.projectedSavings,
-                        summary: result.summary,
-                        chartData: result.chartData,
+                        totalSavings: result.totalSavings,
+                        totalContributions: result.totalContributions,
+                        interestEarned: result.interestEarned,
                         formData: formData,
                       }}
                     />
@@ -359,8 +335,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
-                        Enter your information and calculate to see your
-                        retirement projection.
+                        Enter your savings information and calculate to see your projected growth.
                       </p>
                     </CardContent>
                   </Card>

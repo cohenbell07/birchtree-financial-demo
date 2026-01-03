@@ -64,20 +64,28 @@ export default function BlogPage() {
               <div className="mb-8 sm:mb-12">
                 <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
                   <Button
-                    variant={selectedTag === null ? "default" : "outline"}
+                    variant={selectedTag === null ? "outline" : "outline"}
                     size="sm"
                     onClick={() => setSelectedTag(null)}
-                    className="text-xs sm:text-sm"
+                    className={`text-xs sm:text-sm ${
+                      selectedTag === null
+                        ? "!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        : ""
+                    }`}
                   >
                     All Posts
                   </Button>
                   {tags.map((tag) => (
                     <Button
                       key={tag}
-                      variant={selectedTag === tag ? "default" : "outline"}
+                      variant="outline"
                       size="sm"
                       onClick={() => setSelectedTag(tag)}
-                      className="text-xs sm:text-sm"
+                      className={`text-xs sm:text-sm ${
+                        selectedTag === tag
+                          ? "!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                          : ""
+                      }`}
                     >
                       <Tag className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
                       {tag}
@@ -144,11 +152,10 @@ export default function BlogPage() {
                         )}
                         <Button
                           asChild
-                          variant="outline"
                           size="sm"
-                          className="w-full text-sm border-emerald/50 text-emerald hover:bg-emerald/10"
+                          className="w-full text-sm !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         >
-                          <Link href={`/blog/${post.slug}`}>
+                          <Link href={`/blog/${post.slug}`} className="!text-white">
                             Read More
                             <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                           </Link>

@@ -92,7 +92,7 @@ export default function ReferralPage() {
                     </CardTitle>
                   </div>
                   <CardDescription className="text-sm sm:text-base text-midnight/70">
-                    Know someone who could benefit from professional financial planning? Refer them to Birchtree Financial.
+                    Know someone who could benefit from professional financial advisory services? Refer them to Birchtree Financial.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-0">

@@ -15,7 +15,7 @@ export default function AIAdvisorPage() {
     {
       role: "assistant",
       content:
-        "Hello! I'm your AI financial advisor assistant. I can provide general financial information and answer questions about financial planning concepts. How can I help you today?",
+        "Hello! I'm your AI financial advisor assistant. I can provide general financial information and answer questions about financial advisory concepts. How can I help you today?",
     },
   ])
   const [input, setInput] = useState("")
@@ -175,7 +175,7 @@ export default function AIAdvisorPage() {
                     <Textarea
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask a question about financial planning..."
+                      placeholder="Ask a question about financial advisory services..."
                       rows={2}
                       className="resize-none text-sm sm:text-base"
                       onKeyDown={(e) => {

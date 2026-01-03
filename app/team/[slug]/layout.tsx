@@ -3,40 +3,34 @@ import { notFound } from "next/navigation"
 
 const teamMembers = [
   {
-    slug: "john-anderson",
-    name: "John Anderson",
-    role: "Principal & Senior Financial Advisor",
-    bio: "With over 20 years of experience in financial planning and wealth management, John founded Birchtree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
+    slug: "melissa-birch",
+    name: "Melissa Birch",
+    role: "Owner",
+    bio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy.",
   },
   {
-    slug: "maria-gonzalez",
-    name: "Maria Gonzalez",
-    role: "Senior Financial Advisor",
-    bio: "Maria specializes in retirement planning and tax optimization strategies. Her attention to detail and client-first approach has helped hundreds of families achieve their financial goals.",
+    slug: "kevin-birch",
+    name: "Kevin Birch",
+    role: "Co-owner & Office Administrator",
+    bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences.",
   },
   {
-    slug: "david-parker",
-    name: "David Parker",
-    role: "Investment Manager",
-    bio: "David brings extensive expertise in portfolio management and investment strategy. He holds an MBA in Finance and is passionate about helping clients build wealth through disciplined investing.",
+    slug: "kaleb-birch",
+    name: "Kaleb Birch",
+    role: "IT Specialist",
+    bio: "Kaleb is our IT Specialist, responsible for maintaining our technology infrastructure and ensuring secure, efficient operations.",
   },
   {
-    slug: "sarah-mitchell",
-    name: "Sarah Mitchell",
-    role: "Estate Planning Specialist",
-    bio: "Sarah focuses on estate planning and wealth transfer strategies. She helps families protect and transfer their wealth efficiently while minimizing tax implications.",
+    slug: "crystal",
+    name: "Crystal",
+    role: "Receptionist",
+    bio: "Crystal is the welcoming face of Birchtree Financial, serving as our Receptionist.",
   },
   {
-    slug: "robert-kim",
-    name: "Robert Kim",
-    role: "Financial Advisor",
-    bio: "Robert works with young professionals and growing families, helping them establish solid financial foundations. His approach emphasizes education and long-term planning.",
-  },
-  {
-    slug: "jennifer-thompson",
-    name: "Jennifer Thompson",
-    role: "Client Relations Manager",
-    bio: "Jennifer ensures every client receives exceptional service and support. With a background in client service and operations, she helps streamline the advisory experience.",
+    slug: "art-birch",
+    name: "Art Birch",
+    role: "Founder and Financial Advisor",
+    bio: "Art Birch is the Founder and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals.",
   },
 ]
 
@@ -49,26 +43,34 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const { slug } = await params
-  const member = getTeamMember(slug)
-  
+  const resolvedParams = await params
+  const member = getTeamMember(resolvedParams.slug)
+
   if (!member) {
     return {
-      title: "Team Member Not Found",
+      title: "Team Member Not Found | Birchtree Financial",
     }
   }
 
   return {
-    title: `${member.name} - ${member.role}`,
+    title: `${member.name} - ${member.role} | Birchtree Financial`,
     description: member.bio,
   }
 }
 
-export default function TeamMemberLayout({
+export default async function TeamMemberLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ slug: string }>
 }) {
-  return children
-}
+  const resolvedParams = await params
+  const member = getTeamMember(resolvedParams.slug)
 
+  if (!member) {
+    notFound()
+  }
+
+  return <>{children}</>
+}

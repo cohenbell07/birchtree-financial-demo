@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | Birchtree Financial",
   },
   description: "Modern Canadian financial advisory firm delivering clarity, confidence, and strategic financial insight. Expert RRSP, TFSA, and retirement planning services.",
-  keywords: ["Canadian financial advisor", "RRSP planning", "TFSA strategies", "Canadian retirement planning", "wealth management Canada", "financial planning Canada"],
+  keywords: ["Canadian financial advisor", "RRSP planning", "TFSA strategies", "Canadian retirement planning", "wealth management Canada", "financial advisory Canada"],
   authors: [{ name: "Birchtree Financial" }],
   openGraph: {
     type: "website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: "https://birchtreefinancial.com",
     siteName: "Birchtree Financial",
     title: "Birchtree Financial | Premium Financial Advisory Services",
-    description: "Expert financial planning and wealth management services.",
+    description: "Expert financial advisory and wealth management services.",
   },
   twitter: {
     card: "summary_large_image",

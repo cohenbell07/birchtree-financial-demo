@@ -11,93 +11,78 @@ import { Mail, Phone, Linkedin } from "lucide-react"
 
 const teamMembers = [
   {
-    slug: "john-anderson",
-    name: "John Anderson",
-    role: "Principal & Senior Financial Advisor",
-    bio: "With over 20 years of experience in financial planning and wealth management, John founded Birchtree Financial with a vision to provide personalized, fiduciary-focused advisory services.",
-    fullBio: "John Anderson brings more than two decades of expertise in financial planning and wealth management to Birchtree Financial. As the firm's founder and principal advisor, John is passionate about helping clients achieve their financial goals through comprehensive, personalized planning.",
-    credentials: "CFP®, CFA",
-    education: "MBA in Finance, Rotman School of Management, University of Toronto",
-    specialties: ["Retirement Planning", "Wealth Management", "Portfolio Strategy"],
-    experience: "20+ years",
-    image: "https://ui-avatars.com/api/?name=John+Anderson&size=400&background=12372A&color=ffffff",
-    email: "john.anderson@birchtreefinancial.ca",
-    phone: "(416) 555-4567",
-    linkedin: "#",
-  },
-  {
-    slug: "maria-gonzalez",
-    name: "Maria Gonzalez",
-    role: "Senior Financial Advisor",
-    bio: "Maria specializes in retirement planning and tax optimization strategies. Her attention to detail and client-first approach has helped hundreds of families achieve their financial goals.",
-    fullBio: "Maria Gonzalez is a Certified Financial Planner and Certified Public Accountant with a passion for helping clients navigate the complexities of retirement planning and tax optimization. With 15 years of experience, she combines technical expertise with a warm, personalized approach.",
-    credentials: "CFP®, CPA",
-    education: "Master of Taxation, University of Texas",
-    specialties: ["Retirement Planning", "Tax Strategy", "Estate Planning"],
+    slug: "melissa-birch",
+    name: "Melissa Birch",
+    role: "Owner",
+    bio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy.",
+    fullBio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance. Her extensive experience in the financial services industry has shaped Birchtree Financial into a trusted advisory firm known for its integrity, innovation, and client-first approach.",
+    credentials: "CFP®, MBA",
+    education: "MBA in Finance, CFP® (Certified Financial Planner)",
+    specialties: ["Strategic Financial Advisory", "Business Leadership", "Client Relationship Management"],
     experience: "15+ years",
-    image: "https://ui-avatars.com/api/?name=Maria+Gonzalez&size=400&background=89A17F&color=ffffff",
-    email: "maria.gonzalez@birchtreefinancial.ca",
-    phone: "(416) 555-4568",
+    image: "https://ui-avatars.com/api/?name=Melissa+Birch&size=600&background=16A085&color=ffffff",
+    email: "melissa.birch@birchtreefinancial.ca",
+    phone: "(403) 556-7777",
     linkedin: "#",
   },
   {
-    slug: "david-parker",
-    name: "David Parker",
-    role: "Investment Manager",
-    bio: "David brings extensive expertise in portfolio management and investment strategy. He holds an MBA in Finance and is passionate about helping clients build wealth through disciplined investing.",
-    fullBio: "David Parker is a Chartered Financial Analyst with a deep understanding of global markets and investment strategies. His disciplined, research-driven approach to portfolio management has helped clients achieve strong risk-adjusted returns over the long term.",
-    credentials: "CFA, MBA",
-    education: "MBA in Finance, Rotman School of Management, University of Toronto",
-    specialties: ["Portfolio Management", "Asset Allocation", "Risk Management"],
+    slug: "kevin-birch",
+    name: "Kevin Birch",
+    role: "Co-owner & Office Administrator",
+    bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences.",
+    fullBio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences. His expertise in administrative systems and client relations helps maintain the high standards of service that define Birchtree Financial. Kevin works closely with the team to streamline processes and support our advisory services. With a focus on operational excellence and client satisfaction, he ensures that every interaction with Birchtree Financial is seamless and professional.",
+    credentials: "Office Administration, Client Relations",
+    education: "Business Administration, Client Relations Management",
+    specialties: ["Office Management", "Client Relations", "Operational Excellence"],
     experience: "12+ years",
-    image: "https://ui-avatars.com/api/?name=David+Parker&size=400&background=2E2F33&color=ffffff",
-    email: "david.parker@birchtreefinancial.ca",
-    phone: "(416) 555-4569",
+    image: "https://ui-avatars.com/api/?name=Kevin+Birch&size=600&background=0B1A2C&color=16A085",
+    email: "kevin.birch@birchtreefinancial.ca",
+    phone: "(403) 556-7777",
     linkedin: "#",
   },
   {
-    slug: "sarah-mitchell",
-    name: "Sarah Mitchell",
-    role: "Estate Planning Specialist",
-    bio: "Sarah focuses on estate planning and wealth transfer strategies. She helps families protect and transfer their wealth efficiently while minimizing tax implications.",
-    fullBio: "Sarah Mitchell combines her legal background with financial planning expertise to help families create comprehensive estate plans. As both a licensed attorney and Certified Financial Planner, she provides integrated solutions for wealth transfer and legacy planning.",
-    credentials: "JD, CFP®",
-    education: "JD, Osgoode Hall Law School, York University",
-    specialties: ["Estate Planning", "Trust Planning", "Wealth Transfer"],
-    experience: "10+ years",
-    image: "https://ui-avatars.com/api/?name=Sarah+Mitchell&size=400&background=D8C792&color=2E2F33",
-    email: "sarah.mitchell@birchtreefinancial.ca",
-    phone: "(416) 555-4570",
-    linkedin: "#",
-  },
-  {
-    slug: "robert-kim",
-    name: "Robert Kim",
-    role: "Financial Advisor",
-    bio: "Robert works with young professionals and growing families, helping them establish solid financial foundations. His approach emphasizes education and long-term planning.",
-    fullBio: "Robert Kim specializes in working with young professionals and growing families who are just beginning their wealth-building journey. His educational approach helps clients understand their options and make informed decisions about their financial future.",
-    credentials: "CFP®",
-    education: "BA in Economics, University of British Columbia",
-    specialties: ["Young Professionals", "Family Financial Planning", "Education Planning"],
+    slug: "kaleb-birch",
+    name: "Kaleb Birch",
+    role: "IT Specialist",
+    bio: "Kaleb is our IT Specialist, responsible for maintaining our technology infrastructure and ensuring secure, efficient operations.",
+    fullBio: "Kaleb is our IT Specialist, responsible for maintaining our technology infrastructure and ensuring secure, efficient operations. His technical expertise supports our team's ability to serve clients effectively while protecting sensitive financial information. Kaleb ensures our systems are modern, secure, and user-friendly. With a deep understanding of financial technology and cybersecurity, he keeps Birchtree Financial at the forefront of digital innovation while maintaining the highest standards of data protection and system reliability.",
+    credentials: "Information Technology, Systems Administration",
+    education: "Computer Science, Information Systems Security",
+    specialties: ["Technology Infrastructure", "Cybersecurity", "System Administration"],
     experience: "8+ years",
-    image: "https://ui-avatars.com/api/?name=Robert+Kim&size=400&background=12372A&color=ffffff",
-    email: "robert.kim@birchtreefinancial.ca",
-    phone: "(416) 555-4571",
+    image: "https://ui-avatars.com/api/?name=Kaleb+Birch&size=600&background=0E3B3F&color=7CFFC4",
+    email: "kaleb.birch@birchtreefinancial.ca",
+    phone: "(403) 556-7777",
     linkedin: "#",
   },
   {
-    slug: "jennifer-thompson",
-    name: "Jennifer Thompson",
-    role: "Client Relations Manager",
-    bio: "Jennifer ensures every client receives exceptional service and support. With a background in client service and operations, she helps streamline the advisory experience.",
-    fullBio: "Jennifer Thompson manages client relations and ensures seamless communication between clients and advisors. Her background in operations and client service helps create an exceptional experience for every Birchtree Financial client.",
-    credentials: "CSC, CPH",
-    education: "BBA, Schulich School of Business, York University",
-    specialties: ["Client Relations", "Operations", "Service Excellence"],
-    experience: "6+ years",
-    image: "https://ui-avatars.com/api/?name=Jennifer+Thompson&size=400&background=89A17F&color=ffffff",
-    email: "jennifer.thompson@birchtreefinancial.ca",
-    phone: "(416) 555-4572",
+    slug: "crystal",
+    name: "Crystal",
+    role: "Receptionist",
+    bio: "Crystal is the welcoming face of Birchtree Financial, serving as our Receptionist.",
+    fullBio: "Crystal is the welcoming face of Birchtree Financial, serving as our Receptionist. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth. Crystal's attention to detail and excellent communication skills help create a positive first impression and seamless client experience. Her dedication to exceptional service and genuine care for clients sets the tone for every interaction at Birchtree Financial.",
+    credentials: "Client Services, Administrative Support",
+    education: "Administrative Studies, Customer Service Excellence",
+    specialties: ["Client Communication", "Administrative Support", "Customer Service"],
+    experience: "5+ years",
+    image: "https://ui-avatars.com/api/?name=Crystal&size=600&background=2ECC71&color=0B1A2C",
+    email: "crystal@birchtreefinancial.ca",
+    phone: "(403) 556-7777",
+    linkedin: "#",
+  },
+  {
+    slug: "art-birch",
+    name: "Art Birch",
+    role: "Founder and Financial Advisor",
+    bio: "Art Birch is the Founder and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals.",
+    fullBio: "Art Birch is the Founder and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country. His extensive background in financial planning, investment management, and client relationships has shaped Birchtree Financial into the trusted advisory firm it is today. Art continues to work directly with clients, providing strategic financial guidance and helping families and individuals navigate their financial journeys with confidence and clarity.",
+    credentials: "CFP®, CIM",
+    education: "CFP® (Certified Financial Planner), CIM (Canadian Investment Manager)",
+    specialties: ["Financial Planning", "Investment Advisory", "Retirement Planning", "Estate Planning"],
+    experience: "25+ years",
+    image: "https://ui-avatars.com/api/?name=Art+Birch&size=600&background=16A085&color=ffffff",
+    email: "art.birch@birchtreefinancial.ca",
+    phone: "(403) 556-7777",
     linkedin: "#",
   },
 ]
@@ -140,46 +125,45 @@ export default function TeamMemberPage() {
                     />
                   </div>
                   <CardContent className="p-4 sm:p-6">
-                    <div className="space-y-3 sm:space-y-4">
+                    <div className="space-y-4">
                       <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-1">
-                          Credentials
+                        <h3 className="text-xl sm:text-2xl font-heading font-bold text-slate mb-2">
+                          {member.name}
                         </h3>
-                        <p className="text-xs sm:text-sm text-slate">{member.credentials}</p>
+                        <p className="text-sm sm:text-base text-emerald font-medium mb-1">
+                          {member.credentials}
+                        </p>
+                        <p className="text-base sm:text-lg font-semibold text-slate/70">
+                          {member.role}
+                        </p>
                       </div>
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-1">
-                          Experience
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate">{member.experience}</p>
-                      </div>
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-forest mb-2">
-                          Contact
-                        </h3>
-                        <div className="space-y-2 text-xs sm:text-sm">
-                          <a
-                            href={`mailto:${member.email}`}
-                            className="flex items-center space-x-2 text-slate hover:text-forest transition-colors"
-                          >
-                            <Mail className="h-4 w-4" />
-                            <span>Email</span>
-                          </a>
-                          <a
-                            href={`tel:${member.phone}`}
-                            className="flex items-center space-x-2 text-slate hover:text-forest transition-colors"
-                          >
-                            <Phone className="h-4 w-4" />
-                            <span>Phone</span>
-                          </a>
+
+                      <div className="pt-4 border-t border-slate/10 space-y-3">
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
+                        >
+                          <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
+                          {member.email}
+                        </a>
+                        <a
+                          href={`tel:${member.phone}`}
+                          className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
+                        >
+                          <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
+                          {member.phone}
+                        </a>
+                        {member.linkedin && (
                           <a
                             href={member.linkedin}
-                            className="flex items-center space-x-2 text-slate hover:text-forest transition-colors"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
                           >
-                            <Linkedin className="h-4 w-4" />
-                            <span>LinkedIn</span>
+                            <Linkedin className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
+                            LinkedIn
                           </a>
-                        </div>
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -217,31 +201,35 @@ export default function TeamMemberPage() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-xl sm:text-2xl font-heading">
-                        Areas of Expertise
-                      </CardTitle>
+                      <CardTitle className="text-xl sm:text-2xl font-heading">Specialties</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2">
                         {member.specialties.map((specialty) => (
-                          <li
-                            key={specialty}
-                            className="flex items-center space-x-2 text-slate"
-                          >
-                            <span className="text-forest">•</span>
-                            <span>{specialty}</span>
+                          <li key={specialty} className="flex items-center text-sm sm:text-base text-slate">
+                            <span className="text-emerald mr-2">•</span>
+                            {specialty}
                           </li>
                         ))}
                       </ul>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-xl sm:text-2xl font-heading">Experience</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm sm:text-base text-slate">{member.experience}</p>
                     </CardContent>
                   </Card>
                 </div>
               </motion.div>
             </div>
 
-            <div className="mt-8 text-center">
-              <Button asChild size="lg" className="relative z-10 text-white [&>*]:text-white">
-                <Link href="/contact" className="text-white">Schedule a Consultation</Link>
+            <div className="mt-8 sm:mt-12 text-center">
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                <Link href="/team" className="!text-white">Back to Team</Link>
               </Button>
             </div>
           </div>
@@ -250,4 +238,3 @@ export default function TeamMemberPage() {
     </div>
   )
 }
-

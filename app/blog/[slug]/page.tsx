@@ -55,8 +55,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="text-center">
           <h1 className="text-2xl font-heading font-bold text-midnight mb-2">Post Not Found</h1>
           <p className="text-midnight/70 mb-4">The blog post you&apos;re looking for doesn&apos;t exist.</p>
-          <Button asChild variant="outline">
-            <Link href="/blog">← Back to Blog</Link>
+          <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+            <Link href="/blog" className="!text-white">← Back to Blog</Link>
           </Button>
         </div>
       </div>
@@ -164,8 +164,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Back to Blog */}
             <div className="mt-6 sm:mt-8 text-center">
-              <Button asChild variant="outline" className="border-emerald/50 text-emerald hover:bg-emerald/10">
-                <Link href="/blog">← Back to Blog</Link>
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                <Link href="/blog" className="!text-white">← Back to Blog</Link>
               </Button>
             </div>
           </div>

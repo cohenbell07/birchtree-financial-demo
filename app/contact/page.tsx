@@ -117,7 +117,7 @@ export default function ContactPage() {
                           type="tel"
                           value={formData.phone}
                           onChange={handleChange}
-                          placeholder="(416) 555-1234"
+                          placeholder="(403) 556-7777"
                         />
                       </div>
 
@@ -162,7 +162,7 @@ export default function ContactPage() {
                         type="submit"
                         size="lg"
                         disabled={isSubmitting}
-                        className="relative z-10 w-full bg-gradient-to-r from-emerald to-teal hover:from-teal hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
                       >
                         {isSubmitting ? (
                           "Sending..."
@@ -198,8 +198,8 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Phone</h3>
-                        <p className="text-sm sm:text-base text-midnight/70">(416) 555-1234</p>
-                        <p className="text-xs sm:text-sm text-midnight/60">Mon-Fri, 9am-5pm EST</p>
+                        <p className="text-sm sm:text-base text-midnight/70">(403) 556-7777</p>
+                        <p className="text-xs sm:text-sm text-midnight/60">Mon-Fri, 9am-5pm MST</p>
                       </div>
                     </div>
 
@@ -223,9 +223,9 @@ export default function ContactPage() {
                       <div>
                         <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Office</h3>
                         <p className="text-xs sm:text-sm text-midnight/70">
-                          123 Bay Street, Suite 500
+                          4914 50 Ave
                           <br />
-                          Toronto, ON M5J 2T3
+                          Olds, AB T4H 1P5
                         </p>
                       </div>
                     </div>
@@ -247,9 +247,9 @@ export default function ContactPage() {
                     <Button 
                       asChild 
                       size="lg" 
-                      className="relative z-10 w-full bg-gradient-to-r from-emerald to-teal hover:from-teal hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-200 [&>*]:text-white text-sm sm:text-base"
+                      className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base"
                     >
-                      <a href="#calendar" className="text-white">Book Consultation</a>
+                      <a href="#calendar" className="!text-white">Book Consultation</a>
                     </Button>
                   </CardContent>
                 </Card>

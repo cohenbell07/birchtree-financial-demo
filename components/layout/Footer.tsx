@@ -11,6 +11,7 @@ const footerLinks = {
   ],
   resources: [
     { href: "/resources", label: "Resources" },
+    { href: "/helpful-tools", label: "Helpful Tools" },
     { href: "/faq", label: "FAQ" },
     { href: "/tools/risk-profiler", label: "Risk Profiler" },
     { href: "/tools/retirement-calculator", label: "Retirement Calculator" },
@@ -37,10 +38,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <div className="flex items-center mb-4">
-                <Logo />
+                <Logo variant="white" />
               </div>
               <p className="text-silver/80 text-sm sm:text-base mb-6 max-w-md leading-relaxed">
-                Your trusted partner in Canadian financial planning and wealth management.
+                Your trusted partner in Canadian financial advisory and wealth management.
                 Building your future, one decision at a time.
               </p>
               <div className="flex space-x-4">
@@ -119,7 +120,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-sm text-silver/70">
             <div className="flex items-start space-x-3">
               <Phone size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
-              <span className="break-words">(416) 555-1234</span>
+              <span className="break-words">(403) 556-7777</span>
             </div>
             <div className="flex items-start space-x-3">
               <Mail size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
@@ -127,7 +128,7 @@ export default function Footer() {
             </div>
             <div className="flex items-start space-x-3">
               <MapPin size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
-              <span className="break-words">123 Bay Street, Suite 500, Toronto, ON M5J 2T3</span>
+              <span className="break-words">4914 50 Ave, Olds, AB T4H 1P5</span>
             </div>
           </div>
         </div>

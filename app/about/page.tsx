@@ -86,7 +86,7 @@ export default function AboutPage() {
                   Founded with a vision to make premium financial advisory services
                   accessible and personalized, Birchtree Financial has been helping
                   individuals and families across Canada navigate their financial journey for over
-                  a decade. Our name reflects our philosophy: just as a birch tree
+                  three decades. Our name reflects our philosophy: just as a birch tree
                   stands strong and grows steadily over time, we help our clients
                   build a solid financial foundation that supports them throughout
                   life&apos;s seasons.
@@ -113,7 +113,7 @@ export default function AboutPage() {
               <p className="text-base sm:text-lg md:text-xl text-midnight/80 mb-4 sm:mb-6 leading-relaxed px-4">
                 What started as a small practice with a big idea has grown into a
                 trusted firm serving clients across the country. Our team of
-                certified financial planners and investment advisors brings
+                certified financial advisors and investment advisors brings
                 decades of combined experience, but more importantly, brings a
                 genuine commitment to understanding your unique circumstances and
                 goals.
@@ -129,7 +129,7 @@ export default function AboutPage() {
               {/* Quote box */}
               <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-emerald/5 border-l-4 border-emerald rounded-r-lg mx-4 sm:mx-0">
                 <p className="text-base sm:text-lg md:text-xl text-midnight/90 italic leading-relaxed">
-                  &ldquo;We believe that financial planning is not just about numbers—it&apos;s about empowering you to live the life you envision.&rdquo;
+                  &ldquo;We believe that financial advisory services are not just about numbers—it&apos;s about empowering you to live the life you envision.&rdquo;
                 </p>
               </div>
             </motion.div>
@@ -151,7 +151,7 @@ export default function AboutPage() {
               How We Serve Canadians
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-midnight/70 max-w-2xl mx-auto px-4">
-              We believe that financial planning is a journey, not a destination.
+              We believe that financial advisory services are a journey, not a destination.
             </p>
           </motion.div>
 
@@ -180,7 +180,7 @@ export default function AboutPage() {
                   planning, personalized service, and unwavering integrity.
                 </p>
                 <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed">
-                  We believe that financial planning is not just about numbers—it&apos;s
+                  We believe that financial advisory services are not just about numbers—it&apos;s
                   about understanding your unique goals, values, and circumstances. Every
                   strategy we develop is tailored specifically to you, taking into account
                   your stage of life, risk tolerance, and long-term aspirations. We&apos;re
@@ -263,8 +263,7 @@ export default function AboutPage() {
               interests first in everything we do.
             </p>
             <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed">
-              Our team holds relevant licenses and certifications, including Certified
-              Financial Planner (CFP), Chartered Financial Analyst (CFA), and other
+              Our team holds relevant licenses and certifications, including CFP® (Certified Financial Planner), Chartered Financial Analyst (CFA), and other
               professional designations. We maintain ongoing education requirements and
               stay current with evolving Canadian financial regulations, tax laws, and
               industry best practices.

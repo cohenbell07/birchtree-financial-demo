@@ -7,54 +7,86 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
-import { Calculator } from "lucide-react"
+import { Calculator, DollarSign } from "lucide-react"
 import LeadCapture from "@/components/LeadCapture"
 
-export default function RetirementCalculatorPage() {
+export default function BankLoanCalculatorPage() {
   const [formData, setFormData] = useState({
-    currentAge: "",
-    retirementAge: "",
-    currentSavings: "",
-    annualContribution: "",
-    expectedReturn: "7",
+    loanAmount: "",
+    interestRate: "",
+    amortizationPeriod: "",
+    paymentFrequency: "monthly",
   })
   const [result, setResult] = useState<{
-    projectedSavings: number
-    summary: string
-    chartData: { age: number; savings: number }[]
+    payment: number
+    totalInterest: number
+    totalAmount: number
+    chartData: { year: number; principal: number; interest: number; balance: number }[]
   } | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const calculateRetirement = () => {
-    const currentAge = parseInt(formData.currentAge) || 30
-    const retirementAge = parseInt(formData.retirementAge) || 65
-    const currentSavings = parseFloat(formData.currentSavings) || 0
-    const annualContribution = parseFloat(formData.annualContribution) || 0
-    const expectedReturn = parseFloat(formData.expectedReturn) || 7
+  const calculateLoan = () => {
+    const loanAmount = parseFloat(formData.loanAmount) || 0
+    const interestRate = parseFloat(formData.interestRate) || 0
+    const amortizationPeriod = parseInt(formData.amortizationPeriod) || 0
+    const isBiweekly = formData.paymentFrequency === "biweekly"
 
-    const yearsToRetirement = retirementAge - currentAge
-    const monthlyReturn = expectedReturn / 100 / 12
-    const monthsToRetirement = yearsToRetirement * 12
+    if (loanAmount <= 0 || interestRate <= 0 || amortizationPeriod <= 0) {
+      return null
+    }
 
-    let savings = currentSavings
-    const chartData: { age: number; savings: number }[] = [
-      { age: currentAge, savings: Math.round(savings) },
-    ]
+    // Convert annual rate to periodic rate
+    const annualRate = interestRate / 100
+    const periodsPerYear = isBiweekly ? 26 : 12
+    const periodicRate = annualRate / periodsPerYear
+    const totalPeriods = amortizationPeriod * periodsPerYear
 
-    for (let i = 1; i <= yearsToRetirement; i++) {
-      // Compound monthly
-      for (let month = 0; month < 12; month++) {
-        savings = savings * (1 + monthlyReturn) + annualContribution / 12
+    // Calculate payment using standard loan formula: P = (r * PV) / (1 - (1 + r)^(-n))
+    const payment = (periodicRate * loanAmount) / (1 - Math.pow(1 + periodicRate, -totalPeriods))
+
+    // Calculate amortization schedule
+    let balance = loanAmount
+    const chartData: { year: number; principal: number; interest: number; balance: number }[] = []
+    let totalInterestPaid = 0
+
+    for (let year = 0; year <= amortizationPeriod; year++) {
+      if (year === 0) {
+        chartData.push({
+          year: 0,
+          principal: 0,
+          interest: 0,
+          balance: loanAmount,
+        })
+        continue
       }
+
+      let yearPrincipal = 0
+      let yearInterest = 0
+      const paymentsInYear = isBiweekly ? 26 : 12
+
+      for (let period = 0; period < paymentsInYear; period++) {
+        const interestPayment = balance * periodicRate
+        const principalPayment = payment - interestPayment
+        yearInterest += interestPayment
+        yearPrincipal += principalPayment
+        balance -= principalPayment
+        totalInterestPaid += interestPayment
+      }
+
       chartData.push({
-        age: currentAge + i,
-        savings: Math.round(savings),
+        year,
+        principal: Math.round(yearPrincipal),
+        interest: Math.round(yearInterest),
+        balance: Math.max(0, Math.round(balance)),
       })
     }
 
     return {
-      projectedSavings: Math.round(savings),
+      payment: Math.round(payment),
+      totalInterest: Math.round(totalInterestPaid),
+      totalAmount: Math.round(loanAmount + totalInterestPaid),
       chartData,
     }
   }
@@ -70,56 +102,25 @@ export default function RetirementCalculatorPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "tool_used",
-          meta: { tool: "retirement-calculator" },
+          meta: { tool: "bank-loan-calculator" },
         }),
       })
     } catch (error) {
-      // Silently fail - event tracking is optional
       console.warn("Event tracking failed:", error)
     }
 
-    const calculation = calculateRetirement()
-
-    // Generate AI summary
-    const prompt = `Retirement Calculation Results:
-- Current Age: ${formData.currentAge}
-- Retirement Age: ${formData.retirementAge}
-- Current Savings: $${parseFloat(formData.currentSavings || "0").toLocaleString()}
-- Annual Contribution: $${parseFloat(formData.annualContribution || "0").toLocaleString()}
-- Expected Return: ${formData.expectedReturn}%
-- Years to Retirement: ${parseInt(formData.retirementAge || "65") - parseInt(formData.currentAge || "30")}
-- Projected Savings at Retirement: $${calculation.projectedSavings.toLocaleString()}
-
-Provide a brief, educational summary (2-3 sentences) of this retirement projection. Include observations about whether this seems adequate for retirement and general considerations. Keep it general and educational only. Do not provide specific financial advice.`
-
-    try {
-      const response = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, type: "retirement" }),
-      })
-
-      const data = await response.json()
-      setResult({
-        ...calculation,
-        summary: data.content || "Calculation complete. Please consult with a financial advisor for personalized guidance.",
-      })
-    } catch (error) {
-      console.error("Error generating summary:", error)
-      setResult({
-        ...calculation,
-        summary: "Your retirement projection has been calculated. Please consult with a financial advisor for personalized guidance.",
-      })
-    } finally {
-      setIsLoading(false)
+    const calculation = calculateLoan()
+    if (calculation) {
+      setResult(calculation)
     }
+    setIsLoading(false)
   }
 
   return (
     <div>
       <PageHeader
-        title="Retirement Calculator"
-        subtitle="Project your retirement savings and plan for your future"
+        title="Bank Loan Calculator"
+        subtitle="Calculate your monthly or biweekly loan payments and see the total interest over the life of your loan"
       />
 
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
@@ -141,107 +142,80 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
                       <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
-                      Calculate Your Retirement
+                      Calculate Your Loan Payment
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
-                      Enter your information to see your projected RRSP and TFSA retirement savings
+                      Enter your loan details to see your estimated payment and total interest
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
-                        <Label htmlFor="currentAge">Current Age</Label>
+                        <Label htmlFor="loanAmount">Loan Amount (CAD)</Label>
                         <Input
-                          id="currentAge"
+                          id="loanAmount"
                           type="number"
-                          value={formData.currentAge}
+                          value={formData.loanAmount}
                           onChange={(e) =>
-                            setFormData({ ...formData, currentAge: e.target.value })
+                            setFormData({ ...formData, loanAmount: e.target.value })
                           }
                           required
-                          min="18"
-                          max="100"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="retirementAge">Desired Retirement Age</Label>
-                        <Input
-                          id="retirementAge"
-                          type="number"
-                          value={formData.retirementAge}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              retirementAge: e.target.value,
-                            })
-                          }
-                          required
-                          min="50"
-                          max="100"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="currentSavings">Current Retirement Savings</Label>
-                        <Input
-                          id="currentSavings"
-                          type="number"
-                          value={formData.currentSavings}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              currentSavings: e.target.value,
-                            })
-                          }
-                          required
-                          min="0"
+                          min="1"
                           step="1000"
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="annualContribution">
-                          Annual Contribution
-                        </Label>
+                        <Label htmlFor="interestRate">Interest Rate (%)</Label>
                         <Input
-                          id="annualContribution"
+                          id="interestRate"
                           type="number"
-                          value={formData.annualContribution}
+                          value={formData.interestRate}
                           onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              annualContribution: e.target.value,
-                            })
+                            setFormData({ ...formData, interestRate: e.target.value })
                           }
                           required
                           min="0"
-                          step="1000"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="expectedReturn">
-                          Expected Annual Return (%)
-                        </Label>
-                        <Input
-                          id="expectedReturn"
-                          type="number"
-                          value={formData.expectedReturn}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              expectedReturn: e.target.value,
-                            })
-                          }
-                          required
-                          min="0"
-                          max="20"
-                          step="0.1"
+                          max="100"
+                          step="0.01"
                         />
                         <p className="text-xs text-slate">
-                          Historical average for a balanced portfolio: 7-8%
+                          Annual interest rate (e.g., 5.5 for 5.5%)
                         </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="amortizationPeriod">Amortization Period (years)</Label>
+                        <Input
+                          id="amortizationPeriod"
+                          type="number"
+                          value={formData.amortizationPeriod}
+                          onChange={(e) =>
+                            setFormData({ ...formData, amortizationPeriod: e.target.value })
+                          }
+                          required
+                          min="1"
+                          max="30"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="paymentFrequency">Payment Frequency</Label>
+                        <Select
+                          value={formData.paymentFrequency}
+                          onValueChange={(value) =>
+                            setFormData({ ...formData, paymentFrequency: value })
+                          }
+                          required
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select payment frequency" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="monthly">Monthly</SelectItem>
+                            <SelectItem value="biweekly">Biweekly</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       <Button
@@ -250,7 +224,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                         className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
-                        {isLoading ? "Calculating..." : "Calculate Projection"}
+                        {isLoading ? "Calculating..." : "Calculate Payment"}
                       </Button>
                     </form>
                   </CardContent>
@@ -268,34 +242,52 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
-                          Projected Retirement Savings
+                          Loan Payment Summary
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-mint">
-                          ${result.projectedSavings.toLocaleString()}
+                      <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
+                        <div>
+                          <div className="text-xs sm:text-sm text-silver/80 mb-1">
+                            {formData.paymentFrequency === "monthly" ? "Monthly" : "Biweekly"} Payment
+                          </div>
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint">
+                            ${result.payment.toLocaleString()}
+                          </div>
                         </div>
-                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-emerald/30">
+                          <div>
+                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Total Interest</div>
+                            <div className="text-lg sm:text-xl font-bold text-white">
+                              ${result.totalInterest.toLocaleString()}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Total Amount</div>
+                            <div className="text-lg sm:text-xl font-bold text-white">
+                              ${result.totalAmount.toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
                       </CardContent>
                     </Card>
 
                     <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
-                          Growth Projection
+                          Payment Breakdown Over Time
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="w-full max-w-full overflow-hidden px-2">
-                          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
+                          <ResponsiveContainer width="100%" height={300}>
                             <LineChart data={result.chartData}>
                               <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
                               <XAxis
-                                dataKey="age"
+                                dataKey="year"
                                 stroke="#0B1A2C"
                                 tick={{ fontSize: 10 }}
                                 label={{
-                                  value: "Age",
+                                  value: "Year",
                                   position: "insideBottom",
                                   offset: -5,
                                   style: { fontSize: 10 }
@@ -304,7 +296,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                               <YAxis
                                 stroke="#0B1A2C"
                                 tick={{ fontSize: 10 }}
-                                label={{ value: "Savings ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
+                                label={{ value: "Amount ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
                                 tickFormatter={(value) =>
                                   `$${(value / 1000).toFixed(0)}k`
                                 }
@@ -313,17 +305,33 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                                 formatter={(value: number) =>
                                   `$${value.toLocaleString()}`
                                 }
-                                labelFormatter={(label) => `Age: ${label}`}
+                                labelFormatter={(label) => `Year: ${label}`}
                                 contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085", fontSize: "12px" }}
                               />
                               <Legend wrapperStyle={{ fontSize: "12px" }} />
                               <Line
                                 type="monotone"
-                                dataKey="savings"
+                                dataKey="principal"
                                 stroke="#16A085"
                                 strokeWidth={2}
-                                dot={{ fill: "#7CFFC4", r: 3 }}
-                                name="Projected Savings"
+                                dot={false}
+                                name="Principal Paid"
+                              />
+                              <Line
+                                type="monotone"
+                                dataKey="interest"
+                                stroke="#7CFFC4"
+                                strokeWidth={2}
+                                dot={false}
+                                name="Interest Paid"
+                              />
+                              <Line
+                                type="monotone"
+                                dataKey="balance"
+                                stroke="#FFA726"
+                                strokeWidth={2}
+                                dot={false}
+                                name="Remaining Balance"
                               />
                             </LineChart>
                           </ResponsiveContainer>
@@ -334,23 +342,18 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides
-                          estimates based on the assumptions you entered. Actual
-                          returns may vary, and this does not constitute
-                          personalized financial advice. Please consult with a
-                          qualified Canadian financial advisor for personalized retirement
-                          planning including RRSP and TFSA strategies.
+                          <strong>Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual loan terms, interest rates, and payments may vary. This does not constitute personalized financial advice. Please consult with a qualified Canadian financial advisor or loan specialist for personalized loan planning.
                         </p>
                       </CardContent>
                     </Card>
 
                     {/* Lead Capture */}
                     <LeadCapture
-                      source="retirement-calculator"
+                      source="bank-loan-calculator"
                       toolData={{
-                        projectedSavings: result.projectedSavings,
-                        summary: result.summary,
-                        chartData: result.chartData,
+                        payment: result.payment,
+                        totalInterest: result.totalInterest,
+                        totalAmount: result.totalAmount,
                         formData: formData,
                       }}
                     />
@@ -359,8 +362,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
-                        Enter your information and calculate to see your
-                        retirement projection.
+                        Enter your loan information and calculate to see your payment breakdown.
                       </p>
                     </CardContent>
                   </Card>

@@ -317,7 +317,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                         </div>
                       </div>
 
-                      <Button type="submit" size="lg" className="relative z-10 w-full text-white" disabled={isLoading}>
+                      <Button type="submit" size="lg" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0" disabled={isLoading}>
                         {isLoading ? "Analyzing..." : "Analyze My Risk Profile"}
                       </Button>
                     </form>

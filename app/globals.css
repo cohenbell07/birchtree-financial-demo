@@ -40,7 +40,7 @@
     letter-spacing: -0.01em;
   }
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; - Removed to fix scroll lag issues */
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
@@ -137,22 +137,26 @@
     background: radial-gradient(ellipse, rgba(124, 255, 196, 0.15) 0%, transparent 70%);
   }
   
-  /* Premium micro-interactions - CSS only */
+  /* Premium micro-interactions - CSS only - GPU accelerated */
   .icon-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .icon-hover:hover {
-    transform: scale(1.025);
+    transform: scale(1.025) translateZ(0);
     box-shadow: 0 0 12px rgba(124, 255, 196, 0.3);
   }
   
   .card-lift {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .card-lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 
       0 4px 12px rgba(0, 0, 0, 0.1),
       0 2px 6px rgba(0, 0, 0, 0.05);
@@ -181,12 +185,14 @@
   }
   
   .shadow-glow-hover {
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .shadow-glow-hover:hover {
     box-shadow: 0 6px 16px rgba(124, 255, 196, 0.25), 0 4px 8px rgba(11, 26, 44, 0.15);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
   
   /* Subtle card shadow */
@@ -197,14 +203,16 @@
   }
   
   .card-shadow-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .card-shadow-hover:hover {
     box-shadow: 
       0 4px 12px rgba(0, 0, 0, 0.1),
       0 2px 6px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
   }
   
   /* Premium button shimmer (static, no animation) */
