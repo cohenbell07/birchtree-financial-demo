@@ -62,7 +62,7 @@ export default function ParticleBackground() {
         // Draw particle
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(124, 255, 196, ${particle.opacity})`
+        ctx.fillStyle = `rgba(27, 42, 61, ${particle.opacity})`
         ctx.fill()
 
         // Draw connections
@@ -75,7 +75,7 @@ export default function ParticleBackground() {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(other.x, other.y)
-            ctx.strokeStyle = `rgba(124, 255, 196, ${0.1 * (1 - distance / 150)})`
+            ctx.strokeStyle = `rgba(27, 42, 61, ${0.1 * (1 - distance / 150)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }

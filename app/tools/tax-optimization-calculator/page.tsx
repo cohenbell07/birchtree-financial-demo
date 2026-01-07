@@ -140,7 +140,7 @@ export default function TaxOptimizationCalculatorPage() {
 
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -15,7 +15,7 @@ const buttonVariants = cva(
         outline:
           "border-2 border-emerald text-emerald hover:bg-emerald/10 hover:shadow-md hover:border-emerald-light [&>*]:text-emerald",
         secondary:
-          "bg-teal text-white hover:bg-teal-light hover:shadow-md shadow-md",
+          "bg-emerald text-white hover:bg-emerald-light hover:shadow-md shadow-md",
         ghost: "text-midnight hover:bg-white/50 hover:text-emerald [&>*]:text-midnight [&>*]:hover:text-emerald",
         link: "text-emerald underline-offset-4 hover:underline [&>*]:text-emerald",
         champagne: "bg-gradient-to-r from-gold to-gold-light text-white hover:shadow-lg shadow-md [&>*]:text-white",

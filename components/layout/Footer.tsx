@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer className="bg-midnight text-white relative overflow-hidden">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-teal/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-emerald/20 to-transparent" />
       {/* Ultra-light noise texture */}
       <div className="absolute inset-0 texture-noise pointer-events-none opacity-30" />
       
@@ -47,14 +47,14 @@ export default function Footer() {
               <div className="flex space-x-4">
                 <a
                   href="#"
-                  className="text-silver/70 hover:text-mint transition-colors duration-300"
+                  className="text-silver/70 hover:text-white hover:scale-110 transition-all duration-300"
                   aria-label="LinkedIn"
                 >
                   <Linkedin size={20} />
                 </a>
                 <a
                   href="#"
-                  className="text-silver/70 hover:text-mint transition-colors duration-300"
+                  className="text-silver/70 hover:text-white hover:scale-110 transition-all duration-300"
                   aria-label="Twitter"
                 >
                   <Twitter size={20} />
@@ -65,13 +65,13 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Company</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
+                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -82,13 +82,13 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Resources</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Resources</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
+                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -99,13 +99,13 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-emerald border-b border-emerald/20 pb-2">Legal</h3>
+            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-mint text-sm transition-colors duration-300 inline-block"
+                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
                   >
                     {link.label}
                   </Link>

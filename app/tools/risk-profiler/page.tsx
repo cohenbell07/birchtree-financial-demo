@@ -171,7 +171,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -355,7 +355,7 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                         <div className="w-full max-w-full overflow-hidden px-2">
                           <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
                             <RadarChart data={result.scores}>
-                              <PolarGrid stroke="#16A085" opacity={0.3} />
+                              <PolarGrid stroke="#1B2A3D" opacity={0.3} />
                               <PolarAngleAxis 
                                 dataKey="category" 
                                 tick={{ fill: "#0B1A2C", fontSize: 10 }} 
@@ -369,8 +369,8 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                               <Radar
                                 name="Risk Score"
                                 dataKey="value"
-                                stroke="#16A085"
-                                fill="#7CFFC4"
+                                stroke="#1B2A3D"
+                                fill="#1B2A3D"
                                 fillOpacity={0.6}
                               />
                             </RadarChart>

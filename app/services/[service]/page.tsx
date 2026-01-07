@@ -176,7 +176,7 @@ export default function ServiceDetailPage() {
       <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -278,7 +278,7 @@ export default function ServiceDetailPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-center"
             >
-              <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+              <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
                 <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
               </Button>
             </motion.div>

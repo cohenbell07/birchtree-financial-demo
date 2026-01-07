@@ -111,7 +111,7 @@ export default function NetWorthTrackerPage() {
 
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -253,7 +253,7 @@ export default function NetWorthTrackerPage() {
                           <div className="w-full max-w-full overflow-hidden px-2">
                             <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
                               <BarChart data={result.payoffPath.slice(0, 12)}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#16A085" opacity={0.2} />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#1B2A3D" opacity={0.2} />
                                 <XAxis
                                   dataKey="month"
                                   stroke="#0B1A2C"
@@ -269,9 +269,9 @@ export default function NetWorthTrackerPage() {
                                 <Tooltip
                                   formatter={(value: number) => `$${value.toLocaleString()}`}
                                   labelFormatter={(label) => `Month ${label}`}
-                                  contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #16A085", fontSize: "12px" }}
+                                  contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #1B2A3D", fontSize: "12px" }}
                                 />
-                                <Bar dataKey="debt" fill="#16A085" name="Remaining Debt" />
+                                <Bar dataKey="debt" fill="#1B2A3D" name="Remaining Debt" />
                               </BarChart>
                             </ResponsiveContainer>
                           </div>

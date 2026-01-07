@@ -43,9 +43,7 @@ export async function generateMetadata({
   const service = serviceDetails[serviceSlug]
 
   if (!service) {
-    return {
-      title: "Service Not Found",
-    }
+    notFound()
   }
 
   return {

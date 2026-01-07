@@ -82,7 +82,7 @@ export default function Navbar() {
               asChild
               size="sm"
               variant="default"
-              className="relative z-10 ml-4 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
+              className="relative z-10 ml-4 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
             >
               <Link href="/contact" className="!text-white">Book Consultation</Link>
             </Button>
@@ -123,7 +123,7 @@ export default function Navbar() {
               <Button
                 asChild
                 variant="default"
-                className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] !text-white [&>*]:!text-white text-sm sm:text-base mt-2 transition-all duration-200 ease-out"
+                className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] !text-white [&>*]:!text-white text-sm sm:text-base mt-2 transition-all duration-200 ease-out"
               >
                 <Link href="/contact" onClick={() => setIsOpen(false)} className="!text-white">
                   Book Consultation

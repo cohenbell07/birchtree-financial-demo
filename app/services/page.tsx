@@ -98,7 +98,7 @@ export default function ServicesPage() {
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -131,7 +131,7 @@ export default function ServicesPage() {
                 >
                   <Card className="h-full glass shadow-glow-hover border-emerald/20 flex flex-col max-w-md mx-auto md:max-w-none">
                     <CardHeader className="p-4 sm:p-6">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center mb-3 sm:mb-4">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center mb-3 sm:mb-4">
                         <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-emerald" />
                       </div>
                       <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-midnight">

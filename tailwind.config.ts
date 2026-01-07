@@ -26,14 +26,14 @@ const config = {
           dark: "#050E18",
         },
         teal: {
-          DEFAULT: "#0E3B3F",
-          light: "#16535A",
-          dark: "#082A2E",
+          DEFAULT: "#1B2A3D",
+          light: "#2A3B50",
+          dark: "#142131",
         },
         emerald: {
-          DEFAULT: "#16A085",
-          light: "#2ECC71",
-          dark: "#138A72",
+          DEFAULT: "#1B2A3D",
+          light: "#2A3B50",
+          dark: "#142131",
         },
         silver: {
           DEFAULT: "#D9D9D9",
@@ -45,9 +45,9 @@ const config = {
           pure: "#FFFFFF",
         },
         mint: {
-          DEFAULT: "#7CFFC4",
-          light: "#9EFFD4",
-          dark: "#5AE5A8",
+          DEFAULT: "#1B2A3D",
+          light: "#2A3B50",
+          dark: "#142131",
         },
         gold: {
           DEFAULT: "#D7C38A",
@@ -55,9 +55,9 @@ const config = {
           dark: "#C4B076",
         },
         sage: {
-          DEFAULT: "#2ECC71",
-          light: "#4DD689",
-          dark: "#1FA85A",
+          DEFAULT: "#1B2A3D",
+          light: "#2A3B50",
+          dark: "#142131",
         },
         mist: {
           DEFAULT: "#F3F7F6",
@@ -71,9 +71,9 @@ const config = {
           light: "#152439",
         },
         moss: {
-          DEFAULT: "#16A085",
-          light: "#2ECC71",
-          dark: "#138A72",
+          DEFAULT: "#1B2A3D",
+          light: "#2A3B50",
+          dark: "#142131",
         },
         slate: {
           DEFAULT: "#0B1A2C",
@@ -152,8 +152,8 @@ const config = {
           "50%": { transform: "translateY(-20px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px rgba(124, 255, 196, 0.5)" },
-          "50%": { opacity: "0.8", boxShadow: "0 0 40px rgba(124, 255, 196, 0.8)" },
+          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px rgba(27, 42, 61, 0.5)" },
+          "50%": { opacity: "0.8", boxShadow: "0 0 40px rgba(27, 42, 61, 0.8)" },
         },
         "gradient-shift": {
           "0%, 100%": { backgroundPosition: "0% 50%" },

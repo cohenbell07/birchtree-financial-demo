@@ -26,8 +26,8 @@ export default function PageHeader({
       
       {/* Subtle gradient orbs - reduced blur for performance */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald/10 rounded-full blur-2xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-mint/10 rounded-full blur-2xl" />
-      <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-teal/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald/10 rounded-full blur-2xl" />
+      <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-emerald/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.h1

@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Target, Users, Award, Heart } from "lucide-react"
@@ -53,7 +54,7 @@ export default function AboutPage() {
         
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -67,7 +68,7 @@ export default function AboutPage() {
             >
               {/* Image placeholder left */}
               <div className="order-2 lg:order-1">
-                <div className="aspect-[4/3] bg-gradient-to-br from-emerald/10 to-teal/10 rounded-2xl flex items-center justify-center border border-emerald/20">
+                <div className="aspect-[4/3] bg-gradient-to-br from-emerald/10 to-emerald/10 rounded-2xl flex items-center justify-center border border-emerald/20">
                   <div className="text-center">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-emerald/20 flex items-center justify-center">
                       <Target className="h-12 w-12 text-emerald" />
@@ -268,6 +269,109 @@ export default function AboutPage() {
               stay current with evolving Canadian financial regulations, tax laws, and
               industry best practices.
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Proudly Supporting Our Community */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-[#f8f9fa] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            {...fadeInUp}
+            viewport={{ once: true }}
+            initial="initial"
+            whileInView="animate"
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-midnight mb-4 sm:mb-6 md:mb-8 section-title px-2">
+              Proudly Supporting Our Community
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed mb-8 sm:mb-12 md:mb-16 max-w-3xl mx-auto px-4">
+              For over a decade, Birchtree Financial has donated to and supported local organizations that align with our values of growth, safety, and opportunity.
+            </p>
+
+            {/* Logo Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
+              {/* Olds Grizzlys Hockey */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/oldsgrizzlesnew.png"
+                    alt="Olds Grizzlys Hockey"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* 4-H Canada */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/canadalogonew.png"
+                    alt="4-H Canada"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* BGC Olds & Area */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/bgcoldsnew.png"
+                    alt="BGC Olds & Area"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* MVESS Shelter */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/mvessnew.png"
+                    alt="MVESS Shelter"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>

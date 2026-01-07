@@ -34,17 +34,17 @@ const teamMembers = [
   },
   {
     slug: "crystal",
-    name: "Crystal",
-    role: "Receptionist",
-    bio: "Crystal is the welcoming face of Birchtree Financial, serving as our Receptionist. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth. Crystal's attention to detail and excellent communication skills help create a positive first impression and seamless client experience.",
+    name: "Crystal Smith",
+    role: "Bookkeeper",
+    bio: "Crystal Smith is the welcoming face of Birchtree Financial, serving as our Bookkeeper. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth. Crystal's attention to detail and excellent communication skills help create a positive first impression and seamless client experience.",
     credentials: "Client Services, Administrative Support",
-    image: "https://ui-avatars.com/api/?name=Crystal&size=600&background=2ECC71&color=0B1A2C",
+    image: "https://ui-avatars.com/api/?name=Crystal+Smith&size=600&background=2ECC71&color=0B1A2C",
   },
   {
     slug: "art-birch",
     name: "Art Birch",
-    role: "Founder and Financial Advisor",
-    bio: "Art Birch is the Founder and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country.",
+    role: "Founder • Mentor • Financial Advisor",
+    bio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country.",
     credentials: "CFP®, CIM",
     image: "https://ui-avatars.com/api/?name=Art+Birch&size=600&background=16A085&color=ffffff",
   },
@@ -58,10 +58,10 @@ export default function TeamPage() {
         subtitle="Dedicated professionals committed to your financial success"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-b from-midnight via-teal/95 to-midnight text-white relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-gradient-to-b from-midnight via-emerald/95 to-midnight text-white relative overflow-hidden">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -81,13 +81,13 @@ export default function TeamPage() {
                 className="glass-dark shadow-glow border-emerald/30 overflow-hidden group relative"
               >
                 {/* Spotlight effect background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-teal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald to-transparent opacity-50" />
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 p-6 sm:p-8 md:p-10 relative">
                   {/* Profile Image */}
                   <div className="relative h-64 sm:h-80 md:h-full min-h-[300px] w-full md:w-auto rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-shadow duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald/20 to-teal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald/20 to-emerald/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                     <Image
                       src={member.image}
                       alt={member.name}
@@ -102,10 +102,10 @@ export default function TeamPage() {
                   {/* Content */}
                   <div className="md:col-span-2 flex flex-col justify-center space-y-4 sm:space-y-6">
                     <div>
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-2 sm:mb-3 group-hover:text-emerald-light transition-colors duration-300">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-2 sm:mb-3 transition-colors duration-300">
                         {member.name}
                       </h3>
-                      <p className="text-sm sm:text-base text-emerald font-semibold mb-2">
+                      <p className="text-sm sm:text-base text-white font-semibold mb-2">
                         {member.credentials}
                       </p>
                       <p className="text-lg sm:text-xl md:text-2xl font-semibold text-silver/90 mb-4 sm:mb-6">
@@ -121,7 +121,7 @@ export default function TeamPage() {
                       <Button
                         asChild
                         size="lg"
-                        className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald hover:shadow-[0_0_20px_rgba(22,160,133,0.5)] !text-white [&>*]:!text-white text-sm sm:text-base border-0 transition-all duration-200 ease-out"
+                        className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald hover:shadow-[0_0_20px_rgba(27,42,61,0.5)] !text-white [&>*]:!text-white text-sm sm:text-base border-0 transition-all duration-200 ease-out"
                       >
                         <Link href={`/team/${member.slug}`} className="!text-white">
                           Learn More
@@ -133,7 +133,7 @@ export default function TeamPage() {
                 </div>
 
                 {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-teal/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Card>
             ))}
           </div>

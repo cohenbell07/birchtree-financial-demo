@@ -63,7 +63,7 @@ export default function ContactPage() {
       <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
         {/* Subtle background */}
         <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-teal" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -193,7 +193,7 @@ export default function ContactPage() {
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-6">
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
                         <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>
@@ -204,7 +204,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
                         <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>
@@ -217,7 +217,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-teal/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
                         <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
                       </div>
                       <div>

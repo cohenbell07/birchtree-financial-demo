@@ -9,6 +9,7 @@ import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2 } from "luc
 import HeroBackground from "@/components/HeroBackground"
 import LogoTreeIcon from "@/components/LogoTreeIcon"
 import AutoplayHeroVideo from "@/components/home/AutoplayHeroVideo"
+import Image from "next/image"
 
 // Optimized animation - respects reduced motion preference
 const useAnimations = () => {
@@ -144,7 +145,8 @@ export default function Home() {
           title: 'S&P 500',
         },
         {
-          proName: 'DJ:DJI',
+          // Dow Jones Industrial Average (TradingView index symbol)
+          proName: 'TVC:DJI',
           title: 'Dow Jones',
         },
         {
@@ -154,7 +156,7 @@ export default function Home() {
       ],
       showSymbolLogo: true,
       colorTheme: 'dark',
-      isTransparent: false,
+      isTransparent: true,
       displayMode: 'adaptive',
       locale: 'en',
     })
@@ -175,16 +177,21 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* TradingView Ticker Banner */}
-      <div 
-        ref={tickerRef}
-        className="tradingview-widget-container"
-        style={{
-          height: '46px',
-          backgroundColor: '#101820',
-          overflow: 'hidden',
-          marginBottom: '0',
-        }}
-      />
+      <div className="relative bg-midnight border-b border-silver/20 overflow-hidden">
+        {/* Subtle premium overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10" />
+        <div className="relative">
+          <div
+            ref={tickerRef}
+            className="tradingview-widget-container"
+            style={{
+              height: '52px',
+              overflow: 'hidden',
+              marginBottom: '0',
+            }}
+          />
+        </div>
+      </div>
 
       {/* Premium Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -197,11 +204,11 @@ export default function Home() {
           <div className="max-w-5xl mx-auto text-center py-12 sm:py-24 md:py-32">
             <motion.h1
               {...animations.heroText}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold text-white mb-4 sm:mb-8 leading-tight sm:leading-[1.1] tracking-tight px-2"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold text-white mb-4 sm:mb-8 leading-tight sm:leading-[1.1] tracking-tight px-2 drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]"
             >
               Your Financial Future,
               <br />
-              <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-emerald via-emerald-light to-mint">
+              <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-white via-silver-light to-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
                 Elevated Through Intelligence
               </span>
             </motion.h1>
@@ -209,7 +216,7 @@ export default function Home() {
             <motion.p
               {...animations.heroText}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-xl md:text-2xl lg:text-3xl text-silver/90 mb-6 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-subhead px-4"
+              className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white mb-6 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-subhead px-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.50)]"
             >
               A modern Canadian advisory firm delivering clarity, confidence, and strategic financial insight.
             </motion.p>
@@ -222,7 +229,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
+                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white border-2 border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(27,42,61,0.8)] hover:border-white/30 transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
               >
                 <Link href="/contact" className="text-white">
                   Book a Consultation
@@ -232,7 +239,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white border-0"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-white/10 backdrop-blur-sm border-2 border-white/60 text-white hover:bg-white/20 hover:border-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
               >
                 <Link href="/services" className="text-white">Explore Services</Link>
               </Button>
@@ -249,7 +256,7 @@ export default function Home() {
                   key={stat.label}
                   className="glass-dark rounded-2xl p-4 sm:p-6 md:p-8 card-shadow"
                 >
-                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-mint mb-1 sm:mb-2">
+                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-1 sm:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                     {stat.number}
                   </div>
                   <div className="text-sm sm:text-base md:text-lg text-silver/90 font-body">
@@ -261,12 +268,6 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Subtle Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-1" />
-          </div>
-        </div>
       </section>
 
       {/* Autoplay Hero Video Section */}
@@ -294,7 +295,7 @@ export default function Home() {
                   className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-150 ease-out max-w-md mx-auto md:max-w-none"
                 >
                   <CardHeader className="p-4 sm:p-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-teal/15 flex items-center justify-center mb-3 sm:mb-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-emerald/15 flex items-center justify-center mb-3 sm:mb-4">
                       <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-emerald icon-hover" />
                     </div>
                     <CardTitle className="text-xl sm:text-2xl font-heading text-midnight mb-2">
@@ -320,23 +321,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Divider */}
-      <div className="section-divider">
-        <div className="section-divider-icon">
-          <LogoTreeIcon className="h-9 w-9 opacity-40" />
-        </div>
-      </div>
-
       {/* Mission Statement - Premium Redesigned */}
       <section className="pt-10 sm:pt-12 md:pt-16 lg:pt-20 pb-12 sm:pb-16 md:pb-20 lg:pb-24 bg-gradient-to-b from-mist via-white to-mist relative overflow-hidden">
         {/* Premium textured background */}
         <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-teal/8 to-emerald/15" />
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-emerald/8 to-emerald/15" />
         </div>
         <div 
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A085' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B2A3D' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
         
@@ -364,15 +358,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Divider */}
-      <div className="section-divider">
-        <div className="section-divider-icon">
-          <LogoTreeIcon className="h-9 w-9 opacity-40" />
-        </div>
-      </div>
-
       {/* Why Choose Birchtree - Enhanced */}
-      <section className="py-12 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-midnight via-teal/90 to-midnight text-white relative overflow-hidden">
+      <section className="py-12 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-midnight via-emerald/90 to-midnight text-white relative overflow-hidden">
         {/* Subtle texture overlay */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald/10 to-transparent" />
@@ -417,13 +404,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section Divider */}
-      <div className="section-divider">
-        <div className="section-divider-icon">
-          <LogoTreeIcon className="h-9 w-9 opacity-40" />
-        </div>
-      </div>
-
       {/* Testimonials - Enhanced with avatars */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-32 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -466,6 +446,109 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Proudly Supporting Our Community */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-[#f8f9fa] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-midnight mb-4 sm:mb-6 md:mb-8 section-title px-2">
+              Proudly Supporting Our Community
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed mb-8 sm:mb-12 md:mb-16 max-w-3xl mx-auto px-4">
+              For over a decade, Birchtree Financial has donated to and supported local organizations that align with our values of growth, safety, and opportunity.
+            </p>
+
+            {/* Logo Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
+              {/* Olds Grizzlys Hockey */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/oldsgrizzlesnew.png"
+                    alt="Olds Grizzlys Hockey"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* 4-H Canada */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/canadalogonew.png"
+                    alt="4-H Canada"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* BGC Olds & Area */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/bgcoldsnew.png"
+                    alt="BGC Olds & Area"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* MVESS Shelter */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-center justify-center"
+              >
+                <div className="relative w-[120px] h-auto flex items-center justify-center transition-all duration-300 hover:scale-105">
+                  <Image
+                    src="/mvessnew.png"
+                    alt="MVESS Shelter"
+                    width={400}
+                    height={400}
+                    className="object-contain w-[120px] h-auto"
+                    style={{ background: 'transparent' }}
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA Section - Simplified */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-32 gradient-bg text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-midnight/60" />
@@ -493,7 +576,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(22,160,133,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(27,42,61,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
               >
                 <Link href="/faq" className="text-white">Learn More</Link>
               </Button>
