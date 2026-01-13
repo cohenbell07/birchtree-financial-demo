@@ -168,7 +168,7 @@ export default function Home() {
             {[...Array(3)].map((_, loopIndex) => (
               <div key={loopIndex} className="flex items-center gap-6 md:gap-8 flex-shrink-0">
                 {/* Dow Jones */}
-                {indices.dowJones.price !== null && (
+                {indices.dowJones.price !== null && indices.dowJones.change !== null && indices.dowJones.changePercent !== null && (
                   <a
                     href="https://www.tradingview.com/symbols/DJ-DJI/"
                     target="_blank"
@@ -189,7 +189,7 @@ export default function Home() {
                 )}
 
                 {/* S&P 500 */}
-                {indices.sp500.price !== null && (
+                {indices.sp500.price !== null && indices.sp500.change !== null && indices.sp500.changePercent !== null && (
                   <a
                     href="https://www.tradingview.com/symbols/SPX/"
                     target="_blank"
@@ -210,7 +210,7 @@ export default function Home() {
                 )}
 
                 {/* TSX Composite */}
-                {indices.tsx.price !== null && (
+                {indices.tsx.price !== null && indices.tsx.change !== null && indices.tsx.changePercent !== null && (
                   <a
                     href="https://www.tradingview.com/symbols/TSX-TSX/"
                     target="_blank"
