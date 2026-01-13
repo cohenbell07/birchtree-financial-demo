@@ -51,11 +51,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
-      <body className="font-body antialiased bg-white text-midnight">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+    <html lang="en" className={`${inter.variable} ${sora.variable} h-full`}>
+      <body className="font-body antialiased bg-white text-midnight h-full">
+        <div className="min-h-full flex flex-col w-full max-w-full overflow-x-hidden">
+          <Navbar />
+          <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   )

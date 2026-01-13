@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -117,79 +117,121 @@ const testimonials = [
 
 export default function Home() {
   const animations = useAnimations()
-  const tickerRef = useRef<HTMLDivElement>(null)
+  const [indices, setIndices] = useState<{
+    dowJones: { price: number | null; change: number | null; changePercent: number | null }
+    sp500: { price: number | null; change: number | null; changePercent: number | null }
+    tsx: { price: number | null; change: number | null; changePercent: number | null }
+  }>({
+    dowJones: { price: null, change: null, changePercent: null },
+    sp500: { price: null, change: null, changePercent: null },
+    tsx: { price: null, change: null, changePercent: null },
+  })
 
+  // Fetch all indices data
   useEffect(() => {
-    if (!tickerRef.current) return
+    const fetchAllIndices = async () => {
+      try {
+        const [dowJonesRes, sp500Res, tsxRes] = await Promise.all([
+          fetch('/api/dow-jones').catch(() => null),
+          fetch('/api/sp500').catch(() => null),
+          fetch('/api/tsx').catch(() => null),
+        ])
 
-    // Check if script already exists
-    if (tickerRef.current.querySelector('script')) return
+        const dowJonesData = dowJonesRes?.ok ? await dowJonesRes.json().catch(() => null) : null
+        const sp500Data = sp500Res?.ok ? await sp500Res.json().catch(() => null) : null
+        const tsxData = tsxRes?.ok ? await tsxRes.json().catch(() => null) : null
 
-    // Create widget container div if it doesn't exist
-    let widgetDiv = tickerRef.current.querySelector('.tradingview-widget-container__widget')
-    if (!widgetDiv) {
-      widgetDiv = document.createElement('div')
-      widgetDiv.className = 'tradingview-widget-container__widget'
-      tickerRef.current.appendChild(widgetDiv)
-    }
-
-    // Create and configure TradingView script
-    const script = document.createElement('script')
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js'
-    script.type = 'text/javascript'
-    script.async = true
-    script.textContent = JSON.stringify({
-      symbols: [
-        {
-          proName: 'OANDA:SPX500USD',
-          title: 'S&P 500',
-        },
-        {
-          // Dow Jones Industrial Average (TradingView index symbol)
-          proName: 'TVC:DJI',
-          title: 'Dow Jones',
-        },
-        {
-          proName: 'TSX:TSX',
-          title: 'TSX Composite',
-        },
-      ],
-      showSymbolLogo: true,
-      colorTheme: 'dark',
-      isTransparent: true,
-      displayMode: 'adaptive',
-      locale: 'en',
-    })
-
-    tickerRef.current.appendChild(script)
-
-    return () => {
-      // Cleanup on unmount
-      if (tickerRef.current) {
-        const scriptElement = tickerRef.current.querySelector('script')
-        if (scriptElement) {
-          tickerRef.current.removeChild(scriptElement)
-        }
+        setIndices((prev) => ({
+          dowJones: dowJonesData?.price !== undefined ? dowJonesData : prev.dowJones,
+          sp500: sp500Data?.price !== undefined ? sp500Data : prev.sp500,
+          tsx: tsxData?.price !== undefined ? tsxData : prev.tsx,
+        }))
+      } catch (error) {
+        console.error('Error fetching indices:', error)
       }
     }
+
+    fetchAllIndices()
+    const interval = setInterval(fetchAllIndices, 30000)
+    return () => clearInterval(interval)
   }, [])
 
   return (
-    <div className="min-h-screen">
-      {/* TradingView Ticker Banner */}
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
+      {/* Custom Ticker Banner */}
       <div className="relative bg-midnight border-b border-silver/20 overflow-hidden">
         {/* Subtle premium overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10" />
-        <div className="relative">
-          <div
-            ref={tickerRef}
-            className="tradingview-widget-container"
-            style={{
-              height: '52px',
-              overflow: 'hidden',
-              marginBottom: '0',
-            }}
-          />
+        <div className="relative h-[52px] overflow-hidden">
+          <div className="flex items-center h-full animate-scroll-ticker">
+            {/* Duplicate items for seamless loop */}
+            {[...Array(3)].map((_, loopIndex) => (
+              <div key={loopIndex} className="flex items-center gap-6 md:gap-8 flex-shrink-0">
+                {/* Dow Jones */}
+                {indices.dowJones.price !== null && (
+                  <a
+                    href="https://www.tradingview.com/symbols/DJ-DJI/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
+                  >
+                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">Dow Jones</span>
+                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
+                      {indices.dowJones.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.dowJones.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {indices.dowJones.change >= 0 ? '+' : ''}{indices.dowJones.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
+                      <span className="ml-1">
+                        ({indices.dowJones.changePercent >= 0 ? '+' : ''}{indices.dowJones.changePercent.toFixed(2)}%)
+                      </span>
+                    </span>
+                  </a>
+                )}
+
+                {/* S&P 500 */}
+                {indices.sp500.price !== null && (
+                  <a
+                    href="https://www.tradingview.com/symbols/SPX/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
+                  >
+                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">S&P 500</span>
+                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
+                      {indices.sp500.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.sp500.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {indices.sp500.change >= 0 ? '+' : ''}{indices.sp500.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
+                      <span className="ml-1">
+                        ({indices.sp500.changePercent >= 0 ? '+' : ''}{indices.sp500.changePercent.toFixed(2)}%)
+                      </span>
+                    </span>
+                  </a>
+                )}
+
+                {/* TSX Composite */}
+                {indices.tsx.price !== null && (
+                  <a
+                    href="https://www.tradingview.com/symbols/TSX-TSX/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
+                  >
+                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">TSX Composite</span>
+                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
+                      {indices.tsx.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.tsx.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {indices.tsx.change >= 0 ? '+' : ''}{indices.tsx.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
+                      <span className="ml-1">
+                        ({indices.tsx.changePercent >= 0 ? '+' : ''}{indices.tsx.changePercent.toFixed(2)}%)
+                      </span>
+                    </span>
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

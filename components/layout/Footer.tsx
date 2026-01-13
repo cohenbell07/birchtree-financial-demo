@@ -11,6 +11,7 @@ const footerLinks = {
   ],
   resources: [
     { href: "/resources", label: "Resources" },
+    { href: "/ai-advisor", label: "AI Advisor" },
     { href: "/helpful-tools", label: "Helpful Tools" },
     { href: "/faq", label: "FAQ" },
     { href: "/tools/risk-profiler", label: "Risk Profiler" },
@@ -119,15 +120,15 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-emerald/20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-sm text-silver/70">
             <div className="flex items-start space-x-3">
-              <Phone size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <Phone size={18} className="flex-shrink-0 mt-0.5 text-white" />
               <span className="break-words">(403) 556-7777</span>
             </div>
             <div className="flex items-start space-x-3">
-              <Mail size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <Mail size={18} className="flex-shrink-0 mt-0.5 text-white" />
               <span className="break-all">info@birchtreefinancial.ca</span>
             </div>
             <div className="flex items-start space-x-3">
-              <MapPin size={18} className="flex-shrink-0 mt-0.5 text-emerald" />
+              <MapPin size={18} className="flex-shrink-0 mt-0.5 text-white" />
               <span className="break-words">4914 50 Ave, Olds, AB T4H 1P5</span>
             </div>
           </div>

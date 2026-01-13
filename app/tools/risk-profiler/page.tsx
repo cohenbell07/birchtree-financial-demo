@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts"
 import { TrendingUp } from "lucide-react"
 import LeadCapture from "@/components/LeadCapture"
 
@@ -348,33 +347,78 @@ Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.
                     <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
-                          Risk Profile Breakdown
+                          Your Risk Factors
                         </CardTitle>
+                        <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+                          See how each factor contributes to your risk profile
+                        </CardDescription>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="w-full max-w-full overflow-hidden px-2">
-                          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px] md:h-[300px]">
-                            <RadarChart data={result.scores}>
-                              <PolarGrid stroke="#1B2A3D" opacity={0.3} />
-                              <PolarAngleAxis 
-                                dataKey="category" 
-                                tick={{ fill: "#0B1A2C", fontSize: 10 }} 
-                                className="text-xs"
-                              />
-                              <PolarRadiusAxis 
-                                angle={90} 
-                                domain={[0, 100]} 
-                                tick={{ fill: "#0B1A2C", fontSize: 10 }} 
-                              />
-                              <Radar
-                                name="Risk Score"
-                                dataKey="value"
-                                stroke="#1B2A3D"
-                                fill="#1B2A3D"
-                                fillOpacity={0.6}
-                              />
-                            </RadarChart>
-                          </ResponsiveContainer>
+                        <div className="space-y-4 sm:space-y-5">
+                          {result.scores.map((score, index) => {
+                            // Map technical names to user-friendly labels
+                            const labelMap: Record<string, { label: string; description: string }> = {
+                              "Age Factor": {
+                                label: "Age",
+                                description: "Younger investors typically have higher risk tolerance"
+                              },
+                              "Time Horizon": {
+                                label: "Investment Time Horizon",
+                                description: "Longer time horizons allow for more aggressive strategies"
+                              },
+                              "Risk Tolerance": {
+                                label: "Your Risk Comfort Level",
+                                description: "How comfortable you are with market fluctuations"
+                              },
+                              "Experience": {
+                                label: "Investment Experience",
+                                description: "Your familiarity with investing and financial markets"
+                              }
+                            }
+                            
+                            const info = labelMap[score.category] || { label: score.category, description: "" }
+                            const percentage = Math.round(score.value)
+                            
+                            // Determine color based on score
+                            let barColor = "bg-emerald"
+                            let textColor = "text-emerald"
+                            if (percentage < 40) {
+                              barColor = "bg-blue-500"
+                              textColor = "text-blue-600"
+                            } else if (percentage < 70) {
+                              barColor = "bg-emerald"
+                              textColor = "text-emerald"
+                            } else {
+                              barColor = "bg-amber-500"
+                              textColor = "text-amber-600"
+                            }
+                            
+                            return (
+                              <div key={index} className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex-1">
+                                    <h4 className="text-sm sm:text-base font-semibold text-midnight">
+                                      {info.label}
+                                    </h4>
+                                    {info.description && (
+                                      <p className="text-xs text-midnight/60 mt-0.5">
+                                        {info.description}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <span className={`text-sm sm:text-base font-bold ${textColor} ml-4`}>
+                                    {percentage}%
+                                  </span>
+                                </div>
+                                <div className="w-full bg-silver/20 rounded-full h-3 sm:h-4 overflow-hidden">
+                                  <div
+                                    className={`${barColor} h-full rounded-full transition-all duration-500 ease-out`}
+                                    style={{ width: `${percentage}%` }}
+                                  />
+                                </div>
+                              </div>
+                            )
+                          })}
                         </div>
                       </CardContent>
                     </Card>

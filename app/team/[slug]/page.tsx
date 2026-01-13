@@ -50,7 +50,8 @@ const teamMembers = [
     education: "Computer Science, Information Systems Security",
     specialties: ["Technology Infrastructure", "Cybersecurity", "System Administration"],
     experience: "8+ years",
-    image: "https://ui-avatars.com/api/?name=Kaleb+Birch&size=600&background=0E3B3F&color=7CFFC4",
+    image: "/kalebbirchtreenew.png",
+    hasOfficialPhoto: true,
     email: "kaleb.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
     linkedin: "#",
@@ -80,7 +81,8 @@ const teamMembers = [
     education: "CFP® (Certified Financial Planner), CIM (Canadian Investment Manager)",
     specialties: ["Financial Planning", "Investment Advisory", "Retirement Planning", "Estate Planning"],
     experience: "25+ years",
-    image: "https://ui-avatars.com/api/?name=Art+Birch&size=600&background=16A085&color=ffffff",
+    image: "/artbirchnew.png",
+    hasOfficialPhoto: true,
     email: "art.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
     linkedin: "#",
@@ -116,13 +118,23 @@ export default function TeamMemberPage() {
                 className="lg:col-span-1"
               >
                 <Card className="sticky top-24">
-                  <div className="relative h-48 sm:h-64 w-full">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className={`relative ${member.hasOfficialPhoto ? 'flex items-center justify-center min-h-[500px]' : 'h-48 sm:h-64'} w-full`}>
+                    {member.hasOfficialPhoto ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name === "Art Birch" ? "Art Birch – Financial Advisor" : "Kaleb Birch – IT Specialist"}
+                        width={365}
+                        height={500}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <CardContent className="p-4 sm:p-6">
                     <div className="space-y-4">
