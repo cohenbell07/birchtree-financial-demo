@@ -42,7 +42,6 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || null,
           source,
           tool_data: toolData,
         }),
