@@ -9,6 +9,7 @@ export interface BlogPost {
   publishedAt: string
   tags: string[]
   content: string
+  status?: string // "draft" or "published"
 }
 
 const postsDirectory = path.join(process.cwd(), "content/blog")
@@ -34,7 +35,13 @@ export function getAllPosts(): BlogPost[] {
           publishedAt: data.publishedAt || new Date().toISOString(),
           tags: data.tags || [],
           content,
+          status: data.status || "published",
         }
+      })
+      .filter((post) => {
+        // Only show published posts on public blog page
+        // Drafts are only visible in admin
+        return post.status !== "draft"
       })
       .sort((a, b) => {
         return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
@@ -77,6 +84,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       publishedAt: data.publishedAt || new Date().toISOString(),
       tags: data.tags || [],
       content,
+      status: data.status || "published",
     }
   } catch (error) {
     console.warn(`[Blog] Error reading post ${slug}:`, error)

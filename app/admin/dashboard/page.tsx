@@ -96,18 +96,21 @@ export default function AdminDashboard() {
             <Button
               onClick={() => window.location.href = "/admin/generate-post"}
               variant="outline"
+              className="text-emerald"
             >
               Blog Posts
             </Button>
             <Button
               onClick={() => window.location.href = "/admin/newsletter"}
               variant="outline"
+              className="text-emerald"
             >
               Newsletter
             </Button>
             <Button
               onClick={handleLogout}
               variant="outline"
+              className="text-emerald"
             >
               Logout
             </Button>

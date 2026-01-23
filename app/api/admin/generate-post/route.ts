@@ -14,10 +14,53 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY
  * If OPENAI_API_KEY is not set, returns a friendly message
  */
 export async function POST(request: NextRequest) {
-  // Basic auth check
+  // Admin auth check using cookies
+  const SUPABASE_URL = process.env.SUPABASE_URL
+  const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+  
+  try {
+    if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+      const { cookies } = await import("next/headers")
+      const { createClient } = await import("@supabase/supabase-js")
+      
+      const cookieStore = await cookies()
+      const userId = cookieStore.get("sb-user-id")?.value
+      const sessionToken = cookieStore.get("sb-access-token")?.value
+
+      if (userId && sessionToken) {
+        try {
+          const sessionData = JSON.parse(Buffer.from(sessionToken, "base64").toString())
+          const sessionAge = Date.now() - sessionData.timestamp
+          if (sessionAge <= 7 * 24 * 60 * 60 * 1000 && sessionData.userId === userId) {
+            const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+              auth: { autoRefreshToken: false, persistSession: false },
+            })
+            const { data: adminUser } = await supabase
+              .from("admin_users")
+              .select("id")
+              .eq("id", userId)
+              .single()
+            if (adminUser) {
+              // Admin authenticated via cookies, proceed
+            } else {
+              throw new Error("Not admin")
+            }
+          } else {
+            throw new Error("Invalid session")
+          }
+        } catch {
+          // Fall through to secret check
+        }
+      }
+    }
+  } catch {
+    // Fall through to secret check
+  }
+
+  // Fallback to secret check
   const ADMIN_SECRET = process.env.ADMIN_DASHBOARD_SECRET
   const body = await request.json()
-  const { topic, secret } = body
+  const { topic, secret, publishedAt } = body
 
   if (ADMIN_SECRET && secret !== ADMIN_SECRET) {
     return NextResponse.json(
@@ -94,7 +137,7 @@ export async function POST(request: NextRequest) {
     // Generate frontmatter
     const title = topic.charAt(0).toUpperCase() + topic.slice(1)
     const description = content.substring(0, 160).replace(/\n/g, " ") + "..."
-    const publishedAt = new Date().toISOString().split("T")[0]
+    const publishDate = publishedAt || new Date().toISOString().split("T")[0]
     
     // Extract tags (simplified - in production, use AI to suggest tags)
     const tags = ["Financial Advisory", "Canadian Finance"]
@@ -103,27 +146,22 @@ export async function POST(request: NextRequest) {
     if (topic.toLowerCase().includes("retirement")) tags.push("Retirement Planning")
     if (topic.toLowerCase().includes("tax")) tags.push("Tax Optimization")
 
-    // Create frontmatter
+    // Create frontmatter (don't save yet, return for editing)
     const frontmatter = `---
 title: "${title}"
 description: "${description}"
-publishedAt: "${publishedAt}"
+publishedAt: "${publishDate}"
 tags: ${JSON.stringify(tags)}
 slug: "${slug}"
+status: "draft"
 ---
 
 `
 
     const fullContent = frontmatter + content
 
-    // Save to file (or return for preview)
-    const postsDirectory = path.join(process.cwd(), "content/blog")
-    if (!fs.existsSync(postsDirectory)) {
-      fs.mkdirSync(postsDirectory, { recursive: true })
-    }
-
-    const filePath = path.join(postsDirectory, `${slug}.mdx`)
-    fs.writeFileSync(filePath, fullContent, "utf8")
+    // Don't save automatically - return for preview/editing first
+    // User can save as draft or publish from the UI
 
     return NextResponse.json({
       ok: true,
@@ -132,8 +170,8 @@ slug: "${slug}"
       description,
       tags,
       content: fullContent,
-      saved: true,
-      filePath: filePath.replace(process.cwd(), ""),
+      publishedAt: publishDate,
+      saved: false, // Not saved yet - user will save from UI
     })
   } catch (error: any) {
     console.error("[API] admin/generate-post error:", error)

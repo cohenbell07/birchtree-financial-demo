@@ -7,13 +7,16 @@ export async function GET() {
     const tags = getAllTags()
 
     // Return only metadata, not full content
-    const postsMetadata = posts.map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      description: post.description,
-      publishedAt: post.publishedAt,
-      tags: post.tags,
-    }))
+    // Filter out drafts - only show published posts
+    const postsMetadata = posts
+      .filter((post) => post.status !== "draft")
+      .map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        description: post.description,
+        publishedAt: post.publishedAt,
+        tags: post.tags,
+      }))
 
     return NextResponse.json({
       ok: true,
