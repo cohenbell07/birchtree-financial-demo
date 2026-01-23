@@ -217,20 +217,20 @@ export default function NetWorthTrackerPage() {
                         <div className="space-y-3">
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Net Worth</p>
-                            <p className={`text-2xl sm:text-3xl font-bold ${result.netWorth >= 0 ? "text-mint" : "text-red-300"}`}>
+                            <p className={`text-2xl sm:text-3xl font-bold ${result.netWorth >= 0 ? "text-white" : "text-red-300"}`}>
                               ${result.netWorth.toLocaleString()}
                             </p>
                           </div>
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Debt-to-Income Ratio</p>
-                            <p className="text-xl sm:text-2xl font-semibold">
+                            <p className="text-xl sm:text-2xl font-semibold text-white">
                               {result.debtToIncome.toFixed(1)}%
                             </p>
                           </div>
                           {result.payoffMonths > 0 && (
                             <div>
                               <p className="text-xs sm:text-sm text-silver/80">Estimated Payoff Time</p>
-                              <p className="text-xl sm:text-2xl font-semibold">
+                              <p className="text-xl sm:text-2xl font-semibold text-white">
                                 {result.payoffMonths} months
                               </p>
                             </div>

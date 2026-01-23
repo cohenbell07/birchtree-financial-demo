@@ -272,7 +272,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-mint">
+                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-white">
                           ${result.projectedSavings.toLocaleString()}
                         </div>
                         <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>

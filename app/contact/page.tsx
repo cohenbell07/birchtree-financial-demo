@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
-import CalendarWidget from "@/components/CalendarWidget"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -256,23 +255,33 @@ export default function ContactPage() {
               </motion.div>
             </div>
 
-            {/* Calendar Widget Section */}
+            {/* Calendar Booking Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               id="calendar"
-              className="max-w-md sm:max-w-2xl mx-auto px-2 sm:px-4"
+              className="max-w-4xl mx-auto px-2 sm:px-4"
             >
               <div className="text-center mb-4 sm:mb-6">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-midnight mb-2 px-2">
-                  Select a Date & Time
+                  Schedule a Consultation
                 </h2>
                 <p className="text-sm sm:text-base text-midnight/70 px-4">
-                  Choose a convenient time for your consultation
+                  Choose a convenient date and time for your consultation. We offer Zoom calls, phone consultations, and in-person meetings.
                 </p>
               </div>
-              <CalendarWidget />
+              <Card className="glass shadow-glow-hover border-emerald/20 overflow-hidden">
+                <CardContent className="p-0">
+                  <iframe
+                    src="https://cal.com/birchtreefinancial"
+                    className="w-full border-0 rounded-lg"
+                    style={{ height: "800px", minHeight: "600px" }}
+                    title="Book a consultation with Birchtree Financial"
+                    allow="camera; microphone; geolocation"
+                  />
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
         </div>

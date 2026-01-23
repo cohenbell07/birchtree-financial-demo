@@ -27,7 +27,10 @@ export default function AIAdvisorPage() {
   }
 
   useEffect(() => {
-    scrollToBottom()
+    // Only scroll to bottom when new messages are added, not on initial mount
+    if (messages.length > 1) {
+      scrollToBottom()
+    }
   }, [messages])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -188,7 +191,7 @@ export default function AIAdvisorPage() {
                     <Button
                       type="submit"
                       disabled={!input.trim() || isLoading}
-                      className="relative z-10 w-full text-white"
+                      className="relative z-10 w-full !bg-midnight hover:!bg-midnight-light hover:shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-[1.02] transition-all duration-200 ease-out !text-white [&>*]:!text-white"
                     >
                       {isLoading ? "Thinking..." : "Send Message"}
                       <Send className="ml-2 h-4 w-4" />
@@ -211,7 +214,7 @@ export default function AIAdvisorPage() {
                     Need personalized financial advice? Schedule a consultation
                     with one of our expert advisors.
                   </p>
-                  <Button asChild size="lg" className="relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white [&>*]:text-white">
+                  <Button asChild size="lg" className="relative z-10 !bg-midnight hover:!bg-midnight-light hover:shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-[1.02] transition-all duration-200 ease-out !text-white [&>*]:!text-white">
                     <a href="/contact" className="text-white">Schedule a Consultation</a>
                   </Button>
                 </CardContent>

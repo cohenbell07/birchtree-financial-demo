@@ -253,23 +253,60 @@
     opacity: 0.04;
   }
 
-  /* Scrolling ticker animation */
+  /* Scrolling ticker animation - seamless infinite scroll */
   @keyframes scroll-ticker {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-33.333%);
+      transform: translateX(-50%);
     }
   }
 
   .animate-scroll-ticker {
-    animation: scroll-ticker 30s linear infinite;
+    animation: scroll-ticker 100s linear infinite;
     will-change: transform;
+    display: flex;
+    width: max-content;
+    min-width: 200%;
   }
 
   .animate-scroll-ticker:hover {
     animation-play-state: paused;
+  }
+  
+  /* Ensure smooth scrolling without glitches - prevent any shrinking */
+  .animate-scroll-ticker > * {
+    flex-shrink: 0 !important;
+    min-width: max-content;
+  }
+
+  /* TradingView Widget Styling */
+  .tradingview-widget-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  .tradingview-widget-container__widget {
+    background: transparent !important;
+    height: 100% !important;
+  }
+
+  /* Override TradingView widget colors to match site theme */
+  .tradingview-widget-container iframe {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Ensure TradingView ticker matches our design */
+  .tradingview-widget-container__widget > div {
+    background: transparent !important;
+  }
+
+  /* Style TradingView ticker to match navy blue theme */
+  #tradingview-ticker-container iframe {
+    background: transparent !important;
+    height: 52px !important;
   }
 }
 

@@ -17,7 +17,6 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
@@ -53,7 +52,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
 
       if (data.ok) {
         setSubmitStatus("success")
-        setFormData({ name: "", email: "", phone: "" })
+        setFormData({ name: "", email: "" })
         if (onSuccess) {
           onSuccess()
         }
@@ -83,7 +82,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             Thank You!
           </h3>
           <p className="text-sm sm:text-base text-midnight/70">
-            Your results have been sent to your email. We&apos;ll also keep you updated with valuable financial insights.
+            Your results have been sent to your email.
           </p>
         </CardContent>
       </Card>
@@ -98,7 +97,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
           Get Your Results by Email
         </CardTitle>
         <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
-          Receive your detailed results and stay updated with personalized financial insights.
+          Receive your detailed results and a comprehensive report delivered to your inbox.
         </CardDescription>
       </CardHeader>
       <CardContent className="p-4 sm:p-6 pt-0">
@@ -131,19 +130,6 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="lead-phone">Phone (Optional)</Label>
-            <Input
-              id="lead-phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="(416) 555-1234"
-              className="text-sm sm:text-base"
-            />
-          </div>
-
           {submitStatus === "error" && errorMessage && (
             <div className="p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-800">
               {errorMessage}
@@ -156,7 +142,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             disabled={isSubmitting}
             className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
           >
-            {isSubmitting ? "Sending..." : "Send My Plan & Keep Me Updated"}
+            {isSubmitting ? "Sending..." : "Send My Results by Email"}
           </Button>
         </form>
       </CardContent>

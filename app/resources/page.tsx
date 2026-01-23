@@ -1,12 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, BookOpen, Calculator, FileText, Mail, Book, Globe } from "lucide-react"
+import { ArrowRight, BookOpen, Calculator, FileText, Mail, Book, Globe, CheckCircle2, AlertCircle } from "lucide-react"
 
 
 const resources = [
@@ -131,6 +132,52 @@ const resources = [
 ]
 
 export default function ResourcesPage() {
+  const [newsletterEmail, setNewsletterEmail] = useState("")
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [newsletterMessage, setNewsletterMessage] = useState("")
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!newsletterEmail.trim()) {
+      setNewsletterStatus("error")
+      setNewsletterMessage("Please enter a valid email address")
+      return
+    }
+
+    setNewsletterStatus("loading")
+    setNewsletterMessage("")
+
+    try {
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsletterEmail }),
+      })
+
+      const data = await response.json()
+
+      if (data.ok) {
+        setNewsletterStatus("success")
+        setNewsletterMessage(data.message || "Successfully subscribed!")
+        setNewsletterEmail("")
+      } else {
+        setNewsletterStatus("error")
+        if (data.reason === "invalid_email") {
+          setNewsletterMessage("Please enter a valid email address")
+        } else if (data.reason === "email_not_configured") {
+          setNewsletterMessage("Newsletter subscription is temporarily unavailable. Please try again later.")
+        } else {
+          setNewsletterMessage(data.message || "Something went wrong. Please try again.")
+        }
+      }
+    } catch (error) {
+      console.error("Newsletter subscription error:", error)
+      setNewsletterStatus("error")
+      setNewsletterMessage("Unable to subscribe. Please try again later.")
+    }
+  }
+
   return (
     <div>
       <PageHeader
@@ -164,16 +211,39 @@ export default function ResourcesPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-0">
-                  <form className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <Input
-                      type="email"
-                      placeholder="Enter your email address"
-                      className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
-                    />
-                    <Button type="submit" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white">
-                      Subscribe
-                    </Button>
-                  </form>
+                  {newsletterStatus === "success" ? (
+                    <div className="flex items-center gap-3 p-4 bg-white/10 rounded-lg">
+                      <CheckCircle2 className="h-5 w-5 text-green-300 flex-shrink-0" />
+                      <p className="text-sm sm:text-base text-white">{newsletterMessage}</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <Input
+                          type="email"
+                          value={newsletterEmail}
+                          onChange={(e) => setNewsletterEmail(e.target.value)}
+                          placeholder="Enter your email address"
+                          className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
+                          disabled={newsletterStatus === "loading"}
+                          required
+                        />
+                        <Button 
+                          type="submit" 
+                          disabled={newsletterStatus === "loading"}
+                          className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white disabled:opacity-50"
+                        >
+                          {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
+                        </Button>
+                      </div>
+                      {newsletterStatus === "error" && newsletterMessage && (
+                        <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-400/30 rounded-lg">
+                          <AlertCircle className="h-4 w-4 text-red-200 flex-shrink-0" />
+                          <p className="text-xs sm:text-sm text-red-100">{newsletterMessage}</p>
+                        </div>
+                      )}
+                    </form>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

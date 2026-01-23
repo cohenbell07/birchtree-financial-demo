@@ -7,23 +7,22 @@ import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Mail, Phone, Linkedin } from "lucide-react"
+import { Mail, Phone } from "lucide-react"
 
 const teamMembers = [
   {
     slug: "melissa-birch",
     name: "Melissa Birch",
-    role: "Owner",
-    bio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy.",
-    fullBio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance. Her extensive experience in the financial services industry has shaped Birchtree Financial into a trusted advisory firm known for its integrity, innovation, and client-first approach.",
-    credentials: "CFP®, MBA",
-    education: "MBA in Finance, CFP® (Certified Financial Planner)",
-    specialties: ["Strategic Financial Advisory", "Business Leadership", "Client Relationship Management"],
+    role: "Owner • Financial Advisor",
+    bio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy.",
+    fullBio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance. Her extensive experience in the financial services industry has shaped Birchtree Financial into a trusted advisory firm known for its integrity, innovation, and client-first approach. Melissa is licensed to provide life insurance and accident & sickness insurance products, having completed the Life License Qualification Program (LLQP).",
+    credentials: "LLQP",
+    education: "LLQP (Life License Qualification Program)",
+    specialties: ["Strategic Financial Advisory", "Business Leadership", "Client Relationship Management", "Life Insurance", "Accident & Sickness Insurance"],
     experience: "15+ years",
     image: "https://ui-avatars.com/api/?name=Melissa+Birch&size=600&background=16A085&color=ffffff",
     email: "melissa.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
-    linkedin: "#",
   },
   {
     slug: "kevin-birch",
@@ -36,9 +35,8 @@ const teamMembers = [
     specialties: ["Office Management", "Client Relations", "Operational Excellence"],
     experience: "12+ years",
     image: "https://ui-avatars.com/api/?name=Kevin+Birch&size=600&background=0B1A2C&color=16A085",
-    email: "kevin.birch@birchtreefinancial.ca",
+    email: "",
     phone: "(403) 556-7777",
-    linkedin: "#",
   },
   {
     slug: "kaleb-birch",
@@ -49,12 +47,11 @@ const teamMembers = [
     credentials: "Information Technology, Systems Administration",
     education: "Computer Science, Information Systems Security",
     specialties: ["Technology Infrastructure", "Cybersecurity", "System Administration"],
-    experience: "8+ years",
+    experience: "5+ years",
     image: "/kalebbirchtreenew.png",
     hasOfficialPhoto: true,
-    email: "kaleb.birch@birchtreefinancial.ca",
+    email: "",
     phone: "(403) 556-7777",
-    linkedin: "#",
   },
   {
     slug: "crystal",
@@ -69,23 +66,21 @@ const teamMembers = [
     image: "https://ui-avatars.com/api/?name=Crystal+Smith&size=600&background=2ECC71&color=0B1A2C",
     email: "crystal@birchtreefinancial.ca",
     phone: "(403) 556-7777",
-    linkedin: "#",
   },
   {
     slug: "art-birch",
     name: "Art Birch",
     role: "Founder • Mentor • Financial Advisor",
     bio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals.",
-    fullBio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country. His extensive background in financial planning, investment management, and client relationships has shaped Birchtree Financial into the trusted advisory firm it is today. Art continues to work directly with clients, providing strategic financial guidance and helping families and individuals navigate their financial journeys with confidence and clarity.",
-    credentials: "CFP®, CIM",
-    education: "CFP® (Certified Financial Planner), CIM (Canadian Investment Manager)",
-    specialties: ["Financial Planning", "Investment Advisory", "Retirement Planning", "Estate Planning"],
-    experience: "25+ years",
+    fullBio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country. His extensive background in life insurance, investment management, and client relationships has shaped Birchtree Financial into the trusted advisory firm it is today. Art continues to work directly with clients, providing strategic financial guidance and helping families and individuals navigate their financial journeys with confidence and clarity. Art is licensed to provide life insurance and accident & sickness insurance products, having completed the Life License Qualification Program (LLQP).",
+    credentials: "LLQP",
+    education: "LLQP (Life License Qualification Program)",
+    specialties: ["Life Insurance", "Investment Advisory", "Retirement Planning", "Estate Planning"],
+    experience: "30+ years",
     image: "/artbirchnew.png",
     hasOfficialPhoto: true,
     email: "art.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
-    linkedin: "#",
   },
 ]
 
@@ -151,13 +146,15 @@ export default function TeamMemberPage() {
                       </div>
 
                       <div className="pt-4 border-t border-slate/10 space-y-3">
-                        <a
-                          href={`mailto:${member.email}`}
-                          className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
-                        >
-                          <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
-                          {member.email}
-                        </a>
+                        {member.email && (
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
+                          >
+                            <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
+                            {member.email}
+                          </a>
+                        )}
                         <a
                           href={`tel:${member.phone}`}
                           className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
@@ -165,17 +162,6 @@ export default function TeamMemberPage() {
                           <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
                           {member.phone}
                         </a>
-                        {member.linkedin && (
-                          <a
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
-                          >
-                            <Linkedin className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
-                            LinkedIn
-                          </a>
-                        )}
                       </div>
                     </div>
                   </CardContent>

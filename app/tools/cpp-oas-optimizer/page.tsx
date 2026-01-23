@@ -249,7 +249,7 @@ export default function CPPOASOptimizerPage() {
                           </div>
                           <div className="pt-3 border-t border-white/20">
                             <p className="text-xs sm:text-sm text-silver/80">Projected Lifetime Benefit</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-mint">
+                            <p className="text-2xl sm:text-3xl font-bold text-white">
                               ${result.lifetimeBenefit.toLocaleString()}
                             </p>
                           </div>

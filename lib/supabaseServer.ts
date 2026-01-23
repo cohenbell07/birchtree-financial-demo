@@ -60,21 +60,29 @@ if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
   )
 }
 
+// Email normalization helper
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase()
+}
+
 // Safe database operations
 export const db = {
   // Leads
   async insertLead(lead: Lead) {
     if (!supabaseClient) {
       console.warn("[Supabase] insertLead: Database not configured")
-      return { data: null, error: { message: "Database not configured" } }
+      return { data: null, error: { message: "Database not configured" }, isDuplicate: false }
     }
+
+    // Normalize email
+    const normalizedEmail = normalizeEmail(lead.email)
 
     try {
       const { data, error } = await supabaseClient
         .from("leads")
         .insert({
           name: lead.name,
-          email: lead.email,
+          email: normalizedEmail,
           phone: lead.phone || null,
           source: lead.source,
           tool_data: lead.tool_data || null,
@@ -84,10 +92,51 @@ export const db = {
         .select()
         .single()
 
-      return { data, error }
+      // Check for unique constraint violation (duplicate email + source)
+      if (error?.code === "23505") {
+        // Fetch existing lead
+        const { data: existingLead, error: fetchError } = await supabaseClient
+          .from("leads")
+          .select("*")
+          .eq("email", normalizedEmail)
+          .eq("source", lead.source)
+          .single()
+
+        if (fetchError) {
+          console.error("[Supabase] insertLead: Failed to fetch existing lead after duplicate:", fetchError)
+          return { data: null, error: fetchError, isDuplicate: true }
+        }
+
+        return { data: existingLead, error: null, isDuplicate: true }
+      }
+
+      return { data, error, isDuplicate: false }
     } catch (error: any) {
+      // Handle PostgreSQL unique constraint violation
+      if (error?.code === "23505") {
+        try {
+          // Fetch existing lead
+          const { data: existingLead, error: fetchError } = await supabaseClient!
+            .from("leads")
+            .select("*")
+            .eq("email", normalizedEmail)
+            .eq("source", lead.source)
+            .single()
+
+          if (fetchError) {
+            console.error("[Supabase] insertLead: Failed to fetch existing lead after duplicate:", fetchError)
+            return { data: null, error: fetchError, isDuplicate: true }
+          }
+
+          return { data: existingLead, error: null, isDuplicate: true }
+        } catch (fetchErr: any) {
+          console.error("[Supabase] insertLead error:", fetchErr)
+          return { data: null, error: { message: fetchErr.message || "Unknown error" }, isDuplicate: true }
+        }
+      }
+
       console.error("[Supabase] insertLead error:", error)
-      return { data: null, error: { message: error.message || "Unknown error" } }
+      return { data: null, error: { message: error.message || "Unknown error" }, isDuplicate: false }
     }
   },
 
@@ -199,12 +248,15 @@ export const db = {
       return { data: null, error: { message: "Database not configured" } }
     }
 
+    // Normalize referred email
+    const normalizedEmail = normalizeEmail(referral.referred_email)
+
     try {
       const { data, error } = await supabaseClient
         .from("referrals")
         .insert({
           lead_id: referral.lead_id,
-          referred_email: referral.referred_email,
+          referred_email: normalizedEmail,
           status: referral.status || "invited",
         } as any)
         .select()
@@ -284,6 +336,309 @@ export const db = {
       return { data: null, error: { message: error.message || "Unknown error" } }
     }
   },
+
+  // Newsletter subscriber functions
+  async insertNewsletterSubscriber(subscriber: { email: string; status?: string }) {
+    if (!supabaseClient) {
+      console.warn("[Supabase] insertNewsletterSubscriber: Database not configured")
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    // Normalize email
+    const normalizedEmail = normalizeEmail(subscriber.email)
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_subscribers")
+        .insert({
+          email: normalizedEmail,
+          status: subscriber.status || "active",
+          subscribed_at: new Date().toISOString(),
+        } as any)
+        .select()
+        .single()
+
+      // Handle unique constraint violation (already subscribed)
+      if (error?.code === "23505") {
+        // Fetch existing subscriber
+        const { data: existingSubscriber, error: fetchError } = await supabaseClient
+          .from("newsletter_subscribers")
+          .select("*")
+          .eq("email", normalizedEmail)
+          .single()
+
+        if (fetchError) {
+          console.error("[Supabase] insertNewsletterSubscriber: Failed to fetch existing subscriber after duplicate:", fetchError)
+          return { data: null, error: fetchError }
+        }
+
+        return { data: existingSubscriber, error: null }
+      }
+
+      if (error) {
+        console.error("[Supabase] insertNewsletterSubscriber error:", error)
+        return { data: null, error }
+      }
+
+      return { data, error: null }
+    } catch (error: any) {
+      // Handle PostgreSQL unique constraint violation
+      if (error?.code === "23505") {
+        try {
+          // Fetch existing subscriber
+          const { data: existingSubscriber, error: fetchError } = await supabaseClient!
+            .from("newsletter_subscribers")
+            .select("*")
+            .eq("email", normalizedEmail)
+            .single()
+
+          if (fetchError) {
+            console.error("[Supabase] insertNewsletterSubscriber: Failed to fetch existing subscriber after duplicate:", fetchError)
+            return { data: null, error: fetchError }
+          }
+
+          return { data: existingSubscriber, error: null }
+        } catch (fetchErr: any) {
+          console.error("[Supabase] insertNewsletterSubscriber error:", fetchErr)
+          return { data: null, error: { message: fetchErr.message || "Unknown error" } }
+        }
+      }
+
+      console.error("[Supabase] insertNewsletterSubscriber error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async getNewsletterSubscriber(email: string) {
+    if (!supabaseClient) {
+      console.warn("[Supabase] getNewsletterSubscriber: Database not configured")
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    // Normalize email before query
+    const normalizedEmail = normalizeEmail(email)
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_subscribers")
+        .select("*")
+        .eq("email", normalizedEmail)
+        .eq("status", "active")
+        .single()
+
+      if (error && error.code !== "PGRST116") {
+        // PGRST116 is "not found" which is fine
+        console.error("[Supabase] getNewsletterSubscriber error:", error)
+        return { data: null, error }
+      }
+
+      return { data, error: null }
+    } catch (error: any) {
+      console.error("[Supabase] getNewsletterSubscriber error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async getAllNewsletterSubscribers() {
+    if (!supabaseClient) {
+      console.warn("[Supabase] getAllNewsletterSubscribers: Database not configured")
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_subscribers")
+        .select("*")
+        .eq("status", "active")
+        .order("subscribed_at", { ascending: false })
+
+      if (error) {
+        console.error("[Supabase] getAllNewsletterSubscribers error:", error)
+        return { data: null, error }
+      }
+
+      return { data, error: null }
+    } catch (error: any) {
+      console.error("[Supabase] getAllNewsletterSubscribers error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  // Newsletter posts
+  async getNewsletterPosts() {
+    if (!supabaseClient) {
+      return { data: [], error: null }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_posts")
+        .select("*")
+        .order("created_at", { ascending: false })
+
+      return { data: data || [], error }
+    } catch (error: any) {
+      console.error("[Supabase] getNewsletterPosts error:", error)
+      return { data: [], error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async getNewsletterPost(id: string) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_posts")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] getNewsletterPost error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async createNewsletterPost(post: { subject: string; content_html: string; status?: string }) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_posts")
+        .insert({
+          subject: post.subject,
+          content_html: post.content_html,
+          status: post.status || "draft",
+        } as any)
+        .select()
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] createNewsletterPost error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async updateNewsletterPost(id: string, updates: { subject?: string; content_html?: string; status?: string }) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_posts")
+        .update(updates as any)
+        .eq("id", id)
+        .select()
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] updateNewsletterPost error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async markNewsletterPostSent(id: string) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_posts")
+        .update({
+          status: "sent",
+          sent_at: new Date().toISOString(),
+        } as any)
+        .eq("id", id)
+        .select()
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] markNewsletterPostSent error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  // Newsletter sends (tracking)
+  async createNewsletterSend(send: { post_id: string; subscriber_email: string; status?: string; sent_at?: string }) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_sends")
+        .insert({
+          post_id: send.post_id,
+          subscriber_email: send.subscriber_email,
+          status: send.status || "sent",
+          sent_at: send.sent_at || new Date().toISOString(),
+        } as any)
+        .select()
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] createNewsletterSend error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async getNewsletterSends(postId: string) {
+    if (!supabaseClient) {
+      return { data: [], error: null }
+    }
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("newsletter_sends")
+        .select("*")
+        .eq("post_id", postId)
+        .order("sent_at", { ascending: false })
+
+      return { data: data || [], error }
+    } catch (error: any) {
+      console.error("[Supabase] getNewsletterSends error:", error)
+      return { data: [], error: { message: error.message || "Unknown error" } }
+    }
+  },
+
+  async updateNewsletterSubscriberStatus(email: string, status: string, unsubscribedAt?: string) {
+    if (!supabaseClient) {
+      return { data: null, error: { message: "Database not configured" } }
+    }
+
+    // Normalize email
+    const normalizedEmail = normalizeEmail(email)
+
+    try {
+      const updateData: any = { status }
+      if (unsubscribedAt) {
+        updateData.unsubscribed_at = unsubscribedAt
+      }
+
+      const { data, error } = await supabaseClient
+        .from("newsletter_subscribers")
+        .update(updateData)
+        .eq("email", normalizedEmail)
+        .select()
+        .single()
+
+      return { data, error }
+    } catch (error: any) {
+      console.error("[Supabase] updateNewsletterSubscriberStatus error:", error)
+      return { data: null, error: { message: error.message || "Unknown error" } }
+    }
+  },
 }
 
 /**
@@ -327,6 +682,16 @@ export const db = {
  *   lead_id UUID REFERENCES leads(id) ON DELETE CASCADE,
  *   platform TEXT NOT NULL,
  *   status TEXT DEFAULT 'requested'
+ * );
+ *
+ * -- Newsletter subscribers table
+ * CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+ *   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+ *   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+ *   email TEXT NOT NULL UNIQUE,
+ *   status TEXT DEFAULT 'active',
+ *   subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+ *   unsubscribed_at TIMESTAMP WITH TIME ZONE
  * );
  *
  * -- Indexes for performance

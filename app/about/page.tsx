@@ -66,15 +66,18 @@ export default function AboutPage() {
               whileInView="animate"
               className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
             >
-              {/* Image placeholder left */}
-              <div className="order-2 lg:order-1">
-                <div className="aspect-[4/3] bg-gradient-to-br from-emerald/10 to-emerald/10 rounded-2xl flex items-center justify-center border border-emerald/20">
-                  <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-emerald/20 flex items-center justify-center">
-                      <Target className="h-12 w-12 text-emerald" />
-                    </div>
-                    <p className="text-midnight/60 text-sm">Image Placeholder</p>
-                  </div>
+              {/* Image left */}
+              <div className="order-2 lg:order-1 flex items-center justify-center">
+                <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
+                  <Image
+                    src="/birchtreevision.png"
+                    alt="Birchtree Financial storefront in Alberta"
+                    width={1536}
+                    height={2058}
+                    className="w-full h-auto rounded-2xl shadow-xl object-contain"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
                 </div>
               </div>
               
@@ -258,16 +261,15 @@ export default function AboutPage() {
               Compliance & Standards
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed mb-4 sm:mb-6">
-              As a registered investment advisor in Canada, we adhere to the highest
+              As a registered financial advisory firm in Canada, we adhere to the highest
               standards of professional conduct and regulatory compliance. We are
               committed to transparency, ethical practices, and putting our clients&apos;
               interests first in everything we do.
             </p>
             <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed">
-              Our team holds relevant licenses and certifications, including CFP® (Certified Financial Planner), Chartered Financial Analyst (CFA), and other
-              professional designations. We maintain ongoing education requirements and
+              Our team of licensed financial advisors holds the necessary qualifications to serve clients across Canada. Our advisors are licensed to provide life insurance and accident & sickness insurance products, having completed the Life License Qualification Program (LLQP), which is the standard certification required for insurance advisors in Canada. We maintain ongoing education requirements and
               stay current with evolving Canadian financial regulations, tax laws, and
-              industry best practices.
+              industry best practices to ensure we provide you with the most up-to-date and compliant advice.
             </p>
           </motion.div>
         </div>

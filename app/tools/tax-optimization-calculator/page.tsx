@@ -260,11 +260,11 @@ export default function TaxOptimizationCalculatorPage() {
                         <div className="space-y-3">
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Current Tax Bracket</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-mint">{result.taxBracket}</p>
+                            <p className="text-2xl sm:text-3xl font-bold text-white">{result.taxBracket}</p>
                           </div>
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Potential Annual Savings</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-emerald-light">
+                            <p className="text-xl sm:text-2xl font-semibold text-white">
                               ${result.savings.toLocaleString()}
                             </p>
                           </div>

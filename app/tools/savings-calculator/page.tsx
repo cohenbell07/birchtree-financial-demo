@@ -231,7 +231,7 @@ export default function SavingsCalculatorPage() {
                           <div className="text-xs sm:text-sm text-silver/80 mb-1">
                             Total Savings
                           </div>
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint">
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                             ${result.totalSavings.toLocaleString()}
                           </div>
                         </div>

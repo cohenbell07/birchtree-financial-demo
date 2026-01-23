@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2, Heart, Lightbulb, Handshake } from "lucide-react"
 import HeroBackground from "@/components/HeroBackground"
 import LogoTreeIcon from "@/components/LogoTreeIcon"
 import AutoplayHeroVideo from "@/components/home/AutoplayHeroVideo"
@@ -117,121 +117,83 @@ const testimonials = [
 
 export default function Home() {
   const animations = useAnimations()
-  const [indices, setIndices] = useState<{
-    dowJones: { price: number | null; change: number | null; changePercent: number | null }
-    sp500: { price: number | null; change: number | null; changePercent: number | null }
-    tsx: { price: number | null; change: number | null; changePercent: number | null }
-  }>({
-    dowJones: { price: null, change: null, changePercent: null },
-    sp500: { price: null, change: null, changePercent: null },
-    tsx: { price: null, change: null, changePercent: null },
-  })
 
-  // Fetch all indices data
+  // Load TradingView ticker widget
   useEffect(() => {
-    const fetchAllIndices = async () => {
-      try {
-        const [dowJonesRes, sp500Res, tsxRes] = await Promise.all([
-          fetch('/api/dow-jones').catch(() => null),
-          fetch('/api/sp500').catch(() => null),
-          fetch('/api/tsx').catch(() => null),
-        ])
+    const container = document.getElementById('tradingview-ticker-container')
+    if (!container) return
 
-        const dowJonesData = dowJonesRes?.ok ? await dowJonesRes.json().catch(() => null) : null
-        const sp500Data = sp500Res?.ok ? await sp500Res.json().catch(() => null) : null
-        const tsxData = tsxRes?.ok ? await tsxRes.json().catch(() => null) : null
+    // Check if script already exists
+    if (container.querySelector('script[src*="ticker-tape"]')) return
 
-        setIndices((prev) => ({
-          dowJones: dowJonesData?.price !== undefined ? dowJonesData : prev.dowJones,
-          sp500: sp500Data?.price !== undefined ? sp500Data : prev.sp500,
-          tsx: tsxData?.price !== undefined ? tsxData : prev.tsx,
-        }))
-      } catch (error) {
-        console.error('Error fetching indices:', error)
+    // Create widget div
+    const widgetDiv = document.createElement('div')
+    widgetDiv.className = 'tradingview-widget-container__widget'
+    widgetDiv.style.height = '100%'
+    widgetDiv.style.width = '100%'
+
+    // Create script tag
+    const script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js'
+    script.async = true
+    script.text = JSON.stringify({
+      symbols: [
+        {
+          proName: "FOREXCOM:DJI",
+          title: "Dow Jones"
+        },
+        {
+          proName: "SPX",
+          title: "S&P 500"
+        },
+        {
+          proName: "TSX:TSX",
+          title: "TSX Composite"
+        },
+        {
+          proName: "TVC:GOLD",
+          title: "Gold"
+        },
+        {
+          proName: "TVC:SILVER",
+          title: "Silver"
+        },
+        {
+          proName: "NASDAQ:IXIC",
+          title: "Nasdaq"
+        }
+      ],
+      showSymbolLogo: false,
+      colorTheme: "dark",
+      isTransparent: true,
+      displayMode: "regular",
+      locale: "en"
+    })
+
+    widgetDiv.appendChild(script)
+    container.appendChild(widgetDiv)
+
+    return () => {
+      // Cleanup on unmount
+      if (container && widgetDiv.parentNode === container) {
+        container.removeChild(widgetDiv)
       }
     }
-
-    fetchAllIndices()
-    const interval = setInterval(fetchAllIndices, 30000)
-    return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden">
-      {/* Custom Ticker Banner */}
+      {/* TradingView Ticker Banner */}
       <div className="relative bg-midnight border-b border-silver/20 overflow-hidden">
         {/* Subtle premium overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10 z-0" />
         <div className="relative h-[52px] overflow-hidden">
-          <div className="flex items-center h-full animate-scroll-ticker">
-            {/* Duplicate items for seamless loop */}
-            {[...Array(3)].map((_, loopIndex) => (
-              <div key={loopIndex} className="flex items-center gap-6 md:gap-8 flex-shrink-0">
-                {/* Dow Jones */}
-                {indices.dowJones.price !== null && indices.dowJones.change !== null && indices.dowJones.changePercent !== null && (
-                  <a
-                    href="https://www.tradingview.com/symbols/DJ-DJI/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
-                  >
-                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">Dow Jones</span>
-                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
-                      {indices.dowJones.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </span>
-                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.dowJones.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {indices.dowJones.change >= 0 ? '+' : ''}{indices.dowJones.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
-                      <span className="ml-1">
-                        ({indices.dowJones.changePercent >= 0 ? '+' : ''}{indices.dowJones.changePercent.toFixed(2)}%)
-                      </span>
-                    </span>
-                  </a>
-                )}
-
-                {/* S&P 500 */}
-                {indices.sp500.price !== null && indices.sp500.change !== null && indices.sp500.changePercent !== null && (
-                  <a
-                    href="https://www.tradingview.com/symbols/SPX/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
-                  >
-                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">S&P 500</span>
-                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
-                      {indices.sp500.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </span>
-                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.sp500.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {indices.sp500.change >= 0 ? '+' : ''}{indices.sp500.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
-                      <span className="ml-1">
-                        ({indices.sp500.changePercent >= 0 ? '+' : ''}{indices.sp500.changePercent.toFixed(2)}%)
-                      </span>
-                    </span>
-                  </a>
-                )}
-
-                {/* TSX Composite */}
-                {indices.tsx.price !== null && indices.tsx.change !== null && indices.tsx.changePercent !== null && (
-                  <a
-                    href="https://www.tradingview.com/symbols/TSX-TSX/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity px-4 md:px-6"
-                  >
-                    <span className="text-white/90 text-xs md:text-sm font-medium whitespace-nowrap">TSX Composite</span>
-                    <span className="text-white font-semibold text-xs md:text-sm whitespace-nowrap">
-                      {indices.tsx.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </span>
-                    <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${indices.tsx.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {indices.tsx.change >= 0 ? '+' : ''}{indices.tsx.change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
-                      <span className="ml-1">
-                        ({indices.tsx.changePercent >= 0 ? '+' : ''}{indices.tsx.changePercent.toFixed(2)}%)
-                      </span>
-                    </span>
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
+          <div 
+            id="tradingview-ticker-container"
+            className="tradingview-widget-container" 
+            style={{ height: '100%', width: '100%', position: 'relative' }}
+          />
         </div>
       </div>
 
@@ -290,9 +252,9 @@ export default function Home() {
             {/* Stats Cards - No animations for performance */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto px-4">
               {[
-                { number: "15+", label: "Years Experience" },
+                { number: "30+", label: "Years Experience" },
                 { number: "500+", label: "Clients Served" },
-                { number: "$2B+", label: "Assets Managed" },
+                { number: "$1B+", label: "Assets Managed" },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -363,9 +325,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission Statement - Premium Redesigned */}
-      <section className="pt-10 sm:pt-12 md:pt-16 lg:pt-20 pb-12 sm:pb-16 md:pb-20 lg:pb-24 bg-gradient-to-b from-mist via-white to-mist relative overflow-hidden">
-        {/* Premium textured background */}
+      {/* Mission Statement - Enhanced with Pillars */}
+      <section className="pt-12 sm:pt-16 md:pt-20 lg:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 bg-gradient-to-b from-mist via-white to-mist relative overflow-hidden">
+        {/* Enhanced background effects */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-emerald/8 to-emerald/15" />
         </div>
@@ -377,25 +339,73 @@ export default function Home() {
         />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
-            {/* Elegant birch tree icon */}
-            <div className="flex justify-center mb-6 sm:mb-8">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-emerald/10 flex items-center justify-center">
-                <LogoTreeIcon className="h-[60px] w-[60px] sm:h-[72px] sm:w-[72px]" />
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-10 sm:mb-12 md:mb-16"
+            >
+              <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald/20 to-emerald/10 flex items-center justify-center shadow-lg">
+                  <LogoTreeIcon className="h-[60px] w-[60px] sm:h-[72px] sm:w-[72px] text-emerald" />
+                </div>
               </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-midnight mb-4 sm:mb-6 tracking-tight section-title px-2">
+                Our Mission
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl text-midnight/70 max-w-3xl mx-auto leading-relaxed px-4">
+                Financial planning isn't just about managing money—it's about creating the life you want. We're here to turn your dreams into achievable goals, your goals into actionable plans, and your plans into lasting financial security.
+              </p>
+            </motion.div>
+
+            {/* Mission Pillars */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+              {[
+                {
+                  icon: Heart,
+                  title: "Client-Centered Values",
+                  description: "Your financial well-being is at the heart of everything we do. We listen, understand, and build relationships that last generations."
+                },
+                {
+                  icon: Lightbulb,
+                  title: "Clarity Through Education",
+                  description: "We believe in empowering you with knowledge. Complex financial concepts become clear, so you can make confident decisions about your future."
+                },
+                {
+                  icon: Handshake,
+                  title: "Long-Term Commitment",
+                  description: "We're not just advisors—we're partners in your journey. From planning to execution, we're with you through every milestone."
+                }
+              ].map((pillar, index) => {
+                const Icon = pillar.icon
+                return (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="h-full glass card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-300 hover:shadow-lg">
+                      <CardContent className="p-6 sm:p-8 text-center">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-emerald/20 to-emerald/10 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-md">
+                          <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-emerald" />
+                        </div>
+                        <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4">
+                          {pillar.title}
+                        </h3>
+                        <p className="text-sm sm:text-base text-midnight/70 leading-relaxed">
+                          {pillar.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )
+              })}
             </div>
-            
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-midnight mb-6 sm:mb-8 md:mb-10 tracking-tight section-title px-2">
-              Our Mission
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-midnight/80 leading-relaxed font-body max-w-xl mx-auto px-4">
-              At Birchtree Financial, we believe that financial advisory services are not
-              just about numbers—it&apos;s about empowering you to live the life you
-              envision. Our team of experienced advisors combines deep expertise
-              with personalized attention, crafting strategies that align with
-              your values, goals, and aspirations. We&apos;re committed to being your
-              trusted partner every step of the way.
-            </p>
           </div>
         </div>
       </section>

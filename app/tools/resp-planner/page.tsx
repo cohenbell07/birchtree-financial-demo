@@ -214,19 +214,19 @@ export default function RESPPlannerPage() {
                         <div className="space-y-3">
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Projected Total Value</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-mint">
+                            <p className="text-2xl sm:text-3xl font-bold text-white">
                               ${result.totalValue.toLocaleString()}
                             </p>
                           </div>
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Government Grants</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-emerald-light">
+                            <p className="text-xl sm:text-2xl font-semibold text-white">
                               ${result.governmentGrant.toLocaleString()}
                             </p>
                           </div>
                           <div>
                             <p className="text-xs sm:text-sm text-silver/80">Recommended Monthly Contribution</p>
-                            <p className="text-xl sm:text-2xl font-semibold">
+                            <p className="text-xl sm:text-2xl font-semibold text-white">
                               ${result.monthlyContribution.toLocaleString()}/month
                             </p>
                           </div>

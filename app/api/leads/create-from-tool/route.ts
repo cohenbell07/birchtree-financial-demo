@@ -28,12 +28,20 @@ export async function POST(request: NextRequest) {
     })
 
     const leadId = (leadResult.data as Lead | null)?.id
+    const isDuplicate = leadResult.isDuplicate || false
 
-    // Track event
-    if (leadId) {
+    // Track event (only for new leads, not duplicates)
+    if (leadId && !isDuplicate) {
       await db.insertEvent({
         lead_id: leadId,
         type: "lead_created",
+        meta: { source, tool: source },
+      })
+    } else if (leadId && isDuplicate) {
+      // Track duplicate submission event
+      await db.insertEvent({
+        lead_id: leadId,
+        type: "lead_resubmitted",
         meta: { source, tool: source },
       })
     }
@@ -74,8 +82,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Schedule drip sequence
-    if (leadId) {
+    // Schedule drip sequence (only for new leads, not duplicates)
+    if (leadId && !isDuplicate) {
       const now = new Date()
       
       // Schedule drip emails
@@ -127,6 +135,10 @@ export async function POST(request: NextRequest) {
       ok: true,
       lead_id: leadId,
       email_sent: emailResult.ok,
+      is_duplicate: isDuplicate,
+      message: isDuplicate 
+        ? "You've already submitted this form. We've updated your information." 
+        : "Thank you for your submission!",
     })
   } catch (error: any) {
     console.error("[API] create-from-tool error:", error)

@@ -16,12 +16,12 @@ const faqs = [
   {
     question: "What services does Birchtree Financial provide?",
     answer:
-      "Birchtree Financial offers comprehensive financial advisory and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We work with individuals, families, and business owners to create personalized financial strategies.",
+      "Birchtree Financial offers comprehensive financial advisory and investment management services, including retirement planning, investment management, insurance strategies, tax optimization, wealth building advisory, and estate planning guidance. We also provide benefit packages for both group and individual plans, helping businesses and individuals secure comprehensive coverage that protects their financial future. We work with individuals, families, and business owners to create personalized financial strategies tailored to their unique needs.",
   },
   {
     question: "How do you charge for your services?",
     answer:
-      "We operate on a fee-only basis, which means we are compensated solely through client fees, not through commissions or product sales. This structure ensures we act in your best interest without conflicts of interest. Our fee structure varies based on the services provided and is transparently disclosed during our initial consultation.",
+      "Birchtree Financial is compensated through the company with no fees charged directly to clients. This compensation structure ensures we can act in your best interest without conflicts of interest, as our compensation is not tied to specific product sales or commissions. This approach allows us to provide unbiased financial advice and recommendations that are truly in your best interest. All compensation details are transparently disclosed during our initial consultation.",
   },
   {
     question: "What is a fiduciary, and why does it matter?",

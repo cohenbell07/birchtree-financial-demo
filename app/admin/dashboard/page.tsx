@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { TrendingUp, Users, Mail, BarChart3 } from "lucide-react"
 
 interface DashboardStats {
@@ -72,14 +73,39 @@ export default function AdminDashboard() {
     )
   }
 
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/auth/logout", { method: "POST" })
+      window.location.href = "/admin/login"
+    } catch (err) {
+      console.error("Logout error:", err)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white py-10 sm:py-12 md:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-heading font-bold text-midnight mb-2">
-            Admin Dashboard
-          </h1>
-          <p className="text-midnight/70">Lead generation and analytics overview</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-heading font-bold text-midnight mb-2">
+              Admin Dashboard
+            </h1>
+            <p className="text-midnight/70">Lead generation and analytics overview</p>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => window.location.href = "/admin/newsletter"}
+              variant="outline"
+            >
+              Newsletter
+            </Button>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+            >
+              Logout
+            </Button>
+          </div>
         </div>
 
         {/* Stats Grid */}

@@ -11,9 +11,9 @@ const teamMembers = [
   {
     slug: "melissa-birch",
     name: "Melissa Birch",
-    role: "Owner",
-    bio: "As the owner of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance.",
-    credentials: "CFP®, MBA",
+    role: "Owner • Financial Advisor",
+    bio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance.",
+    credentials: "LLQP",
     image: "https://ui-avatars.com/api/?name=Melissa+Birch&size=600&background=16A085&color=ffffff",
   },
   {
@@ -46,7 +46,7 @@ const teamMembers = [
     name: "Art Birch",
     role: "Founder • Mentor • Financial Advisor",
     bio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country.",
-    credentials: "CFP®, CIM",
+    credentials: "LLQP",
     image: "/artbirchnew.png",
     hasOfficialPhoto: true,
   },
