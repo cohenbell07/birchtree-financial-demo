@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { FileText, CheckCircle2, AlertCircle, Sparkles, Eye, Save, Edit, ArrowLeft, X } from "lucide-react"
+import { FileText, CheckCircle2, AlertCircle, Sparkles, Eye, Save, Edit, ArrowLeft, X, Search, CheckSquare, Square } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 
 // Blog post suggestions
 const blogSuggestions = [
-  "RRSP contribution limits 2025",
+  "RRSP contribution limits",
   "TFSA vs RRSP comparison",
   "Retirement planning strategies",
   "Tax optimization tips for Canadians",
@@ -27,12 +27,27 @@ const blogSuggestions = [
 export default function GeneratePostPage() {
   const router = useRouter()
   const [topic, setTopic] = useState("")
-  const [secret, setSecret] = useState("")
   const [publishDate, setPublishDate] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
   const [editingContent, setEditingContent] = useState(false)
+  const [trendingTopics, setTrendingTopics] = useState<string[]>([])
+  const [selectedTrendingTopics, setSelectedTrendingTopics] = useState<Set<string>>(new Set())
+  const [isLoadingTrending, setIsLoadingTrending] = useState(false)
+  const [multiPostMode, setMultiPostMode] = useState(false)
+  const [generatedPosts, setGeneratedPosts] = useState<Array<{
+    ok: boolean
+    slug?: string
+    title?: string
+    description?: string
+    content?: string
+    publishedAt?: string
+    tags?: string[]
+    message?: string
+    reason?: string
+  }>>([])
+  const [currentPostIndex, setCurrentPostIndex] = useState(0)
   const [result, setResult] = useState<{
     ok: boolean
     slug?: string
@@ -89,12 +104,16 @@ export default function GeneratePostPage() {
     return { frontmatter: {}, body: content }
   }
 
-  const { frontmatter, body } = result?.content ? parseContent(result.content) : { frontmatter: {}, body: "" }
-  const currentTitle = result?.title || frontmatter.title || ""
-  const currentDescription = result?.description || frontmatter.description || ""
-  const currentPublishedAt = result?.publishedAt || frontmatter.publishedAt || defaultDate
-  const currentTags = result?.tags || frontmatter.tags || []
-  const currentSlug = result?.slug || frontmatter.slug || ""
+  const currentResult = multiPostMode && generatedPosts.length > 0 
+    ? generatedPosts[currentPostIndex] 
+    : result
+
+  const { frontmatter, body } = currentResult?.content ? parseContent(currentResult.content) : { frontmatter: {}, body: "" }
+  const currentTitle = currentResult?.title || frontmatter.title || ""
+  const currentDescription = currentResult?.description || frontmatter.description || ""
+  const currentPublishedAt = currentResult?.publishedAt || frontmatter.publishedAt || defaultDate
+  const currentTags = currentResult?.tags || frontmatter.tags || []
+  const currentSlug = currentResult?.slug || frontmatter.slug || ""
   const currentStatus = frontmatter.status || "draft"
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,6 +122,8 @@ export default function GeneratePostPage() {
     setResult(null)
     setShowPreview(false)
     setEditingContent(false)
+    setGeneratedPosts([])
+    setMultiPostMode(false)
 
     try {
       const response = await fetch("/api/admin/generate-post", {
@@ -110,7 +131,6 @@ export default function GeneratePostPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           topic, 
-          secret,
           publishedAt: publishDate || undefined 
         }),
       })
@@ -130,8 +150,81 @@ export default function GeneratePostPage() {
     }
   }
 
+  const handleGenerateMultiple = async () => {
+    if (selectedTrendingTopics.size === 0) {
+      alert("Please select at least one topic to generate")
+      return
+    }
+
+    setIsGenerating(true)
+    setGeneratedPosts([])
+    setMultiPostMode(true)
+    setCurrentPostIndex(0)
+    setShowPreview(false)
+    setEditingContent(false)
+
+    const topics = Array.from(selectedTrendingTopics)
+    const posts: typeof generatedPosts = []
+
+    for (let i = 0; i < topics.length; i++) {
+      try {
+        const response = await fetch("/api/admin/generate-post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            topic: topics[i],
+            publishedAt: publishDate || undefined 
+          }),
+        })
+
+        const data = await response.json()
+        posts.push(data)
+        setGeneratedPosts([...posts])
+        setCurrentPostIndex(i)
+      } catch (error) {
+        posts.push({
+          ok: false,
+          message: `Failed to generate post for "${topics[i]}"`,
+        })
+        setGeneratedPosts([...posts])
+      }
+    }
+
+    setIsGenerating(false)
+    if (posts.length > 0 && posts[0].ok) {
+      setEditingContent(true)
+    }
+  }
+
+  const handleFetchTrending = async () => {
+    setIsLoadingTrending(true)
+    try {
+      const response = await fetch("/api/admin/blog/trending-topics")
+      const data = await response.json()
+      if (data.ok && data.topics) {
+        setTrendingTopics(data.topics)
+      } else {
+        alert("Failed to fetch trending topics: " + (data.error || "Unknown error"))
+      }
+    } catch (error: any) {
+      alert("Failed to fetch trending topics: " + error.message)
+    } finally {
+      setIsLoadingTrending(false)
+    }
+  }
+
+  const toggleTopicSelection = (topic: string) => {
+    const newSelected = new Set(selectedTrendingTopics)
+    if (newSelected.has(topic)) {
+      newSelected.delete(topic)
+    } else {
+      newSelected.add(topic)
+    }
+    setSelectedTrendingTopics(newSelected)
+  }
+
   const handleSave = async (status: "draft" | "published" = "draft") => {
-    if (!result?.content) return
+    if (!currentResult?.content) return
 
     setIsSaving(true)
     try {
@@ -164,7 +257,13 @@ status: "${status}"
 
       const data = await response.json()
       if (data.ok) {
-        setResult({ ...result, content: updatedContent })
+        if (multiPostMode) {
+          const updated = [...generatedPosts]
+          updated[currentPostIndex] = { ...updated[currentPostIndex], content: updatedContent }
+          setGeneratedPosts(updated)
+        } else {
+          setResult({ ...result!, content: updatedContent })
+        }
         alert(`Post saved as ${status}!`)
       } else {
         alert(`Failed to save: ${data.error}`)
@@ -196,11 +295,85 @@ status: "${status}"
             <Button
               onClick={() => router.push("/admin/dashboard")}
               variant="outline"
+              className="text-emerald"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Dashboard
             </Button>
           </div>
+
+          {/* Trending Topics Section */}
+          <Card className="glass shadow-glow-hover border-emerald/20 mb-6">
+            <CardHeader className="p-4 sm:p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
+                    <Search className="mr-2 h-5 w-5 text-emerald" />
+                    Trending Topics
+                  </CardTitle>
+                  <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+                    Discover trending Canadian financial topics and generate multiple posts at once
+                  </CardDescription>
+                </div>
+                <Button
+                  onClick={handleFetchTrending}
+                  disabled={isLoadingTrending}
+                  variant="outline"
+                  size="sm"
+                  className="text-emerald"
+                >
+                  <Search className="h-4 w-4 mr-2" />
+                  {isLoadingTrending ? "Loading..." : "Find Trending Topics"}
+                </Button>
+              </div>
+            </CardHeader>
+            {trendingTopics.length > 0 && (
+              <CardContent className="p-4 sm:p-6 pt-0">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    {trendingTopics.map((topicItem) => (
+                      <button
+                        key={topicItem}
+                        type="button"
+                        onClick={() => toggleTopicSelection(topicItem)}
+                        className={`px-3 py-2 text-sm rounded-md border transition-colors flex items-center gap-2 ${
+                          selectedTrendingTopics.has(topicItem)
+                            ? "bg-emerald/20 border-emerald text-emerald"
+                            : "bg-emerald/10 hover:bg-emerald/20 border-emerald/20 text-emerald"
+                        }`}
+                      >
+                        {selectedTrendingTopics.has(topicItem) ? (
+                          <CheckSquare className="h-4 w-4" />
+                        ) : (
+                          <Square className="h-4 w-4" />
+                        )}
+                        {topicItem}
+                      </button>
+                    ))}
+                  </div>
+                  {selectedTrendingTopics.size > 0 && (
+                    <div className="flex gap-2 pt-2">
+                      <Button
+                        onClick={handleGenerateMultiple}
+                        disabled={isGenerating}
+                        className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white"
+                      >
+                        {isGenerating ? `Generating ${currentPostIndex + 1}/${selectedTrendingTopics.size}...` : `Generate ${selectedTrendingTopics.size} Posts`}
+                      </Button>
+                      <Button
+                        onClick={() => setSelectedTrendingTopics(new Set())}
+                        variant="outline"
+                        size="sm"
+                        className="text-emerald"
+                      >
+                        Clear Selection
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            )}
+          </Card>
 
           {/* Blog Post Suggestions */}
           <Card className="glass shadow-glow-hover border-emerald/20 mb-6">
@@ -230,7 +403,7 @@ status: "${status}"
           </Card>
 
           {/* Generate Form */}
-          {!result?.ok && (
+          {!currentResult?.ok && (
             <Card className="glass shadow-glow-hover border-emerald/20">
               <CardHeader className="p-4 sm:p-6">
                 <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
@@ -251,7 +424,7 @@ status: "${status}"
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
                       required
-                      placeholder="e.g., RRSP deadlines for 2024"
+                      placeholder="e.g., RRSP contribution limits"
                       className="text-sm sm:text-base"
                     />
                     <p className="text-xs text-midnight/50">
@@ -274,23 +447,11 @@ status: "${status}"
                     </p>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="secret">Admin Secret (if configured)</Label>
-                    <Input
-                      id="secret"
-                      type="password"
-                      value={secret}
-                      onChange={(e) => setSecret(e.target.value)}
-                      placeholder="Enter ADMIN_DASHBOARD_SECRET if set"
-                      className="text-sm sm:text-base"
-                    />
-                  </div>
-
                   <Button
                     type="submit"
                     size="lg"
                     disabled={isGenerating || !topic}
-                    className="w-full relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white"
+                    className="w-full relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white !text-white [&>*]:!text-white"
                   >
                     {isGenerating ? "Generating..." : "Generate Blog Post"}
                   </Button>
@@ -299,8 +460,46 @@ status: "${status}"
             </Card>
           )}
 
+          {/* Multi-Post Navigation */}
+          {multiPostMode && generatedPosts.length > 1 && (
+            <Card className="glass shadow-glow-hover border-emerald/20 mt-6">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-midnight/70">
+                      Post {currentPostIndex + 1} of {generatedPosts.length}
+                    </p>
+                    <p className="text-xs text-midnight/50 mt-1">
+                      {generatedPosts[currentPostIndex]?.title || "Untitled"}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => setCurrentPostIndex(Math.max(0, currentPostIndex - 1))}
+                      disabled={currentPostIndex === 0}
+                      variant="outline"
+                      size="sm"
+                      className="text-emerald"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      onClick={() => setCurrentPostIndex(Math.min(generatedPosts.length - 1, currentPostIndex + 1))}
+                      disabled={currentPostIndex === generatedPosts.length - 1}
+                      variant="outline"
+                      size="sm"
+                      className="text-emerald"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Error Display */}
-          {result && !result.ok && (
+          {currentResult && !currentResult.ok && (
             <Card className="bg-red-50 border-red-200 mt-6">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-start space-x-3">
@@ -310,11 +509,16 @@ status: "${status}"
                       Generation Failed
                     </h3>
                     <p className="text-sm text-red-800">
-                      {result.message || result.reason || "Unable to generate post"}
+                      {currentResult.message || currentResult.reason || "Unable to generate post"}
                     </p>
-                    {result.reason === "openai_not_configured" && (
+                    {currentResult.reason === "openai_not_configured" && (
                       <p className="text-xs text-red-700 mt-2">
                         To enable blog generation, set OPENAI_API_KEY in your environment variables.
+                      </p>
+                    )}
+                    {currentResult.reason === "duplicate_topic" && (
+                      <p className="text-xs text-red-700 mt-2">
+                        Please choose a different topic that hasn&apos;t been covered yet.
                       </p>
                     )}
                   </div>
@@ -324,7 +528,7 @@ status: "${status}"
           )}
 
           {/* Generated Post Editor */}
-          {result?.ok && result.content && (
+          {currentResult?.ok && currentResult.content && (
             <Card className="glass shadow-glow-hover border-emerald/20 mt-6">
               <CardHeader className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
@@ -337,6 +541,7 @@ status: "${status}"
                       onClick={() => setShowPreview(!showPreview)}
                       variant="outline"
                       size="sm"
+                      className="text-emerald"
                     >
                       <Eye className="h-4 w-4 mr-2" />
                       {showPreview ? "Hide Preview" : "Preview"}
@@ -347,9 +552,13 @@ status: "${status}"
                         setTopic("")
                         setShowPreview(false)
                         setEditingContent(false)
+                        setGeneratedPosts([])
+                        setMultiPostMode(false)
+                        setCurrentPostIndex(0)
                       }}
                       variant="outline"
                       size="sm"
+                      className="text-emerald"
                     >
                       <X className="h-4 w-4 mr-2" />
                       New Post
@@ -367,11 +576,17 @@ status: "${status}"
                         id="edit-title"
                         value={currentTitle}
                         onChange={(e) => {
-                          const newContent = result.content!.replace(
+                          const newContent = currentResult.content!.replace(
                             /title:\s*"[^"]*"/,
                             `title: "${e.target.value.replace(/"/g, '\\"')}"`
                           )
-                          setResult({ ...result, title: e.target.value, content: newContent })
+                          if (multiPostMode) {
+                            const updated = [...generatedPosts]
+                            updated[currentPostIndex] = { ...updated[currentPostIndex], title: e.target.value, content: newContent }
+                            setGeneratedPosts(updated)
+                          } else {
+                            setResult({ ...currentResult, title: e.target.value, content: newContent })
+                          }
                         }}
                         className="text-sm sm:text-base"
                       />
@@ -391,11 +606,17 @@ status: "${status}"
                         id="edit-description"
                         value={currentDescription}
                         onChange={(e) => {
-                          const newContent = result.content!.replace(
+                          const newContent = currentResult.content!.replace(
                             /description:\s*"[^"]*"/,
                             `description: "${e.target.value.replace(/"/g, '\\"')}"`
                           )
-                          setResult({ ...result, description: e.target.value, content: newContent })
+                          if (multiPostMode) {
+                            const updated = [...generatedPosts]
+                            updated[currentPostIndex] = { ...updated[currentPostIndex], description: e.target.value, content: newContent }
+                            setGeneratedPosts(updated)
+                          } else {
+                            setResult({ ...currentResult, description: e.target.value, content: newContent })
+                          }
                         }}
                         className="text-sm sm:text-base"
                       />
@@ -407,11 +628,17 @@ status: "${status}"
                         type="date"
                         value={currentPublishedAt}
                         onChange={(e) => {
-                          const newContent = result.content!.replace(
+                          const newContent = currentResult.content!.replace(
                             /publishedAt:\s*"[^"]*"/,
                             `publishedAt: "${e.target.value}"`
                           )
-                          setResult({ ...result, publishedAt: e.target.value, content: newContent })
+                          if (multiPostMode) {
+                            const updated = [...generatedPosts]
+                            updated[currentPostIndex] = { ...updated[currentPostIndex], publishedAt: e.target.value, content: newContent }
+                            setGeneratedPosts(updated)
+                          } else {
+                            setResult({ ...currentResult, publishedAt: e.target.value, content: newContent })
+                          }
                         }}
                         className="text-sm sm:text-base"
                       />
@@ -431,7 +658,7 @@ status: "${status}"
                         id="edit-content"
                         value={body}
                         onChange={(e) => {
-                          const { frontmatter: fm } = parseContent(result.content!)
+                          const { frontmatter: fm } = parseContent(currentResult.content!)
                           const newContent = `---
 title: "${fm.title || currentTitle}"
 description: "${fm.description || currentDescription}"
@@ -442,7 +669,13 @@ status: "${fm.status || currentStatus}"
 ---
 
 ${e.target.value}`
-                          setResult({ ...result, content: newContent })
+                          if (multiPostMode) {
+                            const updated = [...generatedPosts]
+                            updated[currentPostIndex] = { ...updated[currentPostIndex], content: newContent }
+                            setGeneratedPosts(updated)
+                          } else {
+                            setResult({ ...currentResult, content: newContent })
+                          }
                         }}
                         rows={20}
                         className="font-mono text-sm"
@@ -460,6 +693,7 @@ ${e.target.value}`
                         onClick={() => setEditingContent(true)}
                         variant="outline"
                         size="sm"
+                        className="text-emerald"
                       >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit Content
@@ -473,6 +707,7 @@ ${e.target.value}`
                       onClick={() => handleSave("draft")}
                       disabled={isSaving}
                       variant="outline"
+                      className="text-emerald"
                     >
                       <Save className="h-4 w-4 mr-2" />
                       {isSaving ? "Saving..." : "Save as Draft"}
@@ -480,7 +715,7 @@ ${e.target.value}`
                     <Button
                       onClick={() => handleSave("published")}
                       disabled={isSaving}
-                      className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white"
+                      className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white !text-white [&>*]:!text-white"
                     >
                       <Save className="h-4 w-4 mr-2" />
                       {isSaving ? "Publishing..." : "Publish"}
@@ -488,6 +723,7 @@ ${e.target.value}`
                     <Button
                       onClick={() => window.open(`/blog/${currentSlug}`, '_blank')}
                       variant="outline"
+                      className="text-emerald"
                     >
                       <Eye className="h-4 w-4 mr-2" />
                       View Post
@@ -499,7 +735,7 @@ ${e.target.value}`
           )}
 
           {/* Preview Modal */}
-          {showPreview && result?.ok && body && (
+          {showPreview && currentResult?.ok && body && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
               <Card className="w-full max-w-4xl max-h-[90vh] overflow-auto glass shadow-glow-hover border-emerald/20">
                 <CardHeader>

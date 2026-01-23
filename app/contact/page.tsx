@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -20,6 +20,16 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -257,9 +267,9 @@ export default function ContactPage() {
 
             {/* Calendar Booking Section */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
               id="calendar"
               className="max-w-4xl mx-auto px-2 sm:px-4"
             >
@@ -267,19 +277,43 @@ export default function ContactPage() {
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-midnight mb-2 px-2">
                   Schedule a Consultation
                 </h2>
-                <p className="text-sm sm:text-base text-midnight/70 px-4">
+                <p className="text-sm sm:text-base text-midnight/70 px-4 mb-4">
                   Choose a convenient date and time for your consultation. We offer Zoom calls, phone consultations, and in-person meetings.
                 </p>
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4">
+                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
+                    <span className="mr-2">📅</span>
+                    <span>Select Date</span>
+                    <span className="ml-2">→</span>
+                  </div>
+                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
+                    <span className="mr-2">⏰</span>
+                    <span>Choose Time</span>
+                    <span className="ml-2">→</span>
+                  </div>
+                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
+                    <span className="mr-2">✅</span>
+                    <span>Confirm</span>
+                  </div>
+                </div>
               </div>
-              <Card className="glass shadow-glow-hover border-emerald/20 overflow-hidden">
-                <CardContent className="p-0">
-                  <iframe
-                    src="https://cal.com/birchtreefinancial"
-                    className="w-full border-0 rounded-lg"
-                    style={{ height: "800px", minHeight: "600px" }}
-                    title="Book a consultation with Birchtree Financial"
-                    allow="camera; microphone; geolocation"
-                  />
+              <Card className="glass shadow-glow-hover border-emerald/20 overflow-hidden bg-white">
+                <CardContent className="p-0 bg-white">
+                  <div className="relative w-full bg-white overflow-x-auto">
+                    <iframe
+                      src="https://cal.com/birchtreefinancial"
+                      className="w-full border-0 rounded-lg bg-white"
+                      style={{ 
+                        height: isMobile ? "700px" : "800px", 
+                        minHeight: isMobile ? "600px" : "700px",
+                        backgroundColor: "white",
+                        width: "100%"
+                      }}
+                      title="Book a consultation with Birchtree Financial"
+                      allow="camera; microphone; geolocation"
+                      loading="lazy"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>

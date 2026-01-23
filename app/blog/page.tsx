@@ -110,40 +110,42 @@ export default function BlogPage() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-4 md:gap-6">
                 {filteredPosts.map((post, index) => (
                   <motion.div
                     key={post.slug}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -5 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full"
                   >
-                    <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                      <CardHeader className="p-4 sm:p-6">
-                        <div className="flex items-center text-xs sm:text-sm text-midnight/60 mb-2">
-                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                          {new Date(post.publishedAt).toLocaleDateString("en-CA", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                    <Card className="h-full glass shadow-glow-hover border-emerald/20 w-full">
+                      <CardHeader className="p-4 sm:p-5">
+                        <div className="flex items-center text-xs text-midnight/60 mb-2">
+                          <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
+                          <span className="truncate">
+                            {new Date(post.publishedAt).toLocaleDateString("en-CA", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </span>
                         </div>
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight mb-2">
+                        <CardTitle className="text-base sm:text-lg font-heading text-midnight mb-2 line-clamp-2">
                           {post.title}
                         </CardTitle>
                         <CardDescription className="text-xs sm:text-sm text-midnight/70 line-clamp-3">
                           {post.description}
                         </CardDescription>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
+                      <CardContent className="p-4 sm:p-5 pt-0">
                         {post.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+                          <div className="flex flex-wrap gap-1.5 mb-3">
                             {post.tags.slice(0, 3).map((tag) => (
                               <span
                                 key={tag}
-                                className="text-xs px-2 py-1 bg-emerald/10 text-emerald rounded"
+                                className="text-xs px-2 py-0.5 bg-emerald/10 text-emerald rounded"
                               >
                                 {tag}
                               </span>
@@ -153,11 +155,11 @@ export default function BlogPage() {
                         <Button
                           asChild
                           size="sm"
-                          className="w-full text-sm !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                          className="w-full text-xs sm:text-sm !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_15px_rgba(22,160,133,0.5)] transition-all duration-150 !text-white [&>*]:!text-white border-0"
                         >
                           <Link href={`/blog/${post.slug}`} className="!text-white">
                             Read More
-                            <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                            <ArrowRight className="ml-1.5 h-3 w-3" />
                           </Link>
                         </Button>
                       </CardContent>

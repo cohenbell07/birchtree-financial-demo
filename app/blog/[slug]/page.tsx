@@ -105,9 +105,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Post Content */}
             <Card className="glass shadow-glow-hover border-emerald/20">
-              <CardContent className="p-6 sm:p-8 md:p-10">
+              <CardContent className="p-4 sm:p-6 md:p-8">
                 <article className="blog-content">
-                  <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-midnight/80">
+                  <div className="prose prose-sm sm:prose-base max-w-none text-midnight/80">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
@@ -127,16 +127,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                           </h3>
                         ),
                         p: ({ children }) => (
-                          <p className="text-base sm:text-lg leading-relaxed mb-4">{children}</p>
+                          <p className="text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">{children}</p>
                         ),
                         ul: ({ children }) => (
-                          <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
+                          <ul className="list-disc list-inside mb-3 sm:mb-4 space-y-1 sm:space-y-2 pl-4">{children}</ul>
                         ),
                         ol: ({ children }) => (
-                          <ol className="list-decimal list-inside mb-4 space-y-2">{children}</ol>
+                          <ol className="list-decimal list-inside mb-3 sm:mb-4 space-y-1 sm:space-y-2 pl-4">{children}</ol>
                         ),
                         li: ({ children }) => (
-                          <li className="text-base sm:text-lg">{children}</li>
+                          <li className="text-sm sm:text-base mb-1">{children}</li>
                         ),
                         a: ({ href, children }) => {
                           const isInternal = href?.startsWith("/")
@@ -163,8 +163,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </Card>
 
             {/* Back to Blog */}
-            <div className="mt-6 sm:mt-8 text-center">
-              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+            <div className="mt-4 sm:mt-6 text-center">
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_15px_rgba(22,160,133,0.5)] transition-all duration-150 !text-white [&>*]:!text-white border-0">
                 <Link href="/blog" className="!text-white">← Back to Blog</Link>
               </Button>
             </div>

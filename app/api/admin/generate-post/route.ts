@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import fs from "fs"
 import path from "path"
+import { getAllPosts } from "@/lib/blog"
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
@@ -57,16 +58,30 @@ export async function POST(request: NextRequest) {
     // Fall through to secret check
   }
 
-  // Fallback to secret check
+  // Fallback to secret check (only if cookie auth failed)
   const ADMIN_SECRET = process.env.ADMIN_DASHBOARD_SECRET
   const body = await request.json()
-  const { topic, secret, publishedAt } = body
+  const { topic, publishedAt } = body
 
-  if (ADMIN_SECRET && secret !== ADMIN_SECRET) {
-    return NextResponse.json(
-      { ok: false, reason: "unauthorized" },
-      { status: 401 }
+  // Check for duplicate topics
+  const existingPosts = getAllPosts()
+  const topicLower = topic.toLowerCase()
+  const isDuplicate = existingPosts.some((post) => {
+    const postTitleLower = post.title.toLowerCase()
+    const postSlugLower = post.slug.toLowerCase()
+    return (
+      postTitleLower.includes(topicLower) ||
+      topicLower.includes(postTitleLower) ||
+      postSlugLower.includes(topicLower.replace(/[^a-z0-9]+/g, "-"))
     )
+  })
+
+  if (isDuplicate) {
+    return NextResponse.json({
+      ok: false,
+      reason: "duplicate_topic",
+      message: "A blog post with a similar topic already exists. Please choose a different topic.",
+    })
   }
 
   if (!topic) {
@@ -104,17 +119,49 @@ export async function POST(request: NextRequest) {
         messages: [
           {
             role: "system",
-            content: `You are a financial content writer for Birchtree Financial, a Canadian financial advisory firm. Write comprehensive, educational blog posts about Canadian financial topics. Always include:
+            content: `You are a financial content writer for Birchtree Financial, a Canadian financial advisory firm based in Olds, Alberta. 
+
+CRITICAL REQUIREMENTS:
+- ALL content must be Canada-specific. Use Canadian financial terms ONLY:
+  * RRSP (Registered Retirement Savings Plan) - NOT 401(k) or IRA
+  * TFSA (Tax-Free Savings Account) - NOT Roth IRA
+  * CPP (Canada Pension Plan) - NOT Social Security
+  * OAS (Old Age Security) - Canadian program
+  * RESP (Registered Education Savings Plan) - Canadian program
+  * CRA (Canada Revenue Agency) - NOT IRS
+  * Canadian dollars (CAD) - NOT USD
+  * Canadian provinces and territories
+  * Canadian tax brackets and rates
+  * Canadian investment regulations
+
+- NEVER mention USA-specific terms like:
+  * 401(k), IRA, Roth IRA, Social Security, IRS, USD, US states, etc.
+
+- Use Canadian examples, regulations, and financial products only
+- Reference Canadian provinces (Alberta, Ontario, BC, etc.)
+- Use Canadian tax brackets and rates
+- Reference Canadian financial institutions and regulations
+
+WRITING STYLE:
 - Clear headings (## for main sections, ### for subsections)
 - Bullet points for lists
-- Internal links to tools like [Risk Profiler](/tools/risk-profiler) or [Retirement Calculator](/tools/retirement-calculator)
-- Canadian-specific information (RRSP, TFSA, CPP, OAS, etc.)
+- Internal links to tools like [Retirement Calculator](/tools/retirement-calculator) or [Tax Optimization Calculator](/tools/tax-optimization-calculator)
 - Professional, helpful tone
-- Actionable advice`,
+- Actionable advice for Canadian readers
+- 800-1200 words, well-structured`,
           },
           {
             role: "user",
-            content: `Write a comprehensive blog post about: ${topic}. Make it 800-1200 words, well-structured with headings, and include internal links to relevant tools on birchtreefinancial.ca. Focus on Canadian financial advisory services.`,
+            content: `Write a comprehensive blog post about: ${topic}. 
+
+IMPORTANT: 
+- This is for a Canadian financial advisory firm
+- Use ONLY Canadian financial terms and regulations
+- Do NOT use any USA-specific financial terms
+- Focus on Canadian tax laws, investment rules, and financial products
+- Make it 800-1200 words, well-structured with headings
+- Include internal links to relevant tools on birchtreefinancial.ca
+- Ensure all examples and references are Canada-specific`,
           },
         ],
         temperature: 0.7,
