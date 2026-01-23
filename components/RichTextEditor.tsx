@@ -1,6 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import { useMemo } from "react"
 
 // Dynamically import react-quill to avoid SSR issues
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
@@ -14,15 +15,41 @@ interface RichTextEditorProps {
 
 export default function RichTextEditor({ value, onChange, placeholder }: RichTextEditorProps) {
   // Minimal toolbar configuration: bold, italic, links, lists
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link"],
-      ["clean"], // Remove formatting button
-    ],
-  }
+  // Custom link handler to ensure it works properly
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link"],
+        ["clean"],
+      ],
+      handlers: {
+        link: function(this: any, value: boolean) {
+          if (value) {
+            const href = prompt('Enter the URL:')
+            if (href) {
+              const quill = this.quill
+              const range = quill.getSelection(true)
+              if (range) {
+                if (range.length === 0) {
+                  // No text selected, insert link text
+                  quill.insertText(range.index, href, 'link', href, 'user')
+                } else {
+                  // Text selected, make it a link
+                  quill.formatText(range.index, range.length, 'link', href, 'user')
+                }
+              }
+            }
+          } else {
+            // Remove link
+            this.quill.format('link', false)
+          }
+        }
+      }
+    },
+  }), [])
 
   const formats = [
     "header",

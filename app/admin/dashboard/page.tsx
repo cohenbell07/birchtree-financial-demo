@@ -94,6 +94,12 @@ export default function AdminDashboard() {
           </div>
           <div className="flex gap-2">
             <Button
+              onClick={() => window.location.href = "/admin/generate-post"}
+              variant="outline"
+            >
+              Blog Posts
+            </Button>
+            <Button
               onClick={() => window.location.href = "/admin/newsletter"}
               variant="outline"
             >
