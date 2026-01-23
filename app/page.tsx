@@ -357,7 +357,7 @@ export default function Home() {
                 Our Mission
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-midnight/70 max-w-3xl mx-auto leading-relaxed px-4">
-                Financial planning isn't just about managing money—it's about creating the life you want. We're here to turn your dreams into achievable goals, your goals into actionable plans, and your plans into lasting financial security.
+                Financial planning isn&apos;t just about managing money—it&apos;s about creating the life you want. We&apos;re here to turn your dreams into achievable goals, your goals into actionable plans, and your plans into lasting financial security.
               </p>
             </motion.div>
 

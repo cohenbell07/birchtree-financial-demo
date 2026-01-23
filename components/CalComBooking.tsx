@@ -75,6 +75,7 @@ export default function CalComBooking({ calComUsername = "birchtree-financial" }
         }
       }, 100)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meetingType, calComLoaded, calComUsername])
 
   const meetingTypes = [
