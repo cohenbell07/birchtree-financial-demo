@@ -107,7 +107,8 @@ export async function GET(request: NextRequest) {
     // Handle gracefully - don't throw errors for already-unsubscribed or non-existent emails
     // This makes the endpoint idempotent (safe to click multiple times)
     const isSuccess = result.data !== null && !result.error
-    const isAlreadyUnsubscribed = result.error?.code === "PGRST116" || result.error?.message?.includes("not found")
+    const error = result.error as any
+    const isAlreadyUnsubscribed = error?.code === "PGRST116" || (error?.message && typeof error.message === "string" && error.message.includes("not found"))
 
     return new NextResponse(
       `
