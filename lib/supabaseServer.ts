@@ -551,15 +551,15 @@ export const db = {
     }
 
     try {
-      const { data, error } = await supabaseClient
+      const { data, error } = await ((supabaseClient as any)
         .from("newsletter_posts")
         .update({
           status: "sent",
           sent_at: new Date().toISOString(),
-        } as any)
+        })
         .eq("id", id)
         .select()
-        .single()
+        .single())
 
       return { data, error }
     } catch (error: any) {
@@ -626,12 +626,12 @@ export const db = {
         updateData.unsubscribed_at = unsubscribedAt
       }
 
-      const { data, error } = await supabaseClient
+      const { data, error } = await ((supabaseClient as any)
         .from("newsletter_subscribers")
         .update(updateData)
         .eq("email", normalizedEmail)
         .select()
-        .single()
+        .single())
 
       return { data, error }
     } catch (error: any) {
