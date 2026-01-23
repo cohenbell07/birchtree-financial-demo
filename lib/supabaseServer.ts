@@ -531,12 +531,12 @@ export const db = {
     }
 
     try {
-      const { data, error } = await supabaseClient
+      const { data, error } = await ((supabaseClient as any)
         .from("newsletter_posts")
-        .update(updates as any)
+        .update(updates)
         .eq("id", id)
         .select()
-        .single()
+        .single())
 
       return { data, error }
     } catch (error: any) {
