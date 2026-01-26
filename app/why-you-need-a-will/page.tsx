@@ -180,10 +180,10 @@ export default function WhyYouNeedAWillPage() {
               transition={{ duration: 0.5, delay: 0.9 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <Button asChild size="lg" className="border-2 border-emerald text-emerald hover:bg-emerald/10 hover:border-emerald-light hover:shadow-md transition-all duration-200 ease-out [&>*]:text-emerald">
+              <Button asChild size="lg" className="border-2 border-emerald text-emerald hover:bg-midnight/10 hover:border-midnight-light hover:shadow-md transition-all duration-200 ease-out [&>*]:text-emerald">
                 <Link href="/contact" className="text-emerald">Speak with a Financial Advisor</Link>
               </Button>
-              <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+              <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
                 <Link href="/helpful-tools" className="!text-white">View Will Planning Checklist</Link>
               </Button>
             </motion.div>

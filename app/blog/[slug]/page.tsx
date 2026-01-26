@@ -55,7 +55,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="text-center">
           <h1 className="text-2xl font-heading font-bold text-midnight mb-2">Post Not Found</h1>
           <p className="text-midnight/70 mb-4">The blog post you&apos;re looking for doesn&apos;t exist.</p>
-          <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+          <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
             <Link href="/blog" className="!text-white">← Back to Blog</Link>
           </Button>
         </div>
@@ -143,7 +143,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                           return (
                             <a
                               href={href}
-                              className={`text-emerald hover:text-emerald-light underline ${isInternal ? "" : "external"}`}
+                              className={`text-emerald hover:text-midnight underline ${isInternal ? "" : "external"}`}
                               {...(isInternal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                             >
                               {children}
@@ -164,7 +164,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Back to Blog */}
             <div className="mt-4 sm:mt-6 text-center">
-              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_15px_rgba(22,160,133,0.5)] transition-all duration-150 !text-white [&>*]:!text-white border-0">
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_15px_rgba(11,26,44,0.5)] transition-all duration-150 !text-white [&>*]:!text-white border-0">
                 <Link href="/blog" className="!text-white">← Back to Blog</Link>
               </Button>
             </div>

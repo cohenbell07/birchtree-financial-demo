@@ -119,7 +119,7 @@ export default function CalComBooking({ calComUsername = "birchtree-financial" }
                   p-4 rounded-lg border-2 transition-all duration-200 text-left
                   ${isSelected
                     ? "border-emerald bg-emerald/10 shadow-md"
-                    : "border-midnight/20 hover:border-emerald/40 hover:bg-emerald/5"
+                    : "border-midnight/20 hover:border-midnight/40 hover:bg-midnight/5"
                   }
                 `}
               >

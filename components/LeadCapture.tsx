@@ -139,7 +139,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             type="submit"
             size="lg"
             disabled={isSubmitting}
-            className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+            className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
           >
             {isSubmitting ? "Sending..." : "Send My Results by Email"}
           </Button>

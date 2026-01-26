@@ -25,6 +25,7 @@ export default function NetWorthTrackerPage() {
     payoffPath: Array<{ month: number; debt: number }>
     summary: string
   } | null>(null)
+  const [insights, setInsights] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const calculateNetWorth = () => {
@@ -94,8 +95,40 @@ export default function NetWorthTrackerPage() {
       if (data.content) {
         calculation.summary = data.content
       }
+
+      // Generate enhanced insights
+      const insightsPrompt = `Net Worth & Debt Analysis - Generate 3-4 actionable insights:
+- Total Assets: $${formData.assets}
+- Total Liabilities: $${formData.liabilities}
+- Net Worth: $${calculation.netWorth.toLocaleString()}
+- Debt-to-Income Ratio: ${calculation.debtToIncome.toFixed(1)}%
+- Monthly Income: $${formData.income}
+- Monthly Expenses: $${formData.expenses}
+- Estimated Payoff Time: ${calculation.payoffMonths} months
+
+Provide 3-4 specific, actionable insights in bullet format. Focus on:
+1. Strategies to improve net worth (increase assets, reduce debt)
+2. Debt payoff acceleration strategies
+3. Budgeting and savings recommendations
+4. Canadian-specific debt management tools and resources
+
+Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
+
+      try {
+        const insightsResponse = await fetch("/api/ai/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: insightsPrompt, type: "net-worth-insights" }),
+        })
+        const insightsData = await insightsResponse.json()
+        setInsights(insightsData.content || null)
+      } catch (error) {
+        console.warn("Insights generation failed:", error)
+        setInsights(null)
+      }
     } catch (error) {
       console.warn("AI summary generation failed, using default")
+      setInsights(null)
     }
 
     setResult(calculation)
@@ -189,7 +222,7 @@ export default function NetWorthTrackerPage() {
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Net Worth"}
@@ -279,6 +312,24 @@ export default function NetWorthTrackerPage() {
                       </Card>
                     )}
 
+                    {insights && (
+                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                        <CardHeader className="p-4 sm:p-6">
+                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
+                            <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            Personalized Insights
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-4 sm:p-6 pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/90">
+                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                              {insights}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
@@ -287,16 +338,18 @@ export default function NetWorthTrackerPage() {
                       </CardContent>
                     </Card>
 
-                    <LeadCapture
-                      source="net-worth-tracker"
-                      toolData={{
-                        netWorth: result.netWorth,
-                        debtToIncome: result.debtToIncome,
-                        payoffMonths: result.payoffMonths,
-                        summary: result.summary,
-                        formData: formData,
-                      }}
-                    />
+                    {false && (
+                      <LeadCapture
+                        source="net-worth-tracker"
+                        toolData={{
+                          netWorth: result.netWorth,
+                          debtToIncome: result.debtToIncome,
+                          payoffMonths: result.payoffMonths,
+                          summary: result.summary,
+                          formData: formData,
+                        }}
+                      />
+                    )}
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">

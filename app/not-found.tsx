@@ -15,7 +15,7 @@ export default function NotFound() {
         <p className="text-base sm:text-lg text-slate mb-6 sm:mb-8 max-w-md mx-auto px-4">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+        <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
           <Link href="/" className="!text-white">
             <Home className="mr-2 h-4 w-4" />
             Return Home

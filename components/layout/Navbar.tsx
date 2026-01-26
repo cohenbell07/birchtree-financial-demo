@@ -73,7 +73,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-midnight hover:text-emerald transition-colors group"
+                className="relative px-4 py-2 text-sm font-medium text-midnight hover:text-midnight transition-colors group"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald group-hover:w-full transition-all duration-300 ease-out opacity-0 group-hover:opacity-100" />
@@ -85,13 +85,13 @@ export default function Navbar() {
               variant="default"
               className="relative z-10 ml-4 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
             >
-              <Link href="/contact" className="!text-white">Book Consultation</Link>
+              <Link href="https://cal.com/birchtreefinancial" target="_blank" rel="noopener noreferrer" className="!text-white">Book Consultation</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-midnight hover:text-emerald transition-colors z-50"
+            className="md:hidden p-2 text-midnight hover:text-midnight transition-colors z-50"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -115,7 +115,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-sm font-medium text-midnight hover:text-emerald transition-colors py-2"
+                  className="block text-sm font-medium text-midnight hover:text-midnight transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -126,7 +126,7 @@ export default function Navbar() {
                 variant="default"
                 className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] !text-white [&>*]:!text-white text-sm sm:text-base mt-2 transition-all duration-200 ease-out"
               >
-                <Link href="/contact" onClick={() => setIsOpen(false)} className="!text-white">
+                <Link href="https://cal.com/birchtreefinancial" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="!text-white">
                   Book Consultation
                 </Link>
               </Button>

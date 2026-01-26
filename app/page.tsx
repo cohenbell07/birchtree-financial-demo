@@ -144,7 +144,7 @@ export default function Home() {
           title: "Dow Jones"
         },
         {
-          proName: "SPX",
+          proName: "OANDA:SPX500USD",
           title: "S&P 500"
         },
         {
@@ -160,14 +160,14 @@ export default function Home() {
           title: "Silver"
         },
         {
-          proName: "NASDAQ:IXIC",
+          proName: "OANDA:NAS100USD",
           title: "Nasdaq"
         }
       ],
-      showSymbolLogo: false,
+      showSymbolLogo: true,
       colorTheme: "dark",
       isTransparent: true,
-      displayMode: "regular",
+      displayMode: "adaptive",
       locale: "en"
     })
 
@@ -233,7 +233,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white border-2 border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(27,42,61,0.8)] hover:border-white/30 transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
+                className="group relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light text-white border-2 border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_32px_rgba(27,42,61,0.8)] hover:border-white/30 transition-all duration-200 ease-out hover:scale-[1.02] [&>*]:text-white"
               >
                 <Link href="/contact" className="text-white">
                   Book a Consultation
@@ -296,7 +296,7 @@ export default function Home() {
               return (
                 <Card
                   key={service.title}
-                  className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-150 ease-out max-w-md mx-auto md:max-w-none"
+                  className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-midnight/40 transition-all duration-150 ease-out max-w-md mx-auto md:max-w-none"
                 >
                   <CardHeader className="p-4 sm:p-6">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-emerald/15 flex items-center justify-center mb-3 sm:mb-4">
@@ -312,7 +312,7 @@ export default function Home() {
                     </CardDescription>
                     <Link
                       href={service.href}
-                      className="text-emerald hover:text-emerald-light font-semibold text-sm inline-flex items-center group transition-colors duration-150 ease-out"
+                      className="text-emerald hover:text-midnight font-semibold text-sm inline-flex items-center group transition-colors duration-150 ease-out"
                     >
                       Learn more
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-150 ease-out will-change-transform" />
@@ -389,7 +389,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="h-full glass card-shadow-hover border-emerald/20 hover:border-emerald/40 transition-all duration-300 hover:shadow-lg">
+                    <Card className="h-full glass card-shadow-hover border-emerald/20 hover:border-midnight/40 transition-all duration-300 hover:shadow-lg">
                       <CardContent className="p-6 sm:p-8 text-center">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-emerald/20 to-emerald/10 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-md">
                           <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-emerald" />
@@ -618,7 +618,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-xl transition-all duration-150 ease-out hover:scale-[1.02] will-change-transform [&>*]:text-white"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light text-white shadow-lg hover:shadow-xl transition-all duration-150 ease-out hover:scale-[1.02] will-change-transform [&>*]:text-white"
               >
                 <Link href="/contact" className="text-white">
                   Book Your Consultation
@@ -628,7 +628,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-emerald-light hover:to-emerald text-white shadow-lg hover:shadow-[0_0_25px_rgba(27,42,61,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light text-white shadow-lg hover:shadow-[0_0_25px_rgba(27,42,61,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
               >
                 <Link href="/faq" className="text-white">Learn More</Link>
               </Button>

@@ -339,7 +339,7 @@ status: "${status}"
                         className={`px-3 py-2 text-sm rounded-md border transition-colors flex items-center gap-2 ${
                           selectedTrendingTopics.has(topicItem)
                             ? "bg-emerald/20 border-emerald text-emerald"
-                            : "bg-emerald/10 hover:bg-emerald/20 border-emerald/20 text-emerald"
+                            : "bg-emerald/10 hover:bg-midnight/20 border-emerald/20 text-emerald"
                         }`}
                       >
                         {selectedTrendingTopics.has(topicItem) ? (
@@ -393,7 +393,7 @@ status: "${status}"
                     key={suggestion}
                     type="button"
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="px-3 py-1.5 text-sm bg-emerald/10 hover:bg-emerald/20 text-emerald rounded-md border border-emerald/20 hover:border-emerald/40 transition-colors"
+                    className="px-3 py-1.5 text-sm bg-emerald/10 hover:bg-midnight/20 text-emerald rounded-md border border-emerald/20 hover:border-midnight/40 transition-colors"
                   >
                     {suggestion}
                   </button>
@@ -756,7 +756,7 @@ ${e.target.value}`
                         h3: ({ children }) => <h3 className="text-xl font-heading font-bold text-midnight mt-6 mb-3">{children}</h3>,
                         p: ({ children }) => <p className="text-midnight/80 mb-4 leading-relaxed">{children}</p>,
                         a: ({ href, children }) => (
-                          <a href={href} className="text-emerald hover:text-emerald-light underline">
+                          <a href={href} className="text-emerald hover:text-midnight underline">
                             {children}
                           </a>
                         ),

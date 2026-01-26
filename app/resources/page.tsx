@@ -193,60 +193,62 @@ export default function ResourcesPage() {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 md:space-y-12">
-            {/* Newsletter Signup */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto md:max-w-none">
-                <CardHeader className="p-4 sm:p-6">
-                  <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-white flex items-center">
-                    <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
-                    Stay Informed
-                  </CardTitle>
-                  <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base mt-2">
-                    Subscribe to our newsletter for monthly financial insights, market
-                    updates, and exclusive resources.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  {newsletterStatus === "success" ? (
-                    <div className="flex items-center gap-3 p-4 bg-white/10 rounded-lg">
-                      <CheckCircle2 className="h-5 w-5 text-green-300 flex-shrink-0" />
-                      <p className="text-sm sm:text-base text-white">{newsletterMessage}</p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleNewsletterSubmit} className="space-y-3">
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <Input
-                          type="email"
-                          value={newsletterEmail}
-                          onChange={(e) => setNewsletterEmail(e.target.value)}
-                          placeholder="Enter your email address"
-                          className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
-                          disabled={newsletterStatus === "loading"}
-                          required
-                        />
-                        <Button 
-                          type="submit" 
-                          disabled={newsletterStatus === "loading"}
-                          className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white disabled:opacity-50"
-                        >
-                          {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
-                        </Button>
+            {/* Newsletter Signup - HIDDEN (ready to re-enable when needed) */}
+            {false && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto md:max-w-none">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-white flex items-center">
+                      <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
+                      Stay Informed
+                    </CardTitle>
+                    <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base mt-2">
+                      Subscribe to our newsletter for monthly financial insights, market
+                      updates, and exclusive resources.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    {newsletterStatus === "success" ? (
+                      <div className="flex items-center gap-3 p-4 bg-white/10 rounded-lg">
+                        <CheckCircle2 className="h-5 w-5 text-green-300 flex-shrink-0" />
+                        <p className="text-sm sm:text-base text-white">{newsletterMessage}</p>
                       </div>
-                      {newsletterStatus === "error" && newsletterMessage && (
-                        <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-400/30 rounded-lg">
-                          <AlertCircle className="h-4 w-4 text-red-200 flex-shrink-0" />
-                          <p className="text-xs sm:text-sm text-red-100">{newsletterMessage}</p>
+                    ) : (
+                      <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                          <Input
+                            type="email"
+                            value={newsletterEmail}
+                            onChange={(e) => setNewsletterEmail(e.target.value)}
+                            placeholder="Enter your email address"
+                            className="flex-1 bg-white/95 text-midnight text-sm sm:text-base border-white/20"
+                            disabled={newsletterStatus === "loading"}
+                            required
+                          />
+                          <Button 
+                            type="submit" 
+                            disabled={newsletterStatus === "loading"}
+                            className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white disabled:opacity-50"
+                          >
+                            {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
+                          </Button>
                         </div>
-                      )}
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
+                        {newsletterStatus === "error" && newsletterMessage && (
+                          <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-400/30 rounded-lg">
+                            <AlertCircle className="h-4 w-4 text-red-200 flex-shrink-0" />
+                            <p className="text-xs sm:text-sm text-red-100">{newsletterMessage}</p>
+                          </div>
+                        )}
+                      </form>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
 
             {/* Helpful Tools Prominent Link */}
             <motion.div
@@ -265,7 +267,7 @@ export default function ResourcesPage() {
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
                     Access government pension benefits information, registered savings plans, will planning checklists, and essential financial resources for Canadians.
                   </p>
-                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
                     <Link href="/helpful-tools" className="!text-white">
                       View Helpful Tools
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -275,8 +277,84 @@ export default function ResourcesPage() {
               </Card>
             </motion.div>
 
-            {/* Resources by Category */}
-            {resources.map((category, categoryIndex) => (
+            {/* Tools Section - Moved here to be right after Helpful Tools */}
+            {resources
+              .filter((category) => category.category === "Tools")
+              .map((category) => (
+                <motion.div
+                  key={category.category}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
+                    {category.category}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                    {category.items.map((item, itemIndex) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.5,
+                          delay: itemIndex * 0.1,
+                        }}
+                        whileHover={{ y: -5 }}
+                      >
+                        <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
+                          <CardHeader className="p-4 sm:p-6">
+                            <div className="flex items-center justify-between mb-2">
+                              {item.type === "Tool" && (
+                                <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
+                              )}
+                              {item.type === "Article" && (
+                                <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
+                              )}
+                              {item.type === "Guide" && (
+                                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
+                              )}
+                              {"readTime" in item && (
+                                <span className="text-xs text-midnight/60">
+                                  {item.readTime}
+                                </span>
+                              )}
+                            </div>
+                            <CardTitle className="text-sm sm:text-base md:text-lg font-heading text-midnight mb-2">
+                              {item.title}
+                            </CardTitle>
+                            <CardDescription className="text-xs sm:text-sm text-midnight/70 leading-relaxed">
+                              {item.description}
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent className="p-4 sm:p-6 pt-0">
+                            {"href" in item ? (
+                              <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
+                                <Link href={item.href} className="!text-white">
+                                  {item.type === "Tool" ? "Use Tool" : "Read More"}
+                                  <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                                </Link>
+                              </Button>
+                            ) : (
+                              <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
+                                Read More
+                                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                              </Button>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+
+            {/* Resources by Category (Articles and Guides only - Tools moved above) */}
+            {resources
+              .filter((category) => category.category !== "Tools")
+              .map((category, categoryIndex) => (
               <motion.div
                 key={category.category}
                 initial={{ opacity: 0, y: 20 }}
@@ -302,7 +380,7 @@ export default function ResourcesPage() {
                     >
                       <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center mb-2">
                             {item.type === "Tool" && (
                               <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
                             )}
@@ -311,11 +389,6 @@ export default function ResourcesPage() {
                             )}
                             {item.type === "Guide" && (
                               <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                            )}
-                            {"readTime" in item && (
-                              <span className="text-xs text-midnight/60">
-                                {item.readTime}
-                              </span>
                             )}
                           </div>
                           <CardTitle className="text-sm sm:text-base md:text-lg font-heading text-midnight mb-2">
@@ -327,14 +400,14 @@ export default function ResourcesPage() {
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
                           {"href" in item ? (
-                            <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
+                            <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
                               <Link href={item.href} className="!text-white">
                                 {item.type === "Tool" ? "Use Tool" : "Read More"}
                                 <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                               </Link>
                             </Button>
                           ) : (
-                            <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
+                            <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
                               Read More
                               <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
@@ -369,7 +442,7 @@ export default function ResourcesPage() {
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
                     Read our latest articles on RRSP strategies, tax optimization, retirement planning, and more.
                   </p>
-                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
                     <Link href="/blog" className="!text-white">
                       Visit Blog
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -397,7 +470,7 @@ export default function ResourcesPage() {
                     financial advisory services require understanding your unique situation.
                     Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
+                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
                     <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>

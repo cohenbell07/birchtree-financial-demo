@@ -25,6 +25,7 @@ export default function BankLoanCalculatorPage() {
     totalAmount: number
     chartData: { year: number; principal: number; interest: number; balance: number }[]
   } | null>(null)
+  const [insights, setInsights] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const calculateLoan = () => {
@@ -111,6 +112,37 @@ export default function BankLoanCalculatorPage() {
 
     const calculation = calculateLoan()
     if (calculation) {
+      // Generate enhanced insights
+      const insightsPrompt = `Loan Analysis - Generate 3-4 actionable insights:
+- Loan Amount: $${formData.loanAmount}
+- Interest Rate: ${formData.interestRate}%
+- Amortization Period: ${formData.amortizationPeriod} years
+- Payment Frequency: ${formData.paymentFrequency}
+- ${formData.paymentFrequency === "monthly" ? "Monthly" : "Biweekly"} Payment: $${calculation.payment.toLocaleString()}
+- Total Interest: $${calculation.totalInterest.toLocaleString()}
+- Total Amount Paid: $${calculation.totalAmount.toLocaleString()}
+
+Provide 3-4 specific, actionable insights in bullet format. Focus on:
+1. Strategies to reduce total interest paid
+2. Impact of making extra payments
+3. Refinancing considerations
+4. Budget planning and affordability tips
+
+Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
+
+      try {
+        const insightsResponse = await fetch("/api/ai/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: insightsPrompt, type: "loan-insights" }),
+        })
+        const insightsData = await insightsResponse.json()
+        setInsights(insightsData.content || null)
+      } catch (error) {
+        console.warn("Insights generation failed:", error)
+        setInsights(null)
+      }
+
       setResult(calculation)
     }
     setIsLoading(false)
@@ -221,7 +253,7 @@ export default function BankLoanCalculatorPage() {
                       <Button
                         type="submit"
                         size="lg"
-                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Payment"}
@@ -339,6 +371,24 @@ export default function BankLoanCalculatorPage() {
                       </CardContent>
                     </Card>
 
+                    {insights && (
+                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                        <CardHeader className="p-4 sm:p-6">
+                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
+                            <DollarSign className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            Personalized Insights
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-4 sm:p-6 pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/90">
+                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                              {insights}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
@@ -348,15 +398,17 @@ export default function BankLoanCalculatorPage() {
                     </Card>
 
                     {/* Lead Capture */}
-                    <LeadCapture
-                      source="bank-loan-calculator"
-                      toolData={{
-                        payment: result.payment,
-                        totalInterest: result.totalInterest,
-                        totalAmount: result.totalAmount,
-                        formData: formData,
-                      }}
-                    />
+                    {false && (
+                      <LeadCapture
+                        source="bank-loan-calculator"
+                        toolData={{
+                          payment: result.payment,
+                          totalInterest: result.totalInterest,
+                          totalAmount: result.totalAmount,
+                          formData: formData,
+                        }}
+                      />
+                    )}
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">

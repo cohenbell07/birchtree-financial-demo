@@ -79,7 +79,7 @@ const teamMembers = [
     experience: "30+ years",
     image: "/artbirchnew.png",
     hasOfficialPhoto: true,
-    email: "art.birch@birchtreefinancial.ca",
+    email: "",
     phone: "(403) 556-7777",
   },
 ]
@@ -149,7 +149,7 @@ export default function TeamMemberPage() {
                         {member.email && (
                           <a
                             href={`mailto:${member.email}`}
-                            className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
+                            className="flex items-center text-sm sm:text-base text-slate hover:text-midnight transition-colors duration-150 ease-out"
                           >
                             <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
                             {member.email}
@@ -157,7 +157,7 @@ export default function TeamMemberPage() {
                         )}
                         <a
                           href={`tel:${member.phone}`}
-                          className="flex items-center text-sm sm:text-base text-slate hover:text-emerald transition-colors duration-150 ease-out"
+                          className="flex items-center text-sm sm:text-base text-slate hover:text-midnight transition-colors duration-150 ease-out"
                         >
                           <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-3" />
                           {member.phone}
@@ -226,7 +226,7 @@ export default function TeamMemberPage() {
             </div>
 
             <div className="mt-8 sm:mt-12 text-center">
-              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
                 <Link href="/team" className="!text-white">Back to Team</Link>
               </Button>
             </div>

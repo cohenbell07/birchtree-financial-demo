@@ -24,6 +24,7 @@ export default function RetirementCalculatorPage() {
     summary: string
     chartData: { age: number; savings: number }[]
   } | null>(null)
+  const [insights, setInsights] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const calculateRetirement = () => {
@@ -104,12 +105,44 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
         ...calculation,
         summary: data.content || "Calculation complete. Please consult with a financial advisor for personalized guidance.",
       })
+
+      // Generate enhanced insights
+      const insightsPrompt = `Retirement Analysis - Generate 3-4 actionable insights:
+- Current Age: ${formData.currentAge}
+- Retirement Age: ${formData.retirementAge}
+- Current Savings: $${parseFloat(formData.currentSavings || "0").toLocaleString()}
+- Annual Contribution: $${parseFloat(formData.annualContribution || "0").toLocaleString()}
+- Expected Return: ${formData.expectedReturn}%
+- Projected Savings at Retirement: $${calculation.projectedSavings.toLocaleString()}
+- Years to Retirement: ${parseInt(formData.retirementAge || "65") - parseInt(formData.currentAge || "30")}
+
+Provide 3-4 specific, actionable insights in bullet format. Focus on:
+1. How this projection compares to typical Canadian retirement needs
+2. Specific strategies to improve the outcome (e.g., "Increasing contributions by $X/month would add $Y to retirement")
+3. Key considerations for this age and timeline
+4. Canadian-specific opportunities (RRSP, TFSA, CPP, OAS)
+
+Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
+
+      try {
+        const insightsResponse = await fetch("/api/ai/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: insightsPrompt, type: "retirement-insights" }),
+        })
+        const insightsData = await insightsResponse.json()
+        setInsights(insightsData.content || null)
+      } catch (error) {
+        console.warn("Insights generation failed:", error)
+        setInsights(null)
+      }
     } catch (error) {
       console.error("Error generating summary:", error)
       setResult({
         ...calculation,
         summary: "Your retirement projection has been calculated. Please consult with a financial advisor for personalized guidance.",
       })
+      setInsights(null)
     } finally {
       setIsLoading(false)
     }
@@ -247,7 +280,7 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                       <Button
                         type="submit"
                         size="lg"
-                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Projection"}
@@ -331,6 +364,24 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                       </CardContent>
                     </Card>
 
+                    {insights && (
+                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                        <CardHeader className="p-4 sm:p-6">
+                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
+                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            Personalized Insights
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-4 sm:p-6 pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/90">
+                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                              {insights}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
@@ -345,15 +396,17 @@ Provide a brief, educational summary (2-3 sentences) of this retirement projecti
                     </Card>
 
                     {/* Lead Capture */}
-                    <LeadCapture
-                      source="retirement-calculator"
-                      toolData={{
-                        projectedSavings: result.projectedSavings,
-                        summary: result.summary,
-                        chartData: result.chartData,
-                        formData: formData,
-                      }}
-                    />
+                    {false && (
+                      <LeadCapture
+                        source="retirement-calculator"
+                        toolData={{
+                          projectedSavings: result.projectedSavings,
+                          summary: result.summary,
+                          chartData: result.chartData,
+                          formData: formData,
+                        }}
+                      />
+                    )}
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">

@@ -191,13 +191,11 @@ export default function ResourcePage() {
             {/* Resource Meta */}
             <Card className="glass shadow-glow-hover border-emerald/20 mb-6 sm:mb-8">
               <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center gap-4 text-sm text-midnight/70">
+                <div className="flex items-center text-sm text-midnight/70">
                   <div className="flex items-center">
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-2" />
                     <span className="font-medium">{resource.type}</span>
                   </div>
-                  <span>•</span>
-                  <span>{resource.readTime}</span>
                 </div>
               </CardContent>
             </Card>
@@ -247,7 +245,7 @@ export default function ResourcePage() {
                 <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-xl mx-auto">
                   While this resource provides valuable information, personalized financial planning requires understanding your unique situation. Schedule a consultation to discuss your specific needs.
                 </p>
-                <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+                <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
                   <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
                 </Button>
               </CardContent>
@@ -255,7 +253,7 @@ export default function ResourcePage() {
 
             {/* Back to Resources */}
             <div className="mt-6 sm:mt-8 text-center">
-              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
+              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
                 <Link href="/resources" className="!text-white">
                   ← Back to Resources
                 </Link>

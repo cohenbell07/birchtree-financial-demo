@@ -58,7 +58,7 @@ export default function CalendarWidget() {
         <div className="flex items-center justify-between">
           <button
             onClick={handlePrevMonth}
-            className="p-1 hover:bg-emerald/10 rounded-lg transition-colors flex-shrink-0"
+            className="p-1 hover:bg-midnight/10 rounded-lg transition-colors flex-shrink-0"
             aria-label="Previous month"
           >
             <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-midnight/70" />
@@ -68,7 +68,7 @@ export default function CalendarWidget() {
           </CardTitle>
           <button
             onClick={handleNextMonth}
-            className="p-1 hover:bg-emerald/10 rounded-lg transition-colors flex-shrink-0"
+            className="p-1 hover:bg-midnight/10 rounded-lg transition-colors flex-shrink-0"
             aria-label="Next month"
           >
             <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-midnight/70" />
@@ -108,7 +108,7 @@ export default function CalendarWidget() {
                   ${isPast 
                     ? 'text-midnight/30 cursor-not-allowed' 
                     : isAvailable
-                      ? 'text-midnight hover:bg-emerald/10 hover:border hover:border-emerald/30 cursor-pointer'
+                      ? 'text-midnight hover:bg-midnight/10 hover:border hover:border-midnight/30 cursor-pointer'
                       : 'text-midnight/40 cursor-not-allowed'
                   }
                   ${isToday ? 'bg-emerald/20 border-2 border-emerald font-bold' : ''}

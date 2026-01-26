@@ -20,18 +20,6 @@ export default function AIAdvisorPage() {
   ])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  useEffect(() => {
-    // Only scroll to bottom when new messages are added, not on initial mount
-    if (messages.length > 1) {
-      scrollToBottom()
-    }
-  }, [messages])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,9 +41,11 @@ export default function AIAdvisorPage() {
       })
 
       const data = await response.json()
+      const content = data.content || "I apologize, but I couldn't generate a response. Please try again."
+      
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.content || "I apologize, but I couldn't generate a response. Please try again." },
+        { role: "assistant", content },
       ])
     } catch (error) {
       console.error("Error getting AI response:", error)
@@ -121,35 +111,51 @@ export default function AIAdvisorPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <Card className="h-[500px] sm:h-[600px] flex flex-col glass shadow-glow-hover border-emerald/20">
-                <CardHeader className="border-b border-emerald/20">
+              <Card className="h-[500px] sm:h-[600px] flex flex-col glass shadow-glow-hover border-emerald/20 overflow-hidden">
+                <CardHeader className="border-b border-emerald/20 flex-shrink-0">
                   <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
                     Chat with AI Advisor
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col p-0">
+                <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
                   {/* Messages */}
-                  <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4">
-                    {messages.map((message, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={`flex ${
-                          message.role === "user" ? "justify-end" : "justify-start"
-                        }`}
-                      >
-                        <div
-                          className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-3 sm:p-4 ${
-                            message.role === "user"
-                              ? "bg-gradient-to-r from-emerald to-emerald-light text-white shadow-glow"
-                              : "glass border-emerald/20 text-midnight"
+                  <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4 min-h-0">
+                    {messages.map((message, index) => {
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className={`flex ${
+                            message.role === "user" ? "justify-end" : "justify-start"
                           }`}
                         >
-                          <p className="text-sm sm:text-base whitespace-pre-wrap">{message.content}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                          <div
+                            className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-3 sm:p-4 break-words ${
+                              message.role === "user"
+                                ? "bg-gradient-to-r from-emerald to-emerald-light text-white shadow-glow"
+                                : "glass border-emerald/20 text-midnight"
+                            }`}
+                            style={{ 
+                              wordBreak: 'break-word',
+                              overflowWrap: 'break-word',
+                              hyphens: 'auto'
+                            }}
+                          >
+                            <p 
+                              className="text-sm sm:text-base whitespace-pre-wrap"
+                              style={{ 
+                                wordBreak: 'break-word',
+                                overflowWrap: 'break-word',
+                                hyphens: 'auto'
+                              }}
+                            >
+                              {message.content}
+                            </p>
+                          </div>
+                        </motion.div>
+                      )
+                    })}
                     {isLoading && (
                       <div className="flex justify-start">
                         <div className="bg-cream-dark rounded-lg p-4">
@@ -167,20 +173,22 @@ export default function AIAdvisorPage() {
                         </div>
                       </div>
                     )}
-                    <div ref={messagesEndRef} />
                   </div>
 
                   {/* Input Form */}
                   <form
                     onSubmit={handleSubmit}
-                    className="border-t p-3 sm:p-4 space-y-2 sm:space-y-3"
+                    className="border-t border-emerald/20 p-3 sm:p-4 space-y-2 sm:space-y-3 flex-shrink-0 bg-white"
                   >
                     <Textarea
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       placeholder="Ask a question about financial advisory services..."
                       rows={2}
-                      className="resize-none text-sm sm:text-base"
+                      className="resize-none min-h-[44px] w-full text-base"
+                      style={{ 
+                        fontSize: '16px'
+                      }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
                           e.preventDefault()
@@ -201,25 +209,6 @@ export default function AIAdvisorPage() {
               </Card>
             </motion.div>
 
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 text-center"
-            >
-              <Card className="glass shadow-glow-hover border-emerald/20">
-                <CardContent className="pt-6">
-                  <p className="text-base sm:text-lg text-midnight/80 mb-3 sm:mb-4">
-                    Need personalized financial advice? Schedule a consultation
-                    with one of our expert advisors.
-                  </p>
-                  <Button asChild size="lg" className="relative z-10 !bg-midnight hover:!bg-midnight-light hover:shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-[1.02] transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                    <a href="/contact" className="text-white">Schedule a Consultation</a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
           </div>
         </div>
       </section>

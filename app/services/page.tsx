@@ -155,7 +155,7 @@ export default function ServicesPage() {
                       </ul>
                       <Link
                         href={`/services/${service.slug}`}
-                        className="text-emerald hover:text-emerald-light font-medium text-xs sm:text-sm inline-flex items-center group mt-auto"
+                        className="text-emerald hover:text-midnight font-medium text-xs sm:text-sm inline-flex items-center group mt-auto"
                       >
                         Learn more
                         <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />

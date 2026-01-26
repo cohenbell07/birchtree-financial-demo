@@ -34,6 +34,7 @@ export default function TFSAvsRRSPAnalyzerPage() {
       savingsOutcome: { tfsa: number; rrsp: number }
     }
   } | null>(null)
+  const [insights, setInsights] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const calculateComparison = () => {
@@ -116,8 +117,39 @@ export default function TFSAvsRRSPAnalyzerPage() {
       if (data.content) {
         calculation.summary = data.content
       }
+
+      // Generate enhanced insights
+      const insightsPrompt = `TFSA vs RRSP Analysis - Generate 3-4 actionable insights:
+- Age: ${formData.age}
+- Annual Income: $${formData.income}
+- Province: ${formData.province}
+- Recommendation: ${calculation.recommendation}
+- TFSA Projected Benefit (30 years): $${calculation.tfsaBenefit.toLocaleString()}
+- RRSP Projected Benefit (30 years): $${calculation.rrspBenefit.toLocaleString()}
+
+Provide 3-4 specific, actionable insights in bullet format. Focus on:
+1. Why the recommendation makes sense for their situation
+2. Contribution strategies (maximizing both accounts if possible)
+3. Tax optimization opportunities
+4. Long-term wealth building strategies using both accounts
+
+Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
+
+      try {
+        const insightsResponse = await fetch("/api/ai/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: insightsPrompt, type: "tfsa-rrsp-insights" }),
+        })
+        const insightsData = await insightsResponse.json()
+        setInsights(insightsData.content || null)
+      } catch (error) {
+        console.warn("Insights generation failed:", error)
+        setInsights(null)
+      }
     } catch (error) {
       console.warn("AI summary generation failed, using default")
+      setInsights(null)
     }
 
     setResult(calculation)
@@ -206,7 +238,7 @@ export default function TFSAvsRRSPAnalyzerPage() {
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
                         disabled={isLoading}
                       >
                         {isLoading ? "Analyzing..." : "Compare TFSA vs RRSP"}
@@ -269,6 +301,24 @@ export default function TFSAvsRRSPAnalyzerPage() {
                       </CardContent>
                     </Card>
 
+                    {insights && (
+                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                        <CardHeader className="p-4 sm:p-6">
+                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
+                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            Personalized Insights
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-4 sm:p-6 pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/90">
+                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                              {insights}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
                     <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
@@ -278,15 +328,17 @@ export default function TFSAvsRRSPAnalyzerPage() {
                     </Card>
 
                     {/* Lead Capture */}
-                    <LeadCapture
-                      source="tfsa-rrsp-analyzer"
-                      toolData={{
-                        recommendation: result.recommendation,
-                        summary: result.summary,
-                        comparison: result.comparison,
-                        formData: formData,
-                      }}
-                    />
+                    {false && (
+                      <LeadCapture
+                        source="tfsa-rrsp-analyzer"
+                        toolData={{
+                          recommendation: result.recommendation,
+                          summary: result.summary,
+                          comparison: result.comparison,
+                          formData: formData,
+                        }}
+                      />
+                    )}
                   </div>
                 ) : (
                   <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">

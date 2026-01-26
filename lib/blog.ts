@@ -21,23 +21,32 @@ export function getAllPosts(): BlogPost[] {
     }
 
     const fileNames = fs.readdirSync(postsDirectory)
-    const allPosts = fileNames
+    const postsMap = new Map<string, BlogPost>()
+    
+    fileNames
       .filter((name) => name.endsWith(".mdx"))
-      .map((fileName) => {
+      .forEach((fileName) => {
         const fullPath = path.join(postsDirectory, fileName)
         const fileContents = fs.readFileSync(fullPath, "utf8")
         const { data, content } = matter(fileContents)
 
-        return {
-          slug: data.slug || fileName.replace(/\.mdx$/, ""),
-          title: data.title || "Untitled",
-          description: data.description || "",
-          publishedAt: data.publishedAt || new Date().toISOString(),
-          tags: data.tags || [],
-          content,
-          status: data.status || "published",
+        const slug = data.slug || fileName.replace(/\.mdx$/, "")
+        
+        // Deduplicate by slug - keep the first one found (newest files should be processed first)
+        if (!postsMap.has(slug)) {
+          postsMap.set(slug, {
+            slug,
+            title: data.title || "Untitled",
+            description: data.description || "",
+            publishedAt: data.publishedAt || new Date().toISOString(),
+            tags: Array.isArray(data.tags) ? data.tags.slice(0, 2) : [], // Limit to max 2 tags
+            content,
+            status: data.status || "published",
+          })
         }
       })
+
+    const allPosts = Array.from(postsMap.values())
       .filter((post) => {
         // Only show published posts on public blog page
         // Drafts are only visible in admin

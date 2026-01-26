@@ -64,56 +64,56 @@ export default function HelpfulToolsPage() {
                       href="https://www.canada.ca/en/services/benefits/publicpensions/cpp.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           General CPP Info
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/services/benefits/publicpensions/cpp/apply.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           How to Apply for CPP
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/employment-social-development/corporate/portfolio/service-canada.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           OAS Info
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/employment-social-development/corporate/portfolio/service-canada.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           How to Apply for OAS
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <div className="flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg sm:col-span-2">
@@ -154,60 +154,60 @@ export default function HelpfulToolsPage() {
                       href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-education-savings-plans-resps.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Registered Education Savings Plan (RESP)
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/what-home-buyers-plan/participate-home-buyers-plan.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <Home className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Home Buyers Plan (HBP)
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/lifelong-learning-plan.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Lifelong Learning Plan (LLP)
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
 
                     <Link
                       href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-disability-savings-plan-rdsp.html"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-emerald/50 hover:shadow-md transition-all duration-200"
+                      className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
                       <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
                       <div className="flex-1">
-                        <div className="font-medium text-midnight group-hover:text-emerald transition-colors text-sm sm:text-base">
+                        <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Registered Disability Savings Plan (RDSP)
                         </div>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-emerald transition-colors ml-2 flex-shrink-0" />
+                      <ExternalLink className="h-4 w-4 text-slate/60 group-hover:text-midnight transition-colors ml-2 flex-shrink-0" />
                     </Link>
                   </div>
                 </CardContent>
@@ -250,7 +250,7 @@ export default function HelpfulToolsPage() {
                     ))}
                   </ul>
                   <div className="mt-6 sm:mt-8 pt-6 border-t border-silver/20">
-                    <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+                    <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
                       <Link href="/why-you-need-a-will" className="!text-white">
                         Learn More About Why You Need a Will
                       </Link>
@@ -275,7 +275,7 @@ export default function HelpfulToolsPage() {
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-xl mx-auto">
                     While these resources provide valuable information, personalized financial and estate planning requires understanding your unique situation. Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(22,160,133,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
+                  <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
                     <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>

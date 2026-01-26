@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-emerald to-emerald-light text-white hover:shadow-lg hover:scale-[1.02] hover:from-emerald-light hover:to-emerald shadow-md",
+        default: "bg-gradient-to-r from-emerald to-emerald-light text-white hover:shadow-lg hover:scale-[1.02] hover:from-midnight hover:to-midnight-light shadow-md",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md",
         outline:
-          "border-2 border-emerald text-emerald hover:bg-emerald/10 hover:shadow-md hover:border-emerald-light [&>*]:text-emerald",
+          "border-2 border-emerald text-emerald hover:bg-midnight/10 hover:shadow-md hover:border-midnight-light [&>*]:text-emerald",
         secondary:
-          "bg-emerald text-white hover:bg-emerald-light hover:shadow-md shadow-md",
-        ghost: "text-midnight hover:bg-white/50 hover:text-emerald [&>*]:text-midnight [&>*]:hover:text-emerald",
-        link: "text-emerald underline-offset-4 hover:underline [&>*]:text-emerald",
+          "bg-emerald text-white hover:bg-midnight hover:shadow-md shadow-md",
+        ghost: "text-midnight hover:bg-white/50 hover:text-midnight [&>*]:text-midnight [&>*]:hover:text-midnight",
+        link: "text-emerald underline-offset-4 hover:underline hover:text-midnight [&>*]:text-emerald [&>*]:hover:text-midnight",
         champagne: "bg-gradient-to-r from-gold to-gold-light text-white hover:shadow-lg shadow-md [&>*]:text-white",
       },
       size: {

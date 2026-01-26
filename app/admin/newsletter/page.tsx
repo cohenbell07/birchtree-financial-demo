@@ -206,7 +206,7 @@ export default function NewsletterAdmin() {
           {!showForm && (
             <Button
               onClick={handleNewPost}
-              className="bg-emerald hover:bg-emerald/90 text-white"
+              className="bg-emerald hover:bg-midnight/90 text-white"
             >
               <Plus className="h-4 w-4 mr-2" />
               New Newsletter
@@ -271,7 +271,7 @@ export default function NewsletterAdmin() {
                 <Button
                   onClick={handleSavePost}
                   disabled={isSaving}
-                  className="bg-emerald hover:bg-emerald/90 text-white"
+                  className="bg-emerald hover:bg-midnight/90 text-white"
                 >
                   <Save className="h-4 w-4 mr-2" />
                   {isSaving ? "Saving..." : "Save Draft"}
@@ -330,7 +330,7 @@ export default function NewsletterAdmin() {
                 <p className="text-midnight/70 mb-4">No newsletters yet</p>
                 <Button
                   onClick={handleNewPost}
-                  className="bg-emerald hover:bg-emerald/90 text-white"
+                  className="bg-emerald hover:bg-midnight/90 text-white"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Create Your First Newsletter
@@ -390,7 +390,7 @@ export default function NewsletterAdmin() {
                           size="sm"
                           onClick={() => handleSendNewsletter(post.id)}
                           disabled={isSending === post.id}
-                          className="bg-emerald hover:bg-emerald/90 text-white"
+                          className="bg-emerald hover:bg-midnight/90 text-white"
                         >
                           <Send className="h-4 w-4 mr-2" />
                           {isSending === post.id ? "Sending..." : "Send Newsletter"}
