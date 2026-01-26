@@ -400,9 +400,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="retirement-calculator"
                         toolData={{
-                          projectedSavings: result.projectedSavings,
-                          summary: result.summary,
-                          chartData: result.chartData,
+                          projectedSavings: result!.projectedSavings,
+                          summary: result!.summary,
+                          chartData: result!.chartData,
                           formData: formData,
                         }}
                       />

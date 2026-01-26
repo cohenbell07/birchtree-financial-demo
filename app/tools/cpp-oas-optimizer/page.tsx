@@ -323,10 +323,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="cpp-oas-optimizer"
                         toolData={{
-                          cppAge: result.cppAge,
-                          oasAge: result.oasAge,
-                          lifetimeBenefit: result.lifetimeBenefit,
-                          summary: result.summary,
+                          cppAge: result!.cppAge,
+                          oasAge: result!.oasAge,
+                          lifetimeBenefit: result!.lifetimeBenefit,
+                          summary: result!.summary,
                           formData: formData,
                         }}
                       />

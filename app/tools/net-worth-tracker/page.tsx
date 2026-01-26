@@ -342,10 +342,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="net-worth-tracker"
                         toolData={{
-                          netWorth: result.netWorth,
-                          debtToIncome: result.debtToIncome,
-                          payoffMonths: result.payoffMonths,
-                          summary: result.summary,
+                          netWorth: result!.netWorth,
+                          debtToIncome: result!.debtToIncome,
+                          payoffMonths: result!.payoffMonths,
+                          summary: result!.summary,
                           formData: formData,
                         }}
                       />

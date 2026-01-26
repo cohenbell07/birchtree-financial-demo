@@ -359,10 +359,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="tax-optimization-calculator"
                         toolData={{
-                          taxBracket: result.taxBracket,
-                          savings: result.savings,
-                          tips: result.tips,
-                          summary: result.summary,
+                          taxBracket: result!.taxBracket,
+                          savings: result!.savings,
+                          tips: result!.tips,
+                          summary: result!.summary,
                           formData: formData,
                         }}
                       />

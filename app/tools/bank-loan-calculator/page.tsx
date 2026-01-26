@@ -402,9 +402,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="bank-loan-calculator"
                         toolData={{
-                          payment: result.payment,
-                          totalInterest: result.totalInterest,
-                          totalAmount: result.totalAmount,
+                          payment: result!.payment,
+                          totalInterest: result!.totalInterest,
+                          totalAmount: result!.totalAmount,
                           formData: formData,
                         }}
                       />

@@ -375,9 +375,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="savings-calculator"
                         toolData={{
-                          totalSavings: result.totalSavings,
-                          totalContributions: result.totalContributions,
-                          interestEarned: result.interestEarned,
+                          totalSavings: result!.totalSavings,
+                          totalContributions: result!.totalContributions,
+                          interestEarned: result!.interestEarned,
                           formData: formData,
                         }}
                       />

@@ -299,10 +299,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="resp-planner"
                         toolData={{
-                          projectedGrowth: result.projectedGrowth,
-                          governmentGrant: result.governmentGrant,
-                          monthlyContribution: result.monthlyContribution,
-                          summary: result.summary,
+                          projectedGrowth: result!.projectedGrowth,
+                          governmentGrant: result!.governmentGrant,
+                          monthlyContribution: result!.monthlyContribution,
+                          summary: result!.summary,
                           formData: formData,
                         }}
                       />

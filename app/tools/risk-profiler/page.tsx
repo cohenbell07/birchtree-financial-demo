@@ -492,9 +492,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="risk-profiler"
                         toolData={{
-                          category: result.category,
-                          summary: result.summary,
-                          scores: result.scores,
+                          category: result!.category,
+                          summary: result!.summary,
+                          scores: result!.scores,
                           formData: formData,
                         }}
                       />

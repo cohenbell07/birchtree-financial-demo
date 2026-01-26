@@ -332,9 +332,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <LeadCapture
                         source="tfsa-rrsp-analyzer"
                         toolData={{
-                          recommendation: result.recommendation,
-                          summary: result.summary,
-                          comparison: result.comparison,
+                          recommendation: result!.recommendation,
+                          summary: result!.summary,
+                          comparison: result!.comparison,
                           formData: formData,
                         }}
                       />
