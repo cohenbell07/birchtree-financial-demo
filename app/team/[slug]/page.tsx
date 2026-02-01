@@ -64,7 +64,7 @@ const teamMembers = [
     specialties: ["Client Communication", "Administrative Support", "Customer Service"],
     experience: "5+ years",
     image: "https://ui-avatars.com/api/?name=Crystal+Smith&size=600&background=2ECC71&color=0B1A2C",
-    email: "crystal@birchtreefinancial.ca",
+    email: "",
     phone: "(403) 556-7777",
   },
   {

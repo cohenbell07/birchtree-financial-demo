@@ -22,9 +22,9 @@ const teamMembers = [
   },
   {
     slug: "crystal",
-    name: "Crystal",
-    role: "Receptionist",
-    bio: "Crystal is the welcoming face of Birchtree Financial, serving as our Receptionist.",
+    name: "Crystal Smith",
+    role: "Bookkeeper",
+    bio: "Crystal Smith is the welcoming face of Birchtree Financial, serving as our Bookkeeper. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth.",
   },
   {
     slug: "art-birch",

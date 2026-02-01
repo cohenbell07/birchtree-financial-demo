@@ -123,26 +123,24 @@ export default function TeamPage() {
                       </p>
                     </div>
                     
-                    {member.slug !== "crystal" && (
-                      <>
-                        <p className="text-base sm:text-lg text-silver/80 leading-relaxed font-body">
-                          {member.bio}
-                        </p>
-                        
-                        <div className="pt-2">
-                          <Button
-                            asChild
-                            size="lg"
-                            className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light hover:shadow-[0_0_20px_rgba(27,42,61,0.5)] !text-white [&>*]:!text-white text-sm sm:text-base border-0 transition-all duration-200 ease-out"
-                          >
-                            <Link href={`/team/${member.slug}`} className="!text-white">
-                              Learn More
-                              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                            </Link>
-                          </Button>
-                        </div>
-                      </>
-                    )}
+                    <>
+                      <p className="text-base sm:text-lg text-silver/80 leading-relaxed font-body">
+                        {member.bio}
+                      </p>
+                      
+                      <div className="pt-2">
+                        <Button
+                          asChild
+                          size="lg"
+                          className="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light hover:shadow-[0_0_20px_rgba(27,42,61,0.5)] !text-white [&>*]:!text-white text-sm sm:text-base border-0 transition-all duration-200 ease-out"
+                        >
+                          <Link href={`/team/${member.slug}`} className="!text-white">
+                            Learn More
+                            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </>
                   </div>
                 </div>
 
