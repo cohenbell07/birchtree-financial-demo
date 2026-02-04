@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Inter, Sora } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
@@ -65,6 +66,7 @@ export default function RootLayout({
           <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   )
