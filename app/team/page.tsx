@@ -38,7 +38,7 @@ const teamMembers = [
   {
     slug: "crystal",
     name: "Crystal Smith",
-    role: "Bookkeeper",
+    role: "Bookkeeper • Office Administrator",
     bio: "Crystal Smith is the welcoming face of Birchtree Financial, serving as our Bookkeeper. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth. Crystal's attention to detail and excellent communication skills help create a positive first impression and seamless client experience.",
     credentials: "Client Services, Administrative Support",
     image: "https://ui-avatars.com/api/?name=Crystal+Smith&size=600&background=2ECC71&color=0B1A2C",
