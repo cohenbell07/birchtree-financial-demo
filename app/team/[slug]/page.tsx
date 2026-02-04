@@ -20,7 +20,8 @@ const teamMembers = [
     education: "LLQP (Life License Qualification Program)",
     specialties: ["Strategic Financial Advisory", "Business Leadership", "Client Relationship Management", "Life Insurance", "Accident & Sickness Insurance"],
     experience: "15+ years",
-    image: "https://ui-avatars.com/api/?name=Melissa+Birch&size=600&background=16A085&color=ffffff",
+    image: "/melissaupdate.png",
+    hasOfficialPhoto: true,
     email: "melissa.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
   },
@@ -34,7 +35,8 @@ const teamMembers = [
     education: "Business Administration, Client Relations Management",
     specialties: ["Office Management", "Client Relations", "Operational Excellence"],
     experience: "12+ years",
-    image: "https://ui-avatars.com/api/?name=Kevin+Birch&size=600&background=0B1A2C&color=16A085",
+    image: "/kevinupdate.png",
+    hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",
   },
@@ -117,7 +119,15 @@ export default function TeamMemberPage() {
                     {member.hasOfficialPhoto ? (
                       <Image
                         src={member.image}
-                        alt={member.name === "Art Birch" ? "Art Birch – Financial Advisor" : "Kaleb Birch – IT Specialist"}
+                        alt={
+                          member.name === "Art Birch" 
+                            ? "Art Birch – Financial Advisor" 
+                            : member.name === "Kaleb Birch"
+                            ? "Kaleb Birch – IT Specialist"
+                            : member.name === "Melissa Birch"
+                            ? "Melissa Birch – Owner & Financial Advisor"
+                            : "Kevin Birch – Co-owner & Office Administrator"
+                        }
                         width={365}
                         height={500}
                         className="object-contain"

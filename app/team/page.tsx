@@ -14,7 +14,8 @@ const teamMembers = [
     role: "Owner • Financial Advisor",
     bio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance.",
     credentials: "LLQP",
-    image: "https://ui-avatars.com/api/?name=Melissa+Birch&size=600&background=16A085&color=ffffff",
+    image: "/melissaupdate.png",
+    hasOfficialPhoto: true,
   },
   {
     slug: "kevin-birch",
@@ -22,7 +23,8 @@ const teamMembers = [
     role: "Co-owner & Office Administrator",
     bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences. His expertise in administrative systems and client relations helps maintain the high standards of service that define Birchtree Financial. Kevin works closely with the team to streamline processes and support our advisory services.",
     credentials: "Office Administration, Client Relations",
-    image: "https://ui-avatars.com/api/?name=Kevin+Birch&size=600&background=0B1A2C&color=16A085",
+    image: "/kevinupdate.png",
+    hasOfficialPhoto: true,
   },
   {
     slug: "kaleb-birch",
@@ -92,7 +94,15 @@ export default function TeamPage() {
                     {member.hasOfficialPhoto ? (
                       <Image
                         src={member.image}
-                        alt={member.name === "Art Birch" ? "Art Birch – Financial Advisor" : "Kaleb Birch – IT Specialist"}
+                        alt={
+                          member.name === "Art Birch" 
+                            ? "Art Birch – Financial Advisor" 
+                            : member.name === "Kaleb Birch"
+                            ? "Kaleb Birch – IT Specialist"
+                            : member.name === "Melissa Birch"
+                            ? "Melissa Birch – Owner & Financial Advisor"
+                            : "Kevin Birch – Co-owner & Office Administrator"
+                        }
                         width={365}
                         height={500}
                         className="object-contain rounded-2xl"
