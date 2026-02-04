@@ -35,7 +35,7 @@ const teamMembers = [
     education: "Business Administration, Client Relations Management",
     specialties: ["Office Management", "Client Relations", "Operational Excellence"],
     experience: "12+ years",
-    image: "/kevinupdate.png",
+    image: "/Kevinupdate.png",
     hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",

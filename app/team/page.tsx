@@ -23,7 +23,7 @@ const teamMembers = [
     role: "Co-owner & Office Administrator",
     bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences. His expertise in administrative systems and client relations helps maintain the high standards of service that define Birchtree Financial. Kevin works closely with the team to streamline processes and support our advisory services.",
     credentials: "Office Administration, Client Relations",
-    image: "/kevinupdate.png",
+    image: "/Kevinupdate.png",
     hasOfficialPhoto: true,
   },
   {
