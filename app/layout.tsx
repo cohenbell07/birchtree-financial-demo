@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_CA",
-    url: "https://birchtreefinancial.com",
+    url: "https://birchtreefinancial.ca",
     siteName: "Birchtree Financial",
     title: "Birchtree Financial | Premium Financial Advisory Services",
     description: "Expert financial advisory and wealth management services.",
