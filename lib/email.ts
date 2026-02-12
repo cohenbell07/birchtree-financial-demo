@@ -291,3 +291,69 @@ export async function sendReferralInviteEmail(lead: Lead, referredEmail: string,
   return sendEmail(referredEmail, `${lead.name} Referred You to Birchtree Financial`, html)
 }
 
+interface ContactFormData {
+  name: string
+  email: string
+  phone: string
+  subject: string
+  message: string
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+}
+
+export async function sendContactFormEmail(data: ContactFormData) {
+  const to = "melissa.birch@birchtreefinancial.ca"
+  const subject = `Contact Form: ${data.subject}`
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head><meta charset="utf-8"><style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #0B1A2C; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #0B1A2C 0%, #16A085 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+        .content { background: #F5F7FA; padding: 24px; border-radius: 0 0 8px 8px; }
+        .field { margin-bottom: 16px; }
+        .field-label { font-weight: 600; color: #0B1A2C; margin-bottom: 4px; }
+        .field-value { background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #16A085; }
+      </style></head>
+      <body>
+        <div class="container">
+          <div class="header"><h1>New Contact Form Submission</h1></div>
+          <div class="content">
+            <div class="field">
+              <div class="field-label">Name</div>
+              <div class="field-value">${escapeHtml(data.name)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Email</div>
+              <div class="field-value">${escapeHtml(data.email)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Phone</div>
+              <div class="field-value">${data.phone ? escapeHtml(data.phone) : "(not provided)"}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Subject</div>
+              <div class="field-value">${escapeHtml(data.subject)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Message</div>
+              <div class="field-value" style="white-space: pre-wrap;">${escapeHtml(data.message)}</div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+  `
+
+  return sendEmail(to, subject, html)
+}
+
