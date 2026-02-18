@@ -230,7 +230,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Email</h3>
-                        <p className="text-xs sm:text-sm text-midnight/70 break-all">info@birchtreefinancial.ca</p>
+                        <p className="text-xs sm:text-sm text-midnight/70 break-all">melissa.birch@birchtreefinancial.ca</p>
                         <p className="text-xs sm:text-sm text-midnight/60">
                           We typically respond within 24 hours
                         </p>
