@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Shield, TrendingUp, Users, Target, CheckCircle2, Heart, Lightbulb, Handshake } from "lucide-react"
+import { ArrowRight, Shield, TrendingUp, Users, Target, Star, Heart, Lightbulb, Handshake } from "lucide-react"
 import HeroBackground from "@/components/HeroBackground"
 import LogoTreeIcon from "@/components/LogoTreeIcon"
 import AutoplayHeroVideo from "@/components/home/AutoplayHeroVideo"
@@ -14,7 +14,7 @@ import Image from "next/image"
 // Optimized animation - respects reduced motion preference
 const useAnimations = () => {
   const shouldReduceMotion = useReducedMotion()
-  
+
   return {
     heroText: {
       initial: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
@@ -35,36 +35,42 @@ const services = [
     title: "Retirement Planning",
     description: "Comprehensive RRSP and CPP strategies tailored to your Canadian retirement goals.",
     href: "/services/retirement-planning",
+    number: "01",
   },
   {
     icon: TrendingUp,
     title: "Investment Management",
     description: "Expert portfolio management designed to grow and protect your wealth.",
     href: "/services/investment-management",
+    number: "02",
   },
   {
     icon: Shield,
     title: "Insurance Strategies",
     description: "Protect what matters most with customized insurance solutions.",
     href: "/services/insurance-strategies",
+    number: "03",
   },
   {
     icon: TrendingUp,
     title: "Tax Optimization",
     description: "Maximize TFSA and RRSP benefits while minimizing Canadian tax burden.",
     href: "/services/tax-optimization-strategies",
+    number: "04",
   },
   {
     icon: Target,
     title: "Wealth Building",
     description: "Strategic advisory services to build and preserve your legacy.",
     href: "/services/wealth-building-advisory",
+    number: "05",
   },
   {
     icon: Shield,
     title: "Estate Planning",
     description: "Ensure your wealth is transferred according to your wishes.",
     href: "/services/estate-planning-guidance",
+    number: "06",
   },
 ]
 
@@ -189,9 +195,9 @@ export default function Home() {
         {/* Subtle premium overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-emerald/10 via-transparent to-emerald/10 z-0" />
         <div className="relative h-[52px] overflow-hidden">
-          <div 
+          <div
             id="tradingview-ticker-container"
-            className="tradingview-widget-container" 
+            className="tradingview-widget-container"
             style={{ height: '100%', width: '100%', position: 'relative' }}
           />
         </div>
@@ -202,21 +208,40 @@ export default function Home() {
         <HeroBackground />
         {/* Additional gradient blob for depth - optimized blur */}
         <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-emerald/3 rounded-full blur-2xl" />
-        
+
         {/* Main Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-5xl mx-auto text-center py-12 sm:py-24 md:py-32">
+
+            {/* Eyebrow label */}
+            <motion.p
+              {...animations.heroText}
+              className="text-xs uppercase tracking-[0.22em] text-gold/80 font-semibold mb-6 sm:mb-8"
+            >
+              Canadian Financial Advisory
+            </motion.p>
+
             <motion.h1
               {...animations.heroText}
+              transition={{ duration: 0.5, delay: 0.05 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold text-white mb-4 sm:mb-8 leading-tight sm:leading-[1.1] tracking-tight px-2 drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]"
             >
               Your Financial Future,
               <br />
-              <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-white via-silver-light to-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-silver-light to-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
                 Elevated Through Intelligence
               </span>
             </motion.h1>
-            
+
+            {/* Gold accent line */}
+            <motion.div
+              {...animations.heroText}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex justify-center mb-6 sm:mb-10"
+            >
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+            </motion.div>
+
             <motion.p
               {...animations.heroText}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -224,7 +249,7 @@ export default function Home() {
             >
               A modern Canadian advisory firm delivering clarity, confidence, and strategic financial insight.
             </motion.p>
-            
+
             <motion.div
               {...animations.heroText}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -248,8 +273,8 @@ export default function Home() {
                 <Link href="/services" className="text-white">Explore Services</Link>
               </Button>
             </motion.div>
-            
-            {/* Stats Cards - No animations for performance */}
+
+            {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto px-4">
               {[
                 { number: "30+", label: "Years Experience" },
@@ -259,6 +284,7 @@ export default function Home() {
                 <div
                   key={stat.label}
                   className="glass-dark rounded-2xl p-4 sm:p-6 md:p-8 card-shadow"
+                  style={{ borderTop: "2px solid rgba(215,195,138,0.25)" }}
                 >
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-1 sm:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                     {stat.number}
@@ -271,16 +297,19 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
       </section>
 
       {/* Autoplay Hero Video Section */}
       <AutoplayHeroVideo />
 
-      {/* Services Overview - MOVED BEFORE MISSION */}
+      {/* Services Overview */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-28 bg-white relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-3 sm:mb-4">
+              What We Offer
+            </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-midnight mb-4 sm:mb-6 md:mb-8 tracking-tight section-title px-2">
               Comprehensive Financial Services
             </h2>
@@ -299,8 +328,13 @@ export default function Home() {
                   className="h-full glass card-shadow card-shadow-hover border-emerald/20 hover:border-midnight/40 transition-all duration-150 ease-out max-w-md mx-auto md:max-w-none"
                 >
                   <CardHeader className="p-4 sm:p-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-emerald/15 flex items-center justify-center mb-3 sm:mb-4">
-                      <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-emerald icon-hover" />
+                    <div className="flex items-start justify-between mb-3 sm:mb-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald/15 to-emerald/15 flex items-center justify-center">
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-emerald icon-hover" />
+                      </div>
+                      <span className="text-xs font-semibold tracking-widest text-gold/60 font-heading mt-1">
+                        {service.number}
+                      </span>
                     </div>
                     <CardTitle className="text-xl sm:text-2xl font-heading text-midnight mb-2">
                       {service.title}
@@ -331,13 +365,13 @@ export default function Home() {
         <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-emerald/8 to-emerald/15" />
         </div>
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B2A3D' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Header */}
@@ -353,6 +387,9 @@ export default function Home() {
                   <LogoTreeIcon className="h-[60px] w-[60px] sm:h-[72px] sm:w-[72px] text-emerald" />
                 </div>
               </div>
+              <p className="text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-3 sm:mb-4">
+                Who We Are
+              </p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-midnight mb-4 sm:mb-6 tracking-tight section-title px-2">
                 Our Mission
               </h2>
@@ -416,12 +453,18 @@ export default function Home() {
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald/10 to-transparent" />
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10 sm:mb-16 md:mb-20">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold/80 font-semibold mb-3 sm:mb-4">
+              The Birchtree Difference
+            </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 md:mb-8 tracking-tight section-title text-white px-2">
               Why Choose Birchtree Financial
             </h2>
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+            </div>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-silver/90 max-w-3xl mx-auto leading-relaxed font-subhead px-4">
               Experience the difference of working with a premium financial
               advisory firm.
@@ -456,10 +499,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials - Enhanced with avatars */}
+      {/* Testimonials - Enhanced */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-32 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 sm:mb-16 md:mb-20">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-3 sm:mb-4">
+              Client Stories
+            </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-midnight mb-4 sm:mb-6 md:mb-8 tracking-tight section-title px-2">
               What Our Clients Say
             </h2>
@@ -467,13 +513,18 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
             {testimonials.map((testimonial) => (
-              <Card key={testimonial.name} className="h-full glass card-shadow max-w-md mx-auto md:max-w-none">
-                <CardContent className="p-4 sm:p-6 md:pt-8 md:pb-8">
-                  <div className="flex items-center space-x-1 mb-4 sm:mb-6">
+              <Card key={testimonial.name} className="h-full glass card-shadow max-w-md mx-auto md:max-w-none relative overflow-hidden">
+                {/* Decorative quote mark */}
+                <div className="absolute top-4 right-5 text-6xl font-heading font-bold text-gold/10 leading-none select-none pointer-events-none">
+                  &ldquo;
+                </div>
+                <CardContent className="p-4 sm:p-6 md:pt-8 md:pb-8 relative">
+                  {/* Star rating */}
+                  <div className="flex items-center space-x-0.5 mb-4 sm:mb-6">
                     {[...Array(5)].map((_, i) => (
-                      <CheckCircle2
+                      <Star
                         key={i}
-                        className="h-4 w-4 sm:h-5 sm:w-5 text-emerald fill-emerald/20"
+                        className="h-4 w-4 text-gold fill-gold"
                       />
                     ))}
                   </div>
@@ -508,6 +559,9 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
+            <p className="text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-3 sm:mb-4">
+              Giving Back
+            </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-midnight mb-4 sm:mb-6 md:mb-8 section-title px-2">
               Proudly Supporting Our Community
             </h2>
@@ -601,15 +655,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section - Simplified */}
+      {/* CTA Section */}
       <section className="py-12 sm:py-20 md:py-24 lg:py-32 gradient-bg text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-midnight/60" />
-        
+        {/* Subtle gold accent line at top */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
+            <p className="text-xs uppercase tracking-[0.2em] text-gold/80 font-semibold mb-4 sm:mb-6">
+              Get Started Today
+            </p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 md:mb-8 tracking-tight section-title text-white px-2">
               Ready to Take Control of Your Financial Future?
             </h2>
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+            </div>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-silver/90 mb-6 sm:mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed font-subhead px-4">
               Schedule a complimentary consultation to discuss your financial
               goals and discover how we can help you achieve them.
@@ -628,7 +690,8 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight hover:to-midnight-light text-white shadow-lg hover:shadow-[0_0_25px_rgba(27,42,61,0.5)] transition-all duration-200 ease-out [&>*]:text-white border-0"
+                variant="outline"
+                className="relative z-10 w-full sm:w-auto text-base sm:text-lg md:text-xl px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 bg-transparent border-2 border-white/40 text-white hover:bg-white/10 hover:border-white/70 shadow-lg transition-all duration-200 ease-out [&>*]:text-white"
               >
                 <Link href="/faq" className="text-white">Learn More</Link>
               </Button>
