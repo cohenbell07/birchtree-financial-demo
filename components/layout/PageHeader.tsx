@@ -3,12 +3,14 @@ import { motion } from "framer-motion"
 interface PageHeaderProps {
   title: string
   subtitle?: string
+  eyebrow?: string
   className?: string
 }
 
 export default function PageHeader({
   title,
   subtitle,
+  eyebrow,
   className = "",
 }: PageHeaderProps) {
   return (
@@ -20,16 +22,26 @@ export default function PageHeader({
     >
       {/* Glass overlay */}
       <div className="absolute inset-0 bg-midnight/30" />
-      
+
       {/* Ultra-light noise texture */}
       <div className="absolute inset-0 texture-noise pointer-events-none" />
-      
-      {/* Subtle gradient orbs - reduced blur for performance */}
+
+      {/* Subtle gradient orbs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald/10 rounded-full blur-2xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald/10 rounded-full blur-2xl" />
       <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-emerald/5 rounded-full blur-3xl" />
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {eyebrow && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-xs uppercase tracking-[0.22em] text-gold/80 font-semibold mb-3 sm:mb-4"
+          >
+            {eyebrow}
+          </motion.p>
+        )}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,6 +60,15 @@ export default function PageHeader({
             {subtitle}
           </motion.p>
         )}
+        {/* Gold accent line */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-6 sm:mt-8 origin-left"
+        >
+          <div className="h-px w-16 bg-gradient-to-r from-gold/60 to-transparent" />
+        </motion.div>
       </div>
     </motion.div>
   )
