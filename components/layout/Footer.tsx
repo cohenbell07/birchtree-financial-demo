@@ -125,7 +125,7 @@ export default function Footer() {
             </div>
             <div className="flex items-start space-x-3">
               <Mail size={18} className="flex-shrink-0 mt-0.5 text-white" />
-              <span className="break-all">info@birchtreefinancial.ca</span>
+              <span className="break-all">melissa.birch@birchtreefinancial.ca</span>
             </div>
             <div className="flex items-start space-x-3">
               <MapPin size={18} className="flex-shrink-0 mt-0.5 text-white" />
