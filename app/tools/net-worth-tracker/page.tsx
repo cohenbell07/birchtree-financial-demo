@@ -36,27 +36,41 @@ export default function NetWorthTrackerPage() {
 
     const netWorth = assets - liabilities
     const monthlySavings = income - expenses
-    const debtToIncome = income > 0 ? (liabilities / income) * 100 : 0
 
-    // Calculate payoff path
+    // Standard debt-to-income: total monthly debt payments / gross monthly income
+    // Estimate monthly debt payments as ~2% of total debt (typical blended minimum)
+    const estimatedMonthlyDebtPayments = liabilities * 0.02
+    const debtToIncome = income > 0 ? (estimatedMonthlyDebtPayments / income) * 100 : 0
+
+    // Debt payoff with estimated 5% average interest rate
+    const monthlyInterestRate = 0.05 / 12
     const payoffPath: Array<{ month: number; debt: number }> = []
     let remainingDebt = liabilities
     let month = 0
 
-    while (remainingDebt > 0 && month < 120 && monthlySavings > 0) {
-      remainingDebt = Math.max(0, remainingDebt - monthlySavings)
-      payoffPath.push({ month: month + 1, debt: remainingDebt })
+    while (remainingDebt > 0 && month < 360 && monthlySavings > 0) {
+      const interestCharge = remainingDebt * monthlyInterestRate
+      remainingDebt = Math.max(0, remainingDebt + interestCharge - monthlySavings)
+      payoffPath.push({ month: month + 1, debt: Math.round(remainingDebt) })
       month++
+      if (monthlySavings <= interestCharge && remainingDebt > 0) {
+        // Payments don't cover interest — debt will never be paid off
+        month = -1
+        break
+      }
     }
 
     const payoffMonths = month
 
-    const summary = `Your net worth is $${netWorth.toLocaleString()}. Your debt-to-income ratio is ${debtToIncome.toFixed(1)}%. ${payoffMonths > 0 ? `With current savings, you can pay off debt in approximately ${payoffMonths} months.` : "Consider increasing savings or reducing expenses to pay down debt."}`
+    const debtRatio = debtToIncome
+    const debtHealth = debtRatio < 20 ? "Healthy" : debtRatio < 36 ? "Manageable" : debtRatio < 44 ? "High" : "Critical"
+
+    const summary = `Your net worth is $${netWorth.toLocaleString()}. Your estimated debt service ratio is ${debtToIncome.toFixed(1)}% (${debtHealth}). ${payoffMonths > 0 ? `With current savings and ~5% average interest, you can pay off debt in approximately ${payoffMonths} months (${(payoffMonths / 12).toFixed(1)} years).` : payoffMonths === -1 ? "Your monthly savings don't cover interest charges. Consider reducing expenses or increasing income." : "Consider increasing savings or reducing expenses to pay down debt."}`
 
     return {
       netWorth,
       debtToIncome,
-      payoffMonths,
+      payoffMonths: Math.max(0, payoffMonths),
       payoffPath,
       summary,
     }
@@ -87,7 +101,7 @@ export default function NetWorthTrackerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           prompt: `Net worth: $${calculation.netWorth.toLocaleString()}, Debt-to-income: ${calculation.debtToIncome.toFixed(1)}%, Payoff time: ${calculation.payoffMonths} months. Provide 2-3 sentences of educational advice about net worth and debt management for Canadians.`,
-          type: "net-worth-analysis",
+          type: "net-worth",
         }),
       })
 
@@ -142,11 +156,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Calculate your net worth and plan your debt payoff strategy"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -155,10 +165,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
+                      <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
                       Financial Overview
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
@@ -222,7 +232,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Net Worth"}
@@ -239,7 +249,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
@@ -276,7 +286,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {result.payoffPath.length > 0 && (
-                      <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                      <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                             Debt Payoff Path
@@ -313,10 +323,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
 
                     {insights && (
-                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
@@ -330,7 +340,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This calculator provides estimates. Actual net worth and debt payoff depend on many factors including interest rates, investment returns, and lifestyle changes. Consult with a financial advisor for personalized debt management strategies.
@@ -352,7 +362,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
                         Enter your information to calculate your net worth.

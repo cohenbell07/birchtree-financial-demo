@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+/* ==========================================
+   ANIMATED BORDER SUPPORT
+   ========================================== */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
 
 @layer base {
   :root {
@@ -33,22 +40,20 @@
   * {
     @apply border-border;
   }
-  /* Prevent any element from causing horizontal overflow */
   * {
     max-width: 100%;
   }
-  /* Allow images and videos to be responsive but constrained */
   img, video, iframe {
     max-width: 100%;
     height: auto;
   }
   html {
-    /* scroll-behavior: smooth; - Removed to fix scroll lag issues */
     overflow-x: hidden;
     width: 100%;
     max-width: 100%;
     height: 100%;
     position: relative;
+    background-color: #050c16;
   }
   body {
     @apply bg-white text-midnight antialiased;
@@ -66,79 +71,202 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
     line-height: 1.2;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.025em;
     font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-rendering: optimizeLegibility;
   }
   p {
     line-height: 1.75;
     letter-spacing: -0.01em;
   }
+
+  /* Prevent iOS Safari zoom on input focus — requires min 16px font-size */
+  @media (max-width: 767px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="url"],
+    input:not([type]),
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
 }
 
 @layer utilities {
-  /* Premium edge-lit glass effect */
+
+  /* ==========================================
+     SPOTLIGHT CARD — GPU-accelerated via CSS
+     All animation driven by custom properties,
+     zero React re-renders on mouse move.
+     ========================================== */
+
+  /* ==========================================
+     NAVBAR CTA SHIMMER
+     ========================================== */
+
+  .nav-cta-btn:hover .nav-cta-shimmer {
+    transform: translateX(100%) !important;
+    transition: transform 0.6s ease-out;
+  }
+
+  .spotlight-card {
+    transition: transform 0.3s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+  }
+
+  .spotlight-card:hover {
+    transform: scale(1.01);
+  }
+
+  .spotlight-border {
+    padding: 1px;
+    background: radial-gradient(
+      calc(var(--spotlight-size) * 1.5) circle at var(--x) var(--y),
+      var(--border-hover-color),
+      var(--border-color) 50%,
+      transparent 80%
+    );
+    opacity: calc(0.6 + var(--spotlight-opacity) * 0.4);
+    transition: opacity 0.3s ease-out;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .spotlight-body {
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.4s ease-out, border-color 0.4s ease-out;
+  }
+
+  .spotlight-card:hover .spotlight-body {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Shine sweep — diagonal highlight that slides across on hover */
+  .spotlight-shine {
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(215, 195, 138, 0.06) 45%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(215, 195, 138, 0.06) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .spotlight-card:hover .spotlight-shine {
+    transform: translateX(100%);
+  }
+
+  .spotlight-glow {
+    background: radial-gradient(
+      var(--spotlight-size) circle at var(--x) var(--y),
+      var(--spotlight-color),
+      transparent 60%
+    );
+    opacity: var(--spotlight-opacity);
+    transition: opacity 0.3s ease-out;
+  }
+
+  .spotlight-edge {
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent 5%,
+      var(--top-line) 30%,
+      var(--top-line) 70%,
+      transparent 95%
+    );
+    transition: background 0.4s ease-out;
+  }
+
+  .spotlight-card:hover .spotlight-edge {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--top-line-hover) 20%,
+      var(--top-line-hover) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ==========================================
+     PREMIUM GLASSMORPHISM (done right)
+     ==========================================
+     Key: ultra-low opacity (3-5%), subtle borders,
+     deep elevation shadows. NOT 90% opacity. */
+
   .glass {
-    @apply bg-white/90 shadow-sm;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.04),
-      0 2px 4px rgba(0, 0, 0, 0.02),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.03),
+      0 4px 16px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
-  
+
   .glass-dark {
-    @apply bg-midnight/90 shadow-sm;
-    border-top: 1px solid rgba(27, 42, 61, 0.15);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    border-left: 1px solid rgba(27, 42, 61, 0.1);
-    border-right: 1px solid rgba(27, 42, 61, 0.1);
-    box-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.2),
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(27, 42, 61, 0.1);
+    background: rgba(11, 26, 44, 0.4);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.03),
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
-  
+
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald to-emerald-light;
   }
-  
-  /* Simplified gradient - static for performance */
+
   .gradient-bg {
-    background: linear-gradient(135deg, #0B1A2C 0%, #1B2A3D 50%, #1B2A3D 100%);
+    background: linear-gradient(135deg, #0B1A2C 0%, #101f33 40%, #0f1c2e 100%);
   }
-  
-  /* Premium hero gradient */
+
   .hero-gradient {
-    background: linear-gradient(135deg, #0B1A2C 0%, #1B2A3D 70%, #0B1A2C 100%);
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(27, 42, 61, 0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(21, 36, 57, 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 40% at 20% 80%, rgba(27, 42, 61, 0.2) 0%, transparent 60%),
+      linear-gradient(135deg, #070e18 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%);
   }
-  
-  /* Subtle vignette */
+
+  /* ==========================================
+     VIGNETTE & ATMOSPHERIC DEPTH
+     ========================================== */
+
   .vignette {
     position: relative;
   }
-  
+
   .vignette::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 60%, rgba(11, 26, 44, 0.3) 100%);
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(7, 14, 24, 0.4) 100%);
     pointer-events: none;
   }
-  
-  /* Radial highlight behind section titles */
+
+  /* Section title highlight */
   .section-title {
     position: relative;
     display: inline-block;
   }
-  
+
   .section-title::before {
     content: '';
     position: absolute;
@@ -147,50 +275,283 @@
     transform: translate(-50%, -50%);
     width: 120%;
     height: 120%;
-    background: radial-gradient(ellipse, rgba(27, 42, 61, 0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(27, 42, 61, 0.08) 0%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
     pointer-events: none;
   }
-  
-  /* White text sections get a different highlight */
+
   .section-title.text-white::before {
-    background: radial-gradient(ellipse, rgba(27, 42, 61, 0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(215, 195, 138, 0.06) 0%, transparent 70%);
   }
-  
-  /* Premium micro-interactions - CSS only - GPU accelerated */
+
+  /* ==========================================
+     MICRO-INTERACTIONS — spring physics
+     ========================================== */
+
   .icon-hover {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-    will-change: transform, box-shadow;
-    transform: translateZ(0);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease-out;
+    will-change: transform;
   }
-  
+
   .icon-hover:hover {
-    transform: scale(1.025) translateZ(0);
-    box-shadow: 0 0 12px rgba(27, 42, 61, 0.3);
+    transform: scale(1.08) translateZ(0);
+    box-shadow: 0 0 20px rgba(215, 195, 138, 0.15);
   }
-  
-  .card-lift {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-    will-change: transform, box-shadow;
-    transform: translateZ(0);
+
+  .card-shadow {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 4px 12px rgba(0, 0, 0, 0.03);
   }
-  
-  .card-lift:hover {
-    transform: translateY(-2px) translateZ(0);
-    box-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.1),
-      0 2px 6px rgba(0, 0, 0, 0.05);
+
+  .card-shadow-hover {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out;
+    will-change: transform;
   }
-  
-  /* Section divider */
+
+  .card-shadow-hover:hover {
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.06),
+      0 12px 40px rgba(0, 0, 0, 0.08),
+      0 0 1px rgba(215, 195, 138, 0.1);
+    transform: translateY(-6px) translateZ(0);
+  }
+
+  .shadow-glow {
+    box-shadow:
+      0 4px 16px rgba(27, 42, 61, 0.15),
+      0 2px 4px rgba(11, 26, 44, 0.1);
+  }
+
+  .shadow-glow-hover {
+    transition: box-shadow 0.4s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+  }
+
+  .shadow-glow-hover:hover {
+    box-shadow:
+      0 8px 30px rgba(11, 26, 44, 0.3),
+      0 4px 8px rgba(11, 26, 44, 0.15),
+      0 0 0 1px rgba(215, 195, 138, 0.15);
+    transform: translateY(-6px) translateZ(0);
+  }
+
+  /* ==========================================
+     LINK & BUTTON PREMIUM INTERACTIONS
+     ========================================== */
+
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .link-draw:hover {
+    background-size: 100% 1px;
+  }
+
+  .btn-sweep {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-sweep::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(215, 195, 138, 0.15) 0%, rgba(11, 26, 44, 0.9) 100%);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .btn-sweep:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ==========================================
+     ANIMATED CONIC GRADIENT BORDER
+     The showstopper — rotating gold shimmer
+     ========================================== */
+
+  @keyframes border-rotate {
+    to { --border-angle: 360deg; }
+  }
+
+  .animated-border {
+    position: relative;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    background:
+      linear-gradient(to bottom, rgba(11,26,44,0.95), rgba(11,26,44,0.95)) padding-box,
+      conic-gradient(
+        from var(--border-angle),
+        transparent 20%,
+        rgba(215, 195, 138, 0.5) 35%,
+        rgba(215, 195, 138, 0.8) 50%,
+        rgba(215, 195, 138, 0.5) 65%,
+        transparent 80%
+      ) border-box;
+    animation: border-rotate 4s linear infinite;
+  }
+
+  .animated-border-light {
+    position: relative;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(245,247,250,0.98)) padding-box,
+      conic-gradient(
+        from var(--border-angle),
+        transparent 25%,
+        rgba(215, 195, 138, 0.35) 40%,
+        rgba(215, 195, 138, 0.6) 50%,
+        rgba(215, 195, 138, 0.35) 60%,
+        transparent 75%
+      ) border-box;
+    animation: border-rotate 6s linear infinite;
+  }
+
+  /* ==========================================
+     GRADIENT BORDER CARDS (static)
+     ========================================== */
+
+  .card-gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, rgba(215, 195, 138, 0) 0%, rgba(27, 42, 61, 0) 100%);
+    padding: 1px;
+    border-radius: 1rem;
+    transition: background 0.5s ease-out;
+  }
+
+  .card-gradient-border:hover {
+    background: linear-gradient(135deg, rgba(215, 195, 138, 0.4) 0%, rgba(27, 42, 61, 0.2) 100%);
+  }
+
+  .card-gradient-border > * {
+    border-radius: calc(1rem - 1px);
+  }
+
+  /* ==========================================
+     GOLD DIVIDER
+     ========================================== */
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent 5%, rgba(215, 195, 138, 0.2) 30%, rgba(215, 195, 138, 0.35) 50%, rgba(215, 195, 138, 0.2) 70%, transparent 95%);
+  }
+
+  /* ==========================================
+     AURORA BACKGROUNDS — blurred gradient mesh
+     ========================================== */
+
+  @keyframes aurora-drift-1 {
+    0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+    25% { transform: translate(8%, -12%) rotate(3deg) scale(1.08); }
+    50% { transform: translate(-5%, 8%) rotate(-2deg) scale(0.95); }
+    75% { transform: translate(10%, 5%) rotate(4deg) scale(1.04); }
+  }
+
+  @keyframes aurora-drift-2 {
+    0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+    33% { transform: translate(-10%, 6%) rotate(-4deg) scale(1.06); }
+    66% { transform: translate(6%, -8%) rotate(3deg) scale(0.97); }
+  }
+
+  @keyframes aurora-drift-3 {
+    0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1.02); }
+    20% { transform: translate(12%, 8%) rotate(5deg) scale(0.94); }
+    40% { transform: translate(-8%, -5%) rotate(-3deg) scale(1.08); }
+    60% { transform: translate(5%, 12%) rotate(2deg) scale(0.98); }
+    80% { transform: translate(-6%, -10%) rotate(-4deg) scale(1.05); }
+  }
+
+  @keyframes aurora-drift-4 {
+    0%, 100% { transform: translate(0%, 0%) scale(1); }
+    50% { transform: translate(-8%, 10%) scale(1.1); }
+  }
+
+  .aurora-blob-1 {
+    animation: aurora-drift-1 18s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .aurora-blob-2 {
+    animation: aurora-drift-2 22s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .aurora-blob-3 {
+    animation: aurora-drift-3 16s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .aurora-blob-4 {
+    animation: aurora-drift-4 25s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Keep old mesh-blob names working */
+  .mesh-blob-1 { animation: aurora-drift-1 20s ease-in-out infinite; will-change: transform; }
+  .mesh-blob-2 { animation: aurora-drift-2 25s ease-in-out infinite; will-change: transform; }
+  .mesh-blob-3 { animation: aurora-drift-3 18s ease-in-out infinite; will-change: transform; }
+
+  /* ==========================================
+     GRAIN OVERLAY (done right)
+     ========================================== */
+
+  .grain-overlay {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Noise texture (lighter version) */
+  .texture-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.04;
+  }
+
+  /* ==========================================
+     CLIP-PATH TEXT REVEAL
+     ========================================== */
+
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  .clip-reveal.visible {
+    clip-path: inset(0 0% 0 0);
+  }
+
+  /* ==========================================
+     SECTION DIVIDER
+     ========================================== */
+
   .section-divider {
     position: relative;
     height: 1px;
     background: linear-gradient(to right, transparent, rgba(27, 42, 61, 0.3), transparent);
     margin: 32px 0;
   }
-  
+
   .section-divider-icon {
     position: absolute;
     top: 50%;
@@ -199,89 +560,11 @@
     background: white;
     padding: 0 16px;
   }
-  
-  /* Reduced shadow for performance */
-  .shadow-glow {
-    box-shadow: 0 4px 12px rgba(27, 42, 61, 0.15), 0 2px 4px rgba(11, 26, 44, 0.1);
-  }
-  
-  .shadow-glow-hover {
-    transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
-    will-change: transform, box-shadow;
-    transform: translateZ(0);
-  }
-  
-  .shadow-glow-hover:hover {
-    box-shadow: 0 6px 16px rgba(27, 42, 61, 0.25), 0 4px 8px rgba(11, 26, 44, 0.15);
-    transform: translateY(-2px) translateZ(0);
-  }
-  
-  /* Subtle card shadow */
-  .card-shadow {
-    box-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.04),
-      0 2px 4px rgba(0, 0, 0, 0.02);
-  }
-  
-  .card-shadow-hover {
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-    will-change: transform, box-shadow;
-    transform: translateZ(0);
-  }
-  
-  .card-shadow-hover:hover {
-    box-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.1),
-      0 2px 6px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px) translateZ(0);
-  }
-  
-  /* Premium button shimmer (static, no animation) */
-  .button-shimmer {
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
-    background-size: 200% 200%;
-  }
-  
-  /* Ultra-light noise texture */
-  .texture-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    opacity: 0.04;
-  }
 
-  /* Scrolling ticker animation - seamless infinite scroll */
-  @keyframes scroll-ticker {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
+  /* ==========================================
+     TRADINGVIEW WIDGET
+     ========================================== */
 
-  .animate-scroll-ticker {
-    animation: scroll-ticker 100s linear infinite;
-    will-change: transform;
-    display: flex;
-    width: max-content;
-    min-width: 200%;
-  }
-
-  .animate-scroll-ticker:hover {
-    animation-play-state: paused;
-  }
-  
-  /* Ensure smooth scrolling without glitches - prevent any shrinking */
-  .animate-scroll-ticker > * {
-    flex-shrink: 0 !important;
-    min-width: max-content;
-  }
-
-  /* TradingView Widget Styling */
   .tradingview-widget-container {
     height: 100%;
     width: 100%;
@@ -292,21 +575,17 @@
     height: 100% !important;
   }
 
-  /* Override TradingView widget colors to match site theme */
   .tradingview-widget-container iframe {
     background: transparent !important;
     border: none !important;
   }
 
-  /* Ensure TradingView ticker matches our design */
   .tradingview-widget-container__widget > div {
     background: transparent !important;
   }
 
-  /* Style TradingView ticker to match navy blue theme */
   #tradingview-ticker-container iframe {
     background: transparent !important;
     height: 52px !important;
   }
 }
-

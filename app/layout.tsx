@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
-import { Inter, Sora } from "next/font/google"
+import { Inter, Libre_Baskerville } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
+import ChatBot from "@/components/ChatBot"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,12 +12,13 @@ const inter = Inter({
   display: "swap",
 })
 
-// Premium typography: Sora for headings
-const sora = Sora({
+// Premium typography: Libre Baskerville for headings (closest match to logo serif)
+const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-heading",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 })
 
 export const metadata: Metadata = {
@@ -59,13 +61,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${libreBaskerville.variable} h-full`}>
       <body className="font-body antialiased bg-white text-midnight h-full">
         <div className="min-h-full flex flex-col w-full max-w-full overflow-x-hidden">
           <Navbar />
           <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
           <Footer />
         </div>
+        <ChatBot />
         <Analytics />
       </body>
     </html>

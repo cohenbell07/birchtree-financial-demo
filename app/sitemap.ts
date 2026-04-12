@@ -11,12 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/team',
     '/services',
     '/resources',
-    '/faq',
     '/contact',
-    '/ai-advisor',
     '/blog',
     '/helpful-tools',
-    '/referral',
     '/why-you-need-a-will',
   ]
 
@@ -39,14 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'estate-planning-guidance',
   ]
 
-  // Resource pages
-  const resources = [
-    'understanding-retirement-planning-basics',
-    'tax-efficient-investment-strategies',
-    'estate-planning-essentials',
-    'financial-advisory-checklist',
-    'investment-portfolio-basics',
-  ]
+  // Resource pages (only pages that actually exist)
+  const resources: string[] = []
 
   // Tool pages
   const tools = [

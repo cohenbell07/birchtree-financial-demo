@@ -9,6 +9,27 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
+import RevealText from "@/components/RevealText"
+import FAQSection from "@/components/FAQSection"
+
+const contactFaqs = [
+  {
+    question: "How do I get started?",
+    answer: "Getting started is easy. Simply schedule a complimentary consultation through our contact form above or call us directly. During this initial meeting, we'll discuss your financial goals, answer your questions, and determine if we're a good fit for each other. There's no obligation, and we'll provide value even in this first conversation.",
+  },
+  {
+    question: "What should I bring to my first meeting?",
+    answer: "For your first consultation, it's helpful to bring a general overview of your financial situation, including your assets, liabilities, income, and expenses. You don't need detailed documentation initially\u2014we'll guide you on what additional information we'll need as we develop your financial strategy.",
+  },
+  {
+    question: "How often will I meet with my financial advisor?",
+    answer: "The frequency of meetings depends on your needs and the complexity of your financial situation. Typically, we meet quarterly or semi-annually for portfolio reviews and planning updates. However, we're available whenever you have questions or need to discuss changes in your life circumstances. We also provide ongoing communication through email and phone calls.",
+  },
+  {
+    question: "Do you work with other professionals like accountants and attorneys?",
+    answer: "Absolutely. We believe in a team approach to financial advisory services and regularly coordinate with our clients' accountants, attorneys, insurance agents, and other professionals. This ensures all aspects of your financial life work together cohesively.",
+  },
+]
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -74,129 +95,138 @@ export default function ContactPage() {
     }
   }
 
+  const inputStyles = "bg-white border-midnight/10 focus:border-gold/50 focus:ring-gold/20"
+
   return (
     <div>
       <PageHeader
+        eyebrow="Get In Touch"
         title="Contact Us"
         subtitle="Get in touch to discuss your financial goals and how we can help"
+        accent="amber"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      {/* Form + Contact Info Section */}
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
-                      Send Us a Message
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
-                    <form onSubmit={handleSubmit} id="form" className="space-y-4 sm:space-y-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="max-w-md mx-auto lg:max-w-none h-full rounded-xl overflow-hidden bg-white border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
+                  <Card className="border-0 shadow-none bg-transparent h-full">
+                    <CardHeader className="p-4 sm:p-6">
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
+                        Send Us a Message
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 pt-0">
+                      <form onSubmit={handleSubmit} id="form" className="space-y-4 sm:space-y-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="name" className="text-midnight/50">Name *</Label>
+                            <Input
+                              id="name"
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              required
+                              placeholder="Your name"
+                              className={inputStyles}
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="email" className="text-midnight/50">Email *</Label>
+                            <Input
+                              id="email"
+                              name="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              required
+                              placeholder="your.email@example.com"
+                              className={inputStyles}
+                            />
+                          </div>
+                        </div>
+
                         <div className="space-y-2">
-                          <Label htmlFor="name">Name *</Label>
+                          <Label htmlFor="phone" className="text-midnight/50">Phone</Label>
                           <Input
-                            id="name"
-                            name="name"
-                            value={formData.name}
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
                             onChange={handleChange}
-                            required
-                            placeholder="Your name"
+                            placeholder="(403) 556-7777"
+                            className={inputStyles}
                           />
                         </div>
+
                         <div className="space-y-2">
-                          <Label htmlFor="email">Email *</Label>
+                          <Label htmlFor="subject" className="text-midnight/50">Subject *</Label>
                           <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
+                            id="subject"
+                            name="subject"
+                            value={formData.subject}
                             onChange={handleChange}
                             required
-                            placeholder="your.email@example.com"
+                            placeholder="How can we help?"
+                            className={inputStyles}
                           />
                         </div>
-                      </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="(403) 556-7777"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Subject *</Label>
-                        <Input
-                          id="subject"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          required
-                          placeholder="How can we help?"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message *</Label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          required
-                          placeholder="Tell us about your financial goals and how we can help..."
-                          rows={6}
-                        />
-                      </div>
-
-                      {submitStatus === "success" && (
-                        <div className="p-4 bg-emerald/10 text-emerald-dark rounded-md">
-                          Thank you for your message! We&apos;ll get back to you soon.
+                        <div className="space-y-2">
+                          <Label htmlFor="message" className="text-midnight/50">Message *</Label>
+                          <Textarea
+                            id="message"
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            required
+                            placeholder="Tell us about your financial goals and how we can help..."
+                            rows={6}
+                            className={inputStyles}
+                          />
                         </div>
-                      )}
 
-                      {submitStatus === "error" && (
-                        <div className="p-4 bg-red-100 text-red-800 rounded-md">
-                          Something went wrong. Please try again.
-                        </div>
-                      )}
-
-                      <Button
-                        type="submit"
-                        size="lg"
-                        disabled={isSubmitting}
-                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white"
-                      >
-                        {isSubmitting ? (
-                          "Sending..."
-                        ) : (
-                          <>
-                            Send Message
-                            <Send className="ml-2 h-4 w-4" />
-                          </>
+                        {submitStatus === "success" && (
+                          <div className="p-4 bg-green-50 text-green-800 rounded-lg border border-green-200/50">
+                            Thank you for your message! We&apos;ll get back to you soon.
+                          </div>
                         )}
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
+
+                        {submitStatus === "error" && (
+                          <div className="p-4 bg-red-100 text-red-800 rounded-md">
+                            Something went wrong. Please try again.
+                          </div>
+                        )}
+
+                        <Button
+                          type="submit"
+                          size="lg"
+                          disabled={isSubmitting}
+                          className="w-full"
+                        >
+                          {isSubmitting ? (
+                            "Sending..."
+                          ) : (
+                            <>
+                              Send Message
+                              <Send className="ml-2 h-4 w-4" />
+                            </>
+                          )}
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </div>
               </motion.div>
 
               {/* Contact Information */}
@@ -206,129 +236,138 @@ export default function ContactPage() {
                 transition={{ duration: 0.5 }}
                 className="space-y-6"
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
-                      Get in Touch
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-6">
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
+                <div className="max-w-md mx-auto lg:max-w-none rounded-xl overflow-hidden bg-white border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
+                  <Card className="border-0 shadow-none bg-transparent">
+                    <CardHeader className="p-4 sm:p-6">
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
+                        Get in Touch
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-6">
+                      <div className="flex items-start space-x-3 sm:space-x-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
+                          <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Phone</h3>
+                          <p className="text-sm sm:text-base text-midnight/50">(403) 556-7777</p>
+                          <p className="text-xs sm:text-sm text-midnight/50">Mon-Fri, 9am-5pm MST</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Phone</h3>
-                        <p className="text-sm sm:text-base text-midnight/70">(403) 556-7777</p>
-                        <p className="text-xs sm:text-sm text-midnight/60">Mon-Fri, 9am-5pm MST</p>
-                      </div>
-                    </div>
 
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
-                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
+                      <div className="flex items-start space-x-3 sm:space-x-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
+                          <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Email</h3>
+                          <p className="text-xs sm:text-sm text-midnight/50 break-all">melissa.birch@birchtreefinancial.ca</p>
+                          <p className="text-xs sm:text-sm text-midnight/50">
+                            We typically respond within 24 hours
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Email</h3>
-                        <p className="text-xs sm:text-sm text-midnight/70 break-all">melissa.birch@birchtreefinancial.ca</p>
-                        <p className="text-xs sm:text-sm text-midnight/60">
-                          We typically respond within 24 hours
-                        </p>
-                      </div>
-                    </div>
 
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald/20 to-emerald/20 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-emerald" />
+                      <div className="flex items-start space-x-3 sm:space-x-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
+                          <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Office</h3>
+                          <p className="text-xs sm:text-sm text-midnight/50">
+                            4914 50 Ave
+                            <br />
+                            Olds, AB T4H 1P5
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Office</h3>
-                        <p className="text-xs sm:text-sm text-midnight/70">
-                          4914 50 Ave
-                          <br />
-                          Olds, AB T4H 1P5
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </div>
 
-                <Card className="gradient-bg text-white shadow-lg border-emerald/30 max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
-                      Schedule a Consultation
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
-                    <p className="text-xs sm:text-sm md:text-base text-silver/90 mb-3 sm:mb-4 md:mb-6">
-                      Ready to take the next step? Schedule a complimentary
-                      consultation to discuss your financial goals and discover
-                      how we can help you achieve them.
-                    </p>
-                    <Button 
-                      asChild 
-                      size="lg" 
-                      className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base"
-                    >
-                      <a href="#calendar" className="!text-white">Book Consultation</a>
-                    </Button>
-                  </CardContent>
-                </Card>
+                <div className="max-w-md mx-auto lg:max-w-none rounded-xl overflow-hidden border border-gold/15" style={{ background: 'linear-gradient(145deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)' }}>
+                  <Card className="border-0 shadow-none bg-transparent text-white">
+                    <CardHeader className="p-4 sm:p-6">
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
+                        Schedule a Consultation
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 pt-0">
+                      <p className="text-xs sm:text-sm md:text-base text-silver/90 mb-3 sm:mb-4 md:mb-6">
+                        Ready to take the next step? Schedule a complimentary
+                        consultation to discuss your financial goals and discover
+                        how we can help you achieve them.
+                      </p>
+                      <Button
+                        asChild
+                        size="lg"
+                        className="w-full text-sm sm:text-base"
+                      >
+                        <a href="#calendar">Book Consultation</a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
               </motion.div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Calendar Booking Section */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              id="calendar"
-              className="max-w-4xl mx-auto px-2 sm:px-4"
-            >
-              <div className="text-center mb-4 sm:mb-6">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-midnight mb-2 px-2">
-                  Schedule a Consultation
-                </h2>
-                <p className="text-sm sm:text-base text-midnight/70 px-4 mb-4">
-                  Choose a convenient date and time for your consultation. We offer Zoom calls, phone consultations, and in-person meetings.
-                </p>
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4">
-                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
-                    <span className="mr-2">📅</span>
-                    <span>Select Date</span>
-                    <span className="ml-2">→</span>
-                  </div>
-                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
-                    <span className="mr-2">⏰</span>
-                    <span>Choose Time</span>
-                    <span className="ml-2">→</span>
-                  </div>
-                  <div className="flex items-center text-xs sm:text-sm text-midnight/70 bg-white/50 px-3 py-1.5 rounded-md border border-emerald/20">
-                    <span className="mr-2">✅</span>
-                    <span>Confirm</span>
-                  </div>
-                </div>
+      {/* ======== FAQ Section ======== */}
+      <FAQSection
+        eyebrow="Before You Reach Out"
+        heading="What to Expect"
+        faqs={contactFaqs}
+      />
+
+      {/* Calendar Booking Section — Dark Aurora CTA */}
+      <section
+        id="calendar"
+        className="py-20 sm:py-28 md:py-36 lg:py-44 relative overflow-hidden grain-overlay"
+        style={{ background: 'linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%)' }}
+      >
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12">
+              <RevealText
+                as="h2"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4"
+              >
+                Schedule a Consultation
+              </RevealText>
+
+              {/* Gold accent divider */}
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="h-px w-12 bg-gold/30" />
+                <div className="h-1.5 w-1.5 rounded-full bg-gold/60" />
+                <div className="h-px w-12 bg-gold/30" />
               </div>
-              <Card className="glass shadow-glow-hover border-emerald/20 overflow-hidden bg-white">
-                <CardContent className="p-0 bg-white">
-                  <div className="relative w-full bg-white overflow-x-auto">
-                    <iframe
-                      src="https://cal.com/birchtreefinancial"
-                      className="w-full border-0 rounded-lg bg-white"
-                      style={{ 
-                        height: isMobile ? "700px" : "800px", 
-                        minHeight: isMobile ? "600px" : "700px",
-                        backgroundColor: "white",
-                        width: "100%"
-                      }}
-                      title="Book a consultation with Birchtree Financial"
-                      allow="camera; microphone; geolocation"
-                      loading="lazy"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+
+              <p className="text-sm sm:text-base text-silver/70 px-4 max-w-2xl mx-auto">
+                Choose a convenient date and time for your consultation. We offer Zoom calls, phone consultations, and in-person meetings.
+              </p>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden bg-white shadow-2xl shadow-black/20">
+              <div className="relative w-full bg-white overflow-x-auto">
+                <iframe
+                  src="https://cal.com/birchtreefinancial"
+                  className="w-full border-0 rounded-lg bg-white"
+                  style={{
+                    height: isMobile ? "700px" : "800px",
+                    minHeight: isMobile ? "600px" : "700px",
+                    backgroundColor: "white",
+                    width: "100%"
+                  }}
+                  title="Book a consultation with Birchtree Financial"
+                  allow="camera; microphone; geolocation"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

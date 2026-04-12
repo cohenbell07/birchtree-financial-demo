@@ -3,7 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import PageHeader from "@/components/layout/PageHeader"
+import SpotlightCard from "@/components/SpotlightCard"
+import RevealText from "@/components/RevealText"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -138,7 +139,7 @@ export default function ResourcesPage() {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!newsletterEmail.trim()) {
       setNewsletterStatus("error")
       setNewsletterMessage("Please enter a valid email address")
@@ -180,19 +181,92 @@ export default function ResourcesPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Resources"
-        subtitle="Educational content, guides, and tools to empower your financial decisions"
-      />
+      {/* ============================================
+          HERO — Stacked Stat Bar
+          ============================================ */}
+      <section
+        className="relative text-white pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
+        }}
+      >
+        <div
+          className="absolute top-[20%] right-[10%] w-[50%] h-[60%] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, rgba(215,195,138,0.04) 0%, transparent 70%)" }}
+        />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8 md:space-y-12">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/70 font-semibold mb-5 sm:mb-7"
+          >
+            <span className="inline-block w-2 h-px bg-gold/50 mr-3 align-middle" />
+            Learn & Plan
+          </motion.p>
+          <RevealText
+            as="h1"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-0 max-w-3xl"
+          >
+            Resources
+          </RevealText>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="origin-left mt-6 sm:mt-8 mb-5 sm:mb-7"
+          >
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-gold/60 to-transparent" />
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/45 max-w-2xl leading-relaxed font-body mb-10 sm:mb-14"
+          >
+            Educational content, guides, and tools to empower your financial decisions
+          </motion.p>
+
+          {/* Stat bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex flex-wrap gap-8 sm:gap-12"
+          >
+            {[
+              { number: "9", label: "Interactive Tools" },
+              { number: "50+", label: "Articles & Guides" },
+              { number: "6", label: "Core Services" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
+                className="border-l-2 border-gold/25 pl-4 sm:pl-5"
+              >
+                <span className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gold/80 block">
+                  {stat.number}
+                </span>
+                <span className="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-white/35 font-medium">
+                  {stat.label}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ============================================
+          Helpful Tools & Newsletter — Light section
+          ============================================ */}
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#fafbfc] relative overflow-hidden grain-overlay">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-6xl mx-auto space-y-10 sm:space-y-14 md:space-y-20">
+
             {/* Newsletter Signup - HIDDEN (ready to re-enable when needed) */}
             {false && (
               <motion.div
@@ -200,18 +274,18 @@ export default function ResourcesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto md:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-white flex items-center">
-                      <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
-                      Stay Informed
-                    </CardTitle>
-                    <CardDescription className="text-silver/90 text-xs sm:text-sm md:text-base mt-2">
+                <SpotlightCard dark>
+                  <div className="p-4 sm:p-6 md:p-8">
+                    <div className="flex items-center mb-3 sm:mb-4">
+                      <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0 text-gold" />
+                      <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading text-white font-bold">
+                        Stay Informed
+                      </h3>
+                    </div>
+                    <p className="text-silver/90 text-xs sm:text-sm md:text-base mb-4 sm:mb-6">
                       Subscribe to our newsletter for monthly financial insights, market
                       updates, and exclusive resources.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
+                    </p>
                     {newsletterStatus === "success" ? (
                       <div className="flex items-center gap-3 p-4 bg-white/10 rounded-lg">
                         <CheckCircle2 className="h-5 w-5 text-green-300 flex-shrink-0" />
@@ -229,10 +303,10 @@ export default function ResourcesPage() {
                             disabled={newsletterStatus === "loading"}
                             required
                           />
-                          <Button 
-                            type="submit" 
+                          <Button
+                            type="submit"
                             disabled={newsletterStatus === "loading"}
-                            className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] transition-all duration-200 ease-out text-sm sm:text-base w-full sm:w-auto !text-white disabled:opacity-50"
+                            className="text-sm sm:text-base w-full sm:w-auto"
                           >
                             {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
                           </Button>
@@ -245,8 +319,8 @@ export default function ResourcesPage() {
                         )}
                       </form>
                     )}
-                  </CardContent>
-                </Card>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             )}
 
@@ -256,28 +330,30 @@ export default function ResourcesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                <CardContent className="p-4 sm:p-6">
+              <SpotlightCard>
+                <div className="p-5 sm:p-7 md:p-8">
                   <div className="flex items-center mb-3 sm:mb-4">
-                    <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-emerald mr-3" />
+                    <div className="p-2 rounded-lg bg-midnight/[0.04] mr-3">
+                      <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-midnight/60" />
+                    </div>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
                       Helpful Tools & Resources
                     </h3>
                   </div>
-                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
+                  <p className="text-sm sm:text-base text-midnight/50 mb-5 sm:mb-7">
                     Access government pension benefits information, registered savings plans, will planning checklists, and essential financial resources for Canadians.
                   </p>
-                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
-                    <Link href="/helpful-tools" className="!text-white">
+                  <Button asChild size="lg" className="w-full sm:w-auto">
+                    <Link href="/helpful-tools">
                       View Helpful Tools
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </SpotlightCard>
             </motion.div>
 
-            {/* Tools Section - Moved here to be right after Helpful Tools */}
+            {/* Tools Section */}
             {resources
               .filter((category) => category.category === "Tools")
               .map((category) => (
@@ -288,70 +364,38 @@ export default function ResourcesPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
+                  <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
                     {category.category}
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                    {category.items.map((item, itemIndex) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.5,
-                          delay: itemIndex * 0.1,
-                        }}
-                        whileHover={{ y: -5 }}
-                      >
-                        <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                          <CardHeader className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between mb-2">
-                              {item.type === "Tool" && (
-                                <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                              )}
-                              {item.type === "Article" && (
-                                <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                              )}
-                              {item.type === "Guide" && (
-                                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                              )}
-                              {"readTime" in item && (
-                                <span className="text-xs text-midnight/60">
-                                  {item.readTime}
-                                </span>
-                              )}
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+                    {category.items.map((item, itemIndex) => {
+                      const IconComp = item.type === "Tool" ? Calculator : item.type === "Guide" ? BookOpen : FileText
+                      return (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: itemIndex * 0.07 }}
+                          className="h-full"
+                        >
+                          {"href" in item ? (
+                            <Link href={item.href} className="block h-full group">
+                              <ResourceCard item={item} IconComp={IconComp} />
+                            </Link>
+                          ) : (
+                            <div className="h-full group">
+                              <ResourceCard item={item} IconComp={IconComp} />
                             </div>
-                            <CardTitle className="text-sm sm:text-base md:text-lg font-heading text-midnight mb-2">
-                              {item.title}
-                            </CardTitle>
-                            <CardDescription className="text-xs sm:text-sm text-midnight/70 leading-relaxed">
-                              {item.description}
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent className="p-4 sm:p-6 pt-0">
-                            {"href" in item ? (
-                              <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
-                                <Link href={item.href} className="!text-white">
-                                  {item.type === "Tool" ? "Use Tool" : "Read More"}
-                                  <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                                </Link>
-                              </Button>
-                            ) : (
-                              <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
-                                Read More
-                                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                              </Button>
-                            )}
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
+                          )}
+                        </motion.div>
+                      )
+                    })}
                   </div>
                 </motion.div>
               ))}
 
-            {/* Resources by Category (Articles and Guides only - Tools moved above) */}
+            {/* Articles & Guides */}
             {resources
               .filter((category) => category.category !== "Tools")
               .map((category, categoryIndex) => (
@@ -362,60 +406,33 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               >
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
+                <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
                   {category.category}
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                  {category.items.map((item, itemIndex) => (
-                    <motion.div
-                      key={item.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.5,
-                        delay: categoryIndex * 0.1 + itemIndex * 0.1,
-                      }}
-                      whileHover={{ y: -5 }}
-                    >
-                      <Card className="h-full glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                        <CardHeader className="p-4 sm:p-6">
-                          <div className="flex items-center mb-2">
-                            {item.type === "Tool" && (
-                              <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                            )}
-                            {item.type === "Article" && (
-                              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                            )}
-                            {item.type === "Guide" && (
-                              <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald" />
-                            )}
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+                  {category.items.map((item, itemIndex) => {
+                    const IconComp = item.type === "Tool" ? Calculator : item.type === "Guide" ? BookOpen : FileText
+                    return (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: itemIndex * 0.07 }}
+                        className="h-full"
+                      >
+                        {"href" in item ? (
+                          <Link href={item.href} className="block h-full group">
+                            <ResourceCard item={item} IconComp={IconComp} />
+                          </Link>
+                        ) : (
+                          <div className="h-full group">
+                            <ResourceCard item={item} IconComp={IconComp} />
                           </div>
-                          <CardTitle className="text-sm sm:text-base md:text-lg font-heading text-midnight mb-2">
-                            {item.title}
-                          </CardTitle>
-                          <CardDescription className="text-xs sm:text-sm text-midnight/70 leading-relaxed">
-                            {item.description}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          {"href" in item ? (
-                            <Button asChild size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
-                              <Link href={item.href} className="!text-white">
-                                {item.type === "Tool" ? "Use Tool" : "Read More"}
-                                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                              </Link>
-                            </Button>
-                          ) : (
-                            <Button size="sm" className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0 text-sm">
-                              Read More
-                              <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                            </Button>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
+                        )}
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </motion.div>
             ))}
@@ -426,56 +443,74 @@ export default function ResourcesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="mt-8 sm:mt-12"
             >
-              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-midnight mb-3 sm:mb-4 md:mb-6 px-2">
-                Financial Insights Blog
-              </h2>
-              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                <CardContent className="p-4 sm:p-6">
+              <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
+                Blog
+              </p>
+              <SpotlightCard>
+                <div className="p-5 sm:p-7 md:p-8">
                   <div className="flex items-center mb-3 sm:mb-4">
-                    <Book className="h-5 w-5 sm:h-6 sm:w-6 text-emerald mr-2" />
+                    <div className="p-2 rounded-lg bg-midnight/[0.04] mr-3">
+                      <Book className="h-5 w-5 sm:h-6 sm:w-6 text-midnight/60" />
+                    </div>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
                       Expert Financial Articles
                     </h3>
                   </div>
-                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6">
+                  <p className="text-sm sm:text-base text-midnight/50 mb-5 sm:mb-7">
                     Read our latest articles on RRSP strategies, tax optimization, retirement planning, and more.
                   </p>
-                  <Button asChild size="lg" className="w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
-                    <Link href="/blog" className="!text-white">
-                      Visit Blog
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                  <Link href="/blog" className="link-draw text-sm font-medium text-midnight/70 inline-flex items-center">
+                    Visit Blog
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
+              </SpotlightCard>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
-            {/* Additional CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center mt-6 sm:mt-8"
+      {/* ============================================
+          CTA — Dark aurora section
+          ============================================ */}
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 text-white relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0" style={{
+          background: `
+            radial-gradient(ellipse 50% 45% at 45% 40%, rgba(215,195,138,0.03) 0%, transparent 60%),
+            radial-gradient(ellipse 55% 50% at 20% 80%, rgba(21,36,57,0.3) 0%, transparent 70%),
+            radial-gradient(ellipse 60% 50% at 50% 50%, transparent 30%, rgba(5,12,22,0.4) 100%),
+            linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%)
+          `
+        }} />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="max-w-2xl mx-auto">
+            <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/60 font-medium mb-5 sm:mb-7">
+              Get Started
+            </p>
+            <RevealText as="h2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5 sm:mb-7 tracking-tight text-white px-2">
+              Need Personalized Guidance?
+            </RevealText>
+            <div className="flex justify-center mb-8 sm:mb-10">
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+            </div>
+            <p className="text-base sm:text-lg text-white/40 mb-10 sm:mb-14 max-w-xl mx-auto leading-relaxed font-body px-4">
+              While our resources provide valuable information, personalized
+              financial advisory services require understanding your unique situation.
+              Schedule a consultation to discuss your specific needs.
+            </p>
+            <Button
+              asChild
+              size="lg"
+              className="relative z-10 w-full sm:w-auto text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 bg-gold/90 hover:bg-gold text-midnight font-semibold border-0 shadow-[0_4px_20px_rgba(215,195,138,0.2)] hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] transition-all duration-300 hover:scale-[1.02] rounded-xl [&>*]:text-midnight"
             >
-              <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto md:max-w-none">
-                <CardContent className="p-4 sm:p-6 md:pt-6 text-center">
-                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4 px-2">
-                    Need Personalized Guidance?
-                  </h3>
-                  <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
-                    While our resources provide valuable information, personalized
-                    financial advisory services require understanding your unique situation.
-                    Schedule a consultation to discuss your specific needs.
-                  </p>
-                  <Button asChild size="lg" className="relative z-10 w-full sm:w-auto !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6">
-                    <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
+              <Link href="/contact" className="text-midnight">
+                Schedule a Consultation
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -483,3 +518,55 @@ export default function ResourcesPage() {
   )
 }
 
+function ResourceCard({ item, IconComp }: { item: any; IconComp: any }) {
+  return (
+    <div
+      className="h-full flex flex-col rounded-xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1"
+      style={{
+        background: '#ffffff',
+        border: '1px solid rgba(11,26,44,0.06)',
+        boxShadow: '0 1px 2px rgba(11,26,44,0.03), 0 4px 12px rgba(11,26,44,0.02)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 8px 30px rgba(11,26,44,0.08)'
+        e.currentTarget.style.borderColor = 'rgba(215,195,138,0.15)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 1px 2px rgba(11,26,44,0.03), 0 4px 12px rgba(11,26,44,0.02)'
+        e.currentTarget.style.borderColor = 'rgba(11,26,44,0.06)'
+      }}
+    >
+      {/* Top icon zone */}
+      <div className="px-5 sm:px-6 pt-5 sm:pt-6 pb-4 flex items-center justify-between" style={{ background: '#f8f7f4' }}>
+        <div className="w-10 h-10 rounded-lg border border-gold/20 flex items-center justify-center group-hover:border-gold/40 group-hover:bg-gold/[0.04] transition-all duration-300">
+          <IconComp className="h-[18px] w-[18px] text-midnight/60" />
+        </div>
+        <span className={`text-[0.6rem] uppercase tracking-[0.15em] font-semibold px-2.5 py-1 rounded-full ${
+          item.type === "Tool"
+            ? "text-gold bg-gold/10"
+            : "text-midnight/50 bg-midnight/[0.04]"
+        }`}>
+          {item.type}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 flex flex-col flex-1">
+        <h4 className="text-sm sm:text-base md:text-lg font-heading font-bold text-midnight mb-2">
+          {item.title}
+        </h4>
+        <p className="text-xs sm:text-sm text-midnight/50 leading-relaxed mb-5 flex-grow">
+          {item.description}
+        </p>
+
+        {/* Bottom action strip */}
+        <div className="pt-3 border-t border-midnight/[0.06] flex justify-end">
+          <span className="text-sm font-medium text-midnight/50 group-hover:text-midnight inline-flex items-center transition-colors duration-200">
+            {item.type === "Tool" ? "Use Tool" : "Read More"}
+            <ArrowRight className="ml-2 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}

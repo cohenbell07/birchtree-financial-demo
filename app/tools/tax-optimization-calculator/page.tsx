@@ -39,24 +39,58 @@ export default function TaxOptimizationCalculatorPage() {
     const deductions = parseFloat(formData.deductions) || 0
     const isMarried = formData.maritalStatus === "married"
 
-    // Simplified Canadian tax brackets (federal + Ontario average)
-    const getTaxBracket = (taxableIncome: number) => {
-      if (taxableIncome <= 50197) return "15%"
-      if (taxableIncome <= 100392) return "20.5%"
-      if (taxableIncome <= 155625) return "26%"
-      if (taxableIncome <= 221708) return "29%"
-      return "33%"
+    // 2026 Canadian federal tax brackets (indexed estimates)
+    const federalBrackets = [
+      { limit: 57375, rate: 0.15 },
+      { limit: 114750, rate: 0.205 },
+      { limit: 177882, rate: 0.26 },
+      { limit: 253414, rate: 0.29 },
+      { limit: Infinity, rate: 0.33 },
+    ]
+
+    // Average provincial rate (~10% blended)
+    const provincialRate = 0.10
+    const basicPersonalAmount = 16800 // 2026 projected federal BPA
+
+    // Graduated tax calculation (proper marginal brackets)
+    const calculateGraduatedTax = (taxableIncome: number) => {
+      const adjustedIncome = Math.max(0, taxableIncome - basicPersonalAmount)
+      let tax = 0
+      let remaining = adjustedIncome
+      let prevLimit = 0
+      for (const bracket of federalBrackets) {
+        const taxableInBracket = Math.min(remaining, bracket.limit - prevLimit)
+        if (taxableInBracket <= 0) break
+        tax += taxableInBracket * bracket.rate
+        remaining -= taxableInBracket
+        prevLimit = bracket.limit
+      }
+      // Add provincial (simplified flat rate)
+      tax += Math.max(0, taxableIncome - basicPersonalAmount) * provincialRate
+      return Math.round(tax)
     }
 
+    const getMarginalBracket = (taxableIncome: number) => {
+      const adjusted = Math.max(0, taxableIncome - basicPersonalAmount)
+      for (const bracket of federalBrackets) {
+        if (adjusted <= bracket.limit) return `${((bracket.rate + provincialRate) * 100).toFixed(1)}%`
+      }
+      return "43.0%"
+    }
+
+    // Validate RRSP contribution (2026 limit: ~$33,000 or 18% of earned income)
+    const maxRrsp = Math.min(income * 0.18, 33000)
+    const effectiveRrsp = Math.min(rrspContribution, maxRrsp)
+
     // Current tax
-    const taxableIncome = income - deductions
-    const currentTaxBracket = getTaxBracket(taxableIncome)
-    const currentTax = taxableIncome * (parseFloat(currentTaxBracket) / 100)
+    const taxableIncome = Math.max(0, income - deductions)
+    const currentTaxBracket = getMarginalBracket(taxableIncome)
+    const currentTax = calculateGraduatedTax(taxableIncome)
 
     // Optimized with RRSP
-    const optimizedTaxableIncome = taxableIncome - rrspContribution
-    const optimizedTaxBracket = getTaxBracket(optimizedTaxableIncome)
-    const optimizedTax = optimizedTaxableIncome * (parseFloat(optimizedTaxBracket) / 100)
+    const optimizedTaxableIncome = Math.max(0, taxableIncome - effectiveRrsp)
+    const optimizedTaxBracket = getMarginalBracket(optimizedTaxableIncome)
+    const optimizedTax = calculateGraduatedTax(optimizedTaxableIncome)
     const savings = currentTax - optimizedTax
 
     // Tips
@@ -171,11 +205,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Maximize your tax savings with strategic RRSP and TFSA planning"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -184,10 +214,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
+                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
                       Tax Information
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
@@ -265,7 +295,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Optimize My Taxes"}
@@ -282,7 +312,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
@@ -308,7 +338,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </CardContent>
                     </Card>
 
-                    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                           Optimization Tips
@@ -318,22 +348,22 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                         <ul className="space-y-2 text-sm">
                           {result.tips.map((tip, idx) => (
                             <li key={idx} className="flex items-start">
-                              <span className="text-emerald mr-2">•</span>
+                              <span className="text-gold mr-2">•</span>
                               <span>{tip}</span>
                             </li>
                           ))}
                         </ul>
-                        <div className="mt-4 p-3 bg-emerald/10 rounded-lg">
+                        <div className="mt-4 p-3 bg-gold/[0.06] rounded-lg border border-gold/15">
                           <p className="text-sm text-midnight/80">{result.rrspImpact}</p>
                         </div>
                       </CardContent>
                     </Card>
 
                     {insights && (
-                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
@@ -347,7 +377,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This calculator provides estimates. Actual tax savings depend on your complete tax situation. Consult with a qualified tax professional or financial advisor for personalized tax planning.
@@ -369,7 +399,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
                         Enter your information to see tax optimization opportunities.

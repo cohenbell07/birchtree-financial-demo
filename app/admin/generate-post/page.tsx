@@ -511,9 +511,9 @@ status: "${status}"
                     <p className="text-sm text-red-800">
                       {currentResult.message || currentResult.reason || "Unable to generate post"}
                     </p>
-                    {currentResult.reason === "openai_not_configured" && (
+                    {currentResult.reason === "api_not_configured" && (
                       <p className="text-xs text-red-700 mt-2">
-                        To enable blog generation, set OPENAI_API_KEY in your environment variables.
+                        To enable blog generation, set ANTHROPIC_API_KEY in your environment variables.
                       </p>
                     )}
                     {currentResult.reason === "duplicate_topic" && (

@@ -48,12 +48,7 @@ export default function WhyYouNeedAWillPage() {
         subtitle="Understanding the importance of estate planning for Canadians"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12">
             
@@ -63,7 +58,7 @@ export default function WhyYouNeedAWillPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                 <CardContent className="p-6 sm:p-8">
                   <p className="text-base sm:text-lg text-midnight/80 leading-relaxed">
                     Without a Will, your estate may not automatically pass to your spouse. Assets are distributed by the rules of intestate succession, which vary by province. Having a Will gives you control, reduces delays, and helps your family avoid unnecessary stress during an already difficult time.
@@ -83,11 +78,11 @@ export default function WhyYouNeedAWillPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
                   >
-                    <Card className="glass shadow-glow-hover border-emerald/20 h-full">
+                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] h-full">
                       <CardHeader className="p-4 sm:p-6">
                         <div className="flex items-start">
-                          <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-emerald/20 flex items-center justify-center mr-4">
-                            <Icon className="h-6 w-6 text-emerald" />
+                          <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center mr-4">
+                            <Icon className="h-6 w-6 text-gold" />
                           </div>
                           <div className="flex-1">
                             <CardTitle className="text-lg sm:text-xl font-heading text-midnight mb-2">
@@ -113,7 +108,7 @@ export default function WhyYouNeedAWillPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
                     Additional Considerations
@@ -122,32 +117,32 @@ export default function WhyYouNeedAWillPage() {
                 <CardContent className="p-4 sm:p-6 pt-0">
                   <ul className="space-y-3 sm:space-y-4">
                     <li className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald/20 flex items-center justify-center mt-0.5 mr-3">
-                        <div className="w-2 h-2 rounded-full bg-emerald" />
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center mt-0.5 mr-3">
+                        <div className="w-2 h-2 rounded-full bg-gold" />
                       </div>
                       <span className="text-sm sm:text-base text-midnight/80 leading-relaxed flex-1">
                         Update your Will after major life events such as marriage, divorce, birth of children, or significant changes in assets
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald/20 flex items-center justify-center mt-0.5 mr-3">
-                        <div className="w-2 h-2 rounded-full bg-emerald" />
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center mt-0.5 mr-3">
+                        <div className="w-2 h-2 rounded-full bg-gold" />
                       </div>
                       <span className="text-sm sm:text-base text-midnight/80 leading-relaxed flex-1">
                         Consider creating a Power of Attorney for property and personal care to handle decisions if you become incapacitated
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald/20 flex items-center justify-center mt-0.5 mr-3">
-                        <div className="w-2 h-2 rounded-full bg-emerald" />
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center mt-0.5 mr-3">
+                        <div className="w-2 h-2 rounded-full bg-gold" />
                       </div>
                       <span className="text-sm sm:text-base text-midnight/80 leading-relaxed flex-1">
                         Review beneficiary designations on registered accounts, insurance policies, and pensions to ensure they align with your Will
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald/20 flex items-center justify-center mt-0.5 mr-3">
-                        <div className="w-2 h-2 rounded-full bg-emerald" />
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center mt-0.5 mr-3">
+                        <div className="w-2 h-2 rounded-full bg-gold" />
                       </div>
                       <span className="text-sm sm:text-base text-midnight/80 leading-relaxed flex-1">
                         Store your Will in a safe place and inform your executor of its location
@@ -164,7 +159,7 @@ export default function WhyYouNeedAWillPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
-              <Card className="glass border-amber-200/50 bg-amber-50/50">
+              <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl">
                 <CardContent className="p-4 sm:p-6">
                   <p className="text-xs sm:text-sm text-midnight/80 italic">
                     <strong>Disclaimer:</strong> This information is for educational purposes only and does not constitute legal or financial advice. Estate planning laws vary by province in Canada. Please consult with a qualified estate lawyer and financial advisor to create a Will and estate plan that meets your specific needs and complies with provincial laws.
@@ -180,11 +175,11 @@ export default function WhyYouNeedAWillPage() {
               transition={{ duration: 0.5, delay: 0.9 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <Button asChild size="lg" className="border-2 border-emerald text-emerald hover:bg-midnight/10 hover:border-midnight-light hover:shadow-md transition-all duration-200 ease-out [&>*]:text-emerald">
-                <Link href="/contact" className="text-emerald">Speak with a Financial Advisor</Link>
+              <Button asChild size="lg" className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight">
+                <Link href="/contact" className="text-midnight">Speak with a Financial Advisor</Link>
               </Button>
-              <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
-                <Link href="/helpful-tools" className="!text-white">View Will Planning Checklist</Link>
+              <Button asChild size="lg" variant="outline" className="border-2 border-midnight/20 text-midnight hover:bg-midnight/5 hover:border-midnight/40 transition-all duration-200 rounded-xl [&>*]:text-midnight">
+                <Link href="/helpful-tools" className="text-midnight">View Will Planning Checklist</Link>
               </Button>
             </motion.div>
 

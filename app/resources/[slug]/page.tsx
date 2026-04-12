@@ -180,20 +180,15 @@ export default function ResourcePage() {
         subtitle={resource.description}
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             {/* Resource Meta */}
-            <Card className="glass shadow-glow-hover border-emerald/20 mb-6 sm:mb-8">
+            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] mb-6 sm:mb-8">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center text-sm text-midnight/70">
                   <div className="flex items-center">
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-2" />
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-2" />
                     <span className="font-medium">{resource.type}</span>
                   </div>
                 </div>
@@ -201,7 +196,7 @@ export default function ResourcePage() {
             </Card>
 
             {/* Resource Content */}
-            <Card className="glass shadow-glow-hover border-emerald/20">
+            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
               <CardContent className="p-6 sm:p-8 md:p-10">
                 <article className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-midnight/80">
                   {resource.content.map((paragraph, index) => {
@@ -237,7 +232,7 @@ export default function ResourcePage() {
             </Card>
 
             {/* CTA */}
-            <Card className="glass shadow-glow-hover border-emerald/20 mt-6 sm:mt-8">
+            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] mt-6 sm:mt-8">
               <CardContent className="p-6 sm:p-8 text-center">
                 <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4">
                   Need Personalized Guidance?
@@ -245,16 +240,16 @@ export default function ResourcePage() {
                 <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-xl mx-auto">
                   While this resource provides valuable information, personalized financial planning requires understanding your unique situation. Schedule a consultation to discuss your specific needs.
                 </p>
-                <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                  <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
+                <Button asChild size="lg" className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight">
+                  <Link href="/contact" className="text-midnight">Schedule a Consultation</Link>
                 </Button>
               </CardContent>
             </Card>
 
             {/* Back to Resources */}
             <div className="mt-6 sm:mt-8 text-center">
-              <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0">
-                <Link href="/resources" className="!text-white">
+              <Button asChild className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight border-0">
+                <Link href="/resources" className="text-midnight">
                   ← Back to Resources
                 </Link>
               </Button>

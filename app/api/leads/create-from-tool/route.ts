@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db, Lead } from "@/lib/supabaseServer"
 import { sendToolResultsEmail, sendEmail } from "@/lib/email"
-import { sendSmsFollowup } from "@/lib/sms"
 import { generateToolReportPDF } from "@/lib/pdf"
 
 export async function POST(request: NextRequest) {
@@ -112,23 +111,6 @@ export async function POST(request: NextRequest) {
         })
       }
 
-      // Schedule SMS (if phone provided and configured)
-      if (phone) {
-        const smsDate = new Date(now)
-        smsDate.setDate(smsDate.getDate() + 3)
-
-        await db.insertEvent({
-          lead_id: leadId,
-          type: "sms_scheduled",
-          meta: {
-            template_id: "drip_3days",
-            scheduled_for: smsDate.toISOString(),
-            sent: false,
-            lead_name: name,
-            lead_phone: phone,
-          },
-        })
-      }
     }
 
     return NextResponse.json({

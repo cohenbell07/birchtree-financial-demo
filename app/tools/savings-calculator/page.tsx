@@ -131,12 +131,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Plan for your short- or medium-term savings goals. Calculate how your savings will grow over time"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -146,10 +141,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
-                      <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
+                      <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
                       Calculate Your Savings Growth
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
@@ -234,7 +229,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="relative z-10 w-full !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Savings"}
@@ -252,7 +247,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
                           Future Savings Total
@@ -267,7 +262,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                             ${result.totalSavings.toLocaleString()}
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-emerald/30">
+                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gold/30">
                           <div>
                             <div className="text-xs sm:text-sm text-silver/80 mb-1">Your Contributions</div>
                             <div className="text-lg sm:text-xl font-bold text-white">
@@ -284,7 +279,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </CardContent>
                     </Card>
 
-                    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                           Savings Growth Over Time
@@ -333,8 +328,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                               <Line
                                 type="monotone"
                                 dataKey="contributions"
-                                stroke="#1B2A3D"
+                                stroke="#D7C38A"
                                 strokeWidth={2}
+                                strokeDasharray="5 5"
                                 dot={false}
                                 name="Your Contributions"
                               />
@@ -345,10 +341,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
@@ -362,7 +358,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual returns may vary significantly, and this does not constitute personalized financial advice. For retirement planning (long-term goals), please use our Retirement Calculator. Please consult with a qualified Canadian financial advisor for personalized savings planning including TFSA and other registered account strategies.
@@ -384,7 +380,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
                         Enter your savings information and calculate to see your projected growth.

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db, Event } from "@/lib/supabaseServer"
 import { sendDripSequenceEmail } from "@/lib/email"
-import { sendSmsFollowup } from "@/lib/sms"
 
 /**
  * This endpoint should be called by a cron job (e.g., Vercel Cron, GitHub Actions, or external service like cron-job.org)
@@ -81,26 +80,6 @@ export async function GET(request: NextRequest) {
           })
 
           if (emailResult.ok) {
-            await db.markDripEventSent(event.id!)
-            processed++
-          } else {
-            errors++
-          }
-        } else if (event.type === "sms_scheduled") {
-          if (!meta.lead_phone) {
-            console.warn(`[Drip] Skipping SMS event ${event.id} - no lead_phone in meta`)
-            continue
-          }
-
-          const smsResult = await sendSmsFollowup(
-            {
-              name: meta.lead_name || "Valued Client",
-              phone: meta.lead_phone,
-            },
-            meta.template_id || "consultation_reminder"
-          )
-
-          if (smsResult.ok) {
             await db.markDripEventSent(event.id!)
             processed++
           } else {

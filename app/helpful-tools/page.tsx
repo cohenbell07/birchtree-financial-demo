@@ -33,12 +33,7 @@ export default function HelpfulToolsPage() {
         subtitle="Access government resources, planning guides, and essential financial information for Canadians"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
             
@@ -48,10 +43,10 @@ export default function HelpfulToolsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="text-xl sm:text-2xl md:text-3xl font-heading text-midnight flex items-center">
-                    <FileText className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-emerald flex-shrink-0" />
+                    <FileText className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-gold flex-shrink-0" />
                     Government Pension Benefits
                   </CardTitle>
                   <CardDescription className="text-sm sm:text-base text-midnight/70 mt-2">
@@ -117,7 +112,7 @@ export default function HelpfulToolsPage() {
                     </Link>
 
                     <div className="flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg sm:col-span-2">
-                      <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
+                      <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-3 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="font-medium text-midnight text-sm sm:text-base">
                           Service Canada Contact
@@ -138,10 +133,10 @@ export default function HelpfulToolsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="text-xl sm:text-2xl md:text-3xl font-heading text-midnight flex items-center">
-                    <Globe className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-emerald flex-shrink-0" />
+                    <Globe className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-gold flex-shrink-0" />
                     Government Programs
                   </CardTitle>
                   <CardDescription className="text-sm sm:text-base text-midnight/70 mt-2">
@@ -156,7 +151,7 @@ export default function HelpfulToolsPage() {
                       rel="noopener noreferrer"
                       className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
-                      <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
+                      <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-3 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Registered Education Savings Plan (RESP)
@@ -171,7 +166,7 @@ export default function HelpfulToolsPage() {
                       rel="noopener noreferrer"
                       className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
-                      <Home className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
+                      <Home className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-3 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Home Buyers Plan (HBP)
@@ -186,7 +181,7 @@ export default function HelpfulToolsPage() {
                       rel="noopener noreferrer"
                       className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
-                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-3 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Lifelong Learning Plan (LLP)
@@ -201,7 +196,7 @@ export default function HelpfulToolsPage() {
                       rel="noopener noreferrer"
                       className="group flex items-center p-4 bg-white border-2 border-silver/20 rounded-lg hover:border-midnight/50 hover:shadow-md transition-all duration-200"
                     >
-                      <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mr-3 flex-shrink-0" />
+                      <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-3 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="font-medium text-midnight group-hover:text-midnight transition-colors text-sm sm:text-base">
                           Registered Disability Savings Plan (RDSP)
@@ -220,10 +215,10 @@ export default function HelpfulToolsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                 <CardHeader className="p-4 sm:p-6">
                   <CardTitle className="text-xl sm:text-2xl md:text-3xl font-heading text-midnight flex items-center">
-                    <FileText className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-emerald flex-shrink-0" />
+                    <FileText className="mr-3 h-5 w-5 sm:h-6 sm:w-6 text-gold flex-shrink-0" />
                     Will Planning Checklist
                   </CardTitle>
                   <CardDescription className="text-sm sm:text-base text-midnight/70 mt-2">
@@ -240,8 +235,8 @@ export default function HelpfulToolsPage() {
                         transition={{ duration: 0.3, delay: 0.3 + index * 0.02 }}
                         className="flex items-start"
                       >
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald/20 flex items-center justify-center mt-0.5 mr-3">
-                          <div className="w-2 h-2 rounded-full bg-emerald" />
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center mt-0.5 mr-3">
+                          <div className="w-2 h-2 rounded-full bg-gold" />
                         </div>
                         <span className="text-sm sm:text-base text-midnight/80 leading-relaxed flex-1">
                           {item}
@@ -250,8 +245,8 @@ export default function HelpfulToolsPage() {
                     ))}
                   </ul>
                   <div className="mt-6 sm:mt-8 pt-6 border-t border-silver/20">
-                    <Button asChild className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                      <Link href="/why-you-need-a-will" className="!text-white">
+                    <Button asChild className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight">
+                      <Link href="/why-you-need-a-will" className="text-midnight">
                         Learn More About Why You Need a Will
                       </Link>
                     </Button>
@@ -267,7 +262,7 @@ export default function HelpfulToolsPage() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-center"
             >
-              <Card className="glass shadow-glow-hover border-emerald/20 max-w-2xl mx-auto">
+              <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-2xl mx-auto">
                 <CardContent className="p-6 sm:p-8 md:pt-8 text-center">
                   <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4">
                     Need Personalized Guidance?
@@ -275,8 +270,8 @@ export default function HelpfulToolsPage() {
                   <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-xl mx-auto">
                     While these resources provide valuable information, personalized financial and estate planning requires understanding your unique situation. Schedule a consultation to discuss your specific needs.
                   </p>
-                  <Button asChild size="lg" className="!bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                    <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
+                  <Button asChild size="lg" className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight">
+                    <Link href="/contact" className="text-midnight">Schedule a Consultation</Link>
                   </Button>
                 </CardContent>
               </Card>

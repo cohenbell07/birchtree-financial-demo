@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import RevealText from "@/components/RevealText"
 import {
   Accordion,
   AccordionContent,
@@ -66,12 +66,12 @@ const faqs = [
   {
     question: "Are you registered with any regulatory bodies?",
     answer:
-      "Yes, Birchtree Financial is a registered investment advisor in Canada, regulated by provincial securities commissions and member of IIROC (Investment Industry Regulatory Organization of Canada). Our team holds relevant licenses and professional certifications, including CFP®, CFA, and professional designations where applicable. We maintain strict compliance with all Canadian regulatory requirements.",
+      "Yes, Birchtree Financial is a registered financial advisory firm in Canada. Our team holds relevant licenses and professional qualifications, including the Life License Qualification Program (LLQP). We maintain strict compliance with all Canadian regulatory requirements and stay current with evolving financial regulations and industry best practices.",
   },
   {
     question: "What should I bring to my first meeting?",
     answer:
-      "For your first consultation, it's helpful to bring a general overview of your financial situation, including your assets, liabilities, income, and expenses. You don't need detailed documentation initially—we'll guide you on what additional information we'll need as we develop your financial strategy.",
+      "For your first consultation, it's helpful to bring a general overview of your financial situation, including your assets, liabilities, income, and expenses. You don't need detailed documentation initially\u2014we'll guide you on what additional information we'll need as we develop your financial strategy.",
   },
   {
     question: "Do you provide tax advice?",
@@ -93,14 +93,23 @@ export default function FAQPage() {
         subtitle="Answers to common questions about our services and processes"
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#fafbfc] relative overflow-hidden">
+        <div className="grain-overlay" />
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-4">
+                Your Questions Answered
+              </p>
+              <RevealText
+                as="h2"
+                className="text-3xl sm:text-4xl md:text-5xl font-heading text-midnight"
+              >
+                Frequently Asked Questions
+              </RevealText>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,53 +124,59 @@ export default function FAQPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
                   >
-                    <Card className="glass shadow-glow-hover border-emerald/20">
+                    <div className="rounded-xl bg-white border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
                       <AccordionItem value={`item-${index}`} className="border-none">
                         <AccordionTrigger className="px-4 sm:px-6 py-3 sm:py-4 hover:no-underline">
-                          <CardTitle className="text-left text-base sm:text-lg font-heading text-midnight">
+                          <span className="text-left text-base sm:text-lg font-heading text-midnight">
                             {faq.question}
-                          </CardTitle>
+                          </span>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 sm:px-6 pb-3 sm:pb-4">
-                          <p className="text-sm sm:text-base text-midnight/80 leading-relaxed">{faq.answer}</p>
+                          <p className="text-sm sm:text-base text-midnight/50 leading-relaxed">{faq.answer}</p>
                         </AccordionContent>
                       </AccordionItem>
-                    </Card>
+                    </div>
                   </motion.div>
                 ))}
               </Accordion>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="mt-12"
+      {/* Still Have Questions? CTA */}
+      <section
+        className="relative overflow-hidden py-20 sm:py-28 md:py-36 lg:py-44 grain-overlay"
+        style={{ background: `
+          radial-gradient(ellipse 50% 50% at 20% 30%, rgba(215,195,138,0.04) 0%, transparent 70%),
+          radial-gradient(ellipse 50% 45% at 80% 70%, rgba(215,195,138,0.03) 0%, transparent 70%),
+          radial-gradient(ellipse at center, transparent 50%, rgba(5,12,22,0.5) 100%),
+          linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%)
+        ` }}
+      >
+        {/* Gold line at top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-2xl mx-auto text-center">
+            <RevealText
+              as="h2"
+              className="text-3xl sm:text-4xl md:text-5xl font-heading text-white mb-6"
             >
-              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading text-white">
-                    Still Have Questions?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-base sm:text-lg text-silver/90 mb-4 sm:mb-6">
-                    We&apos;re here to help. If you don&apos;t see the answer to your question
-                    here, please don&apos;t hesitate to reach out. Our team is always
-                    available to discuss your specific situation and answer any
-                    questions you may have.
-                  </p>
-                  <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                    <Link href="/contact" className="!text-white">Contact Us</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
+              Still Have Questions?
+            </RevealText>
+            <p className="text-base sm:text-lg text-white/40 mb-8 sm:mb-10 leading-relaxed">
+              We&apos;re here to help. If you don&apos;t see the answer to your question
+              here, please don&apos;t hesitate to reach out. Our team is always
+              available to discuss your specific situation and answer any
+              questions you may have.
+            </p>
+            <Button asChild size="lg">
+              <Link href="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </section>
     </div>
   )
 }
-

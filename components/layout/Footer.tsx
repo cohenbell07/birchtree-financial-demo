@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 import Logo from "@/components/Logo"
 
 const footerLinks = {
@@ -11,9 +11,7 @@ const footerLinks = {
   ],
   resources: [
     { href: "/resources", label: "Resources" },
-    { href: "/ai-advisor", label: "AI Advisor" },
     { href: "/helpful-tools", label: "Helpful Tools" },
-    { href: "/faq", label: "FAQ" },
     { href: "/tools/risk-profiler", label: "Risk Profiler" },
     { href: "/tools/retirement-calculator", label: "Retirement Calculator" },
   ],
@@ -27,52 +25,51 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-midnight text-white relative overflow-hidden">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-emerald/20 to-transparent" />
-      {/* Ultra-light noise texture */}
-      <div className="absolute inset-0 texture-noise pointer-events-none opacity-30" />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12">
+    <footer className="relative overflow-hidden" style={{
+      background: 'linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #0e1f34 60%, #081525 100%)'
+    }}>
+      {/* Aurora atmosphere */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -top-[20%] right-[10%] w-[50%] h-[50%] rounded-full aurora-blob-4"
+          style={{ background: 'radial-gradient(ellipse, rgba(215,195,138,0.03) 0%, transparent 70%)', filter: 'blur(100px)' }}
+        />
+        <div
+          className="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full aurora-blob-2"
+          style={{ background: 'radial-gradient(ellipse, rgba(21,36,57,0.3) 0%, transparent 70%)', filter: 'blur(80px)' }}
+        />
+      </div>
+
+      {/* Grain texture */}
+      <div className="absolute inset-0 grain-overlay pointer-events-none" />
+
+      {/* Top gold line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12 lg:gap-16">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="mb-6">
-              <div className="flex items-center mb-4">
+            <div className="mb-8">
+              <div className="flex items-center mb-6">
                 <Logo variant="white" />
               </div>
-              <p className="text-silver/80 text-sm sm:text-base mb-6 max-w-md leading-relaxed">
+              <p className="text-white/35 text-sm leading-relaxed max-w-sm font-body">
                 Your trusted partner in Canadian financial advisory and wealth management.
                 Building your future, one decision at a time.
               </p>
-              <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-silver/70 hover:text-white hover:scale-110 transition-all duration-300"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={20} />
-                </a>
-                <a
-                  href="#"
-                  className="text-silver/70 hover:text-white hover:scale-110 transition-all duration-300"
-                  aria-label="Twitter"
-                >
-                  <Twitter size={20} />
-                </a>
-              </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Company</h3>
+            <h3 className="text-[0.65rem] uppercase tracking-[0.2em] text-gold/50 font-medium mb-5">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
+                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
                   >
                     {link.label}
                   </Link>
@@ -83,13 +80,13 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Resources</h3>
+            <h3 className="text-[0.65rem] uppercase tracking-[0.2em] text-gold/50 font-medium mb-5">Resources</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
+                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
                   >
                     {link.label}
                   </Link>
@@ -100,13 +97,13 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-heading font-semibold mb-4 text-white border-b border-white/20 pb-2">Legal</h3>
+            <h3 className="text-[0.65rem] uppercase tracking-[0.2em] text-gold/50 font-medium mb-5">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-silver/80 hover:text-white hover:scale-105 text-sm transition-all duration-300 inline-block"
+                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
                   >
                     {link.label}
                   </Link>
@@ -117,29 +114,30 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className="mt-12 pt-8 border-t border-emerald/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-sm text-silver/70">
-            <div className="flex items-start space-x-3">
-              <Phone size={18} className="flex-shrink-0 mt-0.5 text-white" />
-              <span className="break-words">(403) 556-7777</span>
-            </div>
-            <div className="flex items-start space-x-3">
-              <Mail size={18} className="flex-shrink-0 mt-0.5 text-white" />
-              <span className="break-all">melissa.birch@birchtreefinancial.ca</span>
-            </div>
-            <div className="flex items-start space-x-3">
-              <MapPin size={18} className="flex-shrink-0 mt-0.5 text-white" />
-              <span className="break-words">4914 50 Ave, Olds, AB T4H 1P5</span>
-            </div>
+        <div className="mt-16 pt-10 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            {[
+              { icon: Phone, text: "(403) 556-7777" },
+              { icon: Mail, text: "melissa.birch@birchtreefinancial.ca", break: true },
+              { icon: MapPin, text: "4914 50 Ave, Olds, AB T4H 1P5" },
+            ].map(({ icon: Icon, text, break: shouldBreak }) => (
+              <div key={text} className="flex items-start space-x-3">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.05] flex items-center justify-center flex-shrink-0">
+                  <Icon size={14} className="text-gold/50" />
+                </div>
+                <span className={`text-white/30 font-body pt-1.5 ${shouldBreak ? 'break-all' : 'break-words'}`}>
+                  {text}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-emerald/20 text-center text-xs sm:text-sm text-silver/60">
-          <p className="px-4">
-            © {new Date().getFullYear()} Birchtree Financial. All rights
-            reserved. Registered investment advisor in Canada. Investment advisory services 
-            offered through Birchtree Financial, a registered investment advisor.
+        <div className="mt-10 pt-8 border-t border-white/[0.04] text-center">
+          <p className="text-[0.7rem] text-white/20 leading-relaxed max-w-2xl mx-auto font-body">
+            &copy; {new Date().getFullYear()} Birchtree Financial. All rights
+            reserved. Registered investment advisor in Canada.
           </p>
         </div>
       </div>

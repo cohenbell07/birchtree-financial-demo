@@ -40,43 +40,60 @@ export default function TFSAvsRRSPAnalyzerPage() {
   const calculateComparison = () => {
     const age = parseInt(formData.age) || 30
     const income = parseFloat(formData.income) || 50000
-    const contribution = 5000 // Example annual contribution
+    const yearsToRetirement = Math.max(1, 65 - age)
+    const annualReturn = 0.07
+    const annualContribution = Math.min(income * 0.18, 33000) // 2026 RRSP limit cap
 
-    // Simplified tax calculation (federal + provincial average)
-    const taxRate = income < 50000 ? 0.20 : income < 100000 ? 0.30 : 0.40
+    // Canadian marginal tax rate (combined federal + avg provincial ~10%)
+    const getMarginalRate = (inc: number) => {
+      if (inc <= 57375) return 0.25
+      if (inc <= 114750) return 0.305
+      if (inc <= 177882) return 0.36
+      if (inc <= 253414) return 0.41
+      return 0.46
+    }
 
-    // RRSP: Tax deduction now, taxed on withdrawal
-    const rrspTaxSavings = contribution * taxRate
-    const rrspGrowth = contribution * 1.07 * 30 // 7% annual return, 30 years
-    const rrspWithdrawalTax = rrspGrowth * 0.25 // Assumed lower tax in retirement
-    const rrspNet = rrspGrowth - rrspWithdrawalTax + rrspTaxSavings
+    const currentMarginalRate = getMarginalRate(income)
+    const retirementMarginalRate = getMarginalRate(income * 0.55) // Assume ~55% of working income in retirement
 
-    // TFSA: No deduction, but tax-free growth
-    const tfsaGrowth = contribution * 1.07 * 30
-    const tfsaNet = tfsaGrowth
+    // Future value of annuity (proper compound growth)
+    const fvAnnuity = annualContribution * ((Math.pow(1 + annualReturn, yearsToRetirement) - 1) / annualReturn)
 
-    const recommendation = age < 35 && income < 80000 ? "TFSA" : "RRSP"
-    const recommendationReason = age < 35 && income < 80000
-      ? "TFSA offers more flexibility for younger earners and those in lower tax brackets."
-      : "RRSP provides immediate tax savings that can be reinvested, especially beneficial for higher earners."
+    // RRSP: Tax deduction now at current rate, taxed on withdrawal at retirement rate
+    const rrspTaxSavings = annualContribution * currentMarginalRate
+    const rrspGrowthTotal = fvAnnuity
+    const rrspAfterTax = rrspGrowthTotal * (1 - retirementMarginalRate)
+    const rrspNet = rrspAfterTax
+
+    // TFSA: After-tax contribution (no deduction), but withdrawals are completely tax-free
+    const tfsaContribution = annualContribution * (1 - currentMarginalRate) // What you'd have after paying tax
+    const tfsaGrowthTotal = tfsaContribution * ((Math.pow(1 + annualReturn, yearsToRetirement) - 1) / annualReturn)
+    const tfsaNet = tfsaGrowthTotal // No tax on withdrawal
+
+    // Recommendation logic: RRSP wins when current rate > retirement rate
+    const rrspAdvantage = currentMarginalRate > retirementMarginalRate
+    const recommendation = rrspAdvantage ? "RRSP" : "TFSA"
+    const recommendationReason = rrspAdvantage
+      ? "Your current marginal tax rate is higher than your expected retirement rate, making the RRSP tax deferral more valuable."
+      : "Your current and expected retirement tax rates suggest TFSA's tax-free growth and withdrawal flexibility is more advantageous."
 
     return {
-      tfsaBenefit: tfsaNet,
-      rrspBenefit: rrspNet,
+      tfsaBenefit: Math.round(tfsaNet),
+      rrspBenefit: Math.round(rrspNet),
       recommendation,
-      summary: `Based on your age (${age}) and income ($${income.toLocaleString()}), ${recommendation} is likely more optimal. ${recommendationReason}`,
+      summary: `Based on your age (${age}), income ($${income.toLocaleString()}), and ${yearsToRetirement} years to retirement, ${recommendation} is likely more optimal. ${recommendationReason}`,
       comparison: {
         taxBenefit: {
-          tfsa: "No immediate tax deduction, but withdrawals are tax-free",
-          rrsp: `Immediate tax savings of $${rrspTaxSavings.toLocaleString()} per $${contribution.toLocaleString()} contribution`,
+          tfsa: "No immediate tax deduction, but withdrawals are completely tax-free",
+          rrsp: `Immediate tax savings of ~$${Math.round(rrspTaxSavings).toLocaleString()} per year at your ${(currentMarginalRate * 100).toFixed(0)}% marginal rate`,
         },
         flexibility: {
-          tfsa: "Contributions can be withdrawn anytime without tax consequences",
-          rrsp: "Withdrawals are taxed as income and reduce contribution room permanently",
+          tfsa: "Contributions can be withdrawn anytime without tax consequences; room is restored the following year",
+          rrsp: "Withdrawals are taxed as income; contribution room is not restored",
         },
         savingsOutcome: {
-          tfsa: tfsaNet,
-          rrsp: rrspNet,
+          tfsa: Math.round(tfsaNet),
+          rrsp: Math.round(rrspNet),
         },
       },
     }
@@ -109,7 +126,7 @@ export default function TFSAvsRRSPAnalyzerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           prompt: `User profile: Age ${formData.age}, Income $${formData.income}, Province ${formData.province}. Analysis shows ${calculation.recommendation} is recommended. Provide a 2-3 sentence educational explanation of TFSA vs RRSP for this Canadian taxpayer.`,
-          type: "tfsa-rrsp-analysis",
+          type: "tfsa-rrsp",
         }),
       })
 
@@ -163,11 +180,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Compare tax benefits and determine which account is right for you"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -177,10 +190,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-emerald flex-shrink-0" />
+                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
                       Your Profile
                     </CardTitle>
                     <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
@@ -238,7 +251,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
                         disabled={isLoading}
                       >
                         {isLoading ? "Analyzing..." : "Compare TFSA vs RRSP"}
@@ -256,7 +269,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card className="gradient-bg text-white shadow-glow border-emerald/30 max-w-md mx-auto lg:max-w-none">
+                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
@@ -270,7 +283,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </CardContent>
                     </Card>
 
-                    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
                           Comparison
@@ -302,10 +315,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="glass shadow-glow-hover border-emerald/30 max-w-md mx-auto lg:max-w-none bg-gradient-to-br from-emerald/5 to-emerald-light/5">
+                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-emerald flex-shrink-0" />
+                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
@@ -319,7 +332,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="glass border-amber-200/50 bg-amber-50/50 max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
                         <p className="text-xs sm:text-sm text-midnight/80 italic">
                           <strong>Disclaimer:</strong> This analysis provides general information only. Actual benefits depend on your specific tax situation, future tax rates, and investment returns. Consult with a qualified financial advisor for personalized advice.
@@ -341,7 +354,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                     <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
                       <p className="text-sm sm:text-base">
                         Enter your information to see your TFSA vs RRSP comparison.

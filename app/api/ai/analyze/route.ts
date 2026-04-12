@@ -1,52 +1,179 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Web search function using DuckDuckGo (free, no API key needed)
-async function searchWeb(query: string): Promise<string> {
-  try {
-    // Using DuckDuckGo Instant Answer API (free, no key required)
-    const searchQuery = encodeURIComponent(`${query} Canada`)
-    
-    // Create timeout controller for graceful degradation
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
-    
-    const response = await fetch(`https://api.duckduckgo.com/?q=${searchQuery}&format=json&no_html=1&skip_disambig=1`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-      },
-      signal: controller.signal,
-    })
-    
-    clearTimeout(timeoutId)
+function getSystemPrompt(type: string): string {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const currentDate = now.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
 
-    if (!response.ok) {
-      return "" // Gracefully degrade - return empty string
-    }
+  const canadianContext = `
+CURRENT DATE: ${currentDate} (Year: ${currentYear})
 
-    const data = await response.json()
-    let context = ""
-    
-    // Extract useful information from DuckDuckGo response
-    if (data.AbstractText) {
-      context += `Current Information: ${data.AbstractText}\n`
-    }
-    if (data.RelatedTopics && data.RelatedTopics.length > 0) {
-      context += "\nRelated Information:\n"
-      data.RelatedTopics.slice(0, 3).forEach((topic: any, index: number) => {
-        if (topic.Text) {
-          context += `${index + 1}. ${topic.Text.substring(0, 150)}...\n`
-        }
-      })
-    }
-    
-    return context
-  } catch (error) {
-    // Gracefully handle any errors - return empty string so chat still works
-    // This includes timeouts, rate limits, network errors, etc.
-    if (error instanceof Error && error.name !== 'AbortError') {
-      console.warn("Web search unavailable (this is okay, chat will still work):", error.message)
-    }
-    return "" // Empty string means no web search context, but chat continues normally
+CRITICAL — CANADIAN CONTEXT ONLY:
+- Use ONLY Canadian financial terms: RRSP, TFSA, CPP, OAS, RESP, GIC, CRA
+- NEVER use American terms: 401(k), IRA, Roth IRA, Social Security, IRS, USD
+- Reference Canadian tax brackets, contribution limits, and regulations for ${currentYear}
+- Use Canadian dollar amounts (CAD)
+- Reference Canadian provinces when relevant (Alberta context preferred)
+
+RESPONSE QUALITY:
+- Be specific and concrete — use actual numbers, percentages, and examples
+- Avoid vague platitudes like "consider consulting a professional" mid-response
+- Give genuinely useful educational information
+- End with a brief disclaimer that this is general information, not personalized advice
+- Format cleanly with bullet points where appropriate
+- Keep responses focused and valuable — no filler`
+
+  switch (type) {
+    case "risk-profiler":
+      return `You are a knowledgeable Canadian investment analyst providing educational risk profile assessments.
+${canadianContext}
+
+When given a user's risk profile data, provide a clear 2-3 sentence summary of what their risk category means in practice. Be specific about what kinds of investments typically align with this profile (e.g., "A moderate profile typically means a 60/40 split between equities and fixed income"). Mention relevant Canadian investment vehicles.`
+
+    case "risk-profiler-insights":
+      return `You are a knowledgeable Canadian investment analyst providing actionable investment insights.
+${canadianContext}
+
+Generate 3-4 specific, actionable insights based on the user's risk profile. Each insight should:
+- Start with a bold actionable recommendation
+- Include specific Canadian investment options (e.g., Canadian equity ETFs, GICs, Canadian bond funds)
+- Reference specific allocation percentages where appropriate
+- Be tailored to their age, timeline, and risk tolerance
+
+Format as a bulleted list. Make each bullet genuinely useful — not generic advice anyone could find online.`
+
+    case "retirement":
+      return `You are a knowledgeable Canadian retirement planning analyst providing educational projections.
+${canadianContext}
+
+When given retirement calculation results, provide a clear 2-3 sentence assessment. Be specific:
+- Compare their projected savings to common Canadian retirement benchmarks (typical retirees need $800K-$1.5M depending on lifestyle)
+- Mention the impact of CPP (average ${currentYear} payment ~$800-900/month) and OAS (~$700-750/month) on their retirement income
+- If their projection seems low, say so honestly but constructively
+- If it looks strong, acknowledge that while noting inflation considerations`
+
+    case "retirement-insights":
+      return `You are a knowledgeable Canadian retirement planning analyst providing actionable insights.
+${canadianContext}
+
+Generate 3-4 specific, actionable insights based on the retirement projection. Each insight should:
+- Include specific dollar amounts or percentages (e.g., "Increasing contributions by $200/month would add approximately $X over Y years")
+- Reference RRSP contribution limits ($31,560 for ${currentYear}), TFSA limits ($7,000 for ${currentYear}), and CPP/OAS strategies
+- Consider their specific age and timeline
+- Suggest concrete next steps, not vague advice
+
+Format as a bulleted list. Make each bullet genuinely useful and specific to their numbers.`
+
+    case "tax-optimization":
+      return `You are a knowledgeable Canadian tax strategist providing educational tax analysis.
+${canadianContext}
+
+When given tax optimization data, provide a clear 2-3 sentence summary of the tax savings opportunity. Be specific about:
+- Which strategies would have the biggest impact (RRSP contributions, TFSA optimization, income splitting if applicable)
+- Approximate dollar savings where possible
+- Reference current ${currentYear} Canadian federal and provincial tax brackets`
+
+    case "tax-insights":
+      return `You are a knowledgeable Canadian tax strategist providing actionable tax optimization insights.
+${canadianContext}
+
+Generate 3-4 specific, actionable tax optimization insights. Each should:
+- Reference specific ${currentYear} Canadian tax brackets and rates
+- Suggest concrete strategies with estimated dollar impacts
+- Cover RRSP, TFSA, and other registered account strategies
+- Be relevant to their income level and situation
+
+Format as a bulleted list with specific, actionable advice.`
+
+    case "savings":
+    case "savings-insights":
+      return `You are a knowledgeable Canadian financial analyst providing savings growth analysis.
+${canadianContext}
+
+Provide specific, actionable insights about the savings projection. Reference:
+- TFSA as a tax-free growth vehicle (contribution room, benefits)
+- High-interest savings accounts and GIC rates in the current Canadian market
+- The power of compound growth with specific examples from their numbers
+- Concrete strategies to accelerate savings
+
+Format as a bulleted list with specific, actionable advice.`
+
+    case "cpp-oas":
+    case "cpp-oas-insights":
+      return `You are a knowledgeable Canadian pension benefits analyst.
+${canadianContext}
+
+Provide specific analysis of CPP and OAS claiming strategies. Reference:
+- CPP: Available from age 60 (reduced) to 70 (enhanced). Each month before 65 reduces by 0.6%, each month after increases by 0.7%
+- OAS: Available from age 65, can defer to 70 for 0.6% increase per month. Clawback begins at ~$90,997 income (${currentYear})
+- Break-even analysis for early vs. delayed claiming
+- Specific dollar impacts based on their situation
+
+Be precise with numbers and explain trade-offs clearly.`
+
+    case "tfsa-rrsp":
+    case "tfsa-rrsp-insights":
+      return `You are a knowledgeable Canadian registered accounts analyst.
+${canadianContext}
+
+Provide specific TFSA vs RRSP comparison analysis. Reference:
+- TFSA: ${currentYear} contribution limit $7,000, cumulative room since 2009, tax-free growth and withdrawals
+- RRSP: ${currentYear} contribution limit $31,560 (or 18% of previous year income), tax-deductible contributions, taxed on withdrawal
+- The key decision factor: current vs. expected future tax bracket
+- Specific recommendations based on their income and situation
+
+Be concrete about which account type benefits them more and why.`
+
+    case "resp":
+    case "resp-insights":
+      return `You are a knowledgeable Canadian education savings analyst.
+${canadianContext}
+
+Provide specific RESP analysis. Reference:
+- CESG: Government matches 20% of first $2,500/year ($500/year, lifetime max $7,200 per child)
+- Additional CESG for lower-income families
+- CLB (Canada Learning Bond) for eligible families
+- RESP lifetime contribution limit of $50,000 per beneficiary
+- Investment strategies within RESPs based on child's age
+
+Be specific about maximizing government grants and growth.`
+
+    case "loan":
+    case "loan-insights":
+      return `You are a knowledgeable Canadian mortgage and lending analyst.
+${canadianContext}
+
+Provide specific loan/mortgage analysis. Reference:
+- Current Canadian mortgage rate environment
+- Difference between fixed vs. variable rates in the Canadian market
+- Mortgage stress test requirements (qualifying rate)
+- Amortization strategies (25 vs. 30 year)
+- Accelerated payment options and their impact
+
+Be specific with dollar amounts showing interest savings from different strategies.`
+
+    case "net-worth":
+    case "net-worth-insights":
+      return `You are a knowledgeable Canadian financial health analyst.
+${canadianContext}
+
+Provide specific net worth analysis and financial health insights. Reference:
+- How their net worth compares to Canadian benchmarks for their age group
+- Asset allocation observations (too much in one area, diversification)
+- Debt-to-asset ratio analysis
+- Specific strategies to grow net worth (maximize registered accounts, debt paydown priorities)
+
+Be constructive and specific with actionable next steps.`
+
+    default:
+      return `You are an AI financial education assistant for Birchtree Financial, a Canadian financial advisory firm based in Olds, Alberta.
+${canadianContext}
+
+Provide helpful, educational Canadian financial information. Be specific, use real numbers and current ${currentYear} figures. Always maintain a professional, warm tone.`
   }
 }
 
@@ -55,118 +182,36 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { prompt, type } = body
 
-    // Get API key from environment
-    const apiKey = process.env.OPENAI_API_KEY
-
+    const apiKey = process.env.ANTHROPIC_API_KEY
     if (!apiKey) {
       return NextResponse.json(
-        { error: "OpenAI API key not configured" },
+        { error: "Anthropic API key not configured" },
         { status: 500 }
       )
     }
 
-    // Get current date dynamically (updates automatically each day)
-    const now = new Date()
-    const currentDate = now.toLocaleDateString("en-CA", { 
-      year: "numeric", 
-      month: "long", 
-      day: "numeric" 
-    })
-    const currentYear = now.getFullYear()
+    const systemPrompt = getSystemPrompt(type || "default")
 
-    // Perform web search for chat type to get current information (gracefully degrades if unavailable)
-    let webSearchContext = ""
-    if (type === "chat") {
-      webSearchContext = await searchWeb(prompt)
-    }
-
-    // Create system prompt based on type
-    let systemPrompt = ""
-    if (type === "risk-profiler") {
-      systemPrompt = `You are a Canadian financial advisor providing general investment risk assessment information. 
-      Based on the user's inputs, provide a brief summary of their risk profile category (Conservative, Moderate, Growth, or Aggressive) 
-      and what this means for their investment strategy. Focus on Canadian investment vehicles like RRSPs, TFSAs, and Canadian securities. 
-      Be general and educational only. Do not provide specific investment recommendations.`
-    } else if (type === "retirement") {
-      systemPrompt = `You are a Canadian financial advisor providing general retirement planning information. 
-      Based on the user's retirement calculation inputs, provide a brief, educational summary of their retirement projection. 
-      Reference Canadian retirement vehicles like RRSPs, TFSAs, CPP (Canada Pension Plan), and OAS (Old Age Security) when relevant. 
-      Be general and educational only. Do not provide specific financial advice or guarantees.`
-    } else {
-      systemPrompt = `You are an AI financial advisor assistant for Birchtree Financial, a Canadian financial advisory firm based in Olds, Alberta.
-
-CURRENT DATE: ${currentDate} (Year: ${currentYear})
-
-IMPORTANT: 
-- Always use the current date (${currentYear}) when discussing financial information
-- Do not reference outdated information from previous years unless specifically asked about historical data
-- Today's date is ${currentDate} - use this for all time-sensitive information
-
-KNOWLEDGE BASE:
-Services offered by Birchtree Financial:
-- Retirement Planning (RRSP, CPP, OAS strategies)
-- Investment Management (portfolio management, wealth growth)
-- Insurance Strategies (life, disability, critical illness insurance)
-- Tax Optimization (TFSA, RRSP optimization, tax planning)
-- Wealth Building (strategic advisory, legacy planning)
-- Estate Planning (wills, powers of attorney, probate)
-
-Available Financial Tools (suggest when relevant):
-- Risk Profiler - For investment risk assessment
-- Retirement Calculator - For retirement planning questions
-- TFSA vs RRSP Analyzer - For TFSA/RRSP comparison questions
-- Tax Optimization Calculator - For tax planning questions
-- RESP Planner - For education savings questions
-- CPP/OAS Optimizer - For CPP/OAS timing questions
-- Net Worth Tracker - For net worth and debt questions
-- Bank Loan Calculator - For mortgage/loan questions
-- Savings Calculator - For savings goal questions
-
-RESPONSE GUIDELINES:
-1. Focus on Canadian financial products, regulations, and tax structures (RRSP, TFSA, CPP, OAS, RESP, etc.)
-2. When a user's question relates to a specific tool, naturally suggest it by directing them to the Resources page. For example:
-   - Retirement questions → "You might find our Retirement Calculator helpful. You can access it by going to the Resources page and selecting it from the Tools section."
-   - Tax questions → "Our Tax Optimization Calculator can help with this. Visit the Resources page and look for it in the Tools section."
-   - Risk/investment questions → "Consider using our Risk Profiler tool, which you can find on the Resources page under Tools."
-   - TFSA/RRSP questions → "Our TFSA vs RRSP Analyzer tool can help you compare these accounts. Go to the Resources page and select it from the Tools section."
-   IMPORTANT: Do NOT include any URLs, paths, or links in your suggestions. Simply direct users to "the Resources page" and mention "Tools section" or "Tools".
-3. Keep responses educational and general - do not provide personalized financial advice, guarantees, or specific investment recommendations
-4. Use the most current information available. If web search results are provided, prioritize that information over your training data. If no web search results are available, use your knowledge but emphasize it may not be the most current.
-5. Always reference the current year (${currentYear}) when discussing contribution limits, tax rates, or other time-sensitive information.
-6. End every response with this exact disclaimer: "This is general Canadian financial information only and does not constitute personalized financial, legal, or tax advice. For personalized advice tailored to your situation, consider booking a consultation with a Birchtree Financial advisor."
-7. Do NOT include any buttons, links to schedule consultations, or other call-to-action elements in the response body - only the disclaimer text at the end.`
-    }
-
-    // Build user message with web search context if available (gracefully handles when search is unavailable)
-    let userMessage = prompt
-    if (webSearchContext && webSearchContext.trim().length > 0) {
-      userMessage = `${prompt}\n\n[Current Information from Web Search - ${currentDate}]:\n${webSearchContext}\n\nPlease use this current information to provide an up-to-date answer for ${currentYear}.`
-    } else {
-      // No web search available - still works, just without current web data
-      userMessage = `${prompt}\n\nNote: Please provide information relevant to ${currentYear} (current year).`
-    }
-
-    // Call OpenAI API
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userMessage },
-        ],
+        model: "claude-haiku-4-5-20251001",
         max_tokens: 800,
-        temperature: 0.7,
+        system: systemPrompt,
+        messages: [
+          { role: "user", content: prompt },
+        ],
       }),
     })
 
     if (!response.ok) {
       const error = await response.json()
-      console.error("OpenAI API error:", error)
+      console.error("Anthropic API error:", error)
       return NextResponse.json(
         { error: "Failed to generate response" },
         { status: 500 }
@@ -174,7 +219,7 @@ RESPONSE GUIDELINES:
     }
 
     const data = await response.json()
-    const content = data.choices[0]?.message?.content || "No response generated"
+    const content = data.content?.[0]?.text || "No response generated"
 
     return NextResponse.json({ content })
   } catch (error) {
@@ -185,4 +230,3 @@ RESPONSE GUIDELINES:
     )
   }
 }
-
