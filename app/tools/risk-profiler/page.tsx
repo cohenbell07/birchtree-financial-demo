@@ -23,7 +23,6 @@ export default function RiskProfilerPage() {
   })
   const [result, setResult] = useState<{
     category: string
-    summary: string
     scores: { category: string; value: number }[]
   } | null>(null)
   const [insights, setInsights] = useState<string | null>(null)
@@ -121,35 +120,12 @@ export default function RiskProfilerPage() {
 
     // Calculate risk profile
     const riskProfile = calculateRiskProfile()
-
-    // Generate AI summary
-    const prompt = `User profile:
-- Age: ${formData.age}
-- Income range: ${formData.income}
-- Investment experience: ${formData.experience}
-- Time horizon: ${formData.timeHorizon}
-- Risk tolerance: ${formData.riskTolerance}
-- Goals: ${formData.goals.join(", ")}
-
-Risk profile category: ${riskProfile.category}
-Risk score: ${riskProfile.scores.reduce((sum, s) => sum + s.value, 0) / riskProfile.scores.length}
-
-Provide a brief, educational summary (2-3 sentences) of what this ${riskProfile.category} risk profile means for investment strategy. Keep it general and educational only.`
+    setResult({
+      category: riskProfile.category,
+      scores: riskProfile.scores,
+    })
 
     try {
-      const response = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, type: "risk-profiler" }),
-      })
-
-      const data = await response.json()
-      setResult({
-        category: riskProfile.category,
-        summary: data.content || "Analysis generated.",
-        scores: riskProfile.scores,
-      })
-
       // Generate enhanced insights
       const avgScore = riskProfile.scores.reduce((sum, s) => sum + s.value, 0) / riskProfile.scores.length
       const insightsPrompt = `Investment Risk Profile Analysis - Generate 3-4 actionable insights:
@@ -170,25 +146,15 @@ Provide 3-4 specific, actionable insights in bullet format. Focus on:
 
 Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
 
-      try {
-        const insightsResponse = await fetch("/api/ai/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: insightsPrompt, type: "risk-profiler-insights" }),
-        })
-        const insightsData = await insightsResponse.json()
-        setInsights(insightsData.content || null)
-      } catch (error) {
-        console.warn("Insights generation failed:", error)
-        setInsights(null)
-      }
-    } catch (error) {
-      console.error("Error generating summary:", error)
-      setResult({
-        category: riskProfile.category,
-        summary: "Your risk profile has been calculated. Please consult with a financial advisor for personalized guidance.",
-        scores: riskProfile.scores,
+      const insightsResponse = await fetch("/api/ai/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: insightsPrompt, type: "risk-profiler-insights" }),
       })
+      const insightsData = await insightsResponse.json()
+      setInsights(insightsData.content || null)
+    } catch (error) {
+      console.warn("Insights generation failed:", error)
       setInsights(null)
     } finally {
       setIsLoading(false)
@@ -362,15 +328,23 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card
+                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
+                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                    >
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
-                          Your Risk Profile: {result.category}
+                          Your Risk Profile
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
-                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-white tracking-tight">
+                          {result.category}
+                        </div>
+                        <p className="text-[0.65rem] uppercase tracking-[0.18em] text-gold/70 font-medium">
+                          Investor profile category
+                        </p>
                       </CardContent>
                     </Card>
 
@@ -488,7 +462,6 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                         source="risk-profiler"
                         toolData={{
                           category: result!.category,
-                          summary: result!.summary,
                           scores: result!.scores,
                           formData: formData,
                         }}

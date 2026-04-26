@@ -269,7 +269,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card
+                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
+                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                    >
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
                           Loan Payment Summary

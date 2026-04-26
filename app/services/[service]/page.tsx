@@ -325,17 +325,7 @@ export default function ServiceDetailPage() {
                 {service.title.toLowerCase()} needs and discover how we can
                 help.
               </p>
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
-                >
-                  <Link href="/contact" className="text-midnight">
-                    Schedule a Consultation
-                    <ArrowRight className="ml-2 inline h-4 w-4" />
-                  </Link>
-                </Button>
+              <div className="mt-10 flex flex-col-reverse items-center justify-center gap-4 sm:flex-row sm:gap-5">
                 <Button
                   asChild
                   size="lg"
@@ -344,6 +334,16 @@ export default function ServiceDetailPage() {
                   <Link href="/services" className="text-white">
                     <ArrowLeft className="mr-2 inline h-4 w-4" />
                     Back to All Services
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                >
+                  <Link href="/contact" className="text-midnight">
+                    Schedule a Consultation
+                    <ArrowRight className="ml-2 inline h-4 w-4" />
                   </Link>
                 </Button>
               </div>

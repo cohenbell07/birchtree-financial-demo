@@ -101,20 +101,6 @@ export default function NetWorthTrackerPage() {
     const calculation = calculateNetWorth()
 
     try {
-      const response = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: `Net worth: $${calculation.netWorth.toLocaleString()}, Debt-to-income: ${calculation.debtToIncome.toFixed(1)}%, Payoff time: ${calculation.payoffMonths} months. Provide 2-3 sentences of educational advice about net worth and debt management for Canadians.`,
-          type: "net-worth",
-        }),
-      })
-
-      const data = await response.json()
-      if (data.content) {
-        calculation.summary = data.content
-      }
-
       // Generate enhanced insights
       const insightsPrompt = `Net Worth & Debt Analysis - Generate 3-4 actionable insights:
 - Total Assets: $${formData.assets}
@@ -133,20 +119,15 @@ Provide 3-4 specific, actionable insights in bullet format. Focus on:
 
 Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
 
-      try {
-        const insightsResponse = await fetch("/api/ai/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: insightsPrompt, type: "net-worth-insights" }),
-        })
-        const insightsData = await insightsResponse.json()
-        setInsights(insightsData.content || null)
-      } catch (error) {
-        console.warn("Insights generation failed:", error)
-        setInsights(null)
-      }
+      const insightsResponse = await fetch("/api/ai/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: insightsPrompt, type: "net-worth-insights" }),
+      })
+      const insightsData = await insightsResponse.json()
+      setInsights(insightsData.content || null)
     } catch (error) {
-      console.warn("AI summary generation failed, using default")
+      console.warn("Insights generation failed:", error)
       setInsights(null)
     }
 
@@ -254,7 +235,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card
+                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
+                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                    >
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
                           <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />

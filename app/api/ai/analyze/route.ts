@@ -24,8 +24,16 @@ RESPONSE QUALITY:
 - Avoid vague platitudes like "consider consulting a professional" mid-response
 - Give genuinely useful educational information
 - End with a brief disclaimer that this is general information, not personalized advice
-- Format cleanly with bullet points where appropriate
-- Keep responses focused and valuable — no filler`
+- Keep responses focused and valuable — no filler
+
+FORMATTING — PLAIN TEXT ONLY (CRITICAL):
+- Output PLAIN TEXT. Do NOT use markdown.
+- Do NOT use ** or __ for bold. Do NOT use * or _ for italics.
+- Do NOT use # / ## / ### for headings. Do NOT add a title at the top.
+- For lists, prefix each item with the literal bullet character "• " (U+2022) followed by a space, then a clean sentence. Do NOT use "*", "-", or numbered "1." markers.
+- Separate items and paragraphs with a single blank line.
+- No backticks, no tables, no horizontal rules.
+- Write the text as if it were going into an email — clean prose with simple bullets only.`
 
   switch (type) {
     case "risk-profiler":
@@ -39,12 +47,12 @@ When given a user's risk profile data, provide a clear 2-3 sentence summary of w
 ${canadianContext}
 
 Generate 3-4 specific, actionable insights based on the user's risk profile. Each insight should:
-- Start with a bold actionable recommendation
+- Start with a clear actionable recommendation
 - Include specific Canadian investment options (e.g., Canadian equity ETFs, GICs, Canadian bond funds)
 - Reference specific allocation percentages where appropriate
 - Be tailored to their age, timeline, and risk tolerance
 
-Format as a bulleted list. Make each bullet genuinely useful — not generic advice anyone could find online.`
+Make each bullet genuinely useful — not generic advice anyone could find online.`
 
     case "retirement":
       return `You are a knowledgeable Canadian retirement planning analyst providing educational projections.

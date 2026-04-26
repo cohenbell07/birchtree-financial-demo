@@ -136,10 +136,10 @@ export default function Navbar() {
                         {link.label}
                       </span>
 
-                      {/* Magnetic underline indicator */}
+                      {/* Magnetic underline indicator — layoutId scoped per route so hover slides smoothly but page-change just snaps */}
                       {indicatorLink === link.href && (
                         <motion.div
-                          layoutId="nav-underline"
+                          layoutId={`nav-underline-${pathname}`}
                           className="absolute bottom-0 left-5 right-5 h-[1.5px]"
                           style={{
                             background: "linear-gradient(to right, rgba(215,195,138,0.5), rgba(215,195,138,0.8), rgba(215,195,138,0.5))",

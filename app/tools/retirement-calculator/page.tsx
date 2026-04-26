@@ -26,7 +26,6 @@ export default function RetirementCalculatorPage() {
   })
   const [result, setResult] = useState<{
     projectedSavings: number
-    summary: string
     chartData: { age: number; savings: number }[]
   } | null>(null)
   const [insights, setInsights] = useState<string | null>(null)
@@ -84,32 +83,9 @@ export default function RetirementCalculatorPage() {
     }
 
     const calculation = calculateRetirement()
-
-    // Generate AI summary
-    const prompt = `Retirement Calculation Results:
-- Current Age: ${formData.currentAge}
-- Retirement Age: ${formData.retirementAge}
-- Current Savings: $${parseFloat(formData.currentSavings || "0").toLocaleString()}
-- Annual Contribution: $${parseFloat(formData.annualContribution || "0").toLocaleString()}
-- Expected Return: ${formData.expectedReturn}%
-- Years to Retirement: ${parseInt(formData.retirementAge || "65") - parseInt(formData.currentAge || "30")}
-- Projected Savings at Retirement: $${calculation.projectedSavings.toLocaleString()}
-
-Provide a brief, educational summary (2-3 sentences) of this retirement projection. Include observations about whether this seems adequate for retirement and general considerations. Keep it general and educational only. Do not provide specific financial advice.`
+    setResult(calculation)
 
     try {
-      const response = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, type: "retirement" }),
-      })
-
-      const data = await response.json()
-      setResult({
-        ...calculation,
-        summary: data.content || "Calculation complete. Please consult with a financial advisor for personalized guidance.",
-      })
-
       // Generate enhanced insights
       const insightsPrompt = `Retirement Analysis - Generate 3-4 actionable insights:
 - Current Age: ${formData.currentAge}
@@ -128,24 +104,15 @@ Provide 3-4 specific, actionable insights in bullet format. Focus on:
 
 Format as a bulleted list with clear, actionable advice. Keep it educational and valuable.`
 
-      try {
-        const insightsResponse = await fetch("/api/ai/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: insightsPrompt, type: "retirement-insights" }),
-        })
-        const insightsData = await insightsResponse.json()
-        setInsights(insightsData.content || null)
-      } catch (error) {
-        console.warn("Insights generation failed:", error)
-        setInsights(null)
-      }
-    } catch (error) {
-      console.error("Error generating summary:", error)
-      setResult({
-        ...calculation,
-        summary: "Your retirement projection has been calculated. Please consult with a financial advisor for personalized guidance.",
+      const insightsResponse = await fetch("/api/ai/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: insightsPrompt, type: "retirement-insights" }),
       })
+      const insightsData = await insightsResponse.json()
+      setInsights(insightsData.content || null)
+    } catch (error) {
+      console.warn("Insights generation failed:", error)
       setInsights(null)
     } finally {
       setIsLoading(false)
@@ -297,17 +264,22 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card
+                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
+                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                    >
                       <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
                           Projected Retirement Savings
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 text-white">
+                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-white tracking-tight">
                           ${result.projectedSavings.toLocaleString()}
                         </div>
-                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">{result.summary}</p>
+                        <p className="text-[0.65rem] uppercase tracking-[0.18em] text-gold/70 font-medium">
+                          Estimated value at retirement
+                        </p>
                       </CardContent>
                     </Card>
 
@@ -361,7 +333,6 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                         source="retirement-calculator"
                         toolData={{
                           projectedSavings: result!.projectedSavings,
-                          summary: result!.summary,
                           chartData: result!.chartData,
                           formData: formData,
                         }}
