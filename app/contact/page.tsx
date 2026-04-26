@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Section } from "@/components/ui/section"
+import { Container } from "@/components/ui/container"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
 import RevealText from "@/components/RevealText"
 import FAQSection from "@/components/FAQSection"
@@ -106,12 +109,8 @@ export default function ContactPage() {
         accent="amber"
       />
 
-      {/* Form + Contact Info Section */}
-      <section className="py-20 sm:py-28 md:py-36 lg:py-44 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
+      <Section tone="paper" topRule>
+        <Container>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Contact Form */}
               <motion.div
@@ -309,10 +308,9 @@ export default function ContactPage() {
                   </Card>
                 </div>
               </motion.div>
-            </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* ======== FAQ Section ======== */}
       <FAQSection
@@ -321,46 +319,43 @@ export default function ContactPage() {
         faqs={contactFaqs}
       />
 
-      {/* Calendar Booking Section — Dark Aurora CTA */}
-      <section
-        id="calendar"
-        className="py-20 sm:py-28 md:py-36 lg:py-44 relative overflow-hidden grain-overlay"
-        style={{ background: 'linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%)' }}
-      >
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12">
+      <Section id="calendar" tone="dark" topRule grain>
+        <Container>
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-12 text-center">
+              <Eyebrow tone="dark" className="mb-5">
+                Pick a Time
+              </Eyebrow>
               <RevealText
                 as="h2"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4"
+                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
               >
                 Schedule a Consultation
               </RevealText>
-
-              {/* Gold accent divider */}
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-12 bg-gold/30" />
-                <div className="h-1.5 w-1.5 rounded-full bg-gold/60" />
-                <div className="h-px w-12 bg-gold/30" />
+              <div className="mx-auto mt-7 mb-7 flex items-center justify-center gap-3">
+                <div aria-hidden className="h-px w-12 bg-gold/35" />
+                <div aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold/65" />
+                <div aria-hidden className="h-px w-12 bg-gold/35" />
               </div>
-
-              <p className="text-sm sm:text-base text-silver/70 px-4 max-w-2xl mx-auto">
-                Choose a convenient date and time for your consultation. We offer Zoom calls, phone consultations, and in-person meetings.
+              <p
+                className="mx-auto max-w-2xl leading-relaxed text-white/80"
+                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
+              >
+                Choose a convenient date and time for your consultation. We
+                offer Zoom calls, phone consultations, and in-person meetings.
               </p>
             </div>
 
-            <div className="rounded-2xl overflow-hidden bg-white shadow-2xl shadow-black/20">
-              <div className="relative w-full bg-white overflow-x-auto">
+            <div className="overflow-hidden rounded-2xl bg-white shadow-2xl shadow-black/20">
+              <div className="relative w-full overflow-x-auto bg-white">
                 <iframe
                   src="https://cal.com/birchtreefinancial"
-                  className="w-full border-0 rounded-lg bg-white"
+                  className="w-full rounded-lg border-0 bg-white"
                   style={{
                     height: isMobile ? "700px" : "800px",
                     minHeight: isMobile ? "600px" : "700px",
                     backgroundColor: "white",
-                    width: "100%"
+                    width: "100%",
                   }}
                   title="Book a consultation with Birchtree Financial"
                   allow="camera; microphone; geolocation"
@@ -369,8 +364,8 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   )
 }

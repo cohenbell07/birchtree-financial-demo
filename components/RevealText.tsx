@@ -7,121 +7,52 @@ interface RevealTextProps {
   children: string
   as?: "h1" | "h2" | "h3" | "h4" | "p" | "span"
   className?: string
+  /** Stagger value kept for backward compatibility. Currently unused — the new
+   *  implementation reveals the whole element in a single motion frame, which
+   *  is cheap and reads as one editorial gesture rather than per-word noise. */
   staggerDelay?: number
 }
 
+/**
+ * RevealText — single-element reveal on viewport entry.
+ *
+ * Previously this split each heading into per-word motion spans with
+ * clip-path masks and per-word transition delays (5–15 motion elements per
+ * heading). On a page with 4 headings that was 20–60 IntersectionObserver
+ * targets and 40+ animated transforms. Replaced with a single fade+y on the
+ * heading element. Same API, no caller changes needed.
+ */
 export default function RevealText({
   children,
   as: Tag = "h2",
   className = "",
-  staggerDelay = 0.06,
 }: RevealTextProps) {
   const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-15% 0px" })
-  const shouldReduceMotion = useReducedMotion()
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px" })
+  const reduce = useReducedMotion()
 
-  const MotionTag = motion[Tag] as any
+  const MotionTag = motion[Tag] as React.ElementType
 
-  // Reduced motion: simple fade
-  if (shouldReduceMotion) {
-    return (
-      <MotionTag
-        ref={ref}
-        className={className}
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {children}
-      </MotionTag>
-    )
-  }
-
-  // Split into lines by word groups for the mask-slide reveal
-  const words = children.split(" ")
-
-  // Group words into lines of ~4-5 words for dramatic line-by-line reveal
-  const linesOfWords: string[][] = []
-  let currentLine: string[] = []
-  words.forEach((word) => {
-    currentLine.push(word)
-    if (currentLine.length >= 5 || word.endsWith(",") || word.endsWith(".") || word.endsWith("?")) {
-      linesOfWords.push([...currentLine])
-      currentLine = []
-    }
-  })
-  if (currentLine.length > 0) linesOfWords.push(currentLine)
-
-  // If the text is short (1-2 lines), treat each word individually
-  const useWordLevel = linesOfWords.length <= 2
-
-  if (useWordLevel) {
-    return (
-      <MotionTag
-        ref={ref}
-        className={className}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        transition={{ staggerChildren: staggerDelay }}
-      >
-        {words.map((word, i) => (
-          <span key={i} style={{ display: "inline-block", clipPath: "inset(-20% -5px -20% -5px)", verticalAlign: "top" }}>
-            <motion.span
-              style={{ display: "inline-block", whiteSpace: "pre" }}
-              variants={{
-                hidden: { y: "100%", opacity: 0 },
-                visible: {
-                  y: "0%",
-                  opacity: 1,
-                  transition: {
-                    duration: 0.5,
-                    ease: [0.33, 1, 0.68, 1],
-                  },
-                },
-              }}
-            >
-              {word}{i < words.length - 1 ? " " : ""}
-            </motion.span>
-          </span>
-        ))}
-      </MotionTag>
-    )
-  }
-
-  // Multi-line: line-by-line reveal
   return (
     <MotionTag
       ref={ref}
       className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      transition={{ staggerChildren: staggerDelay * 2 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+      animate={
+        isInView
+          ? reduce
+            ? { opacity: 1 }
+            : { opacity: 1, y: 0 }
+          : reduce
+            ? { opacity: 0 }
+            : { opacity: 0, y: 20 }
+      }
+      transition={{
+        duration: reduce ? 0.3 : 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
-      {linesOfWords.map((lineWords, lineIndex) => (
-        <span key={lineIndex} style={{ display: "inline" }}>
-          {lineWords.map((word, wordIndex) => (
-            <span key={`${lineIndex}-${wordIndex}`} style={{ display: "inline-block", clipPath: "inset(-20% -5px -20% -5px)", verticalAlign: "top" }}>
-              <motion.span
-                style={{ display: "inline-block", whiteSpace: "pre" }}
-                variants={{
-                  hidden: { y: "110%", opacity: 0 },
-                  visible: {
-                    y: "0%",
-                    opacity: 1,
-                    transition: {
-                      duration: 0.55,
-                      ease: [0.33, 1, 0.68, 1],
-                      delay: wordIndex * 0.03,
-                    },
-                  },
-                }}
-              >
-                {word}{wordIndex < lineWords.length - 1 ? " " : " "}
-              </motion.span>
-            </span>
-          ))}
-        </span>
-      ))}
+      {children}
     </MotionTag>
   )
 }

@@ -54,7 +54,7 @@ export default function Footer() {
               <div className="flex items-center mb-6">
                 <Logo variant="white" />
               </div>
-              <p className="text-white/35 text-sm leading-relaxed max-w-sm font-body">
+              <p className="text-white/65 text-sm leading-relaxed max-w-sm font-body">
                 Your trusted partner in Canadian financial advisory and wealth management.
                 Building your future, one decision at a time.
               </p>
@@ -69,7 +69,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
+                    className="text-white/75 hover:text-white text-sm transition-colors duration-200 inline-block py-3 -my-1 font-body"
                   >
                     {link.label}
                   </Link>
@@ -86,7 +86,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
+                    className="text-white/75 hover:text-white text-sm transition-colors duration-200 inline-block py-3 -my-1 font-body"
                   >
                     {link.label}
                   </Link>
@@ -103,7 +103,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/35 hover:text-white/70 text-sm transition-colors duration-300 inline-block font-body"
+                    className="text-white/75 hover:text-white text-sm transition-colors duration-200 inline-block py-3 -my-1 font-body"
                   >
                     {link.label}
                   </Link>
@@ -125,7 +125,7 @@ export default function Footer() {
                 <div className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.05] flex items-center justify-center flex-shrink-0">
                   <Icon size={14} className="text-gold/50" />
                 </div>
-                <span className={`text-white/30 font-body pt-1.5 ${shouldBreak ? 'break-all' : 'break-words'}`}>
+                <span className={`text-white/65 font-body pt-1.5 ${shouldBreak ? 'break-all' : 'break-words'}`}>
                   {text}
                 </span>
               </div>
@@ -135,7 +135,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-10 pt-8 border-t border-white/[0.04] text-center">
-          <p className="text-[0.7rem] text-white/20 leading-relaxed max-w-2xl mx-auto font-body">
+          <p className="text-[0.7rem] text-white/55 leading-relaxed max-w-2xl mx-auto font-body">
             &copy; {new Date().getFullYear()} Birchtree Financial. All rights
             reserved. Registered investment advisor in Canada.
           </p>

@@ -29,8 +29,8 @@ const teamMembers = [
   {
     slug: "art-birch",
     name: "Art Birch",
-    role: "Founder and Financial Advisor",
-    bio: "Art Birch is the Founder and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals.",
+    role: "Founder & Mentor",
+    bio: "Art Birch is the Founder and Mentor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals.",
   },
 ]
 

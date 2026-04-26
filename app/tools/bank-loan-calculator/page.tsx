@@ -7,8 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
+import dynamic from "next/dynamic"
+
+const Chart = dynamic(() => import("./Chart"), {
+  ssr: false,
+  loading: () => <div className="w-full h-[300px] rounded-lg bg-midnight/[0.03] animate-pulse" />,
+})
 import { Calculator, DollarSign } from "lucide-react"
 import LeadCapture from "@/components/LeadCapture"
 
@@ -230,21 +234,18 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
 
                       <div className="space-y-2">
                         <Label htmlFor="paymentFrequency">Payment Frequency</Label>
-                        <Select
+                        <select
+                          id="paymentFrequency"
                           value={formData.paymentFrequency}
-                          onValueChange={(value) =>
-                            setFormData({ ...formData, paymentFrequency: value })
+                          onChange={(e) =>
+                            setFormData({ ...formData, paymentFrequency: e.target.value })
                           }
                           required
+                          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select payment frequency" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="monthly">Monthly</SelectItem>
-                            <SelectItem value="biweekly">Biweekly</SelectItem>
-                          </SelectContent>
-                        </Select>
+                          <option value="monthly">Monthly</option>
+                          <option value="biweekly">Biweekly</option>
+                        </select>
                       </div>
 
                       <Button
@@ -308,62 +309,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="w-full max-w-full overflow-hidden px-2">
-                          <ResponsiveContainer width="100%" height={300}>
-                            <LineChart data={result.chartData}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#1B2A3D" opacity={0.2} />
-                              <XAxis
-                                dataKey="year"
-                                stroke="#0B1A2C"
-                                tick={{ fontSize: 10 }}
-                                label={{
-                                  value: "Year",
-                                  position: "insideBottom",
-                                  offset: -5,
-                                  style: { fontSize: 10 }
-                                }}
-                              />
-                              <YAxis
-                                stroke="#0B1A2C"
-                                tick={{ fontSize: 10 }}
-                                label={{ value: "Amount ($)", angle: -90, position: "insideLeft", style: { fontSize: 10 } }}
-                                tickFormatter={(value) =>
-                                  `$${(value / 1000).toFixed(0)}k`
-                                }
-                              />
-                              <Tooltip
-                                formatter={(value: number) =>
-                                  `$${value.toLocaleString()}`
-                                }
-                                labelFormatter={(label) => `Year: ${label}`}
-                                contentStyle={{ backgroundColor: "#F5F7FA", border: "1px solid #1B2A3D", fontSize: "12px" }}
-                              />
-                              <Legend wrapperStyle={{ fontSize: "12px" }} />
-                              <Line
-                                type="monotone"
-                                dataKey="principal"
-                                stroke="#1B2A3D"
-                                strokeWidth={2}
-                                dot={false}
-                                name="Principal Paid"
-                              />
-                              <Line
-                                type="monotone"
-                                dataKey="interest"
-                                stroke="#1B2A3D"
-                                strokeWidth={2}
-                                dot={false}
-                                name="Interest Paid"
-                              />
-                              <Line
-                                type="monotone"
-                                dataKey="balance"
-                                stroke="#FFA726"
-                                strokeWidth={2}
-                                dot={false}
-                                name="Remaining Balance"
-                              />
-                            </LineChart>
-                          </ResponsiveContainer>
+                          <Chart data={result.chartData} />
                         </div>
                       </CardContent>
                     </Card>

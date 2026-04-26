@@ -55,7 +55,7 @@ THE TEAM:
 - Kevin Birch — Co-owner & Office Administrator (12+ years). Manages daily operations and client experience.
 - Kaleb Birch — IT Specialist (5+ years). Maintains technology infrastructure and security.
 - Crystal Smith — Bookkeeper & Office Administrator (5+ years). The welcoming face of the firm.
-- Art Birch — Founder, Mentor & Financial Advisor (LLQP, 30+ years). Decades of experience, established the firm's vision.
+- Art Birch — Founder & Mentor (LLQP, 30+ years). Decades of experience, established the firm's vision.
 
 SERVICES (direct visitors to the Services page for details):
 1. Retirement Planning — RRSP, CPP, OAS strategies, withdrawal planning

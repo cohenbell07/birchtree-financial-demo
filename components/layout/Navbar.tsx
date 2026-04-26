@@ -189,7 +189,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden relative z-[60] w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200"
+              className="lg:hidden relative z-[60] w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-200"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >

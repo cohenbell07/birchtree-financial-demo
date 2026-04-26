@@ -1,11 +1,13 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { Section } from "@/components/ui/section"
+import { Container } from "@/components/ui/container"
 import { Send, AlertTriangle } from "lucide-react"
 
 export default function AIAdvisorPage() {
@@ -63,20 +65,15 @@ export default function AIAdvisorPage() {
   }
 
   return (
-    <div>
+    <>
       <PageHeader
+        eyebrow="Conversational"
         title="AI Financial Advisor"
-        subtitle="Get general financial information and answers to your questions"
+        subtitle="Get general financial information and answers to your questions."
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
+      <Section tone="paper" topRule rhythm="tight">
+        <Container size="narrow">
             {/* Disclaimer */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -209,10 +206,9 @@ export default function AIAdvisorPage() {
               </Card>
             </motion.div>
 
-          </div>
-        </div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </>
   )
 }
 

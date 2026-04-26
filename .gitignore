@@ -35,3 +35,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# claude code (local config — agent permissions, not for deploy)
+/.claude/
+
+# local testing & review artifacts (not for deploy)
+/docs/screenshots/
+/.jez/
+
+# logs
+*.log

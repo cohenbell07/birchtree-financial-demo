@@ -1,12 +1,15 @@
 "use client"
 
 import { notFound, useParams } from "next/navigation"
-import { motion } from "framer-motion"
-import PageHeader from "@/components/layout/PageHeader"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CheckCircle2, ArrowRight } from "lucide-react"
+import { CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import PageHeader from "@/components/layout/PageHeader"
+import { Section } from "@/components/ui/section"
+import { Container } from "@/components/ui/container"
+import { Eyebrow } from "@/components/ui/eyebrow"
+import { Reveal, RevealStagger } from "@/components/ui/reveal"
 
 const serviceDetails: Record<
   string,
@@ -17,7 +20,6 @@ const serviceDetails: Record<
     benefits: string[]
     whatWeDo: string[]
     whoItsFor: string
-    icon?: string
   }
 > = {
   "retirement-planning": {
@@ -160,6 +162,11 @@ const serviceDetails: Record<
   },
 }
 
+const CARD_STYLE = {
+  border: "1px solid rgba(11,26,44,0.06)",
+  boxShadow: "0 1px 2px rgba(11,26,44,0.04), 0 6px 16px rgba(11,26,44,0.04)",
+}
+
 export default function ServiceDetailPage() {
   const params = useParams()
   const serviceSlug = params?.service as string
@@ -170,122 +177,180 @@ export default function ServiceDetailPage() {
   }
 
   return (
-    <div>
-      <PageHeader title={service.title} subtitle={service.description} />
+    <>
+      <PageHeader
+        eyebrow="Our Services"
+        title={service.title}
+        subtitle={service.description}
+      />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
-        {/* Subtle background */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-            {/* Overview */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card className="glass shadow-glow-hover border-emerald/20">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">Overview</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-base sm:text-lg text-midnight/80 leading-relaxed">
-                    {service.overview}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+      {/* ============ BODY ============ */}
+      <Section tone="paper" topRule>
+        <Container size="narrow">
+          {/* Overview */}
+          <Reveal>
+            <article className="rounded-2xl bg-white p-7 sm:p-9" style={CARD_STYLE}>
+              <Eyebrow className="mb-4">The Service</Eyebrow>
+              <h2 className="font-heading text-2xl font-bold text-midnight sm:text-3xl">
+                Overview
+              </h2>
+              <div
+                aria-hidden
+                className="mt-5 mb-6 h-px w-16 bg-gradient-to-r from-gold/55 to-transparent"
+              />
+              <p
+                className="leading-relaxed text-midnight/75"
+                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
+              >
+                {service.overview}
+              </p>
+            </article>
+          </Reveal>
 
-            {/* Benefits */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <Card className="glass shadow-glow-hover border-emerald/20">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">Key Benefits</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {service.benefits.map((benefit) => (
-                      <li
-                        key={benefit}
-                        className="flex items-start space-x-2 sm:space-x-3 text-sm sm:text-base text-midnight/80"
-                      >
-                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald mt-0.5 flex-shrink-0" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+          {/* Benefits + What We Do */}
+          <RevealStagger
+            stagger={0.1}
+            className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6"
+          >
+            <article className="h-full rounded-2xl bg-white p-7 sm:p-8" style={CARD_STYLE}>
+              <Eyebrow className="mb-4">For You</Eyebrow>
+              <h2 className="font-heading text-xl font-bold text-midnight sm:text-2xl">
+                Key Benefits
+              </h2>
+              <div
+                aria-hidden
+                className="mt-4 mb-6 h-px w-12 bg-gradient-to-r from-gold/55 to-transparent"
+              />
+              <ul className="space-y-3.5">
+                {service.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <CheckCircle2
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold"
+                      strokeWidth={1.6}
+                    />
+                    <span className="text-[0.95rem] leading-relaxed text-midnight/75">
+                      {b}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
 
-            {/* What We Do */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Card className="glass shadow-glow-hover border-emerald/20">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">What We Do</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {service.whatWeDo.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start space-x-3 text-midnight/80 text-sm sm:text-base"
-                      >
-                        <ArrowRight className="h-5 w-5 text-emerald mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <article className="h-full rounded-2xl bg-white p-7 sm:p-8" style={CARD_STYLE}>
+              <Eyebrow className="mb-4">Our Approach</Eyebrow>
+              <h2 className="font-heading text-xl font-bold text-midnight sm:text-2xl">
+                What We Do
+              </h2>
+              <div
+                aria-hidden
+                className="mt-4 mb-6 h-px w-12 bg-gradient-to-r from-gold/55 to-transparent"
+              />
+              <ul className="space-y-3.5">
+                {service.whatWeDo.map((item, i) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center font-heading text-xs font-medium text-gold/80"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[0.95rem] leading-relaxed text-midnight/75">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </RevealStagger>
 
-            {/* Who It's For */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+          {/* Who It's For — dark callout */}
+          <Reveal>
+            <article
+              className="relative mt-6 overflow-hidden rounded-2xl p-7 sm:p-9"
+              style={{
+                background:
+                  "linear-gradient(145deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)",
+                border: "1px solid rgba(215,195,138,0.1)",
+                boxShadow: "0 8px 28px rgba(0,0,0,0.18)",
+              }}
             >
-              <Card className="gradient-bg text-white shadow-glow border-emerald/30">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl font-heading text-white">
-                    Who It&apos;s For
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-base sm:text-lg text-silver/90 leading-relaxed">
-                    {service.whoItsFor}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+              />
+              <Eyebrow tone="dark" className="mb-4">
+                Is This For You
+              </Eyebrow>
+              <h2 className="font-heading text-xl font-bold text-white sm:text-2xl">
+                Who It&apos;s For
+              </h2>
+              <div
+                aria-hidden
+                className="mt-4 mb-6 h-px w-16 bg-gradient-to-r from-gold/45 to-transparent"
+              />
+              <p
+                className="leading-relaxed text-white/85"
+                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
+              >
+                {service.whoItsFor}
+              </p>
+            </article>
+          </Reveal>
+        </Container>
+      </Section>
 
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-center"
-            >
-              <Button asChild size="lg" className="relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(27,42,61,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white">
-                <Link href="/contact" className="!text-white">Schedule a Consultation</Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-    </div>
+      {/* ============ CTA (dark aurora) ============ */}
+      <Section tone="dark-aurora" topRule grain>
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <Eyebrow tone="dark" className="mb-6">
+                Get Started
+              </Eyebrow>
+              <h2
+                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
+                style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.4rem)" }}
+              >
+                Ready to take the next step?
+              </h2>
+              <div
+                aria-hidden
+                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+              />
+              <p
+                className="mx-auto mt-8 max-w-xl leading-relaxed text-white/80"
+                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
+              >
+                Schedule a complimentary consultation to discuss your{" "}
+                {service.title.toLowerCase()} needs and discover how we can
+                help.
+              </p>
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                >
+                  <Link href="/contact" className="text-midnight">
+                    Schedule a Consultation
+                    <ArrowRight className="ml-2 inline h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full rounded-xl border border-white/[0.18] bg-white/[0.04] px-9 py-6 text-sm text-white/85 transition-all duration-300 hover:border-white/35 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
+                >
+                  <Link href="/services" className="text-white">
+                    <ArrowLeft className="mr-2 inline h-4 w-4" />
+                    Back to All Services
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+    </>
   )
 }
-

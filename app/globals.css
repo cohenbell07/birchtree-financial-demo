@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ==========================================
-   ANIMATED BORDER SUPPORT
-   ========================================== */
-@property --border-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
 @layer base {
   :root {
     --background: 215 28 95%;
@@ -33,6 +24,76 @@
     --input: 215 20 85%;
     --ring: 210 30 25%;
     --radius: 0.75rem;
+
+    /* ==========================================
+       BIRCHTREE DESIGN TOKENS
+       Tinted neutrals (toward midnight #0B1A2C),
+       fluid type, 4pt spacing, motion + elevation.
+       ========================================== */
+
+    /* Brand */
+    --bt-midnight: #0B1A2C;
+    --bt-midnight-2: #152439;
+    --bt-midnight-3: #050E18;
+    --bt-gold: #D7C38A;
+    --bt-gold-deep: #C6A667;
+    --bt-cream: #F5F7FA;
+
+    /* Neutrals — warm, tinted toward midnight hue */
+    --bt-paper: #FBFAF6;        /* light section default */
+    --bt-paper-2: #F6F4EE;      /* light section secondary */
+    --bt-ink: #0B1A2C;          /* primary text on light */
+    --bt-ink-soft: #2A3142;     /* secondary text on light */
+    --bt-ink-mute: #5A627A;     /* muted text on light */
+    --bt-line: rgba(11, 26, 44, 0.08);   /* hairline divider on light */
+    --bt-line-strong: rgba(11, 26, 44, 0.16);
+
+    /* On-dark */
+    --bt-on-dark: #F5F7FA;
+    --bt-on-dark-soft: rgba(245, 247, 250, 0.72);
+    --bt-on-dark-mute: rgba(245, 247, 250, 0.48);
+    --bt-line-dark: rgba(215, 195, 138, 0.12); /* gold hairline on dark */
+
+    /* Fluid type scale (display + body) */
+    --bt-fs-eyebrow: 0.7rem;
+    --bt-fs-body: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
+    --bt-fs-lead:  clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    --bt-fs-h4:    clamp(1.2rem, 1.1rem + 0.4vw, 1.5rem);
+    --bt-fs-h3:    clamp(1.5rem, 1.25rem + 1vw, 2.1rem);
+    --bt-fs-h2:    clamp(2rem, 1.5rem + 2.4vw, 3.6rem);
+    --bt-fs-h1:    clamp(2.6rem, 1.8rem + 4vw, 5.5rem);
+
+    /* 4pt spacing scale */
+    --bt-space-1: 0.25rem;   /*  4px */
+    --bt-space-2: 0.5rem;    /*  8px */
+    --bt-space-3: 0.75rem;   /* 12px */
+    --bt-space-4: 1rem;      /* 16px */
+    --bt-space-6: 1.5rem;    /* 24px */
+    --bt-space-8: 2rem;      /* 32px */
+    --bt-space-12: 3rem;     /* 48px */
+    --bt-space-16: 4rem;     /* 64px */
+    --bt-space-24: 6rem;     /* 96px */
+    --bt-space-32: 8rem;     /* 128px */
+
+    /* Section vertical rhythm — fluid, replaces py-20 sm:py-28 md:py-36 lg:py-44 */
+    --bt-section-y: clamp(4rem, 6vw + 2rem, 9rem);
+    --bt-section-y-tight: clamp(3rem, 4vw + 1.5rem, 6rem);
+
+    /* Motion */
+    --bt-dur-fast: 160ms;
+    --bt-dur: 240ms;
+    --bt-dur-slow: 380ms;
+    --bt-ease: cubic-bezier(0.22, 1, 0.36, 1);            /* ease-out-quart */
+    --bt-ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);    /* ease-out-expo */
+
+    /* Elevation — light surface */
+    --bt-elev-1: 0 1px 2px rgba(11, 26, 44, 0.04), 0 2px 8px rgba(11, 26, 44, 0.04);
+    --bt-elev-2: 0 2px 6px rgba(11, 26, 44, 0.05), 0 8px 24px rgba(11, 26, 44, 0.06);
+    --bt-elev-3: 0 4px 12px rgba(11, 26, 44, 0.06), 0 16px 40px rgba(11, 26, 44, 0.08);
+
+    /* Elevation — on dark */
+    --bt-elev-dark-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(215, 195, 138, 0.06);
+    --bt-elev-dark-2: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(215, 195, 138, 0.08);
   }
 }
 
@@ -98,6 +159,46 @@
 }
 
 @layer utilities {
+
+  /* ==========================================
+     SECTION RHYTHM + TONAL BACKGROUNDS
+     Used by <Section> primitive. Replaces the
+     `py-20 sm:py-28 md:py-36 lg:py-44` chain and
+     the inline `linear-gradient` blobs that were
+     duplicated across 20+ pages.
+     ========================================== */
+
+  .bt-section { padding-top: var(--bt-section-y); padding-bottom: var(--bt-section-y); }
+  .bt-section--tight { padding-top: var(--bt-section-y-tight); padding-bottom: var(--bt-section-y-tight); }
+
+  .bt-section--paper {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(215, 195, 138, 0.045) 0%, transparent 60%),
+      linear-gradient(180deg, #fbfaf6 0%, #f7f5ef 100%);
+    color: var(--bt-ink);
+  }
+
+  .bt-section--paper-soft {
+    background: linear-gradient(180deg, #faf9f5 0%, #f4f2ec 100%);
+    color: var(--bt-ink);
+  }
+
+  .bt-section--dark {
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(21, 36, 57, 0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(215, 195, 138, 0.03) 0%, transparent 70%),
+      linear-gradient(160deg, #071422 0%, #0B1A2C 35%, #0d1d30 65%, #091828 100%);
+    color: var(--bt-on-dark);
+  }
+
+  .bt-section--dark-aurora {
+    background:
+      radial-gradient(ellipse 55% 50% at 35% 20%, rgba(21, 36, 57, 0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 45% 40% at 85% 60%, rgba(215, 195, 138, 0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 50%, transparent 30%, rgba(5, 12, 22, 0.55) 100%),
+      linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #0e1f34 60%, #081525 100%);
+    color: var(--bt-on-dark);
+  }
 
   /* ==========================================
      SPOTLIGHT CARD — GPU-accelerated via CSS
@@ -214,35 +315,12 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
 
-  .glass-dark {
-    background: rgba(11, 26, 44, 0.4);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.03),
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  }
-
   .text-balance {
     text-wrap: balance;
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald to-emerald-light;
-  }
-
   .gradient-bg {
     background: linear-gradient(135deg, #0B1A2C 0%, #101f33 40%, #0f1c2e 100%);
-  }
-
-  .hero-gradient {
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(27, 42, 61, 0.5) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(21, 36, 57, 0.3) 0%, transparent 60%),
-      radial-gradient(ellipse 70% 40% at 20% 80%, rgba(27, 42, 61, 0.2) 0%, transparent 60%),
-      linear-gradient(135deg, #070e18 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%);
   }
 
   /* ==========================================
@@ -261,61 +339,14 @@
     pointer-events: none;
   }
 
-  /* Section title highlight */
-  .section-title {
-    position: relative;
-    display: inline-block;
-  }
-
-  .section-title::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(ellipse, rgba(27, 42, 61, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .section-title.text-white::before {
-    background: radial-gradient(ellipse, rgba(215, 195, 138, 0.06) 0%, transparent 70%);
-  }
-
   /* ==========================================
-     MICRO-INTERACTIONS — spring physics
+     MICRO-INTERACTIONS
      ========================================== */
-
-  .icon-hover {
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease-out;
-    will-change: transform;
-  }
-
-  .icon-hover:hover {
-    transform: scale(1.08) translateZ(0);
-    box-shadow: 0 0 20px rgba(215, 195, 138, 0.15);
-  }
 
   .card-shadow {
     box-shadow:
       0 1px 3px rgba(0, 0, 0, 0.04),
       0 4px 12px rgba(0, 0, 0, 0.03);
-  }
-
-  .card-shadow-hover {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out;
-    will-change: transform;
-  }
-
-  .card-shadow-hover:hover {
-    box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.06),
-      0 12px 40px rgba(0, 0, 0, 0.08),
-      0 0 1px rgba(215, 195, 138, 0.1);
-    transform: translateY(-6px) translateZ(0);
   }
 
   .shadow-glow {
@@ -326,7 +357,6 @@
 
   .shadow-glow-hover {
     transition: box-shadow 0.4s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    will-change: transform;
   }
 
   .shadow-glow-hover:hover {
@@ -334,7 +364,8 @@
       0 8px 30px rgba(11, 26, 44, 0.3),
       0 4px 8px rgba(11, 26, 44, 0.15),
       0 0 0 1px rgba(215, 195, 138, 0.15);
-    transform: translateY(-6px) translateZ(0);
+    transform: translateY(-6px);
+    will-change: transform;
   }
 
   /* ==========================================
@@ -351,100 +382,6 @@
 
   .link-draw:hover {
     background-size: 100% 1px;
-  }
-
-  .btn-sweep {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .btn-sweep::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(215, 195, 138, 0.15) 0%, rgba(11, 26, 44, 0.9) 100%);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
-  }
-
-  .btn-sweep:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  /* ==========================================
-     ANIMATED CONIC GRADIENT BORDER
-     The showstopper — rotating gold shimmer
-     ========================================== */
-
-  @keyframes border-rotate {
-    to { --border-angle: 360deg; }
-  }
-
-  .animated-border {
-    position: relative;
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    background:
-      linear-gradient(to bottom, rgba(11,26,44,0.95), rgba(11,26,44,0.95)) padding-box,
-      conic-gradient(
-        from var(--border-angle),
-        transparent 20%,
-        rgba(215, 195, 138, 0.5) 35%,
-        rgba(215, 195, 138, 0.8) 50%,
-        rgba(215, 195, 138, 0.5) 65%,
-        transparent 80%
-      ) border-box;
-    animation: border-rotate 4s linear infinite;
-  }
-
-  .animated-border-light {
-    position: relative;
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    background:
-      linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(245,247,250,0.98)) padding-box,
-      conic-gradient(
-        from var(--border-angle),
-        transparent 25%,
-        rgba(215, 195, 138, 0.35) 40%,
-        rgba(215, 195, 138, 0.6) 50%,
-        rgba(215, 195, 138, 0.35) 60%,
-        transparent 75%
-      ) border-box;
-    animation: border-rotate 6s linear infinite;
-  }
-
-  /* ==========================================
-     GRADIENT BORDER CARDS (static)
-     ========================================== */
-
-  .card-gradient-border {
-    position: relative;
-    background: linear-gradient(135deg, rgba(215, 195, 138, 0) 0%, rgba(27, 42, 61, 0) 100%);
-    padding: 1px;
-    border-radius: 1rem;
-    transition: background 0.5s ease-out;
-  }
-
-  .card-gradient-border:hover {
-    background: linear-gradient(135deg, rgba(215, 195, 138, 0.4) 0%, rgba(27, 42, 61, 0.2) 100%);
-  }
-
-  .card-gradient-border > * {
-    border-radius: calc(1rem - 1px);
-  }
-
-  /* ==========================================
-     GOLD DIVIDER
-     ========================================== */
-
-  .gold-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent 5%, rgba(215, 195, 138, 0.2) 30%, rgba(215, 195, 138, 0.35) 50%, rgba(215, 195, 138, 0.2) 70%, transparent 95%);
   }
 
   /* ==========================================
@@ -478,34 +415,48 @@
   }
 
   .aurora-blob-1 {
-    animation: aurora-drift-1 18s ease-in-out infinite;
-    will-change: transform;
+    animation: aurora-drift-1 28s ease-in-out infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .aurora-blob-2 {
-    animation: aurora-drift-2 22s ease-in-out infinite;
-    will-change: transform;
+    animation: aurora-drift-2 34s ease-in-out infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .aurora-blob-3 {
-    animation: aurora-drift-3 16s ease-in-out infinite;
-    will-change: transform;
+    animation: aurora-drift-3 30s ease-in-out infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .aurora-blob-4 {
-    animation: aurora-drift-4 25s ease-in-out infinite;
-    will-change: transform;
+    animation: aurora-drift-4 38s ease-in-out infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
-  /* Keep old mesh-blob names working */
-  .mesh-blob-1 { animation: aurora-drift-1 20s ease-in-out infinite; will-change: transform; }
-  .mesh-blob-2 { animation: aurora-drift-2 25s ease-in-out infinite; will-change: transform; }
-  .mesh-blob-3 { animation: aurora-drift-3 18s ease-in-out infinite; will-change: transform; }
+  /* Pause heavy decorative animation when user prefers reduced motion or on
+     coarse-pointer devices (mobile) where the cost is highest. */
+  @media (prefers-reduced-motion: reduce), (hover: none) and (pointer: coarse) {
+    .aurora-blob-1, .aurora-blob-2, .aurora-blob-3, .aurora-blob-4 {
+      animation: none !important;
+    }
+  }
 
   /* ==========================================
      GRAIN OVERLAY (done right)
      ========================================== */
 
+  /* grain-overlay — film grain for dark sections only.
+     Previously used mix-blend-mode: overlay (expensive compositor work) on a
+     256×256 SVG with 4 octaves of fractalNoise rendered into every section
+     it was applied to. Now: smaller 128×128 tile, fewer octaves, no
+     mix-blend-mode, slightly higher opacity to compensate. Only readable on
+     dark backgrounds; it's a no-op on light surfaces (which is by design —
+     skip the class on light sections). */
   .grain-overlay {
     position: relative;
     isolation: isolate;
@@ -515,50 +466,17 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.035;
-    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    opacity: 0.06;
     pointer-events: none;
     z-index: 1;
   }
 
-  /* Noise texture (lighter version) */
-  .texture-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    opacity: 0.04;
-  }
-
-  /* ==========================================
-     CLIP-PATH TEXT REVEAL
-     ========================================== */
-
-  .clip-reveal {
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  .clip-reveal.visible {
-    clip-path: inset(0 0% 0 0);
-  }
-
-  /* ==========================================
-     SECTION DIVIDER
-     ========================================== */
-
-  .section-divider {
-    position: relative;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(27, 42, 61, 0.3), transparent);
-    margin: 32px 0;
-  }
-
-  .section-divider-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 0 16px;
+  /* Disable grain entirely on touch devices — it doesn't read on phones and
+     the per-section pseudo-element paint is wasted work. */
+  @media (hover: none) and (pointer: coarse) {
+    .grain-overlay::after { display: none; }
   }
 
   /* ==========================================

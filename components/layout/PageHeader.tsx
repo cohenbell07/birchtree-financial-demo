@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import RevealText from "@/components/RevealText"
+import { Container } from "@/components/ui/container"
 
 // Per-page accent colors — subtle radial glow
 const accentPresets: Record<string, { position: string; color: string }> = {
@@ -19,6 +20,14 @@ interface PageHeaderProps {
   className?: string
 }
 
+/**
+ * PageHeader — dark hero band used at the top of secondary pages.
+ *
+ * Server-renders the heavy markup (gradients, vignette) so the JS cost stays
+ * limited to the small reveal motion + RevealText. Subtitle contrast is
+ * deliberately high (text-white/80) — it sits on a dark gradient and any
+ * lower opacity becomes hard to read.
+ */
 export default function PageHeader({
   title,
   subtitle,
@@ -26,79 +35,86 @@ export default function PageHeader({
   accent = "gold",
   className = "",
 }: PageHeaderProps) {
-  const shouldReduceMotion = useReducedMotion()
+  const reduce = useReducedMotion()
   const accentStyle = accentPresets[accent] || accentPresets.gold
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`relative text-white pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden ${className}`}
+      transition={{ duration: 0.45 }}
+      className={`relative overflow-hidden text-white ${className}`}
       style={{
-        background: "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
+        background:
+          "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
+        paddingTop: "clamp(7rem, 8vw + 4rem, 12rem)",
+        paddingBottom: "clamp(4rem, 6vw + 2rem, 9rem)",
       }}
     >
-      {/* Single accent glow — no blur filter, just a radial gradient */}
+      {/* Single accent glow — paint-only, no blur filter */}
       <div
-        className={`absolute ${accentStyle.position} w-[50%] h-[60%] rounded-full pointer-events-none`}
+        aria-hidden
+        className={`pointer-events-none absolute h-[60%] w-[50%] rounded-full ${accentStyle.position}`}
         style={{
           background: `radial-gradient(ellipse, ${accentStyle.color} 0%, transparent 70%)`,
         }}
       />
 
-      {/* Subtle bottom vignette */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
         style={{
-          background: "linear-gradient(to top, rgba(5,12,22,0.3) 0%, transparent 40%)",
+          background:
+            "linear-gradient(to top, rgba(5,12,22,0.3) 0%, transparent 40%)",
         }}
       />
 
-      {/* Gold bottom border */}
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <Container>
         {eyebrow && (
           <motion.p
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+            initial={reduce ? {} : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/70 font-semibold mb-5 sm:mb-7"
+            className="mb-7 inline-flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-gold sm:text-xs"
           >
-            <span className="inline-block w-2 h-px bg-gold/50 mr-3 align-middle" />
+            <span aria-hidden className="inline-block h-px w-6 bg-gold/60" />
             {eyebrow}
           </motion.p>
         )}
 
         <RevealText
           as="h1"
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-0 text-white max-w-4xl"
+          className="max-w-4xl font-heading font-bold leading-[1.06] tracking-tight text-white text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
         >
           {title}
         </RevealText>
 
-        {/* Gold rule */}
         <motion.div
-          initial={shouldReduceMotion ? {} : { opacity: 0, scaleX: 0 }}
+          initial={reduce ? {} : { opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="origin-left mt-6 sm:mt-8 mb-5 sm:mb-7"
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="origin-left mt-7 mb-6"
         >
-          <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-gold/60 to-transparent" />
+          <div className="h-px w-24 bg-gradient-to-r from-gold/65 to-transparent" />
         </motion.div>
 
         {subtitle && (
           <motion.p
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 15 }}
+            initial={reduce ? {} : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/45 max-w-2xl leading-relaxed font-body"
+            className="max-w-2xl leading-relaxed text-white/80 text-balance"
+            style={{ fontSize: "clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem)" }}
           >
             {subtitle}
           </motion.p>
         )}
-      </div>
+      </Container>
     </motion.div>
   )
 }

@@ -19,7 +19,7 @@ const teamMembers = [
     specialties: ["Strategic Financial Advisory", "Business Leadership", "Client Relationship Management", "Life Insurance", "Accident & Sickness Insurance"],
     experience: "15+",
     experienceLabel: "Years of Experience",
-    image: "/melissaupdate.png",
+    image: "/melissaupdate.webp",
     hasOfficialPhoto: true,
     email: "melissa.birch@birchtreefinancial.ca",
     phone: "(403) 556-7777",
@@ -34,7 +34,7 @@ const teamMembers = [
     specialties: ["Office Management", "Client Relations", "Operational Excellence"],
     experience: "12+",
     experienceLabel: "Years of Experience",
-    image: "/Kevinupdate.png",
+    image: "/Kevinupdate.webp",
     hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",
@@ -49,7 +49,7 @@ const teamMembers = [
     specialties: ["Technology Infrastructure", "Cybersecurity", "System Administration"],
     experience: "5+",
     experienceLabel: "Years of Experience",
-    image: "/kalebbirchtreenew.png",
+    image: "/kalebbirchtreenew.webp",
     hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",
@@ -64,21 +64,22 @@ const teamMembers = [
     specialties: ["Client Communication", "Administrative Support", "Customer Service"],
     experience: "5+",
     experienceLabel: "Years of Experience",
-    image: "https://ui-avatars.com/api/?name=Crystal+Smith&size=600&background=2ECC71&color=0B1A2C",
+    image: "/crystalteamimg.webp",
+    hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",
   },
   {
     slug: "art-birch",
     name: "Art Birch",
-    role: "Founder • Mentor • Financial Advisor",
-    fullBio: "Art Birch is the Founder, Mentor, and Financial Advisor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country. His extensive background in life insurance, investment management, and client relationships has shaped Birchtree Financial into the trusted advisory firm it is today. Art continues to work directly with clients, providing strategic financial guidance and helping families and individuals navigate their financial journeys with confidence and clarity. Art is licensed to provide life insurance and accident & sickness insurance products, having completed the Life License Qualification Program (LLQP).",
+    role: "Founder & Mentor",
+    fullBio: "Art Birch is the Founder and Mentor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent, and expert financial advisory services to Canadians across the country. His extensive background in life insurance, investment management, and client relationships has shaped Birchtree Financial into the trusted advisory firm it is today. Art continues to work directly with clients, providing strategic guidance and helping families and individuals navigate their financial journeys with confidence and clarity. Art is licensed to provide life insurance and accident & sickness insurance products, having completed the Life License Qualification Program (LLQP).",
     credentials: "LLQP",
     education: "LLQP (Life License Qualification Program)",
     specialties: ["Life Insurance", "Investment Advisory", "Retirement Planning", "Estate Planning"],
     experience: "30+",
     experienceLabel: "Years of Experience",
-    image: "/artbirchnew.png",
+    image: "/artbirchnew.webp",
     hasOfficialPhoto: true,
     email: "",
     phone: "(403) 556-7777",
@@ -132,6 +133,8 @@ export default function TeamMemberPage() {
                           alt={member.name}
                           width={280}
                           height={380}
+                          sizes="(max-width: 768px) 220px, 280px"
+                          priority
                           className="object-contain rounded-xl w-full max-w-[220px] sm:max-w-[260px]"
                         />
                       ) : (
@@ -139,6 +142,8 @@ export default function TeamMemberPage() {
                           src={member.image}
                           alt={member.name}
                           fill
+                          sizes="(max-width: 768px) 220px, 280px"
+                          priority
                           className="object-cover"
                         />
                       )}

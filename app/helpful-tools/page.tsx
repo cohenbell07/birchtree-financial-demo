@@ -5,6 +5,8 @@ import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Section } from "@/components/ui/section"
+import { Container } from "@/components/ui/container"
 import { ExternalLink, FileText, GraduationCap, Home, BookOpen, Heart, Globe, Phone } from "lucide-react"
 
 const willPlanningChecklist = [
@@ -27,16 +29,17 @@ const willPlanningChecklist = [
 
 export default function HelpfulToolsPage() {
   return (
-    <div>
+    <>
       <PageHeader
+        eyebrow="Resources"
         title="Helpful Tools & Resources"
-        subtitle="Access government resources, planning guides, and essential financial information for Canadians"
+        subtitle="Access government resources, planning guides, and essential financial information for Canadians."
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
-            
+      <Section tone="paper" topRule>
+        <Container>
+          <div className="space-y-10 sm:space-y-14 md:space-y-16">
+
             {/* Government Pension Benefits */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -278,9 +281,9 @@ export default function HelpfulToolsPage() {
             </motion.div>
 
           </div>
-        </div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </>
   )
 }
 
