@@ -506,4 +506,102 @@
     background: transparent !important;
     height: 52px !important;
   }
+
+  /* ==========================================
+     PREMIUM EDITORIAL UPGRADE — homepage + header
+     Additive utilities for the heritage wealth-house
+     refresh: engraved frames, editorial numerals,
+     hairline draws, refined CTA sheen. Brand tokens
+     only (midnight / gold / paper). All decorative
+     motion gated for reduced-motion + coarse pointers.
+     ========================================== */
+
+  /* Engraved inset frame — the "share certificate" treatment for showpiece
+     surfaces (hero, CTA). A single faint gold hairline inset from the edges.
+     Parent must be position:relative. Decorative only. */
+  .bt-frame::before {
+    content: "";
+    position: absolute;
+    inset: clamp(0.9rem, 1.6vw, 2rem);
+    border: 1px solid rgba(215, 195, 138, 0.16);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .bt-frame--light::before {
+    border-color: rgba(11, 26, 44, 0.1);
+  }
+  /* Small corner ticks that sit on the engraved frame's top corners. */
+  .bt-frame-tick {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-color: rgba(215, 195, 138, 0.55);
+    border-style: solid;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Editorial serif numeral — lining tabular figures in the display serif. */
+  .bt-numeral {
+    font-family: var(--font-heading), "Libre Baskerville", Georgia, serif;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Hairline that draws in from the left when an ancestor .group is hovered. */
+  .bt-draw {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .group:hover .bt-draw,
+  .group:focus-visible .bt-draw {
+    transform: scaleX(1);
+  }
+
+  /* Refined CTA sheen — a slow diagonal highlight sweep on hover. */
+  .bt-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .bt-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 65%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .bt-sheen:hover::after {
+    transform: translateX(130%);
+  }
+
+  /* Subtle float for hero accent marks / scroll cue. */
+  @keyframes bt-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+  .bt-float { animation: bt-float 7s ease-in-out infinite; }
+
+  /* Slow drift for the scroll-cue dot. */
+  @keyframes bt-scroll-cue {
+    0% { transform: translateY(0); opacity: 0; }
+    35% { opacity: 1; }
+    70% { transform: translateY(9px); opacity: 0; }
+    100% { transform: translateY(9px); opacity: 0; }
+  }
+  .bt-scroll-cue { animation: bt-scroll-cue 2.4s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce), (hover: none) and (pointer: coarse) {
+    .bt-float,
+    .bt-scroll-cue { animation: none; }
+  }
 }
