@@ -1,317 +1,295 @@
 "use client"
 
-import { useEffect } from "react"
 import Link from "next/link"
-import dynamic from "next/dynamic"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import {
   ArrowRight,
-  Shield,
-  TrendingUp,
-  Users,
+  ShieldCheck,
+  UserRound,
+  UsersRound,
+  Leaf,
+  PieChart,
+  BarChart3,
+  ClipboardList,
+  Armchair,
+  FileText,
+  Briefcase,
+  UserCheck,
+  Compass,
   Target,
-  Star,
-  Heart,
-  Lightbulb,
-  Handshake,
+  Users,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Section } from "@/components/ui/section"
 import { Container } from "@/components/ui/container"
-import { Eyebrow } from "@/components/ui/eyebrow"
-import { SectionHeader } from "@/components/ui/section-header"
 import { Reveal, RevealStagger } from "@/components/ui/reveal"
-import HeroBackground from "@/components/HeroBackground"
-import LogoTreeIcon from "@/components/LogoTreeIcon"
-import CountUp from "@/components/CountUp"
+import MarketsCard from "@/components/home/MarketsCard"
 
-const AutoplayHeroVideo = dynamic(
-  () => import("@/components/home/AutoplayHeroVideo"),
-  { ssr: false },
-)
+const stats = [
+  { icon: UserRound, value: "25+", label: "Years of trusted financial advice" },
+  { icon: UsersRound, value: "1,200+", label: "Clients and families served across Canada" },
+  { icon: Leaf, value: "100%", label: "Independent & Canadian owned" },
+  { icon: PieChart, value: "$1.6B+", label: "Assets under advice" },
+  { icon: ShieldCheck, value: "Fiduciary", label: "Always acting in your best interest" },
+]
 
 const services = [
   {
-    icon: Target,
-    title: "Retirement Planning",
-    description:
-      "Comprehensive RRSP and CPP strategies tailored to your Canadian retirement goals.",
-    href: "/services/retirement-planning",
-    number: "01",
-  },
-  {
-    icon: TrendingUp,
+    icon: BarChart3,
     title: "Investment Management",
-    description:
-      "Expert portfolio management designed to grow and protect your wealth.",
+    desc: "Evidence-based portfolio management designed to grow and protect your wealth.",
     href: "/services/investment-management",
-    number: "02",
   },
   {
-    icon: Shield,
-    title: "Insurance Strategies",
-    description:
-      "Protect what matters most with customized insurance solutions.",
-    href: "/services/insurance-strategies",
-    number: "03",
+    icon: ClipboardList,
+    title: "Financial Planning",
+    desc: "Integrated planning for your life goals—today and for generations to come.",
+    href: "/services",
   },
   {
-    icon: TrendingUp,
-    title: "Tax Optimization",
-    description:
-      "Maximize TFSA and RRSP benefits while minimizing Canadian tax burden.",
+    icon: Armchair,
+    title: "Retirement Planning",
+    desc: "Confidently plan for the retirement you envision with a strategy that adapts.",
+    href: "/services/retirement-planning",
+  },
+  {
+    icon: FileText,
+    title: "Tax & Estate Planning",
+    desc: "Smart tax strategies and estate plans that preserve what matters most.",
     href: "/services/tax-optimization-strategies",
-    number: "04",
   },
   {
-    icon: Target,
-    title: "Wealth Building",
-    description:
-      "Strategic advisory services to build and preserve your legacy.",
-    href: "/services/wealth-building-advisory",
-    number: "05",
-  },
-  {
-    icon: Shield,
-    title: "Estate Planning",
-    description: "Ensure your wealth is transferred according to your wishes.",
-    href: "/services/estate-planning-guidance",
-    number: "06",
+    icon: Briefcase,
+    title: "Business Owner Solutions",
+    desc: "Strategic advice for business owners to grow, transition and leave a lasting legacy.",
+    href: "/services",
   },
 ]
 
-const whyChooseUs = [
+const whyChoose = [
   {
-    icon: Users,
-    title: "Expert Team",
-    description:
-      "Certified financial advisors with decades of combined experience.",
+    icon: UserCheck,
+    title: "Independent Advice",
+    desc: "Unbiased solutions tailored to your unique goals.",
   },
   {
-    icon: Shield,
-    title: "Trusted Advisor",
-    description:
-      "Fiduciary commitment to act in your best interests at all times.",
+    icon: Compass,
+    title: "Holistic Approach",
+    desc: "We look at the big picture of your financial life.",
   },
   {
     icon: Target,
-    title: "Personalized Approach",
-    description:
-      "Custom strategies designed specifically for your unique situation.",
+    title: "Proven Process",
+    desc: "Disciplined planning. Rigorous research. Measurable outcomes.",
   },
   {
-    icon: TrendingUp,
-    title: "Proven Results",
-    description: "Track record of helping clients achieve their financial goals.",
+    icon: Users,
+    title: "Relationship Driven",
+    desc: "We're with you for the moments that matter.",
   },
 ]
 
 const testimonials = [
   {
-    name: "Karen & Doug M.",
-    role: "Retired Couple, Olds",
-    content:
-      "We'd been putting off retirement planning for years — honestly, it felt too complicated. Melissa sat down with us, walked us through everything in plain English, and now we actually feel excited about retiring next year instead of scared.",
-    initials: "KD",
+    quote:
+      "Birchtree Financial has been instrumental in helping us navigate our financial future with confidence. Their team is knowledgeable, responsive and truly cares.",
+    name: "Sarah & Michael T.",
+    location: "Calgary, AB",
+    initials: "SM",
   },
   {
-    name: "Tyler Brandt",
-    role: "Ranch Owner, Sundre",
-    content:
-      "Running a ranch doesn't leave a lot of time to think about RRSPs and tax strategy. The Birchtree team took that off my plate completely. They set everything up, check in regularly, and I trust them like family at this point.",
-    initials: "TB",
+    quote:
+      "We value the comprehensive advice and clear guidance we receive. It gives us peace of mind knowing our plan is built for today and tomorrow.",
+    name: "James L.",
+    location: "Vancouver, BC",
+    initials: "JL",
   },
   {
-    name: "Priya Sandhu",
-    role: "Small Business Owner, Red Deer",
-    content:
-      "I switched to Birchtree after my old advisor kept pushing products I didn't need. Here, it actually feels like they're working for me. They helped me set up a group plan for my employees too, which was a game-changer.",
+    quote:
+      "As a business owner, I appreciate their strategic insight and how they help me balance growth today with our legacy for the future.",
+    name: "Priya S.",
+    location: "Toronto, ON",
     initials: "PS",
   },
 ]
 
-const communityLogos = [
-  { src: "/oldsgrizzlesnew.webp", alt: "Olds Grizzlys Hockey" },
-  { src: "/canadalogonew.webp", alt: "4-H Canada" },
-  { src: "/bgcoldsnew.webp", alt: "BGC Olds & Area" },
-  { src: "/mvessnew.webp", alt: "MVESS Shelter" },
-]
+const fadeUp = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+}
 
 export default function Home() {
-  // Defer the TradingView ticker until after first paint + browser idle.
-  useEffect(() => {
-    const load = () => {
-      const container = document.getElementById("tradingview-ticker-container")
-      if (!container || container.querySelector('script[src*="ticker-tape"]')) return
-      const widgetDiv = document.createElement("div")
-      widgetDiv.className = "tradingview-widget-container__widget"
-      widgetDiv.style.height = "100%"
-      widgetDiv.style.width = "100%"
-      const script = document.createElement("script")
-      script.type = "text/javascript"
-      script.src =
-        "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-      script.async = true
-      script.text = JSON.stringify({
-        symbols: [
-          { proName: "FOREXCOM:DJI", title: "Dow Jones" },
-          { proName: "OANDA:SPX500USD", title: "S&P 500" },
-          { proName: "TSX:TSX", title: "TSX Composite" },
-          { proName: "TVC:GOLD", title: "Gold" },
-          { proName: "TVC:SILVER", title: "Silver" },
-          { proName: "OANDA:NAS100USD", title: "Nasdaq" },
-        ],
-        showSymbolLogo: true,
-        colorTheme: "dark",
-        isTransparent: true,
-        displayMode: "adaptive",
-        locale: "en",
-      })
-      widgetDiv.appendChild(script)
-      container.appendChild(widgetDiv)
-    }
-    if ("requestIdleCallback" in window) {
-      ;(window as Window & { requestIdleCallback: (cb: () => void) => number })
-        .requestIdleCallback(load)
-    } else {
-      setTimeout(load, 100)
-    }
-  }, [])
-
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
-      {/* ============ TICKER ============ */}
-      <div className="relative bg-[#050c16] border-b border-white/[0.06] overflow-hidden pt-[5rem]">
-        <div className="relative h-[52px] overflow-hidden">
-          <div
-            id="tradingview-ticker-container"
-            className="tradingview-widget-container"
-            style={{ height: "100%", width: "100%", position: "relative" }}
-          />
-        </div>
-      </div>
+    <div className="overflow-x-hidden bg-white">
+      {/* ============================ HERO ============================ */}
+      <section className="relative overflow-hidden pt-28 sm:pt-32">
+        {/* Atmospheric wash — kept to the left, behind the headline, so the
+            white-background hero image blends seamlessly on the right. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
 
-      {/* ============ HERO ============ */}
-      <section className="relative flex min-h-[88vh] items-center justify-center overflow-hidden">
-        <HeroBackground />
-
-        <div className="relative z-10">
-          <Container className="py-20 sm:py-28 md:py-36">
-            <div className="mx-auto max-w-4xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-              >
-                <Eyebrow tone="dark">Canadian Financial Advisory</Eyebrow>
-              </motion.div>
-
+        <Container size="wide" className="relative">
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-8">
+            {/* Left — copy */}
+            <div className="max-w-xl">
               <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-7 font-heading font-bold tracking-tight text-white text-balance leading-[1.04]"
-                style={{ fontSize: "clamp(2.6rem, 1.6rem + 4.5vw, 5.5rem)" }}
+                {...fadeUp}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="font-heading font-bold tracking-tight text-midnight"
+                style={{
+                  fontSize: "clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem)",
+                  lineHeight: 1.04,
+                }}
               >
-                Your Financial Future,
+                Your Financial
                 <br />
-                <span className="text-gold">Elevated</span>
+                Future, <span className="text-gold-dark">Elevated</span>
               </motion.h1>
 
-              <motion.div
-                initial={{ width: 0, opacity: 0 }}
-                animate={{ width: 140, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mx-auto my-9 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
-                aria-hidden
-              />
-
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-                className="mx-auto max-w-xl text-balance leading-relaxed text-white/90"
-                style={{ fontSize: "clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem)" }}
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: 0.12 }}
+                className="mt-7 max-w-lg text-[1.05rem] leading-relaxed text-midnight/65"
               >
-                A modern Canadian advisory firm delivering clarity, confidence,
-                and strategic insight.
+                Thoughtful advice. Tailored strategies. Lasting relationships.
+                We help Canadian individuals, families and business owners
+                build, protect and grow the wealth that matters most.
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5"
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: 0.22 }}
+                className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
               >
-                <Button
-                  asChild
-                  size="lg"
-                  className="group w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.25)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.35)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center justify-center rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                 >
-                  <Link href="/contact" className="text-midnight">
-                    Book a Consultation
-                    <ArrowRight className="ml-2 inline h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border border-white/[0.14] bg-white/[0.04] px-9 py-6 text-sm text-white/85 backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
+                  Book a Consultation
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center rounded-xl border border-midnight/20 bg-white px-7 py-3.5 text-sm font-semibold text-midnight transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03]"
                 >
-                  <Link href="/services" className="text-white">
-                    Explore Services
-                  </Link>
-                </Button>
+                  Explore Our Services
+                </Link>
               </motion.div>
 
-              {/* Stats */}
-              <RevealStagger
-                stagger={0.09}
-                className="mt-20 grid grid-cols-1 gap-4 sm:grid-cols-3"
+              <motion.div
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: 0.32 }}
+                className="mt-7 flex items-center gap-2.5 text-[0.82rem] text-midnight/55"
               >
-                {[
-                  { target: 30, suffix: "+", label: "Years Experience" },
-                  { target: 500, suffix: "+", label: "Clients Served" },
-                  { target: 1, prefix: "$", suffix: "B+", label: "Assets Managed" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl border border-gold/10 bg-[rgba(11,26,44,0.55)] p-7 text-center transition-colors duration-300 hover:border-gold/25"
-                  >
-                    <CountUp
-                      target={stat.target}
-                      prefix={stat.prefix}
-                      suffix={stat.suffix}
-                      className="block font-heading text-4xl font-bold text-white [font-variant-numeric:tabular-nums] sm:text-5xl"
-                    />
-                    <div className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-white/65">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </RevealStagger>
+                <ShieldCheck className="h-4 w-4 text-gold-dark" strokeWidth={1.75} />
+                Fiduciary advice. Always in your best interest.
+              </motion.div>
             </div>
-          </Container>
-        </div>
+
+            {/* Right — hero image + live markets card, clean side-by-side */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-8 xl:flex-row xl:items-center xl:gap-6"
+            >
+              <div className="xl:min-w-0 xl:flex-1">
+                <Image
+                  src="/birchtree-hero.webp"
+                  alt="Growth illustration — ascending chart with marble and gold accents"
+                  width={1313}
+                  height={893}
+                  priority
+                  sizes="(max-width: 1280px) 460px, 440px"
+                  className="mx-auto h-auto w-full max-w-[460px] object-contain xl:mx-0"
+                />
+              </div>
+
+              {/* Markets at a glance — live, auto-refreshing */}
+              <div className="mx-auto w-full max-w-[400px] xl:mx-0 xl:w-[230px] xl:max-w-none xl:flex-shrink-0">
+                <MarketsCard />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ===================== STATS BAR ===================== */}
+          <Reveal y={20} className="mt-14 sm:mt-16">
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-midnight/10 bg-midnight/[0.06] sm:grid-cols-2 lg:grid-cols-5">
+              {stats.map((s) => {
+                const Icon = s.icon
+                return (
+                  <div
+                    key={s.label}
+                    className="flex items-center gap-3.5 bg-white px-5 py-6"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                      <Icon className="h-5 w-5 text-gold-dark" strokeWidth={1.6} />
+                    </span>
+                    <span>
+                      <span className="block font-heading text-xl font-bold leading-none text-midnight">
+                        {s.value}
+                      </span>
+                      <span className="mt-1.5 block text-[0.72rem] leading-snug text-midnight/55">
+                        {s.label}
+                      </span>
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </Reveal>
+        </Container>
       </section>
 
-      {/* ============ VIDEO ============ */}
-      <AutoplayHeroVideo />
-
-      {/* ============ SERVICES ============ */}
-      <Section tone="paper" topRule grain>
-        <Container>
-          <SectionHeader
-            eyebrow="What We Offer"
-            heading="Comprehensive Financial Services"
-            subtitle="A full spectrum of Canadian financial advisory and investment management services tailored to your unique needs."
-          />
+      {/* ========================= SERVICES ========================= */}
+      <section className="bg-[#F7F5EF] py-20 sm:py-24">
+        <Container size="wide">
+          <Reveal>
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2
+                  className="font-heading font-bold leading-[1.1] tracking-tight text-midnight"
+                  style={{ fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)" }}
+                >
+                  Our Financial Services
+                </h2>
+                <div
+                  aria-hidden
+                  className="mt-4 h-px w-16"
+                  style={{
+                    background:
+                      "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                  }}
+                />
+                <p className="mt-4 max-w-md text-[0.98rem] leading-relaxed text-midnight/60">
+                  Comprehensive solutions. Customized for your goals. Built for
+                  what&apos;s next.
+                </p>
+              </div>
+              <Link
+                href="/services"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-midnight"
+              >
+                <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+                  View all services
+                </span>
+                <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </Reveal>
 
           <RevealStagger
-            stagger={0.07}
-            className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
+            stagger={0.06}
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
           >
             {services.map((service) => {
               const Icon = service.icon
@@ -319,319 +297,230 @@ export default function Home() {
                 <Link
                   key={service.title}
                   href={service.href}
-                  className="group relative block h-full overflow-hidden rounded-2xl bg-white p-7 transition-all duration-300"
-                  style={{
-                    border: "1px solid rgba(11,26,44,0.07)",
-                    boxShadow: "0 1px 2px rgba(11,26,44,0.04), 0 6px 16px rgba(11,26,44,0.04)",
-                  }}
+                  className="group flex h-full flex-col rounded-2xl border border-midnight/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
                 >
-                  {/* Top hairline that animates on hover */}
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-gold/0 via-gold/70 to-gold/0 transition-transform duration-500 group-hover:scale-x-100"
-                  />
-
-                  <div className="flex items-start justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
-                      <Icon className="h-[18px] w-[18px] text-midnight/75" strokeWidth={1.6} />
-                    </div>
-                    <span
-                      aria-hidden
-                      className="font-heading text-2xl font-medium text-gold/65"
-                    >
-                      {service.number}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-7 font-heading text-xl font-bold text-midnight">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                    <Icon className="h-[20px] w-[20px] text-midnight/80" strokeWidth={1.6} />
+                  </span>
+                  <h3 className="mt-5 font-heading text-[1.05rem] font-bold leading-snug text-midnight">
                     {service.title}
                   </h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/55">
-                    {service.description}
+                  <p className="mt-2.5 flex-1 text-[0.86rem] leading-relaxed text-midnight/55">
+                    {service.desc}
                   </p>
-
-                  <span className="mt-7 inline-flex items-center text-sm font-medium text-midnight transition-colors group-hover:text-midnight/80">
+                  <span className="mt-5 inline-flex items-center text-[0.8rem] font-semibold text-midnight transition-colors group-hover:text-gold-dark">
                     Learn more
-                    <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </Link>
               )
             })}
           </RevealStagger>
         </Container>
-      </Section>
+      </section>
 
-      {/* ============ MISSION (dark) ============ */}
-      <Section tone="dark" grain>
-        <Container>
-          <Reveal>
-            <div className="mx-auto mb-10 flex justify-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/[0.07] bg-white/[0.03]">
-                <LogoTreeIcon className="h-12 w-12 brightness-0 invert opacity-60" />
+      {/* =================== MISSION + WHY CHOOSE =================== */}
+      <section className="bg-white py-20 sm:py-24">
+        <Container size="wide">
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Mission */}
+            <Reveal className="h-full">
+              <div className="grid h-full overflow-hidden rounded-2xl border border-midnight/10 bg-white sm:grid-cols-[0.85fr_1.15fr]">
+                <div className="relative min-h-[200px]">
+                  <Image
+                    src="/mission-birch.webp"
+                    alt="Birch trees"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 280px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-8 sm:p-9">
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                    Our Mission
+                  </p>
+                  <h3 className="mt-4 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                    Guiding you with clarity. Empowering your future.
+                  </h3>
+                  <p className="mt-4 text-[0.92rem] leading-relaxed text-midnight/60">
+                    We build lasting relationships through personalized advice,
+                    transparent communication, and a commitment to your success.
+                  </p>
+                  <Link
+                    href="/about"
+                    className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-midnight"
+                  >
+                    <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+                      Learn more about us
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
               </div>
-            </div>
+            </Reveal>
+
+            {/* Why choose */}
+            <Reveal delay={0.1} className="h-full">
+              <div className="h-full rounded-2xl border border-midnight/10 bg-white p-8 sm:p-9">
+                <h3 className="font-heading text-[1.6rem] font-bold tracking-tight text-midnight">
+                  Why Choose Birchtree
+                </h3>
+                <div
+                  aria-hidden
+                  className="mt-4 h-px w-16"
+                  style={{
+                    background:
+                      "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                  }}
+                />
+                <div className="mt-7 grid grid-cols-1 gap-x-7 gap-y-7 sm:grid-cols-2">
+                  {whyChoose.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <div key={item.title}>
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                          <Icon className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                        </span>
+                        <h4 className="mt-3.5 font-heading text-[1.02rem] font-bold text-midnight">
+                          {item.title}
+                        </h4>
+                        <p className="mt-1.5 text-[0.84rem] leading-relaxed text-midnight/55">
+                          {item.desc}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {/* ======================= TESTIMONIALS ======================= */}
+      <section className="bg-[#F7F5EF] py-20 sm:py-24">
+        <Container size="wide">
+          <Reveal>
+            <h2
+              className="text-center font-heading font-bold tracking-tight text-midnight"
+              style={{ fontSize: "clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem)" }}
+            >
+              What Our Clients Say
+            </h2>
           </Reveal>
 
-          <SectionHeader
-            tone="dark"
-            eyebrow="Who We Are"
-            heading="Our Mission"
-            rule
-            subtitle={
-              <>
-                Financial planning isn&apos;t just about managing money — it&apos;s
-                about creating the life you want. We turn your dreams into
-                achievable goals and your goals into lasting financial security.
-              </>
-            }
-          />
-
           <RevealStagger
             stagger={0.1}
-            className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7"
-          >
-            {[
-              {
-                icon: Heart,
-                title: "Client-Centered Values",
-                description:
-                  "Your financial well-being is at the heart of everything we do. We listen, understand, and build relationships that last generations.",
-              },
-              {
-                icon: Lightbulb,
-                title: "Clarity Through Education",
-                description:
-                  "We believe in empowering you with knowledge. Complex financial concepts become clear, so you can make confident decisions.",
-              },
-              {
-                icon: Handshake,
-                title: "Long-Term Commitment",
-                description:
-                  "We're not just advisors — we're partners in your journey. From planning to execution, we're with you through every milestone.",
-              },
-            ].map((pillar) => {
-              const Icon = pillar.icon
-              return (
-                <article
-                  key={pillar.title}
-                  className="h-full rounded-2xl border border-gold/10 bg-[rgba(11,26,44,0.55)] p-8 transition-colors duration-300 hover:border-gold/25"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.03]">
-                    <Icon className="h-6 w-6 text-gold/75" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="mt-7 font-heading text-xl font-bold text-white sm:text-[1.4rem]">
-                    {pillar.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-[0.95rem]">
-                    {pillar.description}
-                  </p>
-                </article>
-              )
-            })}
-          </RevealStagger>
-        </Container>
-      </Section>
-
-      {/* ============ WHY CHOOSE US (dark aurora) ============ */}
-      <Section tone="dark-aurora" grain>
-        <Container>
-          <SectionHeader
-            tone="dark"
-            eyebrow="The Birchtree Difference"
-            heading="Why Choose Birchtree Financial"
-            rule
-            subtitle="Experience the difference of working with a premium financial advisory firm."
-          />
-
-          <RevealStagger
-            stagger={0.08}
-            className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
-          >
-            {whyChooseUs.map((item) => {
-              const Icon = item.icon
-              return (
-                <article
-                  key={item.title}
-                  className="h-full rounded-2xl border border-gold/10 bg-[rgba(11,26,44,0.55)] p-7 transition-colors duration-300 hover:border-gold/25"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.03]">
-                    <Icon className="h-5 w-5 text-gold/75" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="mt-6 font-heading text-lg font-bold text-white sm:text-xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/75">
-                    {item.description}
-                  </p>
-                </article>
-              )
-            })}
-          </RevealStagger>
-        </Container>
-      </Section>
-
-      {/* ============ TESTIMONIALS + COMMUNITY ============ */}
-      <Section tone="paper-soft" topRule grain>
-        <Container>
-          <SectionHeader
-            eyebrow="Client Stories"
-            heading="What Our Clients Say"
-          />
-
-          <RevealStagger
-            stagger={0.1}
-            className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8"
+            className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
           >
             {testimonials.map((t) => (
               <figure
                 key={t.name}
-                className="relative h-full overflow-hidden rounded-2xl bg-white p-8 sm:p-9"
-                style={{
-                  border: "1px solid rgba(11,26,44,0.06)",
-                  boxShadow:
-                    "0 2px 8px rgba(11,26,44,0.06), 0 12px 28px rgba(11,26,44,0.06)",
-                }}
+                className="flex h-full flex-col rounded-2xl border border-midnight/10 bg-white p-7"
               >
-                {/* Decorative quote — paint-only */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute right-5 top-2 select-none font-heading text-[5.5rem] leading-none text-gold/[0.09]"
-                >
-                  &ldquo;
-                </span>
-
-                <div className="relative">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />
-                    ))}
-                  </div>
-
-                  <blockquote className="mt-5 font-body italic leading-relaxed text-midnight/65">
-                    &ldquo;{t.content}&rdquo;
-                  </blockquote>
-
-                  <figcaption className="mt-7 flex items-center gap-3">
-                    <div
-                      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold text-midnight/65"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, rgba(215,195,138,0.18) 0%, rgba(215,195,138,0.06) 100%)",
-                      }}
-                    >
-                      {t.initials}
-                    </div>
-                    <div>
-                      <p className="font-heading text-sm font-semibold text-midnight">
-                        {t.name}
-                      </p>
-                      <p className="text-xs text-midnight/45">{t.role}</p>
-                    </div>
-                  </figcaption>
-                </div>
+                <Quote className="h-7 w-7 text-gold/45" fill="currentColor" strokeWidth={0} />
+                <blockquote className="mt-4 flex-1 text-[0.92rem] leading-relaxed text-midnight/70">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-midnight/[0.07] pt-5">
+                  <span
+                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full font-heading text-sm font-semibold text-midnight/75"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(215,195,138,0.28) 0%, rgba(215,195,138,0.08) 100%)",
+                    }}
+                  >
+                    {t.initials}
+                  </span>
+                  <span>
+                    <span className="block font-heading text-sm font-semibold text-midnight">
+                      {t.name}
+                    </span>
+                    <span className="block text-xs text-midnight/45">
+                      {t.location}
+                    </span>
+                  </span>
+                </figcaption>
               </figure>
             ))}
           </RevealStagger>
 
-          <div className="mx-auto my-20 h-px w-32 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-
-          {/* Community */}
-          <Reveal>
-            <div className="mx-auto max-w-3xl text-center">
-              <Eyebrow className="mb-5">Giving Back</Eyebrow>
-              <h2
-                className="font-heading font-bold leading-[1.15] tracking-tight text-midnight text-balance"
-                style={{ fontSize: "clamp(1.8rem, 1.3rem + 2vw, 3rem)" }}
-              >
-                Proudly Supporting Our Community
-              </h2>
-              <p className="mx-auto mt-6 max-w-xl text-balance leading-relaxed text-midnight/55"
-                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
-              >
-                For over a decade, Birchtree Financial has donated to and
-                supported local organizations that align with our values of
-                growth, safety, and opportunity.
-              </p>
-            </div>
-          </Reveal>
-
-          <RevealStagger
-            stagger={0.08}
-            className="mx-auto mt-14 grid max-w-3xl grid-cols-2 items-center gap-10 sm:grid-cols-4 sm:gap-12"
-          >
-            {communityLogos.map((logo) => (
-              <div
-                key={logo.alt}
-                className="flex items-center justify-center opacity-45 transition-opacity duration-300 hover:opacity-80"
-              >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={400}
-                  height={400}
-                  sizes="(max-width: 640px) 90px, 110px"
-                  className="h-auto w-[90px] object-contain sm:w-[110px]"
-                  style={{ background: "transparent" }}
+          {/* Carousel affordances (decorative) */}
+          <div className="mt-10 flex items-center justify-center gap-5">
+            <button
+              type="button"
+              aria-label="Previous testimonials"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-midnight/15 text-midnight/55 transition-colors hover:border-midnight/30 hover:text-midnight"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <div className="flex items-center gap-2">
+              {[0, 1, 2, 3].map((i) => (
+                <span
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === 0 ? "w-5 bg-gold-dark" : "w-1.5 bg-midnight/15"
+                  }`}
                 />
-              </div>
-            ))}
-          </RevealStagger>
+              ))}
+            </div>
+            <button
+              type="button"
+              aria-label="Next testimonials"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-midnight/15 text-midnight/55 transition-colors hover:border-midnight/30 hover:text-midnight"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
         </Container>
-      </Section>
+      </section>
 
-      {/* ============ CTA (dark aurora) ============ */}
-      <Section tone="dark-aurora" topRule grain>
-        <Container>
+      {/* ========================= CTA BAND ========================= */}
+      <section className="pb-16 pt-4 sm:pb-20">
+        <Container size="wide">
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
-                Get Started Today
-              </Eyebrow>
-              <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.6rem)" }}
-              >
-                Ready to take control of your financial future?
-              </h2>
-
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-midnight/10">
+              <Image
+                src="/cta-mountains.webp"
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+                aria-hidden
+              />
+              {/* Legibility wash — lighter on the left where the text sits */}
               <div
                 aria-hidden
-                className="mx-auto mt-9 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(252,251,248,0.95) 0%, rgba(252,251,248,0.82) 42%, rgba(252,251,248,0.35) 70%, rgba(252,251,248,0.1) 100%)",
+                }}
               />
-
-              <p
-                className="mx-auto mt-9 max-w-xl text-balance leading-relaxed text-white/75"
-                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
-              >
-                Schedule a complimentary consultation to discuss your financial
-                goals and discover how we can help you achieve them.
-              </p>
-
-              <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+              <div className="relative flex flex-col items-start gap-6 px-8 py-12 sm:px-12 sm:py-16 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-xl">
+                  <h2
+                    className="font-heading font-bold leading-[1.12] tracking-tight text-midnight"
+                    style={{ fontSize: "clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem)" }}
+                  >
+                    Let&apos;s elevate your financial future—together.
+                  </h2>
+                  <p className="mt-4 max-w-md text-[0.98rem] leading-relaxed text-midnight/65">
+                    Book a no-obligation consultation to start the conversation.
+                  </p>
+                </div>
+                <Link
+                  href="/contact"
+                  className="group inline-flex shrink-0 items-center justify-center rounded-xl bg-midnight px-8 py-4 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(11,26,44,0.22)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_12px_32px_rgba(11,26,44,0.28)]"
                 >
-                  <Link href="/contact" className="text-midnight">
-                    Book Your Consultation
-                    <ArrowRight className="ml-2 inline h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border border-white/[0.12] bg-white/[0.04] px-9 py-6 text-sm text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
-                >
-                  <Link href="/about" className="text-white">
-                    Learn More
-                  </Link>
-                </Button>
+                  Book Your Consultation
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
               </div>
             </div>
           </Reveal>
         </Container>
-      </Section>
+      </section>
     </div>
   )
 }
