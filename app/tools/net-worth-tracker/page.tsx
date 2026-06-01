@@ -142,7 +142,16 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Calculate your net worth and plan your debt payoff strategy"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
+      <section className="relative overflow-hidden bg-[#F7F5EF] py-20 sm:py-24">
+        {/* Atmospheric wash — faint gold radial, matching the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -151,17 +160,30 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-5 sm:p-7">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                      Financial Snapshot
+                    </p>
+                    <CardTitle className="mt-3 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight flex items-center gap-3">
+                      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <BarChart3 className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Financial Overview
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <div
+                      aria-hidden
+                      className="mt-4 h-px w-16"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                      }}
+                    />
+                    <CardDescription className="mt-4 text-[0.92rem] leading-relaxed text-midnight/60">
                       Enter your financial information to calculate net worth
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
+                  <CardContent className="p-5 sm:p-7 pt-0">
                     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                       <div className="space-y-2">
                         <Label htmlFor="assets">Total Assets</Label>
@@ -218,7 +240,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Net Worth"}
@@ -235,53 +257,71 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
+                    <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-5 sm:p-7">
+                        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                          Your Results
+                        </p>
+                        <CardTitle className="mt-3 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight flex items-center gap-3">
+                          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                            <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                          </span>
                           Your Net Worth
                         </CardTitle>
+                        <div
+                          aria-hidden
+                          className="mt-4 h-px w-16"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                          }}
+                        />
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="space-y-3">
+                      <CardContent className="p-5 sm:p-7 pt-0">
+                        <div className="space-y-4">
                           <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Net Worth</p>
-                            <p className={`text-2xl sm:text-3xl font-bold ${result.netWorth >= 0 ? "text-white" : "text-red-300"}`}>
+                            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-midnight/55">Net Worth</p>
+                            <p className={`mt-1 font-heading text-2xl sm:text-3xl font-bold tracking-tight ${result.netWorth >= 0 ? "text-midnight" : "text-red-600"}`}>
                               ${result.netWorth.toLocaleString()}
                             </p>
                           </div>
-                          <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Debt-to-Income Ratio</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-white">
+                          <div className="border-t border-midnight/[0.07] pt-4">
+                            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-midnight/55">Debt-to-Income Ratio</p>
+                            <p className="mt-1 font-heading text-xl sm:text-2xl font-bold text-midnight">
                               {result.debtToIncome.toFixed(1)}%
                             </p>
                           </div>
                           {result.payoffMonths > 0 && (
-                            <div>
-                              <p className="text-xs sm:text-sm text-silver/80">Estimated Payoff Time</p>
-                              <p className="text-xl sm:text-2xl font-semibold text-white">
+                            <div className="border-t border-midnight/[0.07] pt-4">
+                              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-midnight/55">Estimated Payoff Time</p>
+                              <p className="mt-1 font-heading text-xl sm:text-2xl font-bold text-midnight">
                                 {result.payoffMonths} months
                               </p>
                             </div>
                           )}
                         </div>
-                        <p className="text-xs sm:text-sm text-silver/90 leading-relaxed mt-4">
+                        <p className="mt-5 text-[0.92rem] leading-relaxed text-midnight/65">
                           {result.summary}
                         </p>
                       </CardContent>
                     </Card>
 
                     {result.payoffPath.length > 0 && (
-                      <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                        <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                      <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                        <CardHeader className="p-5 sm:p-7">
+                          <CardTitle className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
                             Debt Payoff Path
                           </CardTitle>
+                          <div
+                            aria-hidden
+                            className="mt-4 h-px w-16"
+                            style={{
+                              background:
+                                "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                            }}
+                          />
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
+                        <CardContent className="p-5 sm:p-7 pt-0">
                           <div className="w-full max-w-full overflow-hidden px-2">
                             <Chart data={result.payoffPath.slice(0, 12)} />
                           </div>
@@ -290,16 +330,26 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
-                        <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <BarChart3 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                      <Card className="rounded-2xl border border-midnight/10 bg-[#FBFAF6] shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                        <CardHeader className="p-5 sm:p-7">
+                          <CardTitle className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight flex items-center gap-3">
+                            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <BarChart3 className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
+                          <div
+                            aria-hidden
+                            className="mt-4 h-px w-16"
+                            style={{
+                              background:
+                                "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                            }}
+                          />
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-5 sm:p-7 pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/80">
+                            <div className="whitespace-pre-line text-[0.86rem] leading-relaxed">
                               {insights}
                             </div>
                           </div>
@@ -307,10 +357,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
-                      <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides estimates. Actual net worth and debt payoff depend on many factors including interest rates, investment returns, and lifestyle changes. Consult with a financial advisor for personalized debt management strategies.
+                    <Card className="rounded-2xl border border-midnight/10 bg-[#F7F5EF] max-w-md mx-auto lg:max-w-none">
+                      <CardContent className="p-5 sm:p-7">
+                        <p className="text-[0.82rem] leading-relaxed text-midnight/55">
+                          <strong className="font-semibold text-midnight/70">Disclaimer:</strong> This calculator provides estimates. Actual net worth and debt payoff depend on many factors including interest rates, investment returns, and lifestyle changes. Consult with a financial advisor for personalized debt management strategies.
                         </p>
                       </CardContent>
                     </Card>
@@ -329,9 +379,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
-                      <p className="text-sm sm:text-base">
+                  <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-5 sm:p-7 text-center text-midnight/60">
+                      <p className="text-[0.92rem] leading-relaxed">
                         Enter your information to calculate your net worth.
                       </p>
                     </CardContent>
@@ -345,4 +395,3 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
     </div>
   )
 }
-

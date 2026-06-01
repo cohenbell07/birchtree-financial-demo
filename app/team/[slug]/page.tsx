@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Mail, Phone, ArrowLeft, Award, BookOpen, Briefcase, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, ArrowLeft, ArrowRight, Award, BookOpen, Briefcase, CheckCircle2 } from "lucide-react"
 
 const teamMembers = [
   {
@@ -100,14 +100,14 @@ export default function TeamMemberPage() {
   }
 
   return (
-    <div>
+    <div className="bg-white">
       <PageHeader
         eyebrow="Our Team"
         title={member.name}
         subtitle={member.role}
       />
 
-      <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-b from-mist/60 to-white relative">
+      <section className="relative bg-[#F7F5EF] py-12 sm:py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
@@ -116,17 +116,14 @@ export default function TeamMemberPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="lg:col-span-1"
               >
                 <div className="sticky top-24 space-y-4">
 
                   {/* Photo card */}
-                  <div
-                    className="rounded-2xl overflow-hidden bg-white border border-midnight/[0.07] shadow-[0_4px_24px_rgba(11,26,44,0.08)]"
-                    style={{ borderTop: "2px solid rgba(215,195,138,0.3)" }}
-                  >
-                    <div className={`relative ${member.hasOfficialPhoto ? "flex items-center justify-center p-4 sm:p-6 min-h-[320px] sm:min-h-[400px]" : "h-48 sm:h-64"} w-full bg-gradient-to-b from-mist/40 to-white`}>
+                  <div className="overflow-hidden rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
+                    <div className={`relative ${member.hasOfficialPhoto ? "flex items-center justify-center p-4 sm:p-6 min-h-[320px] sm:min-h-[400px]" : "h-48 sm:h-64"} w-full bg-[#F7F5EF]`}>
                       {member.hasOfficialPhoto ? (
                         <Image
                           src={member.image}
@@ -149,46 +146,39 @@ export default function TeamMemberPage() {
                       )}
                     </div>
 
-                    <div className="p-4 sm:p-5 border-t border-midnight/[0.06]">
-                      <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight mb-0.5">
+                    <div className="p-4 sm:p-5 border-t border-midnight/10">
+                      <h3 className="mb-0.5 font-heading text-lg font-bold leading-[1.18] tracking-tight text-midnight sm:text-xl">
                         {member.name}
                       </h3>
-                      <p className="text-xs text-midnight/50 font-semibold tracking-wide uppercase mb-3">
+                      <p className="mb-3 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
                         {member.role}
                       </p>
 
                       {/* Credential badge */}
-                      <div
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold tracking-wide border mb-4"
-                        style={{
-                          background: "rgba(215,195,138,0.07)",
-                          borderColor: "rgba(215,195,138,0.3)",
-                          color: "#A8914F",
-                        }}
-                      >
-                        <Award className="h-3 w-3" />
+                      <div className="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-gold/30 bg-gold/[0.08] px-2.5 py-1 text-xs font-semibold tracking-wide text-gold-dark">
+                        <Award className="h-3 w-3 text-gold-dark" strokeWidth={1.6} />
                         {member.credentials}
                       </div>
 
                       {/* Contact */}
-                      <div className="pt-3 border-t border-midnight/[0.07] space-y-2.5">
+                      <div className="space-y-2.5 border-t border-midnight/10 pt-3">
                         {member.email && (
                           <a
                             href={`mailto:${member.email}`}
-                            className="flex items-center gap-2.5 text-sm text-midnight/70 hover:text-midnight transition-colors duration-150 group/link"
+                            className="group/link flex items-center gap-2.5 text-sm text-midnight/65 transition-colors duration-200 hover:text-midnight"
                           >
-                            <span className="w-7 h-7 rounded-lg bg-midnight/5 flex items-center justify-center flex-shrink-0 group-hover/link:bg-midnight/10 transition-colors">
-                              <Mail className="h-3.5 w-3.5 text-midnight/60" />
+                            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05] transition-colors group-hover/link:bg-midnight/[0.07]">
+                              <Mail className="h-3.5 w-3.5 text-gold-dark" strokeWidth={1.6} />
                             </span>
                             <span className="truncate">{member.email}</span>
                           </a>
                         )}
                         <a
                           href={`tel:${member.phone}`}
-                          className="flex items-center gap-2.5 text-sm text-midnight/70 hover:text-midnight transition-colors duration-150 group/link"
+                          className="group/link flex items-center gap-2.5 text-sm text-midnight/65 transition-colors duration-200 hover:text-midnight"
                         >
-                          <span className="w-7 h-7 rounded-lg bg-midnight/5 flex items-center justify-center flex-shrink-0 group-hover/link:bg-midnight/10 transition-colors">
-                            <Phone className="h-3.5 w-3.5 text-midnight/60" />
+                          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05] transition-colors group-hover/link:bg-midnight/[0.07]">
+                            <Phone className="h-3.5 w-3.5 text-gold-dark" strokeWidth={1.6} />
                           </span>
                           {member.phone}
                         </a>
@@ -197,19 +187,23 @@ export default function TeamMemberPage() {
                   </div>
 
                   {/* Experience stat card */}
-                  <div
-                    className="rounded-2xl p-5 bg-midnight text-white relative overflow-hidden"
-                    style={{ boxShadow: "0 4px 24px rgba(11,26,44,0.18)" }}
-                  >
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-                    <p className="text-xs uppercase tracking-[0.18em] text-gold/70 font-semibold mb-1">
+                  <div className="rounded-2xl border border-midnight/10 bg-white p-5">
+                    <div
+                      aria-hidden
+                      className="mb-3 h-px w-16"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                      }}
+                    />
+                    <p className="mb-1 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
                       Experience
                     </p>
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-4xl sm:text-5xl font-heading font-bold text-white">
+                      <span className="font-heading text-4xl font-bold tracking-tight text-midnight sm:text-5xl">
                         {member.experience}
                       </span>
-                      <span className="text-sm text-silver/60">{member.experienceLabel}</span>
+                      <span className="text-sm text-midnight/55">{member.experienceLabel}</span>
                     </div>
                   </div>
 
@@ -217,7 +211,7 @@ export default function TeamMemberPage() {
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full border-midnight/20 text-midnight hover:bg-midnight hover:text-white transition-all duration-150"
+                    className="w-full rounded-xl border border-midnight/20 bg-white text-midnight transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03]"
                   >
                     <Link href="/team">
                       <ArrowLeft className="mr-2 h-4 w-4" />
@@ -231,63 +225,55 @@ export default function TeamMemberPage() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="lg:col-span-2 space-y-5 sm:space-y-6"
               >
                 {/* About */}
-                <div
-                  className="rounded-2xl bg-white border border-midnight/[0.07] shadow-[0_2px_12px_rgba(11,26,44,0.06)] overflow-hidden"
-                  style={{ borderTop: "2px solid rgba(215,195,138,0.25)" }}
-                >
-                  <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-midnight/[0.06]">
-                    <span className="w-8 h-8 rounded-lg bg-midnight/5 flex items-center justify-center">
-                      <BookOpen className="h-4 w-4 text-midnight/60" />
+                <div className="overflow-hidden rounded-2xl border border-midnight/10 bg-white">
+                  <div className="flex items-center gap-3 border-b border-midnight/10 px-5 py-4 sm:px-6">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <BookOpen className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
                     </span>
-                    <h2 className="text-base sm:text-lg font-heading font-bold text-midnight">About</h2>
+                    <h2 className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">About</h2>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <p className="text-base sm:text-lg text-midnight/80 leading-relaxed">
+                    <p className="text-base leading-relaxed text-midnight/65 sm:text-lg">
                       {member.fullBio}
                     </p>
                   </div>
                 </div>
 
                 {/* Education */}
-                <div className="rounded-2xl bg-white border border-midnight/[0.07] shadow-[0_2px_12px_rgba(11,26,44,0.06)] overflow-hidden">
-                  <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-midnight/[0.06]">
-                    <span className="w-8 h-8 rounded-lg bg-midnight/5 flex items-center justify-center">
-                      <Award className="h-4 w-4 text-midnight/60" />
+                <div className="overflow-hidden rounded-2xl border border-midnight/10 bg-white">
+                  <div className="flex items-center gap-3 border-b border-midnight/10 px-5 py-4 sm:px-6">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Award className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
                     </span>
-                    <h2 className="text-base sm:text-lg font-heading font-bold text-midnight">Education & Credentials</h2>
+                    <h2 className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">Education &amp; Credentials</h2>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <p className="text-sm sm:text-base text-midnight/70 leading-relaxed">
+                    <p className="text-sm leading-relaxed text-midnight/65 sm:text-base">
                       {member.education}
                     </p>
                   </div>
                 </div>
 
                 {/* Specialties */}
-                <div className="rounded-2xl bg-white border border-midnight/[0.07] shadow-[0_2px_12px_rgba(11,26,44,0.06)] overflow-hidden">
-                  <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-midnight/[0.06]">
-                    <span className="w-8 h-8 rounded-lg bg-midnight/5 flex items-center justify-center">
-                      <Briefcase className="h-4 w-4 text-midnight/60" />
+                <div className="overflow-hidden rounded-2xl border border-midnight/10 bg-white">
+                  <div className="flex items-center gap-3 border-b border-midnight/10 px-5 py-4 sm:px-6">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Briefcase className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
                     </span>
-                    <h2 className="text-base sm:text-lg font-heading font-bold text-midnight">Areas of Expertise</h2>
+                    <h2 className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">Areas of Expertise</h2>
                   </div>
                   <div className="p-5 sm:p-6">
                     <div className="flex flex-wrap gap-2 sm:gap-2.5">
                       {member.specialties.map((specialty) => (
                         <span
                           key={specialty}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold border"
-                          style={{
-                            background: "rgba(11,26,44,0.04)",
-                            borderColor: "rgba(11,26,44,0.12)",
-                            color: "#1B2A3D",
-                          }}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-midnight/12 bg-midnight/[0.04] px-3 py-1.5 text-xs font-semibold text-midnight sm:text-sm"
                         >
-                          <CheckCircle2 className="h-3 w-3 text-midnight/40" />
+                          <CheckCircle2 className="h-3 w-3 text-gold-dark" strokeWidth={1.6} />
                           {specialty}
                         </span>
                       ))}
@@ -297,38 +283,54 @@ export default function TeamMemberPage() {
 
                 {/* CTA */}
                 <div
-                  className="rounded-2xl p-6 sm:p-8 bg-midnight text-white relative overflow-hidden"
-                  style={{ boxShadow: "0 8px 32px rgba(11,26,44,0.18)" }}
+                  className="relative overflow-hidden rounded-[1.75rem] border border-midnight/10 p-6 sm:p-8"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #FBFAF6 0%, #F7F5EF 100%)",
+                  }}
                 >
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-                  <p className="text-xs uppercase tracking-[0.18em] text-gold/70 font-semibold mb-2">
-                    Work Together
-                  </p>
-                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-2">
-                    Ready to get started?
-                  </h3>
-                  <p className="text-sm sm:text-base text-silver/70 mb-5 leading-relaxed">
-                    Schedule a complimentary consultation and take the first step toward a stronger financial future.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button
-                      asChild
-                      className="w-full sm:w-auto bg-gradient-to-r from-emerald to-emerald-light hover:from-midnight-light hover:to-midnight-light text-white border-2 border-white/10 hover:border-white/20 transition-all duration-150 hover:scale-[1.02] [&>*]:text-white"
-                    >
-                      <Link href="/contact" className="text-white">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.10) 0%, transparent 60%)",
+                    }}
+                  />
+                  <div className="relative">
+                    <div
+                      aria-hidden
+                      className="mb-3 h-px w-16"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                      }}
+                    />
+                    <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                      Work Together
+                    </p>
+                    <h3 className="mb-2 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                      Ready to get started?
+                    </h3>
+                    <p className="mb-5 max-w-md text-sm leading-relaxed text-midnight/65 sm:text-base">
+                      Schedule a complimentary consultation and take the first step toward a stronger financial future.
+                    </p>
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <Link
+                        href="/contact"
+                        className="group inline-flex w-full items-center justify-center rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)] sm:w-auto"
+                      >
                         Book a Consultation
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                       </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="w-full sm:w-auto bg-transparent border-2 border-white/25 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-150 [&>*]:text-white"
-                    >
-                      <Link href="/team" className="text-white">
+                      <Link
+                        href="/team"
+                        className="inline-flex w-full items-center justify-center rounded-xl border border-midnight/20 bg-white px-7 py-3.5 text-sm font-semibold text-midnight transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03] sm:w-auto"
+                      >
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Meet the Team
                       </Link>
-                    </Button>
+                    </div>
                   </div>
                 </div>
               </motion.div>

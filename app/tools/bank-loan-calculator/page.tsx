@@ -161,7 +161,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Calculate your monthly or biweekly loan payments and see the total interest over the life of your loan"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden bg-white">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -171,13 +179,18 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-2xl border border-midnight/10 shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                      Calculator
+                    </p>
+                    <CardTitle className="mt-2 text-lg sm:text-xl md:text-2xl font-heading font-bold tracking-tight flex items-center text-midnight">
+                      <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Calculate Your Loan Payment
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/60 mt-2">
                       Enter your loan details to see your estimated payment and total interest
                     </CardDescription>
                   </CardHeader>
@@ -212,7 +225,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           max="100"
                           step="0.01"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           Annual interest rate (e.g., 5.5 for 5.5%)
                         </p>
                       </div>
@@ -241,7 +254,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                             setFormData({ ...formData, paymentFrequency: e.target.value })
                           }
                           required
-                          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="flex h-11 w-full items-center justify-between rounded-xl border border-midnight/15 bg-paper px-4 py-2 text-sm text-midnight transition-colors focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <option value="monthly">Monthly</option>
                           <option value="biweekly">Biweekly</option>
@@ -251,7 +264,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Payment"}
@@ -269,34 +282,31 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
+                    <Card className="bg-[#F7F5EF] border border-midnight/10 rounded-2xl max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
+                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading font-bold tracking-tight text-midnight">
                           Loan Payment Summary
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
                         <div>
-                          <div className="text-xs sm:text-sm text-silver/80 mb-1">
+                          <div className="text-xs sm:text-sm text-midnight/55 mb-1">
                             {formData.paymentFrequency === "monthly" ? "Monthly" : "Biweekly"} Payment
                           </div>
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+                          <div className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-midnight">
                             ${result.payment.toLocaleString()}
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gold/30">
+                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-midnight/10">
                           <div>
-                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Total Interest</div>
-                            <div className="text-lg sm:text-xl font-bold text-white">
+                            <div className="text-xs sm:text-sm text-midnight/55 mb-1">Total Interest</div>
+                            <div className="text-lg sm:text-xl font-bold text-midnight">
                               ${result.totalInterest.toLocaleString()}
                             </div>
                           </div>
                           <div>
-                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Total Amount</div>
-                            <div className="text-lg sm:text-xl font-bold text-white">
+                            <div className="text-xs sm:text-sm text-midnight/55 mb-1">Total Amount</div>
+                            <div className="text-lg sm:text-xl font-bold text-midnight">
                               ${result.totalAmount.toLocaleString()}
                             </div>
                           </div>
@@ -304,9 +314,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-white rounded-2xl border border-midnight/10 shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading font-bold tracking-tight text-midnight">
                           Payment Breakdown Over Time
                         </CardTitle>
                       </CardHeader>
@@ -318,15 +328,17 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="bg-[#F7F5EF] border border-midnight/10 rounded-2xl max-w-md mx-auto lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <DollarSign className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading font-bold tracking-tight text-midnight flex items-center">
+                            <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                              <DollarSign className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
+                          <div className="prose prose-sm max-w-none text-midnight/80">
                             <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
                               {insights}
                             </div>
@@ -335,10 +347,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-[#F7F5EF] border border-midnight/10 rounded-2xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual loan terms, interest rates, and payments may vary. This does not constitute personalized financial advice. Please consult with a qualified Canadian financial advisor or loan specialist for personalized loan planning.
+                        <p className="text-xs sm:text-sm text-midnight/65 italic">
+                          <strong className="text-midnight">Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual loan terms, interest rates, and payments may vary. This does not constitute personalized financial advice. Please consult with a qualified Canadian financial advisor or loan specialist for personalized loan planning.
                         </p>
                       </CardContent>
                     </Card>
@@ -357,8 +369,8 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="bg-white rounded-2xl border border-midnight/10 shadow-[0_18px_40px_rgba(11,26,44,0.06)] max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-4 sm:p-6 text-center text-midnight/60">
                       <p className="text-sm sm:text-base">
                         Enter your loan information and calculate to see your payment breakdown.
                       </p>
@@ -373,4 +385,3 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
     </div>
   )
 }
-

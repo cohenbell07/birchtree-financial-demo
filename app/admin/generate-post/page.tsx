@@ -1,13 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { FileText, CheckCircle2, AlertCircle, Sparkles, Eye, Save, Edit, ArrowLeft, X, Search, CheckSquare, Square } from "lucide-react"
+import { Eyebrow } from "@/components/ui/eyebrow"
+import { Reveal } from "@/components/ui/reveal"
+import { FileText, AlertCircle, Sparkles, Eye, Save, Edit, ArrowLeft, X, Search, CheckSquare, Square } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 
 // Blog post suggestions
@@ -280,38 +282,61 @@ status: "${status}"
   }
 
   return (
-    <div className="min-h-screen bg-white py-10 sm:py-12 md:py-16">
+    <div className="relative isolate min-h-screen overflow-hidden bg-paper py-10 sm:py-12 md:py-16">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+        }}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-heading font-bold text-midnight mb-2">
-                AI Blog Post Generator
-              </h1>
-              <p className="text-midnight/70">
-                Generate, edit, and manage blog posts
-              </p>
+          <Reveal>
+            <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <Eyebrow>Birchtree Studio</Eyebrow>
+                <h1
+                  className="mt-4 font-heading font-bold tracking-tight text-midnight"
+                  style={{ fontSize: "clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem)", lineHeight: 1.04 }}
+                >
+                  AI Blog Post Generator
+                </h1>
+                <div
+                  aria-hidden
+                  className="mt-4 h-px w-16"
+                  style={{
+                    background:
+                      "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                  }}
+                />
+                <p className="mt-4 text-midnight/65">
+                  Generate, edit, and manage blog posts
+                </p>
+              </div>
+              <Button
+                onClick={() => router.push("/admin/dashboard")}
+                variant="outline"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
             </div>
-            <Button
-              onClick={() => router.push("/admin/dashboard")}
-              variant="outline"
-              className="text-emerald"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-          </div>
+          </Reveal>
 
           {/* Trending Topics Section */}
-          <Card className="glass shadow-glow-hover border-emerald/20 mb-6">
+          <Card className="mb-6 transition-all duration-300 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
             <CardHeader className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
-                    <Search className="mr-2 h-5 w-5 text-emerald" />
+                  <CardTitle className="flex items-center text-lg sm:text-xl">
+                    <span className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Search className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                    </span>
                     Trending Topics
                   </CardTitle>
-                  <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+                  <CardDescription className="mt-2 text-xs sm:text-sm">
                     Discover trending Canadian financial topics and generate multiple posts at once
                   </CardDescription>
                 </div>
@@ -320,7 +345,6 @@ status: "${status}"
                   disabled={isLoadingTrending}
                   variant="outline"
                   size="sm"
-                  className="text-emerald"
                 >
                   <Search className="h-4 w-4 mr-2" />
                   {isLoadingTrending ? "Loading..." : "Find Trending Topics"}
@@ -336,16 +360,16 @@ status: "${status}"
                         key={topicItem}
                         type="button"
                         onClick={() => toggleTopicSelection(topicItem)}
-                        className={`px-3 py-2 text-sm rounded-md border transition-colors flex items-center gap-2 ${
+                        className={`px-3 py-2 text-sm rounded-xl border transition-colors flex items-center gap-2 ${
                           selectedTrendingTopics.has(topicItem)
-                            ? "bg-emerald/20 border-emerald text-emerald"
-                            : "bg-emerald/10 hover:bg-midnight/20 border-emerald/20 text-emerald"
+                            ? "border-gold bg-gold/15 text-midnight"
+                            : "border-midnight/15 bg-white text-midnight/70 hover:border-midnight/30 hover:bg-midnight/[0.03]"
                         }`}
                       >
                         {selectedTrendingTopics.has(topicItem) ? (
-                          <CheckSquare className="h-4 w-4" />
+                          <CheckSquare className="h-4 w-4 text-gold-dark" />
                         ) : (
-                          <Square className="h-4 w-4" />
+                          <Square className="h-4 w-4 text-midnight/40" />
                         )}
                         {topicItem}
                       </button>
@@ -356,7 +380,6 @@ status: "${status}"
                       <Button
                         onClick={handleGenerateMultiple}
                         disabled={isGenerating}
-                        className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white"
                       >
                         {isGenerating ? `Generating ${currentPostIndex + 1}/${selectedTrendingTopics.size}...` : `Generate ${selectedTrendingTopics.size} Posts`}
                       </Button>
@@ -364,7 +387,6 @@ status: "${status}"
                         onClick={() => setSelectedTrendingTopics(new Set())}
                         variant="outline"
                         size="sm"
-                        className="text-emerald"
                       >
                         Clear Selection
                       </Button>
@@ -376,13 +398,15 @@ status: "${status}"
           </Card>
 
           {/* Blog Post Suggestions */}
-          <Card className="glass shadow-glow-hover border-emerald/20 mb-6">
+          <Card className="mb-6 transition-all duration-300 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
             <CardHeader className="p-4 sm:p-6">
-              <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
-                <Sparkles className="mr-2 h-5 w-5 text-emerald" />
+              <CardTitle className="flex items-center text-lg sm:text-xl">
+                <span className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                  <Sparkles className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                </span>
                 Suggested Topics
               </CardTitle>
-              <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+              <CardDescription className="mt-2 text-xs sm:text-sm">
                 Click a suggestion to use it, or enter your own topic
               </CardDescription>
             </CardHeader>
@@ -393,7 +417,7 @@ status: "${status}"
                     key={suggestion}
                     type="button"
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="px-3 py-1.5 text-sm bg-emerald/10 hover:bg-midnight/20 text-emerald rounded-md border border-emerald/20 hover:border-midnight/40 transition-colors"
+                    className="rounded-xl border border-midnight/15 bg-white px-3 py-1.5 text-sm text-midnight/70 transition-colors hover:border-midnight/30 hover:bg-midnight/[0.03] hover:text-midnight"
                   >
                     {suggestion}
                   </button>
@@ -404,13 +428,15 @@ status: "${status}"
 
           {/* Generate Form */}
           {!currentResult?.ok && (
-            <Card className="glass shadow-glow-hover border-emerald/20">
+            <Card className="transition-all duration-300 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
               <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
-                  <FileText className="mr-2 h-5 w-5 text-emerald" />
+                <CardTitle className="flex items-center text-lg sm:text-xl">
+                  <span className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                    <FileText className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                  </span>
                   Generate New Post
                 </CardTitle>
-                <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+                <CardDescription className="mt-2 text-xs sm:text-sm">
                   Enter a topic and the AI will generate a complete blog post
                 </CardDescription>
               </CardHeader>
@@ -451,7 +477,7 @@ status: "${status}"
                     type="submit"
                     size="lg"
                     disabled={isGenerating || !topic}
-                    className="w-full relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white !text-white [&>*]:!text-white"
+                    className="w-full"
                   >
                     {isGenerating ? "Generating..." : "Generate Blog Post"}
                   </Button>
@@ -462,14 +488,14 @@ status: "${status}"
 
           {/* Multi-Post Navigation */}
           {multiPostMode && generatedPosts.length > 1 && (
-            <Card className="glass shadow-glow-hover border-emerald/20 mt-6">
+            <Card className="mt-6">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-midnight/70">
+                    <p className="text-sm text-midnight/65">
                       Post {currentPostIndex + 1} of {generatedPosts.length}
                     </p>
-                    <p className="text-xs text-midnight/50 mt-1">
+                    <p className="text-xs text-midnight/55 mt-1">
                       {generatedPosts[currentPostIndex]?.title || "Untitled"}
                     </p>
                   </div>
@@ -479,7 +505,6 @@ status: "${status}"
                       disabled={currentPostIndex === 0}
                       variant="outline"
                       size="sm"
-                      className="text-emerald"
                     >
                       Previous
                     </Button>
@@ -488,7 +513,6 @@ status: "${status}"
                       disabled={currentPostIndex === generatedPosts.length - 1}
                       variant="outline"
                       size="sm"
-                      className="text-emerald"
                     >
                       Next
                     </Button>
@@ -529,11 +553,13 @@ status: "${status}"
 
           {/* Generated Post Editor */}
           {currentResult?.ok && currentResult.content && (
-            <Card className="glass shadow-glow-hover border-emerald/20 mt-6">
+            <Card className="mt-6">
               <CardHeader className="p-4 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
-                    <Edit className="mr-2 h-5 w-5 text-emerald" />
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <CardTitle className="flex items-center text-lg sm:text-xl">
+                    <span className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Edit className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                    </span>
                     Edit Generated Post
                   </CardTitle>
                   <div className="flex gap-2">
@@ -541,7 +567,6 @@ status: "${status}"
                       onClick={() => setShowPreview(!showPreview)}
                       variant="outline"
                       size="sm"
-                      className="text-emerald"
                     >
                       <Eye className="h-4 w-4 mr-2" />
                       {showPreview ? "Hide Preview" : "Preview"}
@@ -558,7 +583,6 @@ status: "${status}"
                       }}
                       variant="outline"
                       size="sm"
-                      className="text-emerald"
                     >
                       <X className="h-4 w-4 mr-2" />
                       New Post
@@ -649,7 +673,7 @@ status: "${status}"
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="edit-content">Content (Markdown)</Label>
-                      <span className="text-xs text-midnight/50">
+                      <span className="text-xs text-midnight/55">
                         {body.split("\n").length} lines
                       </span>
                     </div>
@@ -681,8 +705,8 @@ ${e.target.value}`
                         className="font-mono text-sm"
                       />
                     ) : (
-                      <div className="p-4 bg-midnight/5 rounded border border-midnight/10">
-                        <p className="text-sm text-midnight/70">
+                      <div className="rounded-xl border border-dashed border-midnight/15 bg-[#F7F5EF] p-4">
+                        <p className="text-sm text-midnight/55">
                           Click &quot;Edit Content&quot; to modify the post body
                         </p>
                       </div>
@@ -693,7 +717,6 @@ ${e.target.value}`
                         onClick={() => setEditingContent(true)}
                         variant="outline"
                         size="sm"
-                        className="text-emerald"
                       >
                         <Edit className="h-4 w-4 mr-2" />
                         Edit Content
@@ -702,12 +725,11 @@ ${e.target.value}`
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 pt-4 border-t">
+                  <div className="flex flex-wrap gap-2 border-t border-midnight/10 pt-4">
                     <Button
                       onClick={() => handleSave("draft")}
                       disabled={isSaving}
                       variant="outline"
-                      className="text-emerald"
                     >
                       <Save className="h-4 w-4 mr-2" />
                       {isSaving ? "Saving..." : "Save as Draft"}
@@ -715,7 +737,6 @@ ${e.target.value}`
                     <Button
                       onClick={() => handleSave("published")}
                       disabled={isSaving}
-                      className="bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white !text-white [&>*]:!text-white"
                     >
                       <Save className="h-4 w-4 mr-2" />
                       {isSaving ? "Publishing..." : "Publish"}
@@ -723,7 +744,6 @@ ${e.target.value}`
                     <Button
                       onClick={() => window.open(`/blog/${currentSlug}`, '_blank')}
                       variant="outline"
-                      className="text-emerald"
                     >
                       <Eye className="h-4 w-4 mr-2" />
                       View Post
@@ -736,27 +756,27 @@ ${e.target.value}`
 
           {/* Preview Modal */}
           {showPreview && currentResult?.ok && body && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-              <Card className="w-full max-w-4xl max-h-[90vh] overflow-auto glass shadow-glow-hover border-emerald/20">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-midnight/40 p-4 backdrop-blur-sm">
+              <Card className="max-h-[90vh] w-full max-w-4xl overflow-auto shadow-[0_30px_80px_rgba(11,26,44,0.18)]">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-heading text-midnight">Preview</CardTitle>
-                    <Button variant="ghost" onClick={() => setShowPreview(false)}>
+                    <CardTitle className="text-xl">Preview</CardTitle>
+                    <Button variant="ghost" size="icon" onClick={() => setShowPreview(false)}>
                       <X className="h-4 w-4" />
                     </Button>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <article className="prose max-w-none">
-                    <h1>{currentTitle}</h1>
-                    <p className="text-midnight/70">{currentDescription}</p>
+                    <h1 className="font-heading font-bold tracking-tight text-midnight">{currentTitle}</h1>
+                    <p className="text-midnight/65">{currentDescription}</p>
                     <ReactMarkdown
                       components={{
                         h2: ({ children }) => <h2 className="text-2xl font-heading font-bold text-midnight mt-8 mb-4">{children}</h2>,
                         h3: ({ children }) => <h3 className="text-xl font-heading font-bold text-midnight mt-6 mb-3">{children}</h3>,
                         p: ({ children }) => <p className="text-midnight/80 mb-4 leading-relaxed">{children}</p>,
                         a: ({ href, children }) => (
-                          <a href={href} className="text-emerald hover:text-midnight underline">
+                          <a href={href} className="text-gold-dark underline decoration-gold/50 underline-offset-2 transition-colors hover:text-midnight">
                             {children}
                           </a>
                         ),

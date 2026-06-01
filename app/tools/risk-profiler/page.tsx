@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { TrendingUp } from "lucide-react"
+import { TrendingUp, Sparkles } from "lucide-react"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import LeadCapture from "@/components/LeadCapture"
 
 export default function RiskProfilerPage() {
@@ -168,26 +169,46 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Discover your investment risk profile with our AI-powered assessment tool"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <section className="relative overflow-hidden bg-[#F7F5EF] py-16 sm:py-20 lg:py-24">
+        {/* Faint gold wash to match the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2">
               {/* Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white p-2 shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight">
+                    <CardTitle
+                      className="font-heading font-bold leading-[1.1] tracking-tight text-midnight"
+                      style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 1.9rem)" }}
+                    >
                       Your Profile
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <div
+                      aria-hidden
+                      className="mt-4 h-px w-16"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                      }}
+                    />
+                    <CardDescription className="mt-4 text-sm leading-relaxed text-midnight/60">
                       Answer a few questions to determine your risk profile
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
+                  <CardContent className="p-4 pt-0 sm:p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
                         <Label htmlFor="age">Age</Label>
@@ -303,7 +324,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                               />
                               <label
                                 htmlFor={goal}
-                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                className="text-sm font-medium leading-none text-midnight/80 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               >
                                 {goal}
                               </label>
@@ -312,7 +333,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                         </div>
                       </div>
 
-                      <Button type="submit" size="lg" className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight" disabled={isLoading}>
+                      <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
                         {isLoading ? "Analyzing..." : "Analyze My Risk Profile"}
                       </Button>
                     </form>
@@ -328,36 +349,47 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
-                          Your Risk Profile
-                        </CardTitle>
+                    <Card className="relative mx-auto max-w-md overflow-hidden rounded-2xl border border-midnight/10 bg-[#FBFAF6] shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                      {/* Faint gold radial wash */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(60% 60% at 12% 0%, rgba(215,195,138,0.14) 0%, transparent 62%)",
+                        }}
+                      />
+                      <CardHeader className="relative p-4 sm:p-6">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                            <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                          </span>
+                          <Eyebrow className="text-gold-dark">Your Risk Profile</Eyebrow>
+                        </div>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-white tracking-tight">
+                      <CardContent className="relative p-4 pt-0 sm:p-6">
+                        <div
+                          className="font-heading font-bold leading-[1.04] tracking-tight text-midnight"
+                          style={{ fontSize: "clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem)" }}
+                        >
                           {result.category}
                         </div>
-                        <p className="text-[0.65rem] uppercase tracking-[0.18em] text-gold/70 font-medium">
+                        <p className="mt-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
                           Investor profile category
                         </p>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white p-2 shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                        <CardTitle className="font-heading text-[1.25rem] font-bold leading-[1.18] tracking-tight text-midnight sm:text-[1.4rem]">
                           Your Risk Factors
                         </CardTitle>
-                        <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+                        <CardDescription className="mt-2 text-sm leading-relaxed text-midnight/60">
                           See how each factor contributes to your risk profile
                         </CardDescription>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
+                      <CardContent className="p-4 pt-0 sm:p-6">
                         <div className="space-y-4 sm:space-y-5">
                           {result.scores.map((score, index) => {
                             // Map technical names to user-friendly labels
@@ -379,10 +411,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                                 description: "Your familiarity with investing and financial markets"
                               }
                             }
-                            
+
                             const info = labelMap[score.category] || { label: score.category, description: "" }
                             const percentage = Math.round(score.value)
-                            
+
                             // Determine color based on score
                             let barColor = "bg-midnight"
                             let textColor = "text-midnight"
@@ -396,25 +428,25 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                               barColor = "bg-gold"
                               textColor = "text-gold-dark"
                             }
-                            
+
                             return (
                               <div key={index} className="space-y-2">
                                 <div className="flex items-center justify-between">
                                   <div className="flex-1">
-                                    <h4 className="text-sm sm:text-base font-semibold text-midnight">
+                                    <h4 className="text-sm font-semibold text-midnight sm:text-base">
                                       {info.label}
                                     </h4>
                                     {info.description && (
-                                      <p className="text-xs text-midnight/60 mt-0.5">
+                                      <p className="mt-0.5 text-xs text-midnight/55">
                                         {info.description}
                                       </p>
                                     )}
                                   </div>
-                                  <span className={`text-sm sm:text-base font-bold ${textColor} ml-4`}>
+                                  <span className={`ml-4 text-sm font-bold sm:text-base ${textColor}`}>
                                     {percentage}%
                                   </span>
                                 </div>
-                                <div className="w-full bg-silver/20 rounded-full h-3 sm:h-4 overflow-hidden">
+                                <div className="h-3 w-full overflow-hidden rounded-full bg-midnight/[0.06] sm:h-4">
                                   <div
                                     className={`${barColor} h-full rounded-full transition-all duration-500 ease-out`}
                                     style={{ width: `${percentage}%` }}
@@ -428,16 +460,18 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#FBFAF6] p-2 shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                          <CardTitle className="flex items-center gap-3 font-heading text-[1.25rem] font-bold leading-[1.18] tracking-tight text-midnight sm:text-[1.4rem]">
+                            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                              <Sparkles className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-4 pt-0 sm:p-6">
+                          <div className="prose prose-sm max-w-none text-midnight/75">
+                            <div className="whitespace-pre-line text-xs leading-relaxed sm:text-sm">
                               {insights}
                             </div>
                           </div>
@@ -445,10 +479,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#F7F5EF] lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This assessment provides general
+                        <p className="text-xs leading-relaxed text-midnight/65 sm:text-sm">
+                          <strong className="text-midnight/80">Disclaimer:</strong> This assessment provides general
                           information only and does not constitute personalized financial
                           advice. Please consult with a qualified financial advisor for
                           personalized recommendations based on your specific Canadian financial situation.
@@ -469,9 +503,12 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
-                      <p className="text-sm sm:text-base">
+                  <Card className="mx-auto flex h-full max-w-md items-center rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                    <CardContent className="p-6 text-center sm:p-8">
+                      <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                        <TrendingUp className="h-[22px] w-[22px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
+                      <p className="mt-4 text-sm leading-relaxed text-midnight/60 sm:text-base">
                         Complete the form to see your personalized risk profile
                         analysis.
                       </p>
@@ -486,4 +523,3 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
     </div>
   )
 }
-

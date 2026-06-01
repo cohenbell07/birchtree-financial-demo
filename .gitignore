@@ -47,3 +47,5 @@ next-env.d.ts
 
 # Finder-duplicated build artifact
 /.next 2/
+.preview/
+.playwright-mcp/

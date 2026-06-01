@@ -1,257 +1,168 @@
-"use client"
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Reveal, RevealStagger } from "@/components/ui/reveal";
+import { ArrowRight } from "lucide-react";
 
-import Link from "next/link"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+export const metadata: Metadata = {
+  title: "Our Team | Birchtree Financial",
+  description:
+    "Meet the advisors and specialists behind Birchtree Financial — seasoned professionals dedicated to your financial wellbeing.",
+};
 
-import { Button } from "@/components/ui/button"
-import RevealText from "@/components/RevealText"
-import { Section } from "@/components/ui/section"
-import { Container } from "@/components/ui/container"
-import { Eyebrow } from "@/components/ui/eyebrow"
-import { SectionHeader } from "@/components/ui/section-header"
-import { Reveal, RevealStagger } from "@/components/ui/reveal"
-
-const teamMembers = [
+const team = [
   {
     slug: "melissa-birch",
     name: "Melissa Birch",
     role: "Owner • Financial Advisor",
-    bio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance.",
-    credentials: "LLQP",
     image: "/melissaupdate.webp",
-    experience: "15+",
+    bio: "As the owner and financial advisor of Birchtree Financial, Melissa brings visionary leadership and deep expertise in financial advisory services and business strategy. With a commitment to excellence and client-centered service, she oversees the firm's strategic direction while ensuring every client receives personalized attention and expert guidance.",
+    specialties: ["Strategic Financial Advisory", "Business Leadership", "Life Insurance"],
   },
   {
     slug: "kevin-birch",
     name: "Kevin Birch",
     role: "Co-owner & Office Administrator",
-    bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences. His expertise in administrative systems and client relations helps maintain the high standards of service that define Birchtree Financial.",
-    credentials: "Office Administration",
     image: "/Kevinupdate.webp",
-    experience: "12+",
+    bio: "Kevin serves as Co-owner and Office Administrator, managing daily operations and ensuring smooth client experiences. His expertise in administrative systems and client relations helps maintain the high standards of service that define Birchtree Financial.",
+    specialties: ["Office Management", "Client Relations", "Operational Excellence"],
   },
   {
     slug: "kaleb-birch",
     name: "Kaleb Birch",
     role: "IT Specialist",
-    bio: "Kaleb is our IT Specialist, responsible for maintaining our technology infrastructure and ensuring secure, efficient operations. His technical expertise supports our team's ability to serve clients effectively while protecting sensitive financial information.",
-    credentials: "Information Technology",
     image: "/kalebbirchtreenew.webp",
-    experience: "5+",
+    bio: "Kaleb is our IT Specialist, responsible for maintaining our technology infrastructure and ensuring secure, efficient operations. His technical expertise supports our team's ability to serve clients effectively while protecting sensitive financial information.",
+    specialties: ["Technology Infrastructure", "Cybersecurity", "System Administration"],
   },
   {
     slug: "crystal",
     name: "Crystal Smith",
     role: "Bookkeeper • Office Administrator",
-    bio: "Crystal Smith is the welcoming face of Birchtree Financial, serving as our Bookkeeper. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth.",
-    credentials: "Client Services",
     image: "/crystalteamimg.webp",
-    experience: "5+",
+    bio: "Crystal Smith is the welcoming face of Birchtree Financial, serving as our Bookkeeper. She ensures clients feel valued from the moment they contact us, handling inquiries with professionalism and warmth.",
+    specialties: ["Client Communication", "Administrative Support", "Customer Service"],
   },
   {
     slug: "art-birch",
     name: "Art Birch",
     role: "Founder & Mentor",
-    bio: "Art Birch is the Founder and Mentor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent financial guidance.",
-    credentials: "LLQP",
     image: "/artbirchnew.webp",
-    experience: "30+",
+    bio: "Art Birch is the Founder and Mentor of Birchtree Financial, bringing decades of experience and a deep commitment to helping clients achieve their financial goals. As the founder, Art established the firm with a vision of providing personalized, transparent financial guidance.",
+    specialties: ["Financial Planning", "Mentorship", "Legacy Building"],
   },
-]
+];
+
+const values = [
+  {
+    title: "Fiduciary First",
+    description: "We are legally and ethically bound to act in your best interest — always.",
+  },
+  {
+    title: "Patient Counsel",
+    description: "We favor steady, long-term thinking over reactive, short-term moves.",
+  },
+  {
+    title: "Radical Clarity",
+    description: "No jargon, no hidden fees — just honest guidance you can understand.",
+  },
+];
 
 export default function TeamPage() {
   return (
     <>
-      {/* ============ HERO — Centered + overlapping portrait circles ============ */}
-      <section
-        className="relative overflow-hidden text-white"
-        style={{
-          background:
-            "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
-          paddingTop: "clamp(7rem, 8vw + 4rem, 12rem)",
-          paddingBottom: "clamp(4rem, 6vw + 2rem, 9rem)",
-        }}
-      >
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-paper">
         <div
-          aria-hidden
-          className="pointer-events-none absolute left-[15%] top-[30%] h-[60%] w-[50%] rounded-full"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse, rgba(21,36,57,0.25) 0%, transparent 70%)",
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
           }}
         />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"
-        />
-
-        <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mb-7 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-gold"
-            >
-              <span aria-hidden className="mr-3 inline-block h-px w-3 align-middle bg-gold/60" />
-              Our People
-              <span aria-hidden className="ml-3 inline-block h-px w-3 align-middle bg-gold/60" />
-            </motion.p>
-
-            <RevealText
-              as="h1"
-              className="font-heading font-bold leading-[1.06] tracking-tight text-white text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              Meet Our Team
-            </RevealText>
-
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-7 mb-7"
-              style={{ width: "fit-content" }}
-            >
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/55 to-transparent" />
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mb-12 leading-relaxed text-white/85"
-              style={{ fontSize: "clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem)" }}
-            >
-              Dedicated professionals committed to your financial success.
-            </motion.p>
-
-            {/* Overlapping portraits */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex items-center justify-center"
-            >
-              {teamMembers.map((member, i) => (
-                <motion.div
-                  key={member.slug}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
-                  className={`relative ${i > 0 ? "-ml-4 sm:-ml-5" : ""} ${i > 2 ? "hidden sm:block" : ""}`}
-                  style={{ zIndex: teamMembers.length - i }}
-                >
-                  <div className="h-16 w-16 overflow-hidden rounded-full ring-[3px] ring-[#0B1A2C] shadow-lg sm:h-20 sm:w-20">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={80}
-                      height={80}
-                      sizes="80px"
-                      priority={i === 0}
-                      className="h-full w-full object-cover object-top"
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+        <Container size="default" className="relative">
+          <div className="mx-auto max-w-3xl py-20 text-center sm:py-24">
+            <Reveal>
+              <Eyebrow>Our Team</Eyebrow>
+              <h1
+                className="mt-5 font-heading font-bold tracking-tight text-midnight"
+                style={{
+                  fontSize: "clamp(2.5rem,1.6rem+3.4vw,4.5rem)",
+                  lineHeight: 1.04,
+                }}
+              >
+                Meet the people behind your plan
+              </h1>
+              <div
+                className="mx-auto mt-5 h-px w-16"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                }}
+              />
+              <p
+                className="mx-auto mt-6 max-w-xl text-midnight/65"
+                style={{ fontSize: "1.125rem", lineHeight: 1.7 }}
+              >
+                A team of seasoned advisors and specialists, united by a single
+                purpose: your financial wellbeing.
+              </p>
+            </Reveal>
           </div>
         </Container>
       </section>
 
-      {/* ============ TEAM ============ */}
+      {/* Team grid */}
       <Section tone="paper" topRule>
-        <Container>
-          <SectionHeader
-            eyebrow="The Birchtree Team"
-            heading="The people behind your plan"
-            subtitle="Our team combines experience with a genuine passion for helping clients achieve their financial goals. Get to know the professionals who will be working alongside you."
-          />
-
-          <RevealStagger
-            stagger={0.07}
-            className="mx-auto mt-16 max-w-5xl space-y-6 sm:space-y-8"
-          >
-            {teamMembers.map((member, idx) => (
+        <Container size="wide">
+          <RevealStagger className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map((member) => (
               <article
-                key={member.slug}
-                className="group relative overflow-hidden rounded-2xl"
-                style={{
-                  background:
-                    "linear-gradient(145deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)",
-                  border: "1px solid rgba(215,195,138,0.08)",
-                  boxShadow:
-                    "0 2px 12px rgba(0,0,0,0.1), 0 4px 24px rgba(0,0,0,0.06)",
-                }}
+                key={member.name}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-midnight/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
               >
-                {/* Top hairline */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent transition-all duration-300 group-hover:via-gold/55"
-                />
-
-                <div className="relative grid grid-cols-1 gap-0 md:grid-cols-3">
-                  <div className="flex items-center justify-center p-7 sm:p-9 md:border-r md:border-white/[0.06]">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={260}
-                      height={360}
-                      sizes="(max-width: 768px) 220px, 260px"
-                      priority={idx === 0}
-                      loading={idx === 0 ? undefined : "lazy"}
-                      className="w-full max-w-[220px] rounded-xl object-contain sm:max-w-[260px]"
-                    />
-                  </div>
-
-                  <div className="flex flex-col justify-center space-y-5 p-7 sm:p-9 md:col-span-2 md:p-11">
-                    <div>
-                      <h3 className="font-heading text-2xl font-bold leading-tight text-white sm:text-3xl md:text-[2.1rem]">
-                        {member.name}
-                      </h3>
-                      <p className="mt-2 text-[0.7rem] font-medium uppercase tracking-[0.25em] text-gold/70">
-                        {member.role}
-                      </p>
-                    </div>
-
-                    {/* Experience + credential */}
-                    <div className="flex items-center gap-5">
-                      <div>
-                        <span className="block font-heading text-3xl font-bold leading-none text-gold sm:text-4xl">
-                          {member.experience}
-                        </span>
-                        <span className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-white/55">
-                          Years
-                        </span>
-                      </div>
+                <div className="relative aspect-[4/5] overflow-hidden bg-midnight/5">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-gold-dark">
+                    {member.role}
+                  </p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-midnight/60">
+                    {member.bio}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {member.specialties.map((s) => (
                       <span
-                        className="inline-flex items-center rounded-lg border px-3 py-1.5 text-xs font-semibold tracking-wide text-gold"
-                        style={{
-                          background: "rgba(215,195,138,0.06)",
-                          borderColor: "rgba(215,195,138,0.25)",
-                        }}
+                        key={s}
+                        className="rounded-full bg-midnight/[0.04] px-3 py-1 text-xs font-medium text-midnight/70 ring-1 ring-midnight/[0.05]"
                       >
-                        {member.credentials}
+                        {s}
                       </span>
-                    </div>
-
-                    <p className="max-w-2xl text-[0.95rem] leading-relaxed text-white/75 sm:text-base">
-                      {member.bio}
-                    </p>
-
-                    <div className="pt-1">
-                      <Button
-                        asChild
-                        className="min-h-[44px] rounded-lg bg-gold px-5 text-sm font-semibold text-midnight transition-all duration-200 hover:bg-gold-light hover:scale-[1.02]"
-                      >
-                        <Link href={`/team/${member.slug}`} className="text-midnight">
-                          View Profile
-                          <ArrowRight className="ml-2 inline h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                        </Link>
-                      </Button>
-                    </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 flex items-center justify-end border-t border-midnight/10 pt-4">
+                    <Link
+                      href={`/team/${member.slug}`}
+                      className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-midnight"
+                    >
+                      <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover/link:border-gold">
+                        View Profile
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover/link:translate-x-1" />
+                    </Link>
                   </div>
                 </div>
               </article>
@@ -260,55 +171,87 @@ export default function TeamPage() {
         </Container>
       </Section>
 
-      {/* ============ CTA (dark) ============ */}
-      <Section tone="dark" topRule grain>
-        <Container>
+      {/* Values */}
+      <Section tone="paper-soft" topRule>
+        <Container size="default">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <Eyebrow>What Guides Us</Eyebrow>
+            <h2
+              className="mt-4 font-heading font-bold leading-[1.1] tracking-tight text-midnight"
+              style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
+            >
+              The principles behind every conversation
+            </h2>
+            <div
+              className="mx-auto mt-4 h-px w-16"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+              }}
+            />
+          </Reveal>
+          <RevealStagger className="mt-14 grid gap-8 sm:grid-cols-3">
+            {values.map((value, i) => (
+              <div key={value.title} className="text-center">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-midnight/[0.04] font-heading text-lg font-bold text-gold-dark ring-1 ring-midnight/[0.06]">
+                  {i + 1}
+                </div>
+                <h3 className="mt-5 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                  {value.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-midnight/60">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </RevealStagger>
+        </Container>
+      </Section>
+
+      {/* CTA */}
+      <Section tone="paper" topRule>
+        <Container size="default">
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
-                Get Started
-              </Eyebrow>
-              <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.6rem)" }}
-              >
-                Ready to work with our team?
-              </h2>
+            <div
+              className="relative overflow-hidden rounded-[1.75rem] border border-midnight/10 bg-[#F7F5EF] px-8 py-16 text-center sm:px-12"
+            >
               <div
-                aria-hidden
-                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+                }}
               />
-              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-white/80"
-                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
-              >
-                Book a complimentary consultation and let our team help you
-                build a stronger financial future.
-              </p>
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+              <div className="relative">
+                <h2
+                  className="font-heading font-bold leading-[1.1] tracking-tight text-midnight"
+                  style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
                 >
-                  <Link href="/contact" className="text-midnight">
-                    Book a Consultation
-                    <ArrowRight className="ml-2 inline h-4 w-4" />
+                  Ready to meet your advisor?
+                </h2>
+                <p className="mx-auto mt-4 max-w-xl text-midnight/65" style={{ fontSize: "1.125rem", lineHeight: 1.7 }}>
+                  Book a complimentary introduction and find the right fit for your
+                  family.
+                </p>
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
+                  >
+                    Book an Introduction
                   </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border border-white/[0.18] bg-white/[0.04] px-9 py-6 text-sm text-white/85 transition-all duration-300 hover:border-white/35 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
-                >
-                  <Link href="/services" className="text-white">
-                    Our Services
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center justify-center rounded-xl border border-midnight/20 bg-white px-7 py-3.5 text-sm font-semibold text-midnight transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03]"
+                  >
+                    Explore Services
                   </Link>
-                </Button>
+                </div>
               </div>
             </div>
           </Reveal>
         </Container>
       </Section>
     </>
-  )
+  );
 }

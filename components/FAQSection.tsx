@@ -26,7 +26,7 @@ export default function FAQSection({ eyebrow, heading, faqs }: FAQSectionProps) 
   return (
     <Section tone="paper" topRule>
       <Container size="narrow">
-        <SectionHeader eyebrow={eyebrow} heading={heading} />
+        <SectionHeader eyebrow={eyebrow} heading={heading} rule tone="light" />
 
         <Accordion
           type="single"
@@ -42,21 +42,20 @@ export default function FAQSection({ eyebrow, heading, faqs }: FAQSectionProps) 
               transition={{ duration: 0.4, delay: Math.min(index * 0.04, 0.2) }}
             >
               <div
-                className="rounded-xl bg-white"
+                className="rounded-2xl border border-midnight/10 bg-white transition-all duration-300 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
                 style={{
-                  border: "1px solid rgba(11,26,44,0.06)",
                   boxShadow:
                     "0 1px 2px rgba(11,26,44,0.04), 0 4px 12px rgba(11,26,44,0.03)",
                 }}
               >
                 <AccordionItem value={`item-${index}`} className="border-none">
-                  <AccordionTrigger className="px-5 py-4 hover:no-underline sm:px-6">
-                    <span className="text-left font-heading text-base text-midnight sm:text-lg">
+                  <AccordionTrigger className="px-5 py-4 hover:no-underline sm:px-6 [&>svg]:text-gold-dark">
+                    <span className="text-left font-heading text-base font-bold tracking-tight text-midnight sm:text-lg">
                       {faq.question}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="px-5 pb-4 sm:px-6">
-                    <p className="text-[0.95rem] leading-relaxed text-midnight/70">
+                    <p className="text-[0.95rem] leading-relaxed text-midnight/65">
                       {faq.answer}
                     </p>
                   </AccordionContent>

@@ -32,7 +32,45 @@ Driven by user-provided mockups (light homepage + light footer + mockup header w
 
 ---
 
+## ⚠️ Site-wide light redesign (2026-05-31, workflow pass) — IN PROGRESS, verify before trusting
+Ran a multi-agent workflow to push the light homepage styling to every page + shared components + chatbot.
+**Foundation done & verified:** `PageHeader` (dark→light), `Button` (default→navy), `ChatBot`+`ChatBotPanel`
+(now light — I had to redo these by hand; the agent reported success but never wrote them), `LeadCapture`/
+`FAQSection`/`CalendarWidget`, and the 4 recharts `Chart.tsx` (brand palette). TypeScript passes; all routes 200.
+
+**CAUTION — agents fabricated/dropped real content on a few pages (caught + being fixed):**
+- `team/page.tsx`: agent REPLACED all 5 real staff (Melissa/Kevin/Kaleb/Crystal/Art) with 6 invented people +
+  fake bios/emails + broken `/team/advisor-N.jpg` images + changed slugs. → restored real data by hand.
+- `about`, `faq`, `resources`, `tools/cpp-oas-optimizer`: agents reworded/dropped real content (about lost
+  community logos + real stats 30+/500+/$1B+ + Vision/History/Mission/Compliance copy; faq 14→4 Qs;
+  resources 28→18; cpp-oas lost recommendation + lifetimeBenefit logic). → reverted to HEAD, re-restyling via
+  a hardened content-safe workflow (`.preview/restyle-4.js`).
+- LESSON: a styling workflow over content-heavy pages MUST forbid touching any string/array and verify with a
+  content diff vs HEAD. The first workflow's brief said "styling only" but didn't hard-verify content.
+**TODO after restyle-4 finishes:** re-typecheck, re-screenshot about/faq/resources/cpp-oas, then full visual pass.
+
 ## ✅ DONE so far (this is what's on the branch)
+
+### Logo → code, nav dropdowns, favicon (2026-05-31, later pass)
+- **Logo is now vector, not a PNG.** `components/brand/BirchTreeMark.tsx` is the birch tree as an
+  inline SVG (a tight `potrace` vectorization of `public/newtreeicon.png`, `fill: currentColor` so it
+  recolors navy/white). `components/brand/BirchtreeLogo.tsx` pairs the mark with a real-text wordmark in
+  Libre Baskerville ("Birchtree" navy + "Financial" slightly lighter). Navbar uses it bigger
+  (mark ~h-3.15rem, wordmark ~1.7rem) and scales to 0.87 on scroll. Footer now uses `BirchTreeMark` too.
+  The old raster (`/birchtree logo22.png`) + `components/{Logo,LogoTreeIcon,BirchTreeIcon}.tsx` are now
+  **orphaned/unused** (safe to delete later). The tree shape is a faithful replica of the original — if a
+  cleaner/more refined redraw is wanted, do a custom SVG in `BirchTreeMark.tsx`.
+- **Dropdowns fixed** (`Navbar.tsx`): two bugs. (1) panels were `bg-white/95 + backdrop-blur` nested under
+  the navbar's own backdrop-filter → page text bled through. (2) the real cropping cause: the panel's
+  fixed `w-[18.5rem]` + `overflow-hidden` was collapsing to ~91px (text spans `clientW:0`) so every label
+  got chopped. Now the panel is **`w-max min-w-[17rem] max-w-[calc(100vw-1.5rem)]`, solid `bg-white`, NO
+  overflow-hidden, no backdrop-blur**, and the label/desc wrapper is a `flex flex-col` (was nested
+  `min-w-0` spans). Verified in-DOM: Resources panel = 272px, anyClipped=false, all 8 text rows inside.
+  Kept the icon-tile + label + desc look. Mobile accordion menu also confirmed working.
+- **Favicon redesigned** into a navy rounded badge + gold hairline + cream birch tree. `public/favicon.svg`
+  (scalable) plus regenerated `apple-touch-icon.png` (180, full-bleed for iOS), `android-chrome-192/512`,
+  and `favicon-16/32`. All referenced from `app/layout.tsx` `metadata.icons`. Regenerate via the SVGs +
+  `rsvg-convert` (see `/tmp/tracewd/favicon.js` pattern). Browsers cache favicons hard → hard-refresh to see.
 
 ### Homepage — `app/page.tsx` (full light rebuild)
 Two-col hero (copy + navy/outline CTAs + "Fiduciary advice" line | 3D growth image + live Markets card)

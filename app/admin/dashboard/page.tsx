@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TrendingUp, Users, Mail, BarChart3 } from "lucide-react"
+import { Reveal } from "@/components/ui/reveal"
+import { Eyebrow } from "@/components/ui/eyebrow"
 
 interface DashboardStats {
   totalLeads: number
@@ -46,9 +48,9 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-paper">
         <div className="text-center">
-          <p className="text-midnight/70">Loading analytics...</p>
+          <p className="text-midnight/60">Loading analytics...</p>
         </div>
       </div>
     )
@@ -56,14 +58,14 @@ export default function AdminDashboard() {
 
   if (error || !stats) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen flex items-center justify-center bg-paper">
         <div className="max-w-md mx-auto px-4">
-          <Card className="glass shadow-glow-hover border-emerald/20">
-            <CardContent className="p-6 text-center">
-              <p className="text-midnight/70 mb-4">
+          <Card className="p-0">
+            <CardContent className="p-8 text-center">
+              <p className="text-midnight/65 mb-4">
                 {error || "Analytics not configured yet."}
               </p>
-              <p className="text-sm text-midnight/50">
+              <p className="text-sm text-midnight/55">
                 To enable analytics, configure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your environment variables.
               </p>
             </CardContent>
@@ -82,155 +84,126 @@ export default function AdminDashboard() {
     }
   }
 
+  const statCards = [
+    { icon: Users, label: "Total Leads", value: stats.totalLeads },
+    { icon: BarChart3, label: "Total Events", value: stats.totalEvents },
+    { icon: TrendingUp, label: "Risk Profiler", value: stats.leadsBySource["risk-profiler"] || 0 },
+    { icon: Mail, label: "Retirement Calc", value: stats.leadsBySource["retirement-calculator"] || 0 },
+  ]
+
   return (
-    <div className="min-h-screen bg-white py-10 sm:py-12 md:py-16">
+    <div className="min-h-screen bg-paper py-10 sm:py-12 md:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-heading font-bold text-midnight mb-2">
-              Admin Dashboard
-            </h1>
-            <p className="text-midnight/70">Lead generation and analytics overview</p>
+        <Reveal>
+          <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <Eyebrow>Lead Generation</Eyebrow>
+              <h1
+                className="mt-4 font-heading font-bold leading-[1.1] tracking-tight text-midnight"
+                style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
+              >
+                Admin Dashboard
+              </h1>
+              <div
+                aria-hidden
+                className="mt-4 h-px w-16"
+                style={{ background: "linear-gradient(to right, rgba(215,195,138,0.85), transparent)" }}
+              />
+              <p className="mt-4 text-midnight/60">Lead generation and analytics overview</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={() => window.location.href = "/admin/generate-post"}
+                variant="outline"
+              >
+                Blog Posts
+              </Button>
+              <Button
+                onClick={() => window.location.href = "/admin/newsletter"}
+                variant="outline"
+              >
+                Newsletter
+              </Button>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+              >
+                Logout
+              </Button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Button
-              onClick={() => window.location.href = "/admin/generate-post"}
-              variant="outline"
-              className="text-emerald"
-            >
-              Blog Posts
-            </Button>
-            <Button
-              onClick={() => window.location.href = "/admin/newsletter"}
-              variant="outline"
-              className="text-emerald"
-            >
-              Newsletter
-            </Button>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="text-emerald"
-            >
-              Logout
-            </Button>
-          </div>
-        </div>
+        </Reveal>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          <Card className="glass shadow-glow-hover border-emerald/20">
-            <CardHeader className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm sm:text-base font-medium text-midnight/70">
-                  Total Leads
-                </CardTitle>
-                <Users className="h-5 w-5 text-emerald" />
+        <Reveal delay={0.05}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            {statCards.map(({ icon: Icon, label, value }) => (
+              <div
+                key={label}
+                className="rounded-2xl border border-midnight/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-midnight/55">{label}</p>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                    <Icon className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                  </span>
+                </div>
+                <div className="mt-4 font-heading text-3xl font-bold tracking-tight text-midnight">
+                  {value}
+                </div>
               </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
-              <div className="text-2xl sm:text-3xl font-bold text-midnight">
-                {stats.totalLeads}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass shadow-glow-hover border-emerald/20">
-            <CardHeader className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm sm:text-base font-medium text-midnight/70">
-                  Total Events
-                </CardTitle>
-                <BarChart3 className="h-5 w-5 text-emerald" />
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
-              <div className="text-2xl sm:text-3xl font-bold text-midnight">
-                {stats.totalEvents}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass shadow-glow-hover border-emerald/20">
-            <CardHeader className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm sm:text-base font-medium text-midnight/70">
-                  Risk Profiler
-                </CardTitle>
-                <TrendingUp className="h-5 w-5 text-emerald" />
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
-              <div className="text-2xl sm:text-3xl font-bold text-midnight">
-                {stats.leadsBySource["risk-profiler"] || 0}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass shadow-glow-hover border-emerald/20">
-            <CardHeader className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm sm:text-base font-medium text-midnight/70">
-                  Retirement Calc
-                </CardTitle>
-                <Mail className="h-5 w-5 text-emerald" />
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6 pt-0">
-              <div className="text-2xl sm:text-3xl font-bold text-midnight">
-                {stats.leadsBySource["retirement-calculator"] || 0}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            ))}
+          </div>
+        </Reveal>
 
         {/* Recent Leads */}
-        <Card className="glass shadow-glow-hover border-emerald/20">
-          <CardHeader className="p-4 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl font-heading text-midnight">
-              Recent Leads
-            </CardTitle>
-            <CardDescription className="text-xs sm:text-sm text-midnight/70">
-              Latest lead submissions from tools
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4 sm:p-6 pt-0">
-            {stats.recentLeads.length === 0 ? (
-              <p className="text-midnight/70 text-center py-8">No leads yet</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-midnight/10">
-                      <th className="text-left py-2 px-2 text-midnight/70 font-medium">Name</th>
-                      <th className="text-left py-2 px-2 text-midnight/70 font-medium">Email</th>
-                      <th className="text-left py-2 px-2 text-midnight/70 font-medium">Source</th>
-                      <th className="text-left py-2 px-2 text-midnight/70 font-medium">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {stats.recentLeads.map((lead) => (
-                      <tr key={lead.id} className="border-b border-midnight/5">
-                        <td className="py-2 px-2 text-midnight">{lead.name}</td>
-                        <td className="py-2 px-2 text-midnight/70">{lead.email}</td>
-                        <td className="py-2 px-2">
-                          <span className="inline-block px-2 py-1 bg-emerald/10 text-emerald text-xs rounded">
-                            {lead.source}
-                          </span>
-                        </td>
-                        <td className="py-2 px-2 text-midnight/60 text-xs">
-                          {new Date(lead.created_at).toLocaleDateString()}
-                        </td>
+        <Reveal delay={0.1}>
+          <Card>
+            <CardHeader className="p-6">
+              <CardTitle className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                Recent Leads
+              </CardTitle>
+              <CardDescription className="text-sm text-midnight/55">
+                Latest lead submissions from tools
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 pt-0">
+              {stats.recentLeads.length === 0 ? (
+                <p className="text-midnight/55 text-center py-8">No leads yet</p>
+              ) : (
+                <div className="overflow-x-auto rounded-xl border border-midnight/10">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-midnight/10 bg-[#F7F5EF]">
+                        <th className="text-left py-3 px-4 text-xs font-semibold uppercase tracking-wider text-midnight/55">Name</th>
+                        <th className="text-left py-3 px-4 text-xs font-semibold uppercase tracking-wider text-midnight/55">Email</th>
+                        <th className="text-left py-3 px-4 text-xs font-semibold uppercase tracking-wider text-midnight/55">Source</th>
+                        <th className="text-left py-3 px-4 text-xs font-semibold uppercase tracking-wider text-midnight/55">Date</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                    </thead>
+                    <tbody className="divide-y divide-midnight/[0.06]">
+                      {stats.recentLeads.map((lead) => (
+                        <tr key={lead.id} className="transition hover:bg-midnight/[0.02]">
+                          <td className="py-3 px-4 text-midnight">{lead.name}</td>
+                          <td className="py-3 px-4 text-midnight/65">{lead.email}</td>
+                          <td className="py-3 px-4">
+                            <span className="inline-block rounded-full bg-gold/15 px-2.5 py-1 text-xs font-semibold text-gold-dark ring-1 ring-gold/30">
+                              {lead.source}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4 text-midnight/55 text-xs">
+                            {new Date(lead.created_at).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </Reveal>
       </div>
     </div>
   )
 }
-

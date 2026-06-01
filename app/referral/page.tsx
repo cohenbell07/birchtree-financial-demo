@@ -63,35 +63,44 @@ export default function ReferralPage() {
         subtitle="Share Birchtree Financial with someone you care about"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald to-emerald" />
-        </div>
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 bg-[#F7F5EF] relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl mx-auto">
             {submitStatus === "success" ? (
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)]">
                 <CardContent className="p-6 sm:p-8 text-center">
-                  <CheckCircle2 className="h-16 w-16 text-emerald mx-auto mb-4" />
-                  <h3 className="text-2xl font-heading font-bold text-midnight mb-2">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                    <CheckCircle2 className="h-8 w-8 text-gold-dark" strokeWidth={1.6} />
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold tracking-tight text-midnight mb-2">
                     Thank You!
                   </h3>
-                  <p className="text-base text-midnight/70">
+                  <p className="text-base text-midnight/65">
                     Your referral has been sent. We&apos;ll reach out to your friend with information about Birchtree Financial.
                   </p>
                 </CardContent>
               </Card>
             ) : (
-              <Card className="glass shadow-glow-hover border-emerald/20">
+              <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)]">
                 <CardHeader className="p-4 sm:p-6">
-                  <div className="flex items-center mb-2">
-                    <Users className="h-6 w-6 text-emerald mr-2" />
-                    <CardTitle className="text-xl sm:text-2xl font-heading text-midnight">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Users className="h-[20px] w-[20px] text-midnight/80" strokeWidth={1.6} />
+                    </span>
+                    <CardTitle className="text-xl sm:text-2xl font-heading font-bold tracking-tight text-midnight">
                       Refer a Friend
                     </CardTitle>
                   </div>
-                  <CardDescription className="text-sm sm:text-base text-midnight/70">
+                  <CardDescription className="text-sm sm:text-base text-midnight/65">
                     Know someone who could benefit from professional financial advisory services? Refer them to Birchtree Financial.
                   </CardDescription>
                 </CardHeader>
@@ -146,7 +155,7 @@ export default function ReferralPage() {
                       type="submit"
                       size="lg"
                       disabled={isSubmitting}
-                      className="w-full relative z-10 bg-gradient-to-r from-emerald to-emerald-light hover:shadow-glow text-white"
+                      className="w-full relative z-10"
                     >
                       {isSubmitting ? "Sending..." : "Send Referral"}
                     </Button>

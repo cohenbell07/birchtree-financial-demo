@@ -24,7 +24,7 @@ export default function NewsletterAdmin() {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  
+
   // Form state
   const [showForm, setShowForm] = useState(false)
   const [editingPost, setEditingPost] = useState<NewsletterPost | null>(null)
@@ -40,7 +40,7 @@ export default function NewsletterAdmin() {
       try {
         const response = await fetch("/api/admin/auth/verify")
         const data = await response.json()
-        
+
         if (data.ok && data.authenticated) {
           setIsAuthenticated(true)
           fetchPosts()
@@ -51,7 +51,7 @@ export default function NewsletterAdmin() {
         router.push("/admin/login")
       }
     }
-    
+
     checkAuth()
   }, [router])
 
@@ -59,7 +59,7 @@ export default function NewsletterAdmin() {
     try {
       const response = await fetch("/api/admin/newsletter/posts")
       const data = await response.json()
-      
+
       if (data.ok) {
         setPosts(data.posts || [])
       } else {
@@ -174,17 +174,27 @@ export default function NewsletterAdmin() {
 
   if (!isAuthenticated || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#FBFAF6]">
         <div className="text-center">
-          <p className="text-midnight/70">Loading...</p>
+          <p className="text-midnight/60">Loading...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white py-10 sm:py-12 md:py-16">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen overflow-hidden bg-[#FBFAF6] py-10 sm:py-12 md:py-16">
+      {/* Atmospheric wash — faint gold radial, top-left (matches homepage hero). */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
@@ -198,15 +208,31 @@ export default function NewsletterAdmin() {
                 Back to Dashboard
               </Button>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-heading font-bold text-midnight mb-2">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+              Admin
+            </p>
+            <h1
+              className="mt-3 font-heading font-bold tracking-tight text-midnight"
+              style={{
+                fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)",
+                lineHeight: 1.1,
+              }}
+            >
               Newsletter Management
             </h1>
-            <p className="text-midnight/70">Create and send newsletters to your subscribers</p>
+            <div
+              aria-hidden
+              className="mt-4 h-px w-16"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+              }}
+            />
+            <p className="mt-4 text-midnight/65">Create and send newsletters to your subscribers</p>
           </div>
           {!showForm && (
             <Button
               onClick={handleNewPost}
-              className="bg-emerald hover:bg-midnight/90 text-white"
             >
               <Plus className="h-4 w-4 mr-2" />
               New Newsletter
@@ -215,17 +241,17 @@ export default function NewsletterAdmin() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-700">
+          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
             {error}
           </div>
         )}
 
         {/* Create/Edit Form */}
         {showForm && (
-          <Card className="mb-8 glass shadow-glow-hover border-emerald/20">
+          <Card className="mb-8 rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)]">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xl font-heading text-midnight">
+                <CardTitle className="text-xl font-heading font-bold tracking-tight text-midnight">
                   {editingPost ? "Edit Newsletter" : "Create Newsletter"}
                 </CardTitle>
                 <Button
@@ -251,7 +277,7 @@ export default function NewsletterAdmin() {
                   value={formSubject}
                   onChange={(e) => setFormSubject(e.target.value)}
                   placeholder="Newsletter subject line"
-                  className="bg-white"
+                  className="border-midnight/15 bg-[#FBFAF6] text-midnight placeholder-midnight/40 focus-visible:ring-gold/30"
                 />
               </div>
               <div className="space-y-2">
@@ -263,7 +289,7 @@ export default function NewsletterAdmin() {
                   onChange={setFormContent}
                   placeholder="Enter your newsletter content..."
                 />
-                <p className="text-xs text-midnight/50 mt-2">
+                <p className="text-xs text-midnight/55 mt-2">
                   Use the toolbar to format text, add links, and create lists. The content will be saved as HTML.
                 </p>
               </div>
@@ -271,7 +297,6 @@ export default function NewsletterAdmin() {
                 <Button
                   onClick={handleSavePost}
                   disabled={isSaving}
-                  className="bg-emerald hover:bg-midnight/90 text-white"
                 >
                   <Save className="h-4 w-4 mr-2" />
                   {isSaving ? "Saving..." : "Save Draft"}
@@ -294,11 +319,11 @@ export default function NewsletterAdmin() {
 
         {/* Preview Modal */}
         {previewPost && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <Card className="w-full max-w-4xl max-h-[90vh] overflow-auto glass shadow-glow-hover border-emerald/20">
+          <div className="fixed inset-0 bg-midnight/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-4xl max-h-[90vh] overflow-auto rounded-2xl border border-midnight/10 bg-white shadow-[0_24px_60px_rgba(11,26,44,0.16)]">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl font-heading text-midnight">Preview</CardTitle>
+                  <CardTitle className="text-xl font-heading font-bold tracking-tight text-midnight">Preview</CardTitle>
                   <Button variant="ghost" onClick={() => setPreviewPost(null)}>
                     <X className="h-4 w-4" />
                   </Button>
@@ -306,11 +331,11 @@ export default function NewsletterAdmin() {
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <p className="text-sm text-midnight/70 mb-2">Subject:</p>
+                  <p className="text-sm text-midnight/55 mb-2">Subject:</p>
                   <p className="font-semibold text-midnight">{previewPost.subject}</p>
                 </div>
-                <div className="border-t pt-4">
-                  <p className="text-sm text-midnight/70 mb-2">Content:</p>
+                <div className="border-t border-midnight/10 pt-4">
+                  <p className="text-sm text-midnight/55 mb-2">Content:</p>
                   <div
                     className="prose max-w-none"
                     dangerouslySetInnerHTML={{ __html: previewPost.content_html }}
@@ -324,13 +349,14 @@ export default function NewsletterAdmin() {
         {/* Posts List */}
         <div className="space-y-4">
           {posts.length === 0 ? (
-            <Card className="glass shadow-glow-hover border-emerald/20">
+            <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)]">
               <CardContent className="p-12 text-center">
-                <Mail className="h-12 w-12 text-midnight/30 mx-auto mb-4" />
-                <p className="text-midnight/70 mb-4">No newsletters yet</p>
+                <span className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                  <Mail className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                </span>
+                <p className="text-midnight/60 mb-4">No newsletters yet</p>
                 <Button
                   onClick={handleNewPost}
-                  className="bg-emerald hover:bg-midnight/90 text-white"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Create Your First Newsletter
@@ -339,14 +365,17 @@ export default function NewsletterAdmin() {
             </Card>
           ) : (
             posts.map((post) => (
-              <Card key={post.id} className="glass shadow-glow-hover border-emerald/20">
+              <Card
+                key={post.id}
+                className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg font-heading text-midnight mb-2">
+                      <CardTitle className="text-lg font-heading font-bold tracking-tight text-midnight mb-2">
                         {post.subject}
                       </CardTitle>
-                      <CardDescription className="text-midnight/70">
+                      <CardDescription className="text-midnight/55">
                         Created: {new Date(post.created_at).toLocaleString()}
                         {post.sent_at && (
                           <> • Sent: {new Date(post.sent_at).toLocaleString()}</>
@@ -355,10 +384,10 @@ export default function NewsletterAdmin() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
                           post.status === "sent"
-                            ? "bg-emerald/10 text-emerald"
-                            : "bg-midnight/10 text-midnight/70"
+                            ? "bg-gold/15 text-gold-dark ring-1 ring-gold/30"
+                            : "bg-midnight/[0.05] text-midnight/60 ring-1 ring-midnight/10"
                         }`}
                       >
                         {post.status === "sent" ? "Sent" : "Draft"}
@@ -390,7 +419,6 @@ export default function NewsletterAdmin() {
                           size="sm"
                           onClick={() => handleSendNewsletter(post.id)}
                           disabled={isSending === post.id}
-                          className="bg-emerald hover:bg-midnight/90 text-white"
                         >
                           <Send className="h-4 w-4 mr-2" />
                           {isSending === post.id ? "Sending..." : "Send Newsletter"}
@@ -407,4 +435,3 @@ export default function NewsletterAdmin() {
     </div>
   )
 }
-

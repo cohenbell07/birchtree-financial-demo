@@ -53,22 +53,22 @@ export default function CalendarWidget() {
   }
   
   return (
-    <Card className="glass card-shadow border-emerald/20 w-full max-w-full overflow-hidden">
+    <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)] w-full max-w-full overflow-hidden">
       <CardHeader className="p-3 sm:p-4 md:p-6">
         <div className="flex items-center justify-between">
           <button
             onClick={handlePrevMonth}
-            className="p-1 hover:bg-midnight/10 rounded-lg transition-colors flex-shrink-0"
+            className="p-1.5 hover:bg-midnight/[0.04] rounded-lg transition-colors flex-shrink-0"
             aria-label="Previous month"
           >
             <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-midnight/70" />
           </button>
-          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight px-2 text-center">
+          <CardTitle className="text-base sm:text-lg md:text-xl font-heading font-bold tracking-tight text-midnight px-2 text-center">
             {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
           </CardTitle>
           <button
             onClick={handleNextMonth}
-            className="p-1 hover:bg-midnight/10 rounded-lg transition-colors flex-shrink-0"
+            className="p-1.5 hover:bg-midnight/[0.04] rounded-lg transition-colors flex-shrink-0"
             aria-label="Next month"
           >
             <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-midnight/70" />
@@ -105,13 +105,13 @@ export default function CalendarWidget() {
                 disabled={isPast || !isAvailable}
                 className={`
                   aspect-square rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all
-                  ${isPast 
-                    ? 'text-midnight/30 cursor-not-allowed' 
+                  ${isPast
+                    ? 'text-midnight/30 cursor-not-allowed'
                     : isAvailable
-                      ? 'text-midnight hover:bg-midnight/10 hover:border hover:border-midnight/30 cursor-pointer'
+                      ? 'text-midnight hover:bg-midnight/[0.04] hover:border hover:border-midnight/20 cursor-pointer'
                       : 'text-midnight/40 cursor-not-allowed'
                   }
-                  ${isToday ? 'bg-emerald/20 border-2 border-emerald font-bold' : ''}
+                  ${isToday ? 'bg-gold/15 border-2 border-gold font-bold' : ''}
                 `}
               >
                 {day}
@@ -122,17 +122,17 @@ export default function CalendarWidget() {
         
         {/* Legend */}
         <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-midnight/10">
-          <div className="flex items-center justify-center space-x-4 sm:space-x-6 text-[10px] sm:text-xs text-midnight/60 flex-wrap gap-2">
+          <div className="flex items-center justify-center space-x-4 sm:space-x-6 text-[10px] sm:text-xs text-midnight/55 flex-wrap gap-2">
             <div className="flex items-center space-x-1 sm:space-x-2">
-              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded bg-emerald/20 border border-emerald/30" />
+              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded bg-gold/15 border border-gold/40" />
               <span>Available</span>
             </div>
             <div className="flex items-center space-x-1 sm:space-x-2">
-              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded bg-midnight/10" />
+              <div className="w-2 h-2 sm:w-3 sm:h-3 rounded bg-midnight/[0.06] border border-midnight/10" />
               <span>Unavailable</span>
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs text-center text-midnight/50 mt-2 sm:mt-3 px-2">
+          <p className="text-[10px] sm:text-xs text-center text-midnight/55 mt-2 sm:mt-3 px-2">
             Select a date to schedule your consultation
           </p>
         </div>

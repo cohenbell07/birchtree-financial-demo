@@ -3,7 +3,6 @@
 import Link from "next/link"
 
 import PageHeader from "@/components/layout/PageHeader"
-import { Button } from "@/components/ui/button"
 import { Section } from "@/components/ui/section"
 import { Container } from "@/components/ui/container"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -15,6 +14,7 @@ import {
   Users,
   Clock,
   AlertCircle,
+  ArrowRight,
 } from "lucide-react"
 
 const reasons = [
@@ -75,16 +75,9 @@ export default function WhyYouNeedAWillPage() {
       <Section tone="paper" topRule>
         <Container size="narrow">
           <Reveal>
-            <div
-              className="rounded-2xl bg-white p-7 sm:p-9"
-              style={{
-                border: "1px solid rgba(11,26,44,0.06)",
-                boxShadow:
-                  "0 1px 2px rgba(11,26,44,0.04), 0 4px 12px rgba(11,26,44,0.03)",
-              }}
-            >
+            <div className="rounded-2xl border border-midnight/10 bg-white p-7 sm:p-9">
               <p
-                className="leading-relaxed text-midnight/80"
+                className="leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.2rem)" }}
               >
                 Without a Will, your estate may not automatically pass to your
@@ -111,26 +104,23 @@ export default function WhyYouNeedAWillPage() {
                 return (
                   <article
                     key={reason.title}
-                    className="h-full rounded-2xl bg-white p-6 sm:p-7"
-                    style={{
-                      border: "1px solid rgba(11,26,44,0.06)",
-                      boxShadow:
-                        "0 1px 2px rgba(11,26,44,0.04), 0 4px 12px rgba(11,26,44,0.03)",
-                    }}
+                    className="h-full rounded-2xl border border-midnight/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)] sm:p-7"
                   >
                     <div className="flex items-start gap-4">
-                      <div
+                      <span
                         aria-hidden
-                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg"
-                        style={{ background: "rgba(215,195,138,0.1)" }}
+                        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]"
                       >
-                        <Icon className="h-6 w-6 text-gold" strokeWidth={1.6} />
-                      </div>
+                        <Icon
+                          className="h-[20px] w-[20px] text-gold-dark"
+                          strokeWidth={1.6}
+                        />
+                      </span>
                       <div className="min-w-0">
-                        <h3 className="font-heading text-lg font-bold text-midnight sm:text-xl">
+                        <h3 className="font-heading text-[1.05rem] font-bold leading-snug tracking-tight text-midnight sm:text-[1.15rem]">
                           {reason.title}
                         </h3>
-                        <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/70">
+                        <p className="mt-3 text-[0.92rem] leading-relaxed text-midnight/60">
                           {reason.description}
                         </p>
                       </div>
@@ -142,25 +132,26 @@ export default function WhyYouNeedAWillPage() {
           </div>
 
           <Reveal>
-            <div
-              className="mt-16 rounded-2xl bg-white p-7 sm:p-9"
-              style={{
-                border: "1px solid rgba(11,26,44,0.06)",
-                boxShadow:
-                  "0 1px 2px rgba(11,26,44,0.04), 0 4px 12px rgba(11,26,44,0.03)",
-              }}
-            >
-              <h3 className="font-heading text-xl font-bold text-midnight sm:text-2xl">
+            <div className="mt-16 rounded-2xl border border-midnight/10 bg-white p-7 sm:p-9">
+              <h3 className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
                 Additional Considerations
               </h3>
-              <ul className="mt-6 space-y-4">
+              <div
+                aria-hidden
+                className="mt-4 h-px w-16"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                }}
+              />
+              <ul className="mt-7 space-y-4">
                 {considerations.map((c) => (
                   <li key={c} className="flex items-start gap-3">
                     <span
                       aria-hidden
-                      className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold"
+                      className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-dark"
                     />
-                    <span className="text-[0.95rem] leading-relaxed text-midnight/80">
+                    <span className="text-[0.95rem] leading-relaxed text-midnight/65">
                       {c}
                     </span>
                   </li>
@@ -171,15 +162,17 @@ export default function WhyYouNeedAWillPage() {
 
           <Reveal>
             <div
-              className="mt-12 rounded-xl border p-5 sm:p-6"
+              className="mt-12 rounded-2xl border p-5 sm:p-6"
               style={{
-                background: "rgba(255, 247, 218, 0.4)",
-                borderColor: "rgba(215, 195, 138, 0.35)",
+                background: "rgba(215, 195, 138, 0.06)",
+                borderColor: "rgba(215, 195, 138, 0.3)",
               }}
             >
-              <p className="text-sm leading-relaxed text-midnight/80">
-                <strong className="font-heading">Disclaimer:</strong> This
-                information is for educational purposes only and does not
+              <p className="text-sm leading-relaxed text-midnight/65">
+                <strong className="font-heading text-midnight">
+                  Disclaimer:
+                </strong>{" "}
+                This information is for educational purposes only and does not
                 constitute legal or financial advice. Estate planning laws vary
                 by province in Canada. Please consult with a qualified estate
                 lawyer and financial advisor to create a Will and estate plan
@@ -191,25 +184,19 @@ export default function WhyYouNeedAWillPage() {
 
           <Reveal>
             <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-              <Button
-                asChild
-                size="lg"
-                className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)] sm:w-auto"
               >
-                <Link href="/contact" className="text-midnight">
-                  Speak with a Financial Advisor
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full rounded-xl border-2 border-midnight/20 text-midnight transition-all duration-200 hover:border-midnight/40 hover:bg-midnight/5 sm:w-auto [&>*]:text-midnight"
+                Speak with a Financial Advisor
+              </Link>
+              <Link
+                href="/helpful-tools"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-midnight/20 bg-white px-7 py-3.5 text-sm font-semibold text-midnight transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03] sm:w-auto"
               >
-                <Link href="/helpful-tools" className="text-midnight">
-                  View Will Planning Checklist
-                </Link>
-              </Button>
+                View Will Planning Checklist
+                <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </Reveal>
         </Container>

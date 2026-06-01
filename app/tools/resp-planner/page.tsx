@@ -133,33 +133,46 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
   return (
     <div>
       <PageHeader
+        eyebrow="Education Planning"
         title="RESP Planner"
         subtitle="Plan for your child&apos;s education with RESP savings and government grants"
+        accent="gold"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+        {/* faint gold radial wash — same recipe as the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.06) 0%, transparent 60%)",
+          }}
+        />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <GraduationCap className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                  <CardHeader className="p-6 sm:p-8">
+                    <CardTitle className="flex items-center font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                      <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <GraduationCap className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Education Planning
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="mt-3 text-sm leading-relaxed text-midnight/60">
                       Calculate RESP growth and government grant eligibility
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
-                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0">
+                    <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                       <div className="space-y-2">
-                        <Label htmlFor="childAge">Child&apos;s Current Age</Label>
+                        <Label htmlFor="childAge" className="text-sm font-medium text-midnight/70">Child&apos;s Current Age</Label>
                         <Input
                           id="childAge"
                           type="number"
@@ -168,11 +181,12 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="0"
                           max="17"
+                          className="rounded-xl border-midnight/15 bg-white text-midnight focus-visible:ring-gold/40"
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="targetCost">Target Education Cost</Label>
+                        <Label htmlFor="targetCost" className="text-sm font-medium text-midnight/70">Target Education Cost</Label>
                         <Input
                           id="targetCost"
                           type="number"
@@ -181,11 +195,12 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="0"
                           step="1000"
+                          className="rounded-xl border-midnight/15 bg-white text-midnight focus-visible:ring-gold/40"
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="currentSavings">Current RESP Savings</Label>
+                        <Label htmlFor="currentSavings" className="text-sm font-medium text-midnight/70">Current RESP Savings</Label>
                         <Input
                           id="currentSavings"
                           type="number"
@@ -194,13 +209,14 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="0"
                           step="100"
+                          className="rounded-xl border-midnight/15 bg-white text-midnight focus-visible:ring-gold/40"
                         />
                       </div>
 
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate RESP Plan"}
@@ -216,55 +232,64 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 transition={{ duration: 0.5 }}
               >
                 {result ? (
-                  <div className="space-y-4 sm:space-y-6">
+                  <div className="space-y-6">
                     <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                      className="mx-auto max-w-md rounded-2xl border border-midnight/10 shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none"
+                      style={{
+                        background:
+                          "radial-gradient(70% 90% at 0% 0%, rgba(215,195,138,0.14) 0%, transparent 70%), #FBFAF6",
+                      }}
                     >
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
+                      <CardHeader className="p-6 sm:p-8">
+                        <CardTitle className="flex items-center font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                          <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                            <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                          </span>
                           RESP Projection
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="space-y-3">
+                      <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0">
+                        <div className="space-y-4">
                           <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Projected Total Value</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-white">
+                            <p className="text-xs text-midnight/55 sm:text-sm">Projected Total Value</p>
+                            <p className="font-heading text-3xl font-bold text-midnight sm:text-4xl">
                               ${result.totalValue.toLocaleString()}
                             </p>
                           </div>
-                          <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Government Grants</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-white">
-                              ${result.governmentGrant.toLocaleString()}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Recommended Monthly Contribution</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-white">
-                              ${result.monthlyContribution.toLocaleString()}/month
-                            </p>
+                          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="rounded-xl border border-midnight/10 bg-white p-4">
+                              <p className="text-xs text-midnight/55">Government Grants</p>
+                              <p className="mt-1 font-heading text-xl font-bold text-midnight">
+                                ${result.governmentGrant.toLocaleString()}
+                              </p>
+                            </div>
+                            <div className="rounded-xl border border-midnight/10 bg-white p-4">
+                              <p className="text-xs text-midnight/55">Recommended Monthly</p>
+                              <p className="mt-1 font-heading text-xl font-bold text-midnight">
+                                ${result.monthlyContribution.toLocaleString()}/mo
+                              </p>
+                            </div>
                           </div>
                         </div>
-                        <p className="text-xs sm:text-sm text-silver/90 leading-relaxed mt-4">
+                        <p className="mt-5 text-sm leading-relaxed text-midnight/65">
                           {result.summary}
                         </p>
                       </CardContent>
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
-                        <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <GraduationCap className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                      <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#F7F5EF] shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                        <CardHeader className="p-6 sm:p-8">
+                          <CardTitle className="flex items-center font-heading text-[1.3rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                            <span className="mr-3 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <GraduationCap className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/80">
+                            <div className="whitespace-pre-line text-xs leading-relaxed sm:text-sm">
                               {insights}
                             </div>
                           </div>
@@ -272,10 +297,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
-                      <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides estimates. Government grant eligibility and amounts may vary. Actual returns depend on investment performance. Consult with a financial advisor for personalized RESP planning.
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#F7F5EF] lg:max-w-none">
+                      <CardContent className="p-6">
+                        <p className="text-xs italic leading-relaxed text-midnight/60 sm:text-sm">
+                          <strong className="text-midnight/75">Disclaimer:</strong> This calculator provides estimates. Government grant eligibility and amounts may vary. Actual returns depend on investment performance. Consult with a financial advisor for personalized RESP planning.
                         </p>
                       </CardContent>
                     </Card>
@@ -294,8 +319,8 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                    <CardContent className="p-6 text-center text-midnight/60 sm:p-8">
                       <p className="text-sm sm:text-base">
                         Enter your information to see your RESP projection.
                       </p>
@@ -310,4 +335,3 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
     </div>
   )
 }
-

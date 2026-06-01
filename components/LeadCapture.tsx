@@ -74,13 +74,15 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
 
   if (submitStatus === "success") {
     return (
-      <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+      <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)] max-w-md mx-auto lg:max-w-none">
         <CardContent className="p-4 sm:p-6 text-center">
-          <CheckCircle2 className="h-12 w-12 sm:h-16 sm:w-16 text-emerald mx-auto mb-4" />
-          <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight mb-2">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+            <CheckCircle2 className="h-7 w-7 text-gold-dark" strokeWidth={1.6} />
+          </div>
+          <h3 className="text-lg sm:text-xl font-heading font-bold tracking-tight text-midnight mb-2">
             Thank You!
           </h3>
-          <p className="text-sm sm:text-base text-midnight/70">
+          <p className="text-sm sm:text-base text-midnight/65">
             Your results have been sent to your email.
           </p>
         </CardContent>
@@ -89,13 +91,15 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
   }
 
   return (
-    <Card className="glass shadow-glow-hover border-emerald/20 max-w-md mx-auto lg:max-w-none">
+    <Card className="rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)] max-w-md mx-auto lg:max-w-none">
       <CardHeader className="p-4 sm:p-6">
-        <CardTitle className="text-lg sm:text-xl font-heading text-midnight flex items-center">
-          <Mail className="mr-2 h-5 w-5 text-emerald" />
+        <CardTitle className="text-lg sm:text-xl font-heading font-bold tracking-tight text-midnight flex items-center">
+          <span className="mr-3 flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+            <Mail className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+          </span>
           Get Your Results by Email
         </CardTitle>
-        <CardDescription className="text-xs sm:text-sm text-midnight/70 mt-2">
+        <CardDescription className="text-xs sm:text-sm text-midnight/65 mt-2">
           Receive your detailed results and a comprehensive report delivered to your inbox.
         </CardDescription>
       </CardHeader>
@@ -139,7 +143,7 @@ export default function LeadCapture({ source, toolData, onSuccess }: LeadCapture
             type="submit"
             size="lg"
             disabled={isSubmitting}
-            className="w-full relative z-10 !bg-gradient-to-r !from-emerald !to-emerald-light hover:!shadow-[0_0_20px_rgba(11,26,44,0.6)] hover:scale-105 transition-all duration-200 ease-out !text-white [&>*]:!text-white border-0"
+            className="w-full rounded-xl bg-midnight text-white font-semibold shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
           >
             {isSubmitting ? "Sending..." : "Send My Results by Email"}
           </Button>

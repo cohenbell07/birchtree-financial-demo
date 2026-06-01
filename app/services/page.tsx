@@ -146,22 +146,21 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      {/* ============ HERO — Headline + 6-icon grid ============ */}
+      {/* ============ HERO — Headline + 6-icon grid (light) ============ */}
       <section
-        className="relative overflow-hidden text-white"
+        className="relative overflow-hidden bg-[#FBFAF6]"
         style={{
-          background:
-            "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
           paddingTop: "clamp(7rem, 8vw + 4rem, 12rem)",
           paddingBottom: "clamp(4rem, 6vw + 2rem, 9rem)",
         }}
       >
+        {/* Atmospheric gold wash — matches the homepage hero. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage:
-              "repeating-linear-gradient(135deg, transparent, transparent 60px, rgba(215,195,138,0.025) 60px, rgba(215,195,138,0.025) 61px)",
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
           }}
         />
         <div
@@ -176,7 +175,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="mb-7 inline-flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-gold"
+                className="mb-7 inline-flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark"
               >
                 <span aria-hidden className="inline-block h-px w-6 bg-gold/60" />
                 What We Offer
@@ -184,7 +183,7 @@ export default function ServicesPage() {
 
               <RevealText
                 as="h1"
-                className="max-w-2xl font-heading font-bold leading-[1.06] tracking-tight text-white text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+                className="max-w-2xl font-heading font-bold leading-[1.06] tracking-tight text-midnight text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               >
                 Our Services
               </RevealText>
@@ -195,14 +194,20 @@ export default function ServicesPage() {
                 transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="origin-left mt-7 mb-7"
               >
-                <div className="h-px w-24 bg-gradient-to-r from-gold/65 to-transparent" />
+                <div
+                  className="h-px w-24"
+                  style={{
+                    background:
+                      "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                  }}
+                />
               </motion.div>
 
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="max-w-xl leading-relaxed text-white/85"
+                className="max-w-xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem)" }}
               >
                 Comprehensive financial solutions for every stage of life.
@@ -227,10 +232,12 @@ export default function ServicesPage() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
-                      className="flex flex-col items-center gap-2 rounded-xl border border-gold/15 bg-white/[0.02] p-4 transition-all duration-300 hover:border-gold/35 hover:bg-gold/[0.04]"
+                      className="flex flex-col items-center gap-2 rounded-xl border border-midnight/10 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
                     >
-                      <Icon className="h-5 w-5 text-gold/75" strokeWidth={1.5} />
-                      <span className="text-[0.6rem] font-medium uppercase tracking-[0.18em] text-white/65">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                        <Icon className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
+                      <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-midnight/55">
                         {item.label}
                       </span>
                     </motion.div>
@@ -261,49 +268,41 @@ export default function ServicesPage() {
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group relative block h-full overflow-hidden rounded-2xl bg-white p-7 transition-all duration-300"
-                  style={{
-                    border: "1px solid rgba(11,26,44,0.07)",
-                    boxShadow:
-                      "0 1px 2px rgba(11,26,44,0.04), 0 6px 16px rgba(11,26,44,0.04)",
-                  }}
+                  className="group flex h-full flex-col rounded-2xl border border-midnight/10 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
                 >
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-gold/0 via-gold/70 to-gold/0 transition-transform duration-500 group-hover:scale-x-100"
-                  />
-
                   <div className="flex items-start justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
-                      <Icon className="h-[18px] w-[18px] text-midnight/75" strokeWidth={1.6} />
-                    </div>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <Icon className="h-[20px] w-[20px] text-midnight/80" strokeWidth={1.6} />
+                    </span>
                     <span
                       aria-hidden
-                      className="font-heading text-2xl font-medium text-gold/65"
+                      className="font-heading text-2xl font-bold text-gold-dark/70"
                     >
                       {service.number}
                     </span>
                   </div>
 
-                  <h3 className="mt-7 font-heading text-xl font-bold text-midnight">
+                  <h3 className="mt-7 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
                     {service.title}
                   </h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/70">
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/60">
                     {service.description}
                   </p>
 
-                  <ul className="mt-5 space-y-2 text-sm text-midnight/65">
+                  <ul className="mt-5 space-y-2 text-sm text-midnight/55">
                     {service.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2.5">
-                        <span aria-hidden className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold/55" />
+                        <span aria-hidden className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-dark/70" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <span className="mt-7 inline-flex items-center text-sm font-medium text-midnight transition-colors group-hover:text-midnight/80">
-                    Learn more
-                    <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                  <span className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-midnight">
+                    <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+                      Learn more
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
               )
@@ -319,25 +318,28 @@ export default function ServicesPage() {
         faqs={servicesFaqs}
       />
 
-      {/* ============ CTA (dark aurora) ============ */}
-      <Section tone="dark-aurora" topRule grain>
+      {/* ============ CTA (light cream band) ============ */}
+      <Section tone="paper-soft" topRule>
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
-                Get Started
-              </Eyebrow>
+              <Eyebrow className="mb-6">Get Started</Eyebrow>
               <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.6rem)" }}
+                className="font-heading font-bold leading-[1.1] tracking-tight text-midnight text-balance"
+                style={{ fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)" }}
               >
                 Ready to build your financial strategy?
               </h2>
               <div
                 aria-hidden
-                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                className="mx-auto mt-6 h-px w-16"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                }}
               />
-              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-white/75"
+              <p
+                className="mx-auto mt-6 max-w-xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
               >
                 Schedule a complimentary consultation and discover which
@@ -347,9 +349,9 @@ export default function ServicesPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                  className="w-full rounded-xl bg-midnight px-9 py-6 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)] sm:w-auto sm:text-base"
                 >
-                  <Link href="/contact" className="text-midnight">
+                  <Link href="/contact">
                     Book a Consultation
                     <ArrowRight className="ml-2 inline h-4 w-4" />
                   </Link>
@@ -357,11 +359,9 @@ export default function ServicesPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full rounded-xl border border-white/[0.12] bg-white/[0.04] px-9 py-6 text-sm text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
+                  className="w-full rounded-xl border border-midnight/20 bg-white px-9 py-6 text-sm font-semibold text-midnight shadow-none transition-all duration-300 hover:border-midnight/40 hover:bg-midnight/[0.03] sm:w-auto sm:text-base"
                 >
-                  <Link href="/team" className="text-white">
-                    Meet Our Team
-                  </Link>
+                  <Link href="/team">Meet Our Team</Link>
                 </Button>
               </div>
             </div>

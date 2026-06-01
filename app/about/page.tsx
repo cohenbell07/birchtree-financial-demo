@@ -87,20 +87,18 @@ export default function AboutPage() {
     <>
       {/* ============ HERO — Centered headline + stat bar ============ */}
       <section
-        className="relative overflow-hidden text-white"
+        className="relative overflow-hidden bg-[#FBFAF6] text-midnight"
         style={{
-          background:
-            "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
           paddingTop: "clamp(7rem, 8vw + 4rem, 12rem)",
           paddingBottom: "clamp(4rem, 6vw + 2rem, 9rem)",
         }}
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute left-[20%] top-[30%] h-[50%] w-[50%] rounded-full"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse, rgba(215,195,138,0.04) 0%, transparent 70%)",
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
           }}
         />
         <div
@@ -114,16 +112,16 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="mb-7 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-gold"
+              className="mb-7 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-gold-dark"
             >
-              <span aria-hidden className="mr-3 inline-block h-px w-3 align-middle bg-gold/60" />
+              <span aria-hidden className="mr-3 inline-block h-px w-3 align-middle bg-gold-dark/60" />
               Our Company
-              <span aria-hidden className="ml-3 inline-block h-px w-3 align-middle bg-gold/60" />
+              <span aria-hidden className="ml-3 inline-block h-px w-3 align-middle bg-gold-dark/60" />
             </motion.p>
 
             <RevealText
               as="h1"
-              className="font-heading font-bold leading-[1.06] tracking-tight text-white text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="font-heading font-bold leading-[1.06] tracking-tight text-midnight text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
               About Birchtree Financial
             </RevealText>
@@ -142,7 +140,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mb-12 leading-relaxed text-white/85"
+              className="mb-12 leading-relaxed text-midnight/65"
               style={{ fontSize: "clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem)" }}
             >
               Building trust, delivering results, securing your future.
@@ -161,12 +159,12 @@ export default function AboutPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
                   className="text-left"
-                  style={{ borderLeft: "1px solid rgba(215,195,138,0.3)", paddingLeft: "0.75rem" }}
+                  style={{ borderLeft: "1px solid rgba(11,26,44,0.12)", paddingLeft: "0.75rem" }}
                 >
-                  <span className="block font-heading text-xl font-bold text-gold sm:text-3xl md:text-4xl">
+                  <span className="block font-heading text-xl font-bold text-gold-dark sm:text-3xl md:text-4xl">
                     {stat.number}
                   </span>
-                  <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-white/65 sm:text-[0.65rem] sm:tracking-[0.18em]">
+                  <span className="text-[0.55rem] font-medium uppercase tracking-[0.15em] text-midnight/55 sm:text-[0.65rem] sm:tracking-[0.18em]">
                     {stat.label}
                   </span>
                 </motion.div>
@@ -236,18 +234,17 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      {/* ============ THE HISTORY (dark + pull quote) ============ */}
-      <Section tone="dark" grain>
+      {/* ============ THE HISTORY (light + pull quote) ============ */}
+      <Section tone="paper-soft">
         <Container size="narrow">
           <SectionHeader
-            tone="dark"
             eyebrow="Our Story"
             heading="The History"
             rule
           />
 
           <Reveal>
-            <div className="mt-12 space-y-7 text-white/80" style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.2rem)" }}>
+            <div className="mt-12 space-y-7 text-midnight/65" style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.2rem)" }}>
               <p className="leading-relaxed">
                 What started as a small practice with a big idea has grown into
                 a trusted firm serving clients across the country. Our team of
@@ -273,15 +270,15 @@ export default function AboutPage() {
             <figure className="relative mt-14">
               <span
                 aria-hidden
-                className="pointer-events-none absolute -top-6 -left-2 select-none font-heading text-[6rem] leading-none text-gold/15"
+                className="pointer-events-none absolute -top-6 -left-2 select-none font-heading text-[6rem] leading-none text-gold-dark/20"
               >
                 &ldquo;
               </span>
               <blockquote
                 className="relative border-l py-3 pl-8"
-                style={{ borderColor: "rgba(215,195,138,0.55)" }}
+                style={{ borderColor: "rgba(215,195,138,0.85)" }}
               >
-                <p className="font-heading italic leading-relaxed text-white/90"
+                <p className="font-heading italic leading-relaxed text-midnight/85"
                   style={{ fontSize: "clamp(1.1rem, 0.95rem + 0.7vw, 1.55rem)" }}
                 >
                   We believe that financial advisory services are not just
@@ -348,11 +345,10 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      {/* ============ CORE VALUES (dark) ============ */}
-      <Section tone="dark-aurora" grain>
+      {/* ============ CORE VALUES (light) ============ */}
+      <Section tone="paper">
         <Container>
           <SectionHeader
-            tone="dark"
             eyebrow="What We Stand For"
             heading="Our Core Values"
             rule
@@ -367,15 +363,15 @@ export default function AboutPage() {
               return (
                 <article
                   key={v.title}
-                  className="h-full rounded-2xl border border-gold/10 bg-[rgba(11,26,44,0.55)] p-7 transition-colors duration-300 hover:border-gold/25 sm:p-8"
+                  className="h-full rounded-2xl border border-midnight/10 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)] sm:p-8"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.03]">
-                    <Icon className="h-6 w-6 text-gold/75" strokeWidth={1.5} />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                    <Icon className="h-6 w-6 text-gold-dark" strokeWidth={1.6} />
                   </div>
-                  <h3 className="mt-6 font-heading text-xl font-bold text-white sm:text-2xl">
+                  <h3 className="mt-6 font-heading text-xl font-bold text-midnight sm:text-2xl">
                     {v.title}
                   </h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-white/75">
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/65">
                     {v.description}
                   </p>
                 </article>
@@ -485,21 +481,21 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      {/* ============ COMMUNITY + CTA (dark aurora) ============ */}
-      <Section tone="dark-aurora" topRule grain>
+      {/* ============ COMMUNITY + CTA (light) ============ */}
+      <Section tone="paper-soft" topRule>
         <Container>
           <Reveal>
             <div className="mx-auto max-w-4xl text-center">
-              <Eyebrow tone="dark" className="mb-5">
+              <Eyebrow className="mb-5">
                 Giving Back
               </Eyebrow>
               <h2
-                className="font-heading font-bold leading-[1.15] tracking-tight text-white"
+                className="font-heading font-bold leading-[1.15] tracking-tight text-midnight"
                 style={{ fontSize: "clamp(1.8rem, 1.3rem + 2vw, 3rem)" }}
               >
                 Proudly Supporting Our Community
               </h2>
-              <p className="mx-auto mt-7 max-w-3xl leading-relaxed text-white/75"
+              <p className="mx-auto mt-7 max-w-3xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
               >
                 For over a decade, Birchtree Financial has donated to and
@@ -525,7 +521,7 @@ export default function AboutPage() {
                   height={400}
                   sizes="(max-width: 640px) 90px, 100px"
                   className="h-auto w-[90px] object-contain opacity-70 transition-opacity duration-300 hover:opacity-100 sm:w-[100px]"
-                  style={{ background: "transparent", filter: "brightness(0) invert(1)" }}
+                  style={{ background: "transparent" }}
                 />
               </div>
             ))}
@@ -538,11 +534,11 @@ export default function AboutPage() {
 
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
+              <Eyebrow className="mb-6">
                 Get Started
               </Eyebrow>
               <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
+                className="font-heading font-bold leading-[1.1] tracking-tight text-midnight text-balance"
                 style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.6rem)" }}
               >
                 Ready to work with us?
@@ -551,7 +547,7 @@ export default function AboutPage() {
                 aria-hidden
                 className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
               />
-              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-white/75"
+              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
               >
                 Schedule a complimentary consultation and take the first step
@@ -561,9 +557,9 @@ export default function AboutPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                  className="w-full rounded-xl border-0 bg-midnight px-9 py-6 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light sm:w-auto sm:text-base [&>*]:text-white"
                 >
-                  <Link href="/contact" className="text-midnight">
+                  <Link href="/contact" className="text-white">
                     Book a Consultation
                     <ArrowRight className="ml-2 inline h-4 w-4" />
                   </Link>
@@ -571,9 +567,9 @@ export default function AboutPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full rounded-xl border border-white/[0.12] bg-white/[0.04] px-9 py-6 text-sm text-white/80 transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
+                  className="w-full rounded-xl border border-midnight/20 bg-white px-9 py-6 text-sm text-midnight transition-all duration-300 hover:border-midnight/30 hover:bg-midnight/[0.03] sm:w-auto sm:text-base [&>*]:text-midnight"
                 >
-                  <Link href="/team" className="text-white">
+                  <Link href="/team" className="text-midnight">
                     Meet Our Team
                   </Link>
                 </Button>

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -19,6 +18,7 @@ import {
   HelpCircle,
   type LucideIcon,
 } from "lucide-react"
+import BirchtreeLogo from "@/components/brand/BirchtreeLogo"
 
 type NavChild = { href: string; label: string; desc: string; icon: LucideIcon }
 type NavItem = { href: string; label: string; children?: NavChild[] }
@@ -47,7 +47,6 @@ const nav: NavItem[] = [
   { href: "/contact", label: "Contact" },
 ]
 
-const LOGO_SRC = "/birchtree logo22.png"
 const CTA_HREF = "https://cal.com/birchtreefinancial"
 
 export default function Navbar() {
@@ -154,20 +153,17 @@ export default function Navbar() {
             <Link
               href="/"
               aria-label="Birchtree Financial — home"
-              className="block shrink-0 transition-opacity duration-200 hover:opacity-90"
-              style={{
-                height: scrolled ? "2.9rem" : "3.5rem",
-                transition: "height 0.5s cubic-bezier(0.33,1,0.68,1)",
-              }}
+              className="group/logo flex shrink-0 items-center"
             >
-              <Image
-                src={LOGO_SRC}
-                alt="Birchtree Financial"
-                width={800}
-                height={240}
-                priority
-                className="h-full w-auto object-contain"
-              />
+              <span
+                className="origin-left transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/logo:opacity-90"
+                style={{ transform: scrolled ? "scale(0.87)" : "scale(1)" }}
+              >
+                <BirchtreeLogo
+                  markClassName="h-[2.7rem] sm:h-[3.15rem]"
+                  textClassName="text-[1.32rem] sm:text-[1.7rem]"
+                />
+              </span>
             </Link>
 
             {/* Desktop nav */}
@@ -212,16 +208,19 @@ export default function Navbar() {
                     </Link>
 
                     {/* Dropdown */}
-                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
+                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition-all duration-200 ease-out group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
                       <div
-                        className="w-72 rounded-2xl border border-midnight/[0.08] bg-white/95 p-2 backdrop-blur-xl"
-                        style={{ boxShadow: "0 24px 50px rgba(11,26,44,0.16)" }}
+                        className="w-max min-w-[17rem] max-w-[calc(100vw-1.5rem)] rounded-2xl border border-midnight/[0.07] bg-[#FFFFFF] p-2.5"
+                        style={{
+                          boxShadow:
+                            "0 28px 60px -18px rgba(11,26,44,0.28), 0 10px 24px -14px rgba(11,26,44,0.16)",
+                        }}
                       >
                         <div
                           aria-hidden
-                          className="mx-2 mb-1 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                          className="mx-1 mb-1.5 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent"
                         />
-                        <div className="flex flex-col gap-0.5">
+                        <div className="flex flex-col gap-1">
                           {item.children.map((c) => {
                             const Icon = c.icon
                             const childActive = isActive(c.href) && c.href !== item.href
@@ -229,23 +228,23 @@ export default function Navbar() {
                               <Link
                                 key={c.href}
                                 href={c.href}
-                                className={`group/it flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors duration-150 ${
+                                className={`group/it flex items-center gap-3.5 rounded-xl px-2.5 py-2.5 transition-colors duration-150 ${
                                   childActive
-                                    ? "bg-midnight/[0.035]"
-                                    : "hover:bg-midnight/[0.035]"
+                                    ? "bg-midnight/[0.04]"
+                                    : "hover:bg-midnight/[0.04]"
                                 }`}
                               >
-                                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-midnight/[0.08] bg-midnight/[0.02] transition-colors duration-150 group-hover/it:border-gold/40 group-hover/it:bg-gold/[0.06]">
+                                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-midnight/[0.09] bg-gradient-to-b from-midnight/[0.04] to-midnight/[0.01] transition-all duration-150 group-hover/it:border-gold/45 group-hover/it:from-gold/[0.12] group-hover/it:to-gold/[0.03]">
                                   <Icon
                                     className="h-[18px] w-[18px] text-midnight/55 transition-colors duration-150 group-hover/it:text-gold-dark"
                                     strokeWidth={1.7}
                                   />
                                 </span>
-                                <span className="min-w-0">
-                                  <span className="block whitespace-nowrap text-[0.88rem] font-semibold text-midnight">
+                                <span className="flex flex-col">
+                                  <span className="whitespace-nowrap text-[0.9rem] font-semibold leading-tight text-midnight">
                                     {c.label}
                                   </span>
-                                  <span className="block whitespace-nowrap text-[0.72rem] text-midnight/45">
+                                  <span className="mt-[3px] whitespace-nowrap text-[0.735rem] leading-tight text-midnight/45">
                                     {c.desc}
                                   </span>
                                 </span>
@@ -331,7 +330,7 @@ export default function Navbar() {
           >
             <div
               aria-hidden
-              className="absolute right-[8%] top-[18%] h-[40%] w-[55%] rounded-full opacity-40"
+              className="pointer-events-none absolute right-[8%] top-[18%] h-[40%] w-[55%] rounded-full opacity-40"
               style={{
                 background:
                   "radial-gradient(ellipse, rgba(215,195,138,0.07) 0%, transparent 70%)",

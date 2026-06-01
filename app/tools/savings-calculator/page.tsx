@@ -1,19 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { Container } from "@/components/ui/container"
+import { Reveal } from "@/components/ui/reveal"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import dynamic from "next/dynamic"
 
 const Chart = dynamic(() => import("./Chart"), {
   ssr: false,
   loading: () => <div className="w-full h-[300px] rounded-lg bg-midnight/[0.03] animate-pulse" />,
 })
-import { Calculator, PiggyBank } from "lucide-react"
+import { Calculator, PiggyBank, TrendingUp, Wallet, Sparkles } from "lucide-react"
 import LeadCapture from "@/components/LeadCapture"
 
 export default function SavingsCalculatorPage() {
@@ -130,36 +132,35 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
   }
 
   return (
-    <div>
+    <div className="bg-white">
       <PageHeader
+        eyebrow="Savings Calculator"
         title="Savings Calculator"
         subtitle="Plan for your short- or medium-term savings goals. Calculate how your savings will grow over time"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <section className="bg-[#F7F5EF] py-20 sm:py-24">
+        <Container size="wide">
+          <Reveal>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {/* Form */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
-                      <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+              <div>
+                <Card className="rounded-2xl border border-midnight/10 bg-white p-6 shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] sm:p-7 max-w-md mx-auto lg:max-w-none">
+                  <CardHeader className="p-0">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                      <PiggyBank className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                    </span>
+                    <CardTitle className="mt-5 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
                       Calculate Your Savings Growth
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="mt-2.5 text-[0.92rem] leading-relaxed text-midnight/60">
                       Perfect for planning short- or medium-term savings goals like a down payment, vacation, or emergency fund
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
+                  <CardContent className="p-0 mt-7">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="space-y-2">
-                        <Label htmlFor="initialDeposit">Initial Deposit (CAD)</Label>
+                        <Label htmlFor="initialDeposit" className="text-sm font-semibold text-midnight">Initial Deposit (CAD)</Label>
                         <Input
                           id="initialDeposit"
                           type="number"
@@ -170,14 +171,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="0"
                           step="100"
+                          className="border-midnight/15 bg-white text-midnight placeholder:text-midnight/35 focus-visible:ring-gold/40 focus-visible:border-gold/50"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           Your starting savings amount
                         </p>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="monthlyContribution">Monthly Contribution (CAD)</Label>
+                        <Label htmlFor="monthlyContribution" className="text-sm font-semibold text-midnight">Monthly Contribution (CAD)</Label>
                         <Input
                           id="monthlyContribution"
                           type="number"
@@ -188,14 +190,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="0"
                           step="100"
+                          className="border-midnight/15 bg-white text-midnight placeholder:text-midnight/35 focus-visible:ring-gold/40 focus-visible:border-gold/50"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           Amount you plan to save each month
                         </p>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="expectedReturn">Expected Annual Return (%)</Label>
+                        <Label htmlFor="expectedReturn" className="text-sm font-semibold text-midnight">Expected Annual Return (%)</Label>
                         <Input
                           id="expectedReturn"
                           type="number"
@@ -207,14 +210,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           min="0"
                           max="20"
                           step="0.1"
+                          className="border-midnight/15 bg-white text-midnight placeholder:text-midnight/35 focus-visible:ring-gold/40 focus-visible:border-gold/50"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           Conservative estimate: 3-4% (savings account). Moderate: 5-7% (balanced investments)
                         </p>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="savingsDuration">Savings Duration (years)</Label>
+                        <Label htmlFor="savingsDuration" className="text-sm font-semibold text-midnight">Savings Duration (years)</Label>
                         <Input
                           id="savingsDuration"
                           type="number"
@@ -225,8 +229,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           required
                           min="1"
                           max="30"
+                          className="border-midnight/15 bg-white text-midnight placeholder:text-midnight/35 focus-visible:ring-gold/40 focus-visible:border-gold/50"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           How long you plan to save (1-5 years for short-term, 5-15 for medium-term)
                         </p>
                       </div>
@@ -234,7 +239,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Savings"}
@@ -242,58 +247,70 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </form>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
 
               {/* Results */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <div>
                 {result ? (
                   <div className="space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
-                          Future Savings Total
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
-                        <div>
-                          <div className="text-xs sm:text-sm text-silver/80 mb-1">
-                            Total Savings
-                          </div>
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-                            ${result.totalSavings.toLocaleString()}
-                          </div>
+                    <Card className="relative overflow-hidden rounded-2xl border border-midnight/10 bg-paper p-6 shadow-[0_18px_40px_rgba(11,26,44,0.07)] sm:p-7 max-w-md mx-auto lg:max-w-none">
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.10) 0%, transparent 60%)",
+                        }}
+                      />
+                      <CardHeader className="relative p-0">
+                        <Eyebrow className="mb-3">Future Savings Total</Eyebrow>
+                        <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold tracking-tight text-midnight">
+                          ${result.totalSavings.toLocaleString()}
                         </div>
-                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gold/30">
-                          <div>
-                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Your Contributions</div>
-                            <div className="text-lg sm:text-xl font-bold text-white">
-                              ${result.totalContributions.toLocaleString()}
+                        <div
+                          aria-hidden
+                          className="mt-4 h-px w-16"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                          }}
+                        />
+                      </CardHeader>
+                      <CardContent className="relative p-0 mt-5">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="flex items-start gap-3">
+                            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                              <Wallet className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
+                            <div>
+                              <div className="text-xs sm:text-sm text-midnight/55 mb-1">Your Contributions</div>
+                              <div className="text-lg sm:text-xl font-heading font-bold text-midnight">
+                                ${result.totalContributions.toLocaleString()}
+                              </div>
                             </div>
                           </div>
-                          <div>
-                            <div className="text-xs sm:text-sm text-silver/80 mb-1">Interest Earned</div>
-                            <div className="text-lg sm:text-xl font-bold text-white">
-                              ${result.interestEarned.toLocaleString()}
+                          <div className="flex items-start gap-3">
+                            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                              <TrendingUp className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
+                            <div>
+                              <div className="text-xs sm:text-sm text-midnight/55 mb-1">Interest Earned</div>
+                              <div className="text-lg sm:text-xl font-heading font-bold text-midnight">
+                                ${result.interestEarned.toLocaleString()}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                    <Card className="rounded-2xl border border-midnight/10 bg-white p-6 shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] sm:p-7 max-w-md mx-auto lg:max-w-none">
+                      <CardHeader className="p-0">
+                        <CardTitle className="font-heading text-[1.05rem] font-bold leading-snug text-midnight">
                           Savings Growth Over Time
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
+                      <CardContent className="p-0 mt-5">
                         <div className="w-full max-w-full overflow-hidden px-2">
                           <Chart data={result.chartData} />
                         </div>
@@ -301,16 +318,18 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
-                        <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <PiggyBank className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                      <Card className="rounded-2xl border border-midnight/10 bg-[#F7F5EF] p-6 shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] sm:p-7 max-w-md mx-auto lg:max-w-none">
+                        <CardHeader className="p-0">
+                          <CardTitle className="flex items-center font-heading text-[1.05rem] font-bold leading-snug text-midnight">
+                            <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <Sparkles className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-0 mt-5">
+                          <div className="prose prose-sm max-w-none text-midnight/70">
+                            <div className="whitespace-pre-line text-[0.86rem] leading-relaxed">
                               {insights}
                             </div>
                           </div>
@@ -318,10 +337,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
-                      <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual returns may vary significantly, and this does not constitute personalized financial advice. For retirement planning (long-term goals), please use our Retirement Calculator. Please consult with a qualified Canadian financial advisor for personalized savings planning including TFSA and other registered account strategies.
+                    <Card className="rounded-2xl border border-midnight/10 bg-paper p-6 max-w-md mx-auto lg:max-w-none">
+                      <CardContent className="p-0">
+                        <p className="text-xs sm:text-sm leading-relaxed text-midnight/65 italic">
+                          <strong className="font-semibold text-midnight">Disclaimer:</strong> This calculator provides estimates based on the assumptions you entered. Actual returns may vary significantly, and this does not constitute personalized financial advice. For retirement planning (long-term goals), please use our Retirement Calculator. Please consult with a qualified Canadian financial advisor for personalized savings planning including TFSA and other registered account strategies.
                         </p>
                       </CardContent>
                     </Card>
@@ -340,20 +359,22 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
-                      <p className="text-sm sm:text-base">
+                  <Card className="flex h-full flex-col items-center justify-center rounded-2xl border border-midnight/10 bg-white p-6 text-center shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] sm:p-7 max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-0">
+                      <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                        <Calculator className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
+                      <p className="mt-4 text-sm sm:text-base leading-relaxed text-midnight/60">
                         Enter your savings information and calculate to see your projected growth.
                       </p>
                     </CardContent>
                   </Card>
                 )}
-              </motion.div>
+              </div>
             </div>
-          </div>
-        </div>
+          </Reveal>
+        </Container>
       </section>
     </div>
   )
 }
-

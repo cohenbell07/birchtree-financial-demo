@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 import { useParams } from "next/navigation"
 import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight, FileText, BookOpen } from "lucide-react"
@@ -162,6 +161,11 @@ const resourceContent: Record<string, {
   }
 }
 
+const fadeUp = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+}
+
 export default function ResourcePage() {
   const params = useParams()
   const slug = params?.slug as string
@@ -174,85 +178,116 @@ export default function ResourcePage() {
   const Icon = resource.type === "Article" ? FileText : BookOpen
 
   return (
-    <div>
+    <div className="bg-white">
       <PageHeader
         title={resource.title}
         subtitle={resource.description}
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
+      <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+        {/* Atmospheric gold wash, matching the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             {/* Resource Meta */}
-            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] mb-6 sm:mb-8">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center text-sm text-midnight/70">
-                  <div className="flex items-center">
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-gold mr-2" />
-                    <span className="font-medium">{resource.type}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div
+              {...fadeUp}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-6 sm:mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-midnight/10 pb-6"
+            >
+              <div className="inline-flex items-center gap-2">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                  <Icon className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
+                </span>
+                <span className="text-sm font-semibold text-midnight">{resource.type}</span>
+              </div>
+              <span className="text-[0.82rem] text-midnight/55">{resource.readTime}</span>
+            </motion.div>
 
             {/* Resource Content */}
-            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)]">
-              <CardContent className="p-6 sm:p-8 md:p-10">
-                <article className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-midnight/80">
-                  {resource.content.map((paragraph, index) => {
-                    if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
-                      // Bold heading
-                      const heading = paragraph.slice(2, -2)
-                      return (
-                        <h3 key={index} className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 mt-6">
-                          {heading}
-                        </h3>
-                      )
-                    } else if (paragraph.startsWith("•")) {
-                      // Bullet point
-                      return (
-                        <li key={index} className="text-base sm:text-lg mb-2 ml-4">
-                          {paragraph.slice(1).trim()}
-                        </li>
-                      )
-                    } else if (paragraph === "") {
-                      // Empty line for spacing
-                      return <br key={index} />
-                    } else {
-                      // Regular paragraph
-                      return (
-                        <p key={index} className="text-base sm:text-lg leading-relaxed mb-4">
-                          {paragraph}
-                        </p>
-                      )
-                    }
-                  })}
-                </article>
-              </CardContent>
-            </Card>
+            <motion.article
+              {...fadeUp}
+              transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="prose prose-sm sm:prose-base md:prose-lg max-w-none"
+            >
+              {resource.content.map((paragraph, index) => {
+                if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
+                  // Bold heading
+                  const heading = paragraph.slice(2, -2)
+                  return (
+                    <h3 key={index} className="font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight mb-3 mt-9">
+                      {heading}
+                    </h3>
+                  )
+                } else if (paragraph.startsWith("•")) {
+                  // Bullet point
+                  return (
+                    <li key={index} className="text-base sm:text-lg leading-relaxed text-midnight/65 mb-2 ml-4 marker:text-gold-dark">
+                      {paragraph.slice(1).trim()}
+                    </li>
+                  )
+                } else if (paragraph === "") {
+                  // Empty line for spacing
+                  return <br key={index} />
+                } else {
+                  // Regular paragraph
+                  return (
+                    <p key={index} className="text-base sm:text-lg leading-relaxed text-midnight/65 mb-4">
+                      {paragraph}
+                    </p>
+                  )
+                }
+              })}
+            </motion.article>
 
             {/* CTA */}
-            <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] mt-6 sm:mt-8">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <h3 className="text-xl sm:text-2xl font-heading font-bold text-midnight mb-3 sm:mb-4">
+            <motion.div
+              {...fadeUp}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="relative overflow-hidden rounded-[1.75rem] border border-midnight/10 bg-[#F7F5EF] px-6 py-12 sm:px-10 text-center mt-12 sm:mt-16"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(48% 45% at 50% 0%, rgba(215,195,138,0.10) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                  Talk With an Advisor
+                </p>
+                <h3 className="mt-3 font-heading font-bold leading-[1.1] tracking-tight text-midnight" style={{ fontSize: "clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem)" }}>
                   Need Personalized Guidance?
                 </h3>
-                <p className="text-sm sm:text-base text-midnight/70 mb-4 sm:mb-6 max-w-xl mx-auto">
+                <p className="text-sm sm:text-base text-midnight/65 mt-4 mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed">
                   While this resource provides valuable information, personalized financial planning requires understanding your unique situation. Schedule a consultation to discuss your specific needs.
                 </p>
-                <Button asChild size="lg" className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight">
-                  <Link href="/contact" className="text-midnight">Schedule a Consultation</Link>
+                <Button asChild size="lg" className="rounded-xl">
+                  <Link href="/contact">Schedule a Consultation</Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
 
             {/* Back to Resources */}
-            <div className="mt-6 sm:mt-8 text-center">
-              <Button asChild className="bg-gold/90 hover:bg-gold text-midnight font-semibold hover:shadow-[0_4px_20px_rgba(215,195,138,0.25)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight border-0">
-                <Link href="/resources" className="text-midnight">
-                  ← Back to Resources
-                </Link>
-              </Button>
+            <div className="mt-8 text-center">
+              <Link
+                href="/resources"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-midnight"
+              >
+                <ArrowRight className="h-4 w-4 rotate-180 text-gold-dark transition-transform group-hover:-translate-x-1" />
+                <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+                  Back to Resources
+                </span>
+              </Link>
             </div>
           </div>
         </div>
@@ -260,4 +295,3 @@ export default function ResourcePage() {
     </div>
   )
 }
-

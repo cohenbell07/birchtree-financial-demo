@@ -149,24 +149,24 @@ export default function FAQPage() {
         </Container>
       </Section>
 
-      <Section tone="dark-aurora" topRule grain>
+      <Section tone="paper-soft" topRule>
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
+              <Eyebrow className="mb-6">
                 Need More Help?
               </Eyebrow>
               <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
+                className="font-heading font-bold leading-[1.1] tracking-tight text-midnight text-balance"
                 style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.4rem)" }}
               >
                 Still have questions?
               </h2>
               <div
                 aria-hidden
-                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold-dark/50 to-transparent"
               />
-              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-white/80"
+              <p className="mx-auto mt-8 max-w-xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
               >
                 We&apos;re here to help. If you don&apos;t see the answer to
@@ -178,9 +178,9 @@ export default function FAQPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:text-base [&>*]:text-midnight"
+                  className="rounded-xl border-0 bg-midnight px-9 py-6 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light sm:text-base [&>*]:text-white"
                 >
-                  <Link href="/contact" className="text-midnight">
+                  <Link href="/contact" className="text-white">
                     Contact Us
                   </Link>
                 </Button>

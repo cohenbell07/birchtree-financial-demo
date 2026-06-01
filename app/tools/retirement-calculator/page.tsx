@@ -126,8 +126,17 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Project your retirement savings and plan for your future"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="relative overflow-hidden bg-[#F7F5EF] py-20 sm:py-24">
+        {/* Faint gold wash — same recipe as the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Form */}
@@ -136,13 +145,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading flex items-center text-midnight">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                    <CardTitle className="flex items-center font-heading text-lg font-bold tracking-tight text-midnight sm:text-xl md:text-2xl">
+                      <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Calculate Your Retirement
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="mt-2 text-xs text-midnight/55 sm:text-sm md:text-base">
                       Enter your information to see your projected RRSP and TFSA retirement savings
                     </CardDescription>
                   </CardHeader>
@@ -238,7 +249,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                           max="20"
                           step="0.1"
                         />
-                        <p className="text-xs text-slate">
+                        <p className="text-xs text-midnight/55">
                           Historical average for a balanced portfolio: 7-8%
                         </p>
                       </div>
@@ -246,7 +257,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Calculate Projection"}
@@ -265,31 +276,40 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 {result ? (
                   <div className="space-y-6">
                     <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
+                      className="relative mx-auto max-w-md overflow-hidden rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none"
+                      style={{ background: "linear-gradient(180deg, #FFFFFF 0%, #FBFAF6 100%)" }}
                     >
-                      <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
+                      {/* Faint gold wash — light private-bank accent */}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(60% 70% at 100% 0%, rgba(215,195,138,0.12) 0%, transparent 60%)",
+                        }}
+                      />
+                      <CardHeader className="relative p-4 sm:p-6">
+                        <CardTitle className="font-heading text-lg font-bold tracking-tight text-midnight sm:text-xl md:text-2xl">
                           Projected Retirement Savings
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-white tracking-tight">
+                      <CardContent className="relative p-4 pt-0 sm:p-6">
+                        <div className="mb-1 font-heading text-3xl font-bold tracking-tight text-midnight sm:text-4xl md:text-5xl">
                           ${result.projectedSavings.toLocaleString()}
                         </div>
-                        <p className="text-[0.65rem] uppercase tracking-[0.18em] text-gold/70 font-medium">
+                        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
                           Estimated value at retirement
                         </p>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                        <CardTitle className="font-heading text-base font-bold tracking-tight text-midnight sm:text-lg md:text-xl">
                           Growth Projection
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
+                      <CardContent className="p-4 pt-0 sm:p-6">
                         <div className="w-full max-w-full overflow-hidden px-2">
                           <Chart data={result.chartData} />
                         </div>
@@ -297,16 +317,18 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="mx-auto max-w-md rounded-2xl border border-gold/30 bg-[#F7F5EF] shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                          <CardTitle className="flex items-center font-heading text-base font-bold tracking-tight text-midnight sm:text-lg md:text-xl">
+                            <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-4 pt-0 sm:p-6">
+                          <div className="prose prose-sm max-w-none text-midnight/70">
+                            <div className="whitespace-pre-line text-xs leading-relaxed sm:text-sm">
                               {insights}
                             </div>
                           </div>
@@ -314,9 +336,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#F7F5EF] lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
+                        <p className="text-xs italic text-midnight/65 sm:text-sm">
                           <strong>Disclaimer:</strong> This calculator provides
                           estimates based on the assumptions you entered. Actual
                           returns may vary, and this does not constitute
@@ -340,8 +362,8 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                    <CardContent className="p-4 text-center text-midnight/60 sm:p-6">
                       <p className="text-sm sm:text-base">
                         Enter your information and calculate to see your
                         retirement projection.

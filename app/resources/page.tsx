@@ -185,30 +185,27 @@ export default function ResourcesPage() {
           HERO — Stacked Stat Bar
           ============================================ */}
       <section
-        className="relative text-white pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden"
-        style={{
-          background: "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
-        }}
+        className="relative pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden bg-[#FBFAF6]"
       >
         <div
-          className="absolute top-[20%] right-[10%] w-[50%] h-[60%] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse, rgba(215,195,138,0.04) 0%, transparent 70%)" }}
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)" }}
         />
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-midnight/10 to-transparent" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/70 font-semibold mb-5 sm:mb-7"
+            className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold mb-5 sm:mb-7"
           >
-            <span className="inline-block w-2 h-px bg-gold/50 mr-3 align-middle" />
+            <span className="inline-block w-2 h-px bg-gold-dark/50 mr-3 align-middle" />
             Learn & Plan
           </motion.p>
           <RevealText
             as="h1"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-0 max-w-3xl"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.04] tracking-tight text-midnight mb-0 max-w-3xl"
           >
             Resources
           </RevealText>
@@ -218,13 +215,13 @@ export default function ResourcesPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="origin-left mt-6 sm:mt-8 mb-5 sm:mb-7"
           >
-            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-gold/60 to-transparent" />
+            <div className="h-px w-20 sm:w-24" style={{ background: "linear-gradient(to right, rgba(215,195,138,0.85), transparent)" }} />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/45 max-w-2xl leading-relaxed font-body mb-10 sm:mb-14"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-midnight/65 max-w-2xl leading-relaxed font-body mb-10 sm:mb-14"
           >
             Educational content, guides, and tools to empower your financial decisions
           </motion.p>
@@ -246,12 +243,12 @@ export default function ResourcesPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
-                className="border-l-2 border-gold/25 pl-4 sm:pl-5"
+                className="border-l-2 border-gold-dark/30 pl-4 sm:pl-5"
               >
-                <span className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gold/80 block">
+                <span className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gold-dark block">
                   {stat.number}
                 </span>
-                <span className="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-white/35 font-medium">
+                <span className="text-[0.65rem] sm:text-xs uppercase tracking-[0.15em] text-midnight/55 font-medium">
                   {stat.label}
                 </span>
               </motion.div>
@@ -263,7 +260,7 @@ export default function ResourcesPage() {
       {/* ============================================
           Helpful Tools & Newsletter — Light section
           ============================================ */}
-      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#fafbfc] relative overflow-hidden grain-overlay">
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#F7F5EF] relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto space-y-10 sm:space-y-14 md:space-y-20">
 
@@ -333,14 +330,14 @@ export default function ResourcesPage() {
               <SpotlightCard>
                 <div className="p-5 sm:p-7 md:p-8">
                   <div className="flex items-center mb-3 sm:mb-4">
-                    <div className="p-2 rounded-lg bg-midnight/[0.04] mr-3">
-                      <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-midnight/60" />
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05] mr-3">
+                      <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-gold-dark" strokeWidth={1.6} />
                     </div>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
                       Helpful Tools & Resources
                     </h3>
                   </div>
-                  <p className="text-sm sm:text-base text-midnight/50 mb-5 sm:mb-7">
+                  <p className="text-sm sm:text-base text-midnight/65 mb-5 sm:mb-7">
                     Access government pension benefits information, registered savings plans, will planning checklists, and essential financial resources for Canadians.
                   </p>
                   <Button asChild size="lg" className="w-full sm:w-auto">
@@ -364,7 +361,7 @@ export default function ResourcesPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
+                  <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-medium mb-3 sm:mb-4 px-2">
                     {category.category}
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
@@ -406,7 +403,7 @@ export default function ResourcesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               >
-                <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
+                <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-medium mb-3 sm:mb-4 px-2">
                   {category.category}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
@@ -444,20 +441,20 @@ export default function ResourcesPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold font-medium mb-3 sm:mb-4 px-2">
+              <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-medium mb-3 sm:mb-4 px-2">
                 Blog
               </p>
               <SpotlightCard>
                 <div className="p-5 sm:p-7 md:p-8">
                   <div className="flex items-center mb-3 sm:mb-4">
-                    <div className="p-2 rounded-lg bg-midnight/[0.04] mr-3">
-                      <Book className="h-5 w-5 sm:h-6 sm:w-6 text-midnight/60" />
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05] mr-3">
+                      <Book className="h-5 w-5 sm:h-6 sm:w-6 text-gold-dark" strokeWidth={1.6} />
                     </div>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-midnight">
                       Expert Financial Articles
                     </h3>
                   </div>
-                  <p className="text-sm sm:text-base text-midnight/50 mb-5 sm:mb-7">
+                  <p className="text-sm sm:text-base text-midnight/65 mb-5 sm:mb-7">
                     Read our latest articles on RRSP strategies, tax optimization, retirement planning, and more.
                   </p>
                   <Link href="/blog" className="link-draw text-sm font-medium text-midnight/70 inline-flex items-center">
@@ -474,29 +471,24 @@ export default function ResourcesPage() {
       {/* ============================================
           CTA — Dark aurora section
           ============================================ */}
-      <section className="py-20 sm:py-28 md:py-36 lg:py-44 text-white relative overflow-hidden grain-overlay">
-        <div className="absolute inset-0" style={{
-          background: `
-            radial-gradient(ellipse 50% 45% at 45% 40%, rgba(215,195,138,0.03) 0%, transparent 60%),
-            radial-gradient(ellipse 55% 50% at 20% 80%, rgba(21,36,57,0.3) 0%, transparent 70%),
-            radial-gradient(ellipse 60% 50% at 50% 50%, transparent 30%, rgba(5,12,22,0.4) 100%),
-            linear-gradient(160deg, #050c16 0%, #0B1A2C 30%, #101f33 60%, #0a1525 100%)
-          `
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 relative overflow-hidden bg-white">
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: "radial-gradient(48% 45% at 50% 40%, rgba(215,195,138,0.08) 0%, transparent 60%)"
         }} />
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-midnight/10 to-transparent" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="max-w-2xl mx-auto">
-            <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/60 font-medium mb-5 sm:mb-7">
+            <p className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-medium mb-5 sm:mb-7">
               Get Started
             </p>
-            <RevealText as="h2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5 sm:mb-7 tracking-tight text-white px-2">
+            <RevealText as="h2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-5 sm:mb-7 tracking-tight text-midnight px-2">
               Need Personalized Guidance?
             </RevealText>
             <div className="flex justify-center mb-8 sm:mb-10">
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+              <div className="h-px w-24" style={{ background: "linear-gradient(to right, transparent, rgba(215,195,138,0.85), transparent)" }} />
             </div>
-            <p className="text-base sm:text-lg text-white/40 mb-10 sm:mb-14 max-w-xl mx-auto leading-relaxed font-body px-4">
+            <p className="text-base sm:text-lg text-midnight/65 mb-10 sm:mb-14 max-w-xl mx-auto leading-relaxed font-body px-4">
               While our resources provide valuable information, personalized
               financial advisory services require understanding your unique situation.
               Schedule a consultation to discuss your specific needs.
@@ -504,9 +496,9 @@ export default function ResourcesPage() {
             <Button
               asChild
               size="lg"
-              className="relative z-10 w-full sm:w-auto text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 bg-gold/90 hover:bg-gold text-midnight font-semibold border-0 shadow-[0_4px_20px_rgba(215,195,138,0.2)] hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] transition-all duration-300 hover:scale-[1.02] rounded-xl [&>*]:text-midnight"
+              className="relative z-10 w-full sm:w-auto text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 bg-midnight hover:bg-midnight-light text-white font-semibold border-0 shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:scale-[1.02] rounded-xl [&>*]:text-white"
             >
-              <Link href="/contact" className="text-midnight">
+              <Link href="/contact" className="text-white">
                 Schedule a Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -521,30 +513,17 @@ export default function ResourcesPage() {
 function ResourceCard({ item, IconComp }: { item: any; IconComp: any }) {
   return (
     <div
-      className="h-full flex flex-col rounded-xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1"
-      style={{
-        background: '#ffffff',
-        border: '1px solid rgba(11,26,44,0.06)',
-        boxShadow: '0 1px 2px rgba(11,26,44,0.03), 0 4px 12px rgba(11,26,44,0.02)',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 8px 30px rgba(11,26,44,0.08)'
-        e.currentTarget.style.borderColor = 'rgba(215,195,138,0.15)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = '0 1px 2px rgba(11,26,44,0.03), 0 4px 12px rgba(11,26,44,0.02)'
-        e.currentTarget.style.borderColor = 'rgba(11,26,44,0.06)'
-      }}
+      className="h-full flex flex-col rounded-2xl overflow-hidden border border-midnight/10 bg-white transition-all duration-300 group-hover:-translate-y-1 group-hover:border-midnight/15 group-hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
     >
       {/* Top icon zone */}
-      <div className="px-5 sm:px-6 pt-5 sm:pt-6 pb-4 flex items-center justify-between" style={{ background: '#f8f7f4' }}>
-        <div className="w-10 h-10 rounded-lg border border-gold/20 flex items-center justify-center group-hover:border-gold/40 group-hover:bg-gold/[0.04] transition-all duration-300">
-          <IconComp className="h-[18px] w-[18px] text-midnight/60" />
+      <div className="px-5 sm:px-6 pt-5 sm:pt-6 pb-4 flex items-center justify-between bg-[#F7F5EF]">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+          <IconComp className="h-[18px] w-[18px] text-gold-dark" strokeWidth={1.6} />
         </div>
         <span className={`text-[0.6rem] uppercase tracking-[0.15em] font-semibold px-2.5 py-1 rounded-full ${
           item.type === "Tool"
-            ? "text-gold bg-gold/10"
-            : "text-midnight/50 bg-midnight/[0.04]"
+            ? "text-gold-dark bg-gold/10"
+            : "text-midnight/55 bg-midnight/[0.04]"
         }`}>
           {item.type}
         </span>
@@ -555,13 +534,13 @@ function ResourceCard({ item, IconComp }: { item: any; IconComp: any }) {
         <h4 className="text-sm sm:text-base md:text-lg font-heading font-bold text-midnight mb-2">
           {item.title}
         </h4>
-        <p className="text-xs sm:text-sm text-midnight/50 leading-relaxed mb-5 flex-grow">
+        <p className="text-xs sm:text-sm text-midnight/55 leading-relaxed mb-5 flex-grow">
           {item.description}
         </p>
 
         {/* Bottom action strip */}
-        <div className="pt-3 border-t border-midnight/[0.06] flex justify-end">
-          <span className="text-sm font-medium text-midnight/50 group-hover:text-midnight inline-flex items-center transition-colors duration-200">
+        <div className="pt-3 border-t border-midnight/10 flex justify-end">
+          <span className="text-sm font-medium text-midnight/55 group-hover:text-midnight inline-flex items-center transition-colors duration-200">
             {item.type === "Tool" ? "Use Tool" : "Read More"}
             <ArrowRight className="ml-2 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
           </span>

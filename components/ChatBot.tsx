@@ -53,25 +53,22 @@ export default function ChatBot() {
         onClick={isOpen ? () => setIsOpen(false) : open}
         onMouseEnter={() => setHasMounted(true)}
         onFocus={() => setHasMounted(true)}
-        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95"
+        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
         style={{
-          background: isOpen
-            ? "linear-gradient(135deg, #152439 0%, #0B1A2C 100%)"
-            : "linear-gradient(135deg, #D7C38A 0%, #C4B076 100%)",
-          boxShadow: isOpen
-            ? "0 4px 20px rgba(11,26,44,0.4), 0 0 0 1px rgba(215,195,138,0.15)"
-            : "0 4px 20px rgba(215,195,138,0.3), 0 8px 32px rgba(0,0,0,0.15)",
+          background: "linear-gradient(135deg, #152439 0%, #0B1A2C 100%)",
+          boxShadow:
+            "0 8px 24px rgba(11,26,44,0.22), 0 2px 6px rgba(11,26,44,0.16), 0 0 0 1px rgba(215,195,138,0.18)",
         }}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-white/70" />
+          <X className="w-6 h-6 text-gold" />
         ) : (
-          <MessageCircle className="w-6 h-6 text-midnight" />
+          <MessageCircle className="w-6 h-6 text-gold" />
         )}
 
         {hasUnread && !isOpen && (
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white" />
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-gold-dark rounded-full border-2 border-white" />
         )}
       </button>
     </>

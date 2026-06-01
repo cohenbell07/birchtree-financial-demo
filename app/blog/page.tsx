@@ -66,23 +66,30 @@ export default function BlogPage() {
   const selectedTagName = selectedTag || "All Posts"
 
   return (
-    <div>
+    <div className="bg-white">
       {/* ============================================
-          HERO — Typographic Masthead
+          HERO — Typographic Masthead (light)
           ============================================ */}
       <section
-        className="relative text-white pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden"
-        style={{
-          background: "linear-gradient(160deg, #060f1c 0%, #0B1A2C 40%, #0d1d30 70%, #081525 100%)",
-        }}
+        className="relative pt-28 sm:pt-36 md:pt-40 lg:pt-48 pb-16 sm:pb-24 md:pb-28 lg:pb-36 overflow-hidden bg-[#FBFAF6]"
       >
+        {/* Atmospheric gold wash — matches the homepage hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
+
         {/* Large decorative tree watermark */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
           style={{
             width: "clamp(250px, 30vw, 450px)",
             height: "clamp(250px, 30vw, 450px)",
-            opacity: 0.04,
+            opacity: 0.06,
           }}
         >
           <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -127,7 +134,7 @@ export default function BlogPage() {
           </svg>
         </div>
 
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
@@ -135,15 +142,15 @@ export default function BlogPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="text-[0.65rem] sm:text-xs uppercase tracking-[0.25em] text-gold/70 font-semibold mb-5 sm:mb-7"
+              className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark mb-5 sm:mb-7"
             >
-              <span className="inline-block w-2 h-px bg-gold/50 mr-3 align-middle" />
+              <span className="inline-block w-2 h-px bg-gold/60 mr-3 align-middle" />
               Our Blog
-              <span className="inline-block w-2 h-px bg-gold/50 ml-3 align-middle" />
+              <span className="inline-block w-2 h-px bg-gold/60 ml-3 align-middle" />
             </motion.p>
             <RevealText
               as="h1"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-0"
+              className="font-heading font-bold tracking-tight text-midnight mb-0 text-[clamp(2.5rem,1.6rem+3.4vw,4.5rem)] leading-[1.04]"
             >
               Financial Insights
             </RevealText>
@@ -154,13 +161,13 @@ export default function BlogPage() {
               className="mx-auto mt-6 sm:mt-8 mb-5 sm:mb-7"
               style={{ width: "fit-content" }}
             >
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base sm:text-lg md:text-xl text-white/45 leading-relaxed font-body mb-8 sm:mb-10 px-4"
+              className="text-base sm:text-lg md:text-xl text-midnight/65 leading-relaxed font-body mb-8 sm:mb-10 px-4"
             >
               Expert advice, strategies, and insights for your financial journey
             </motion.p>
@@ -175,7 +182,7 @@ export default function BlogPage() {
               {["Retirement", "Tax Strategy", "Market Insights", "Estate Planning", "RRSP & TFSA"].map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 sm:px-4 py-1.5 rounded-full text-[0.65rem] sm:text-xs font-medium tracking-wide border border-gold/20 text-gold/50 bg-white/[0.02]"
+                  className="px-3 sm:px-4 py-1.5 rounded-full text-[0.65rem] sm:text-xs font-medium tracking-wide border border-midnight/10 text-midnight/55 bg-white"
                 >
                   {tag}
                 </span>
@@ -185,8 +192,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#fafbfc] relative overflow-hidden">
-        <div className="grain-overlay" />
+      <section className="py-20 sm:py-28 md:py-36 lg:py-44 bg-[#F7F5EF] relative overflow-hidden">
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -199,15 +205,15 @@ export default function BlogPage() {
                     <div className="relative w-full max-w-md lg:max-w-none" ref={dropdownRef}>
                       <button
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="w-full flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-white border border-midnight/10 rounded-lg shadow-sm hover:border-midnight/20 hover:shadow-md transition-all duration-200 text-left"
+                        className="w-full flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-white border border-midnight/10 rounded-xl transition-all duration-300 hover:border-midnight/20 hover:shadow-[0_8px_24px_rgba(11,26,44,0.07)] text-left"
                       >
                         <div className="flex items-center gap-2 sm:gap-3">
-                          <Tag className="h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
-                          <span className="text-sm sm:text-base font-medium text-midnight">
+                          <Tag className="h-4 w-4 sm:h-5 sm:w-5 text-gold-dark flex-shrink-0" strokeWidth={1.6} />
+                          <span className="text-sm sm:text-base font-semibold text-midnight">
                             {selectedTagName}
                           </span>
                           {selectedTag && (
-                            <span className="hidden sm:inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-gold/20 text-gold rounded-full">
+                            <span className="hidden sm:inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold bg-midnight/[0.04] ring-1 ring-midnight/[0.06] text-gold-dark rounded-full">
                               {filteredPosts.length}
                             </span>
                           )}
@@ -226,7 +232,7 @@ export default function BlogPage() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute top-full left-0 right-0 mt-2 bg-white border border-midnight/10 rounded-lg shadow-lg z-50 overflow-hidden"
+                            className="absolute top-full left-0 right-0 mt-2 bg-white border border-midnight/10 rounded-xl shadow-[0_18px_40px_rgba(11,26,44,0.12)] z-50 overflow-hidden"
                           >
                             <div className="max-h-[60vh] overflow-y-auto">
                               <button
@@ -236,13 +242,13 @@ export default function BlogPage() {
                                 }}
                                 className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-left hover:bg-midnight/[0.03] transition-colors flex items-center justify-between ${
                                   selectedTag === null
-                                    ? "bg-gold/10 text-gold font-medium"
+                                    ? "bg-midnight/[0.04] text-midnight font-semibold"
                                     : "text-midnight"
                                 }`}
                               >
                                 <span className="text-sm sm:text-base">All Posts</span>
                                 {selectedTag === null && (
-                                  <div className="h-2 w-2 rounded-full bg-gold"></div>
+                                  <div className="h-2 w-2 rounded-full bg-gold-dark"></div>
                                 )}
                               </button>
                               {tags.map((tag) => (
@@ -252,18 +258,18 @@ export default function BlogPage() {
                                     setSelectedTag(tag)
                                     setIsDropdownOpen(false)
                                   }}
-                                  className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-left hover:bg-midnight/[0.03] transition-colors flex items-center justify-between border-t border-midnight/5 ${
+                                  className={`w-full px-4 sm:px-6 py-3 sm:py-4 text-left hover:bg-midnight/[0.03] transition-colors flex items-center justify-between border-t border-midnight/[0.06] ${
                                     selectedTag === tag
-                                      ? "bg-gold/10 text-gold font-medium"
+                                      ? "bg-midnight/[0.04] text-midnight font-semibold"
                                       : "text-midnight"
                                   }`}
                                 >
                                   <div className="flex items-center gap-2 sm:gap-3">
-                                    <Tag className="h-3 w-3 sm:h-4 sm:w-4 text-gold/60 flex-shrink-0" />
+                                    <Tag className="h-3 w-3 sm:h-4 sm:w-4 text-gold-dark flex-shrink-0" strokeWidth={1.6} />
                                     <span className="text-sm sm:text-base">{tag}</span>
                                   </div>
                                   {selectedTag === tag && (
-                                    <div className="h-2 w-2 rounded-full bg-gold"></div>
+                                    <div className="h-2 w-2 rounded-full bg-gold-dark"></div>
                                   )}
                                 </button>
                               ))}
@@ -276,13 +282,13 @@ export default function BlogPage() {
                     {/* Active Filter Badge */}
                     {selectedTag && (
                       <div className="flex justify-center lg:justify-start mt-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gold/10 border-0 rounded-full">
-                          <span className="text-sm text-gold font-medium">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-midnight/[0.04] ring-1 ring-midnight/[0.06] rounded-full">
+                          <span className="text-sm text-midnight/65 font-medium">
                             {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"} in {selectedTag}
                           </span>
                           <button
                             onClick={() => setSelectedTag(null)}
-                            className="text-gold hover:text-midnight transition-colors"
+                            className="text-gold-dark hover:text-midnight transition-colors"
                             aria-label="Clear filter"
                           >
                             <X className="h-4 w-4" />
@@ -299,7 +305,7 @@ export default function BlogPage() {
                 {isLoading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {[...Array(4)].map((_, i) => (
-                      <div key={i} className="bg-white rounded-2xl p-5 sm:p-6 animate-pulse">
+                      <div key={i} className="bg-white rounded-2xl border border-midnight/10 p-6 sm:p-7 animate-pulse">
                         <div className="h-3 w-24 bg-midnight/[0.06] rounded mb-4" />
                         <div className="h-5 w-3/4 bg-midnight/[0.08] rounded mb-3" />
                         <div className="space-y-2 mb-4">
@@ -316,7 +322,7 @@ export default function BlogPage() {
                   </div>
                 ) : filteredPosts.length === 0 ? (
                   <div className="max-w-md mx-auto text-center py-16">
-                    <p className="text-midnight/50 text-lg mb-6">No blog posts found.</p>
+                    <p className="text-midnight/60 text-lg mb-6">No blog posts found.</p>
                     {selectedTag && (
                       <Button
                         onClick={() => setSelectedTag(null)}
@@ -338,28 +344,10 @@ export default function BlogPage() {
                         className="w-full"
                       >
                         <Link href={`/blog/${post.slug}`} className="block h-full group">
-                          <div
-                            className="h-full flex flex-col rounded-xl overflow-hidden transition-all duration-300 group-hover:-translate-y-0.5"
-                            style={{
-                              background: '#ffffff',
-                              borderTop: '2px solid rgba(215,195,138,0.3)',
-                              border: '1px solid rgba(11,26,44,0.06)',
-                              borderTopWidth: '2px',
-                              borderTopColor: 'rgba(215,195,138,0.3)',
-                              boxShadow: '0 1px 2px rgba(11,26,44,0.03)',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.borderTopColor = 'rgba(215,195,138,0.6)'
-                              e.currentTarget.style.boxShadow = '0 2px 16px rgba(215,195,138,0.08)'
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.borderTopColor = 'rgba(215,195,138,0.3)'
-                              e.currentTarget.style.boxShadow = '0 1px 2px rgba(11,26,44,0.03)'
-                            }}
-                          >
-                            <div className="p-5 sm:p-6 flex flex-col h-full">
+                          <div className="h-full flex flex-col rounded-2xl border border-midnight/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
+                            <div className="p-6 sm:p-7 flex flex-col h-full">
                               {/* Date */}
-                              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-midnight/35 font-medium mb-3">
+                              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-midnight/45 font-semibold mb-3">
                                 {new Date(post.publishedAt).toLocaleDateString("en-CA", {
                                   year: "numeric",
                                   month: "short",
@@ -367,30 +355,39 @@ export default function BlogPage() {
                                 }).toUpperCase()}
                               </p>
 
-                              {/* Rule */}
-                              <div className="h-px bg-midnight/[0.06] mb-3" />
+                              {/* Gold rule */}
+                              <div
+                                aria-hidden
+                                className="h-px w-16 mb-4"
+                                style={{
+                                  background:
+                                    "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                                }}
+                              />
 
                               {/* Title */}
-                              <h3 className="text-base sm:text-lg font-heading font-bold text-midnight mb-2 line-clamp-2 leading-snug group-hover:text-midnight/80 transition-colors">
+                              <h3 className="font-heading text-[1.05rem] sm:text-[1.15rem] font-bold text-midnight mb-2 line-clamp-2 leading-snug tracking-tight transition-colors group-hover:text-midnight">
                                 {post.title}
                               </h3>
 
                               {/* Description */}
-                              <p className="text-xs sm:text-sm text-midnight/45 line-clamp-2 mb-4 flex-1 leading-relaxed">
+                              <p className="text-[0.86rem] text-midnight/55 line-clamp-2 mb-4 flex-1 leading-relaxed">
                                 {post.description}
                               </p>
 
                               {/* Tags as inline text */}
                               {post.tags.length > 0 && (
-                                <p className="text-[0.6rem] uppercase tracking-[0.15em] text-gold/60 mb-4">
+                                <p className="text-[0.6rem] uppercase tracking-[0.18em] text-gold-dark font-semibold mb-5">
                                   {post.tags.slice(0, 3).join(" · ")}
                                 </p>
                               )}
 
                               {/* Read More */}
-                              <span className="text-midnight/50 group-hover:text-midnight font-medium text-sm inline-flex items-center mt-auto transition-colors duration-200">
-                                Read Article
-                                <ArrowRight className="ml-1.5 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                              <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-midnight">
+                                <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
+                                  Read Article
+                                </span>
+                                <ArrowRight className="h-4 w-4 text-gold-dark transition-transform group-hover:translate-x-1" />
                               </span>
                             </div>
                           </div>

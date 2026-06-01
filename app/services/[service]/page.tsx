@@ -225,7 +225,7 @@ export default function ServiceDetailPage() {
                 {service.benefits.map((b) => (
                   <li key={b} className="flex items-start gap-3">
                     <CheckCircle2
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-gold-dark"
                       strokeWidth={1.6}
                     />
                     <span className="text-[0.95rem] leading-relaxed text-midnight/75">
@@ -263,89 +263,110 @@ export default function ServiceDetailPage() {
             </article>
           </RevealStagger>
 
-          {/* Who It's For — dark callout */}
+          {/* Who It's For — light gold-washed callout */}
           <Reveal>
             <article
-              className="relative mt-6 overflow-hidden rounded-2xl p-7 sm:p-9"
+              className="relative mt-6 overflow-hidden rounded-2xl border border-midnight/10 bg-paper p-7 sm:p-9"
               style={{
-                background:
-                  "linear-gradient(145deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)",
-                border: "1px solid rgba(215,195,138,0.1)",
-                boxShadow: "0 8px 28px rgba(0,0,0,0.18)",
+                boxShadow:
+                  "0 1px 2px rgba(11,26,44,0.04), 0 18px 40px rgba(11,26,44,0.06)",
               }}
             >
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
               />
-              <Eyebrow tone="dark" className="mb-4">
-                Is This For You
-              </Eyebrow>
-              <h2 className="font-heading text-xl font-bold text-white sm:text-2xl">
-                Who It&apos;s For
-              </h2>
               <div
                 aria-hidden
-                className="mt-4 mb-6 h-px w-16 bg-gradient-to-r from-gold/45 to-transparent"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(48% 60% at 8% 0%, rgba(215,195,138,0.10) 0%, transparent 60%)",
+                }}
               />
-              <p
-                className="leading-relaxed text-white/85"
-                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
-              >
-                {service.whoItsFor}
-              </p>
+              <div className="relative">
+                <Eyebrow className="mb-4">Is This For You</Eyebrow>
+                <h2 className="font-heading text-xl font-bold text-midnight sm:text-2xl">
+                  Who It&apos;s For
+                </h2>
+                <div
+                  aria-hidden
+                  className="mt-4 mb-6 h-px w-16 bg-gradient-to-r from-gold/55 to-transparent"
+                />
+                <p
+                  className="leading-relaxed text-midnight/75"
+                  style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
+                >
+                  {service.whoItsFor}
+                </p>
+              </div>
             </article>
           </Reveal>
         </Container>
       </Section>
 
-      {/* ============ CTA (dark aurora) ============ */}
-      <Section tone="dark-aurora" topRule grain>
+      {/* ============ CTA (light cream band) ============ */}
+      <Section tone="paper-soft" topRule>
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow tone="dark" className="mb-6">
-                Get Started
-              </Eyebrow>
-              <h2
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.4rem)" }}
-              >
-                Ready to take the next step?
-              </h2>
+            <div
+              className="relative mx-auto max-w-3xl overflow-hidden rounded-[1.75rem] border border-midnight/10 bg-paper px-8 py-12 text-center sm:px-12 sm:py-16"
+              style={{
+                boxShadow:
+                  "0 1px 2px rgba(11,26,44,0.04), 0 18px 40px rgba(11,26,44,0.06)",
+              }}
+            >
               <div
                 aria-hidden
-                className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(60% 60% at 50% 0%, rgba(215,195,138,0.10) 0%, transparent 65%)",
+                }}
               />
-              <p
-                className="mx-auto mt-8 max-w-xl leading-relaxed text-white/80"
-                style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
-              >
-                Schedule a complimentary consultation to discuss your{" "}
-                {service.title.toLowerCase()} needs and discover how we can
-                help.
-              </p>
-              <div className="mt-10 flex flex-col-reverse items-center justify-center gap-4 sm:flex-row sm:gap-5">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border border-white/[0.18] bg-white/[0.04] px-9 py-6 text-sm text-white/85 transition-all duration-300 hover:border-white/35 hover:bg-white/[0.08] hover:text-white sm:w-auto sm:text-base [&>*]:text-white"
+              <div className="relative">
+                <Eyebrow className="mb-6">Get Started</Eyebrow>
+                <h2
+                  className="font-heading font-bold leading-[1.1] tracking-tight text-midnight text-balance"
+                  style={{ fontSize: "clamp(2rem, 1.5rem + 2.5vw, 3.4rem)" }}
                 >
-                  <Link href="/services" className="text-white">
-                    <ArrowLeft className="mr-2 inline h-4 w-4" />
-                    Back to All Services
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border-0 bg-gold px-9 py-6 text-sm font-semibold text-midnight shadow-[0_4px_20px_rgba(215,195,138,0.2)] transition-all duration-300 hover:bg-gold-light hover:shadow-[0_8px_40px_rgba(215,195,138,0.3)] sm:w-auto sm:text-base [&>*]:text-midnight"
+                  Ready to take the next step?
+                </h2>
+                <div
+                  aria-hidden
+                  className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-gold/55 to-transparent"
+                />
+                <p
+                  className="mx-auto mt-8 max-w-xl leading-relaxed text-midnight/65"
+                  style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
                 >
-                  <Link href="/contact" className="text-midnight">
-                    Schedule a Consultation
-                    <ArrowRight className="ml-2 inline h-4 w-4" />
-                  </Link>
-                </Button>
+                  Schedule a complimentary consultation to discuss your{" "}
+                  {service.title.toLowerCase()} needs and discover how we can
+                  help.
+                </p>
+                <div className="mt-10 flex flex-col-reverse items-center justify-center gap-4 sm:flex-row sm:gap-5">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="w-full px-9 py-6 sm:w-auto sm:text-base"
+                  >
+                    <Link href="/services">
+                      <ArrowLeft className="mr-2 inline h-4 w-4" />
+                      Back to All Services
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full px-9 py-6 sm:w-auto sm:text-base"
+                  >
+                    <Link href="/contact">
+                      Schedule a Consultation
+                      <ArrowRight className="ml-2 inline h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </Reveal>

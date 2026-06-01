@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import PageHeader from "@/components/layout/PageHeader"
+import { Reveal } from "@/components/ui/reveal"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -160,23 +160,29 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Compare tax benefits and determine which account is right for you"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="relative overflow-hidden bg-[#F7F5EF] py-20 sm:py-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* Form */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+              <Reveal>
+                <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                    <CardTitle className="flex items-center text-lg font-heading font-bold tracking-tight text-midnight sm:text-xl md:text-2xl">
+                      <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Your Profile
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="mt-2 text-xs text-midnight/60 sm:text-sm md:text-base">
                       Enter your information to compare TFSA and RRSP benefits
                     </CardDescription>
                   </CardHeader>
@@ -231,7 +237,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Analyzing..." : "Compare TFSA vs RRSP"}
@@ -239,75 +245,85 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     </form>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </Reveal>
 
               {/* Results */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <Reveal delay={0.1}>
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
+                    <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
-                          Recommendation: {result.recommendation}
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                            <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                          </span>
+                          <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                            Recommendation
+                          </span>
+                        </div>
+                        <CardTitle className="mt-3 text-lg font-heading font-bold tracking-tight text-midnight sm:text-xl md:text-2xl">
+                          {result.recommendation}
                         </CardTitle>
+                        <div
+                          aria-hidden
+                          className="mt-4 h-px w-16"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                          }}
+                        />
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <p className="text-xs sm:text-sm md:text-base text-silver/90 leading-relaxed">
+                      <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+                        <p className="text-xs leading-relaxed text-midnight/65 sm:text-sm md:text-base">
                           {result.summary}
                         </p>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                        <CardTitle className="text-base font-heading font-bold tracking-tight text-midnight sm:text-lg md:text-xl">
                           Comparison
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0 space-y-4">
+                      <CardContent className="space-y-4 p-4 pt-0 sm:p-6 sm:pt-0">
                         <div>
-                          <h4 className="font-semibold text-midnight mb-2">Tax Benefit</h4>
-                          <div className="space-y-2 text-sm">
-                            <p><strong>TFSA:</strong> {result.comparison.taxBenefit.tfsa}</p>
-                            <p><strong>RRSP:</strong> {result.comparison.taxBenefit.rrsp}</p>
+                          <h4 className="mb-2 font-heading font-bold text-midnight">Tax Benefit</h4>
+                          <div className="space-y-2 text-sm text-midnight/65">
+                            <p><strong className="font-semibold text-midnight">TFSA:</strong> {result.comparison.taxBenefit.tfsa}</p>
+                            <p><strong className="font-semibold text-midnight">RRSP:</strong> {result.comparison.taxBenefit.rrsp}</p>
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-midnight mb-2">Flexibility</h4>
-                          <div className="space-y-2 text-sm">
-                            <p><strong>TFSA:</strong> {result.comparison.flexibility.tfsa}</p>
-                            <p><strong>RRSP:</strong> {result.comparison.flexibility.rrsp}</p>
+                          <h4 className="mb-2 font-heading font-bold text-midnight">Flexibility</h4>
+                          <div className="space-y-2 text-sm text-midnight/65">
+                            <p><strong className="font-semibold text-midnight">TFSA:</strong> {result.comparison.flexibility.tfsa}</p>
+                            <p><strong className="font-semibold text-midnight">RRSP:</strong> {result.comparison.flexibility.rrsp}</p>
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-midnight mb-2">Projected Savings (30 years)</h4>
-                          <div className="space-y-2 text-sm">
-                            <p><strong>TFSA:</strong> ${result.comparison.savingsOutcome.tfsa.toLocaleString()}</p>
-                            <p><strong>RRSP:</strong> ${result.comparison.savingsOutcome.rrsp.toLocaleString()}</p>
+                          <h4 className="mb-2 font-heading font-bold text-midnight">Projected Savings (30 years)</h4>
+                          <div className="space-y-2 text-sm text-midnight/65">
+                            <p><strong className="font-semibold text-midnight">TFSA:</strong> ${result.comparison.savingsOutcome.tfsa.toLocaleString()}</p>
+                            <p><strong className="font-semibold text-midnight">RRSP:</strong> ${result.comparison.savingsOutcome.rrsp.toLocaleString()}</p>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-[#F7F5EF] shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                          <CardTitle className="flex items-center text-base font-heading font-bold tracking-tight text-midnight sm:text-lg md:text-xl">
+                            <span className="mr-3 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+                          <div className="prose prose-sm max-w-none text-midnight/65">
+                            <div className="whitespace-pre-line text-xs leading-relaxed sm:text-sm">
                               {insights}
                             </div>
                           </div>
@@ -315,10 +331,10 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-[#F7F5EF] lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
-                          <strong>Disclaimer:</strong> This analysis provides general information only. Actual benefits depend on your specific tax situation, future tax rates, and investment returns. Consult with a qualified financial advisor for personalized advice.
+                        <p className="text-xs italic text-midnight/65 sm:text-sm">
+                          <strong className="font-semibold not-italic text-midnight">Disclaimer:</strong> This analysis provides general information only. Actual benefits depend on your specific tax situation, future tax rates, and investment returns. Consult with a qualified financial advisor for personalized advice.
                         </p>
                       </CardContent>
                     </Card>
@@ -337,15 +353,15 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="max-w-md mx-auto rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.06)] lg:max-w-none">
+                    <CardContent className="p-4 text-center text-midnight/60 sm:p-6">
                       <p className="text-sm sm:text-base">
                         Enter your information to see your TFSA vs RRSP comparison.
                       </p>
                     </CardContent>
                   </Card>
                 )}
-              </motion.div>
+              </Reveal>
             </div>
           </div>
         </div>

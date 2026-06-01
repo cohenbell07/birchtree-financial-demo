@@ -160,7 +160,11 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Determine the optimal age to start CPP and OAS benefits"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
+      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden bg-[#F7F5EF]">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)' }}
+        />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -169,13 +173,13 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                <Card className="bg-white rounded-2xl border border-midnight/10 shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
                     <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <Clock className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                      <Clock className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold-dark flex-shrink-0" strokeWidth={1.6} />
                       Your Situation
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/65 mt-2">
                       Enter your information to optimize CPP/OAS timing
                     </CardDescription>
                   </CardHeader>
@@ -246,7 +250,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full bg-midnight hover:bg-midnight-light text-white font-semibold shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-200 rounded-xl [&>*]:text-white"
                         disabled={isLoading}
                       >
                         {isLoading ? "Optimizing..." : "Optimize CPP/OAS Timing"}
@@ -263,51 +267,48 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
+                    <Card className="bg-white border border-midnight/10 rounded-2xl max-w-md mx-auto lg:max-w-none shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
+                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
+                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold-dark flex-shrink-0" strokeWidth={1.6} />
                           Optimal Timing Strategy
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="space-y-4">
                           <div>
-                            <p className="text-xs sm:text-sm text-silver/80 mb-1">CPP Recommendation</p>
-                            <p className="text-base sm:text-lg font-semibold">{result.cppRecommendation}</p>
-                            <p className="text-xs sm:text-sm text-silver/70 mt-1">Start at age {result.cppAge}</p>
+                            <p className="text-xs sm:text-sm text-midnight/55 mb-1">CPP Recommendation</p>
+                            <p className="text-base sm:text-lg font-semibold text-midnight">{result.cppRecommendation}</p>
+                            <p className="text-xs sm:text-sm text-midnight/55 mt-1">Start at age {result.cppAge}</p>
                           </div>
                           <div>
-                            <p className="text-xs sm:text-sm text-silver/80 mb-1">OAS Recommendation</p>
-                            <p className="text-base sm:text-lg font-semibold">{result.oasRecommendation}</p>
-                            <p className="text-xs sm:text-sm text-silver/70 mt-1">Start at age {result.oasAge}</p>
+                            <p className="text-xs sm:text-sm text-midnight/55 mb-1">OAS Recommendation</p>
+                            <p className="text-base sm:text-lg font-semibold text-midnight">{result.oasRecommendation}</p>
+                            <p className="text-xs sm:text-sm text-midnight/55 mt-1">Start at age {result.oasAge}</p>
                           </div>
-                          <div className="pt-3 border-t border-white/20">
-                            <p className="text-xs sm:text-sm text-silver/80">Projected Lifetime Benefit</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-white">
+                          <div className="pt-3 border-t border-midnight/10">
+                            <p className="text-xs sm:text-sm text-midnight/55">Projected Lifetime Benefit</p>
+                            <p className="text-2xl sm:text-3xl font-bold text-midnight">
                               ${result.lifetimeBenefit.toLocaleString()}
                             </p>
                           </div>
                         </div>
-                        <p className="text-xs sm:text-sm text-silver/90 leading-relaxed mt-4">
+                        <p className="text-xs sm:text-sm text-midnight/65 leading-relaxed mt-4">
                           {result.summary}
                         </p>
                       </CardContent>
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="bg-[#F7F5EF] border border-midnight/10 rounded-2xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
                           <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <Clock className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                            <Clock className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold-dark flex-shrink-0" strokeWidth={1.6} />
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
+                          <div className="prose prose-sm max-w-none text-midnight/65">
                             <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
                               {insights}
                             </div>
@@ -316,9 +317,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="bg-[#F7F5EF] border border-midnight/10 rounded-2xl max-w-md mx-auto lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
+                        <p className="text-xs sm:text-sm text-midnight/55 italic">
                           <strong>Disclaimer:</strong> This calculator provides general guidance. Actual CPP and OAS amounts depend on your contribution history and other factors. Consult with a financial advisor for personalized CPP/OAS strategy.
                         </p>
                       </CardContent>
@@ -338,8 +339,8 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="bg-white rounded-2xl border border-midnight/10 shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <CardContent className="p-4 sm:p-6 text-center text-midnight/65">
                       <p className="text-sm sm:text-base">
                         Enter your information to see optimal CPP/OAS timing.
                       </p>

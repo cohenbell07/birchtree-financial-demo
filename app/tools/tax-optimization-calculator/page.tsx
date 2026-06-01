@@ -186,26 +186,37 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
         subtitle="Maximize your tax savings with strategic RRSP and TFSA planning"
       />
 
-      <section className="py-10 sm:py-12 md:py-16 lg:py-24 relative overflow-hidden grain-overlay" style={{ background: 'linear-gradient(160deg, #f8f7f4 0%, #f5f4f0 40%, #f2f1ed 100%)' }}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <section className="relative overflow-hidden bg-[#F7F5EF] py-20 sm:py-24">
+        {/* Faint gold radial wash — matches the homepage hero atmosphere */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
+          }}
+        />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 lg:grid-cols-2">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)] lg:max-w-none">
                   <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-midnight flex items-center">
-                      <Calculator className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-gold flex-shrink-0" />
+                    <CardTitle className="flex items-center gap-3 font-heading text-lg text-midnight sm:text-xl md:text-2xl">
+                      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                        <Calculator className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                      </span>
                       Tax Information
                     </CardTitle>
-                    <CardDescription className="text-xs sm:text-sm md:text-base text-midnight/70 mt-2">
+                    <CardDescription className="mt-2 text-xs text-midnight/60 sm:text-sm md:text-base">
                       Enter your tax information to see optimization opportunities
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
+                  <CardContent className="p-4 pt-0 sm:p-6">
                     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                       <div className="space-y-2">
                         <Label htmlFor="income">Annual Income</Label>
@@ -276,7 +287,7 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-gold/90 hover:bg-gold text-midnight font-semibold shadow-[0_2px_8px_rgba(215,195,138,0.2)] hover:shadow-[0_4px_20px_rgba(215,195,138,0.3)] hover:scale-[1.02] transition-all duration-200 rounded-xl [&>*]:text-midnight"
+                        className="w-full rounded-xl bg-midnight px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(11,26,44,0.18)] transition-all duration-300 hover:bg-midnight-light hover:shadow-[0_10px_28px_rgba(11,26,44,0.24)]"
                         disabled={isLoading}
                       >
                         {isLoading ? "Calculating..." : "Optimize My Taxes"}
@@ -293,67 +304,79 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
               >
                 {result ? (
                   <div className="space-y-4 sm:space-y-6">
-                    <Card
-                      className="text-white border border-gold/15 rounded-xl max-w-md mx-auto lg:max-w-none shadow-[0_4px_24px_rgba(11,26,44,0.18)]"
-                      style={{ background: "linear-gradient(135deg, #0B1A2C 0%, #15243B 100%)" }}
-                    >
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)] lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white flex items-center">
-                          <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 flex-shrink-0" />
+                        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                          Your Results
+                        </p>
+                        <CardTitle className="mt-3 flex items-center gap-3 font-heading text-lg text-midnight sm:text-xl md:text-2xl">
+                          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                            <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                          </span>
                           Tax Optimization Results
                         </CardTitle>
+                        <div
+                          aria-hidden
+                          className="mt-4 h-px w-16"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                          }}
+                        />
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="space-y-3">
-                          <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Current Tax Bracket</p>
-                            <p className="text-2xl sm:text-3xl font-bold text-white">{result.taxBracket}</p>
+                      <CardContent className="p-4 pt-0 sm:p-6">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                          <div className="rounded-xl border border-midnight/10 bg-[#F7F5EF] p-4">
+                            <p className="text-xs text-midnight/55 sm:text-sm">Current Tax Bracket</p>
+                            <p className="mt-1 font-heading text-2xl font-bold text-midnight sm:text-3xl">{result.taxBracket}</p>
                           </div>
-                          <div>
-                            <p className="text-xs sm:text-sm text-silver/80">Potential Annual Savings</p>
-                            <p className="text-xl sm:text-2xl font-semibold text-white">
+                          <div className="rounded-xl border border-midnight/10 bg-[#F7F5EF] p-4">
+                            <p className="text-xs text-midnight/55 sm:text-sm">Potential Annual Savings</p>
+                            <p className="mt-1 font-heading text-xl font-bold text-gold-dark sm:text-2xl">
                               ${result.savings.toLocaleString()}
                             </p>
                           </div>
                         </div>
-                        <p className="text-xs sm:text-sm text-silver/90 leading-relaxed mt-4">
+                        <p className="mt-4 text-xs leading-relaxed text-midnight/65 sm:text-sm">
                           {result.summary}
                         </p>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white lg:max-w-none">
                       <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight">
+                        <CardTitle className="font-heading text-base text-midnight sm:text-lg md:text-xl">
                           Optimization Tips
                         </CardTitle>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
+                      <CardContent className="p-4 pt-0 sm:p-6">
                         <ul className="space-y-2 text-sm">
                           {result.tips.map((tip, idx) => (
                             <li key={idx} className="flex items-start">
-                              <span className="text-gold mr-2">•</span>
-                              <span>{tip}</span>
+                              <span className="mr-2 text-gold-dark">•</span>
+                              <span className="text-midnight/70">{tip}</span>
                             </li>
                           ))}
                         </ul>
-                        <div className="mt-4 p-3 bg-gold/[0.06] rounded-lg border border-gold/15">
-                          <p className="text-sm text-midnight/80">{result.rrspImpact}</p>
+                        <div className="mt-4 rounded-xl border border-gold/20 bg-gold/[0.06] p-3">
+                          <p className="text-sm text-midnight/70">{result.rrspImpact}</p>
                         </div>
                       </CardContent>
                     </Card>
 
                     {insights && (
-                      <Card className="bg-white border border-gold/15 rounded-xl shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none bg-[#faf9f6]">
+                      <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white lg:max-w-none">
                         <CardHeader className="p-4 sm:p-6">
-                          <CardTitle className="text-base sm:text-lg md:text-xl font-heading text-midnight flex items-center">
-                            <TrendingUp className="mr-2 h-4 w-4 sm:h-5 sm:w-5 text-gold flex-shrink-0" />
+                          <CardTitle className="flex items-center gap-3 font-heading text-base text-midnight sm:text-lg md:text-xl">
+                            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
+                              <TrendingUp className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                            </span>
                             Personalized Insights
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 sm:p-6 pt-0">
-                          <div className="prose prose-sm max-w-none text-midnight/90">
-                            <div className="whitespace-pre-line text-xs sm:text-sm leading-relaxed">
+                        <CardContent className="p-4 pt-0 sm:p-6">
+                          <div className="prose prose-sm max-w-none text-midnight/70">
+                            <div className="whitespace-pre-line text-xs leading-relaxed sm:text-sm">
                               {insights}
                             </div>
                           </div>
@@ -361,9 +384,9 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                       </Card>
                     )}
 
-                    <Card className="bg-amber-50/50 border border-amber-200/50 rounded-xl max-w-md mx-auto lg:max-w-none">
+                    <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-[#F7F5EF] lg:max-w-none">
                       <CardContent className="p-4 sm:p-6">
-                        <p className="text-xs sm:text-sm text-midnight/80 italic">
+                        <p className="text-xs italic text-midnight/55 sm:text-sm">
                           <strong>Disclaimer:</strong> This calculator provides estimates. Actual tax savings depend on your complete tax situation. Consult with a qualified tax professional or financial advisor for personalized tax planning.
                         </p>
                       </CardContent>
@@ -383,8 +406,8 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
                     )}
                   </div>
                 ) : (
-                  <Card className="bg-white rounded-xl border border-midnight/[0.06] shadow-[0_1px_2px_rgba(11,26,44,0.04),0_4px_12px_rgba(11,26,44,0.03)] max-w-md mx-auto lg:max-w-none">
-                    <CardContent className="p-4 sm:p-6 text-center text-midnight/70">
+                  <Card className="mx-auto max-w-md rounded-2xl border border-midnight/10 bg-white lg:max-w-none">
+                    <CardContent className="p-4 text-center text-midnight/60 sm:p-6">
                       <p className="text-sm sm:text-base">
                         Enter your information to see tax optimization opportunities.
                       </p>
@@ -399,4 +422,3 @@ Format as a bulleted list with clear, actionable advice. Keep it educational and
     </div>
   )
 }
-

@@ -99,19 +99,19 @@ export default function CalculatorsPage() {
                   href={calc.href}
                   className="group flex h-full flex-col rounded-2xl border border-midnight/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-midnight/[0.06] bg-midnight/[0.03] transition-colors duration-300 group-hover:border-gold/30 group-hover:bg-gold/[0.06]">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
                     <Icon
-                      className="h-[20px] w-[20px] text-midnight/75 transition-colors duration-300 group-hover:text-gold-dark"
+                      className="h-[20px] w-[20px] text-midnight/80"
                       strokeWidth={1.6}
                     />
                   </span>
-                  <h3 className="mt-5 font-heading text-[1.1rem] font-bold leading-snug text-midnight">
+                  <h3 className="mt-5 font-heading text-[1.05rem] font-bold leading-snug text-midnight">
                     {calc.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-[0.9rem] leading-relaxed text-midnight/55">
+                  <p className="mt-2.5 flex-1 text-[0.86rem] leading-relaxed text-midnight/55">
                     {calc.desc}
                   </p>
-                  <span className="mt-5 inline-flex items-center text-[0.82rem] font-semibold text-midnight transition-colors group-hover:text-gold-dark">
+                  <span className="mt-5 inline-flex items-center text-[0.8rem] font-semibold text-midnight transition-colors group-hover:text-gold-dark">
                     Open calculator
                     <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                   </span>

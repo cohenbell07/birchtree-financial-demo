@@ -244,36 +244,36 @@ export default function ContactPage() {
                     </CardHeader>
                     <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-6">
                       <div className="flex items-start space-x-3 sm:space-x-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
-                          <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
-                        </div>
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                          <Phone className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                        </span>
                         <div>
                           <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Phone</h3>
-                          <p className="text-sm sm:text-base text-midnight/50">(403) 556-7777</p>
-                          <p className="text-xs sm:text-sm text-midnight/50">Mon-Fri, 9am-5pm MST</p>
+                          <p className="text-sm sm:text-base text-midnight/55">(403) 556-7777</p>
+                          <p className="text-xs sm:text-sm text-midnight/55">Mon-Fri, 9am-5pm MST</p>
                         </div>
                       </div>
 
                       <div className="flex items-start space-x-3 sm:space-x-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
-                          <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
-                        </div>
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                          <Mail className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                        </span>
                         <div>
                           <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Email</h3>
-                          <p className="text-xs sm:text-sm text-midnight/50 break-all">melissa.birch@birchtreefinancial.ca</p>
-                          <p className="text-xs sm:text-sm text-midnight/50">
+                          <p className="text-xs sm:text-sm text-midnight/55 break-all">melissa.birch@birchtreefinancial.ca</p>
+                          <p className="text-xs sm:text-sm text-midnight/55">
                             We typically respond within 24 hours
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-start space-x-3 sm:space-x-4">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(11,26,44,0.06) 0%, rgba(215,195,138,0.1) 100%)' }}>
-                          <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-gold/70" />
-                        </div>
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                          <MapPin className="h-[20px] w-[20px] text-gold-dark" strokeWidth={1.6} />
+                        </span>
                         <div>
                           <h3 className="text-sm sm:text-base font-semibold text-midnight mb-1">Office</h3>
-                          <p className="text-xs sm:text-sm text-midnight/50">
+                          <p className="text-xs sm:text-sm text-midnight/55">
                             4914 50 Ave
                             <br />
                             Olds, AB T4H 1P5
@@ -284,15 +284,32 @@ export default function ContactPage() {
                   </Card>
                 </div>
 
-                <div className="max-w-md mx-auto lg:max-w-none rounded-xl overflow-hidden border border-gold/15" style={{ background: 'linear-gradient(145deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)' }}>
-                  <Card className="border-0 shadow-none bg-transparent text-white">
+                <div
+                  className="max-w-md mx-auto lg:max-w-none rounded-xl overflow-hidden border border-midnight/10 bg-[#F7F5EF]"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(60% 70% at 12% 8%, rgba(215,195,138,0.10) 0%, transparent 60%)",
+                  }}
+                >
+                  <Card className="border-0 shadow-none bg-transparent">
                     <CardHeader className="p-4 sm:p-6">
-                      <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-white">
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+                        Next Step
+                      </p>
+                      <CardTitle className="mt-3 text-lg sm:text-xl md:text-2xl font-heading font-bold tracking-tight text-midnight">
                         Schedule a Consultation
                       </CardTitle>
+                      <div
+                        aria-hidden
+                        className="mt-4 h-px w-16"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(215,195,138,0.85), transparent)",
+                        }}
+                      />
                     </CardHeader>
                     <CardContent className="p-4 sm:p-6 pt-0">
-                      <p className="text-xs sm:text-sm md:text-base text-silver/90 mb-3 sm:mb-4 md:mb-6">
+                      <p className="text-xs sm:text-sm md:text-base leading-relaxed text-midnight/65 mb-3 sm:mb-4 md:mb-6">
                         Ready to take the next step? Schedule a complimentary
                         consultation to discuss your financial goals and discover
                         how we can help you achieve them.
@@ -319,26 +336,26 @@ export default function ContactPage() {
         faqs={contactFaqs}
       />
 
-      <Section id="calendar" tone="dark" topRule grain>
+      <Section id="calendar" tone="paper-soft" topRule>
         <Container>
           <div className="mx-auto max-w-4xl">
             <div className="mb-12 text-center">
-              <Eyebrow tone="dark" className="mb-5">
+              <Eyebrow className="mb-5">
                 Pick a Time
               </Eyebrow>
               <RevealText
                 as="h2"
-                className="font-heading font-bold leading-[1.1] tracking-tight text-white text-balance"
+                className="font-heading font-bold leading-[1.1] tracking-tight text-midnight text-balance"
               >
                 Schedule a Consultation
               </RevealText>
               <div className="mx-auto mt-7 mb-7 flex items-center justify-center gap-3">
-                <div aria-hidden className="h-px w-12 bg-gold/35" />
-                <div aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold/65" />
-                <div aria-hidden className="h-px w-12 bg-gold/35" />
+                <div aria-hidden className="h-px w-12 bg-gold/45" />
+                <div aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-dark" />
+                <div aria-hidden className="h-px w-12 bg-gold/45" />
               </div>
               <p
-                className="mx-auto max-w-2xl leading-relaxed text-white/80"
+                className="mx-auto max-w-2xl leading-relaxed text-midnight/65"
                 style={{ fontSize: "clamp(1rem, 0.92rem + 0.4vw, 1.15rem)" }}
               >
                 Choose a convenient date and time for your consultation. We
@@ -346,7 +363,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-2xl bg-white shadow-2xl shadow-black/20">
+            <div className="overflow-hidden rounded-2xl border border-midnight/10 bg-white shadow-[0_18px_40px_rgba(11,26,44,0.09)]">
               <div className="relative w-full overflow-x-auto bg-white">
                 <iframe
                   src="https://cal.com/birchtreefinancial"

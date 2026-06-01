@@ -97,38 +97,38 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
-          className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-[60] w-[calc(100vw-2rem)] sm:w-[400px] max-h-[70vh] sm:max-h-[550px] flex flex-col rounded-2xl overflow-hidden shadow-2xl"
+          className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-[60] w-[calc(100vw-2rem)] sm:w-[400px] max-h-[70vh] sm:max-h-[550px] flex flex-col rounded-2xl overflow-hidden"
           style={{
-            background: "linear-gradient(160deg, #0d1f33 0%, #0B1A2C 50%, #091525 100%)",
-            border: "1px solid rgba(215,195,138,0.12)",
-            boxShadow: "0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(215,195,138,0.08)",
+            background: "linear-gradient(180deg, #FFFFFF 0%, #FBFAF6 100%)",
+            border: "1px solid rgba(11,26,44,0.08)",
+            boxShadow: "0 24px 60px -18px rgba(11,26,44,0.28), 0 10px 24px -14px rgba(11,26,44,0.16)",
           }}
         >
           <div
             className="flex items-center justify-between px-5 py-4 flex-shrink-0"
             style={{
-              borderBottom: "1px solid rgba(215,195,138,0.1)",
-              background: "linear-gradient(135deg, rgba(215,195,138,0.04) 0%, transparent 100%)",
+              borderBottom: "1px solid rgba(11,26,44,0.08)",
+              background: "linear-gradient(135deg, rgba(215,195,138,0.08) 0%, transparent 100%)",
             }}
           >
             <div className="flex items-center space-x-3">
               <div
-                className="w-8 h-8 rounded-full flex items-center justify-center"
+                className="w-9 h-9 rounded-full flex items-center justify-center border border-gold/30"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(215,195,138,0.2) 0%, rgba(215,195,138,0.08) 100%)",
+                    "linear-gradient(135deg, rgba(215,195,138,0.18) 0%, rgba(215,195,138,0.05) 100%)",
                 }}
               >
-                <MessageCircle className="w-4 h-4 text-gold" />
+                <MessageCircle className="w-4 h-4 text-gold-dark" />
               </div>
               <div>
-                <p className="text-white text-sm font-semibold font-heading">Birchtree Assistant</p>
-                <p className="text-white/30 text-[0.65rem]">Here to help</p>
+                <p className="text-midnight text-sm font-semibold font-heading">Birchtree Assistant</p>
+                <p className="text-midnight/45 text-[0.65rem]">Here to help</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-all duration-200"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-midnight/40 hover:text-midnight/70 hover:bg-midnight/[0.05] transition-all duration-200"
               aria-label="Close chat"
             >
               <ChevronDown className="w-5 h-5" />
@@ -137,7 +137,7 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
 
           <div
             className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0"
-            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(215,195,138,0.15) transparent" }}
+            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(11,26,44,0.15) transparent" }}
           >
             {messages.map((msg, i) => (
               <motion.div
@@ -149,17 +149,17 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
               >
                 <div
                   className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
-                    msg.role === "user" ? "text-midnight font-medium" : "text-white/80"
+                    msg.role === "user" ? "text-white font-medium" : "text-midnight/80"
                   }`}
                   style={
                     msg.role === "user"
                       ? {
-                          background: "linear-gradient(135deg, #D7C38A 0%, #C4B076 100%)",
-                          boxShadow: "0 2px 8px rgba(215,195,138,0.2)",
+                          background: "linear-gradient(135deg, #152439 0%, #0B1A2C 100%)",
+                          boxShadow: "0 4px 14px rgba(11,26,44,0.18)",
                         }
                       : {
-                          background: "rgba(255,255,255,0.04)",
-                          border: "1px solid rgba(255,255,255,0.06)",
+                          background: "rgba(11,26,44,0.04)",
+                          border: "1px solid rgba(11,26,44,0.07)",
                         }
                   }
                 >
@@ -173,18 +173,18 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
                 <div
                   className="rounded-xl px-4 py-3"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "rgba(11,26,44,0.04)",
+                    border: "1px solid rgba(11,26,44,0.07)",
                   }}
                 >
                   <div className="flex space-x-1.5">
-                    <div className="w-1.5 h-1.5 bg-gold/50 rounded-full animate-bounce" />
+                    <div className="w-1.5 h-1.5 bg-gold-dark/70 rounded-full animate-bounce" />
                     <div
-                      className="w-1.5 h-1.5 bg-gold/50 rounded-full animate-bounce"
+                      className="w-1.5 h-1.5 bg-gold-dark/70 rounded-full animate-bounce"
                       style={{ animationDelay: "0.15s" }}
                     />
                     <div
-                      className="w-1.5 h-1.5 bg-gold/50 rounded-full animate-bounce"
+                      className="w-1.5 h-1.5 bg-gold-dark/70 rounded-full animate-bounce"
                       style={{ animationDelay: "0.3s" }}
                     />
                   </div>
@@ -197,7 +197,7 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
 
           <div
             className="px-4 py-3 flex-shrink-0"
-            style={{ borderTop: "1px solid rgba(215,195,138,0.08)" }}
+            style={{ borderTop: "1px solid rgba(11,26,44,0.08)" }}
           >
             <div className="flex items-end space-x-2">
               <textarea
@@ -207,29 +207,29 @@ export default function ChatBotPanel({ onClose, onUnread, isOpen }: ChatBotPanel
                 onKeyDown={handleKeyDown}
                 placeholder="Ask me anything..."
                 rows={1}
-                className="flex-1 bg-white/[0.05] border border-white/[0.08] rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/25 resize-none focus:outline-none focus:border-gold/30 focus:bg-white/[0.07] transition-all duration-200"
+                className="flex-1 bg-midnight/[0.03] border border-midnight/10 rounded-xl px-4 py-2.5 text-sm text-midnight placeholder-midnight/40 resize-none focus:outline-none focus:border-gold/50 focus:bg-white transition-all duration-200"
                 style={{ fontSize: "16px", maxHeight: "80px" }}
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{
                   background:
                     input.trim() && !isLoading
-                      ? "linear-gradient(135deg, #D7C38A 0%, #C4B076 100%)"
-                      : "rgba(255,255,255,0.05)",
+                      ? "linear-gradient(135deg, #152439 0%, #0B1A2C 100%)"
+                      : "rgba(11,26,44,0.06)",
                 }}
                 aria-label="Send message"
               >
                 <Send
                   className={`w-4 h-4 ${
-                    input.trim() && !isLoading ? "text-midnight" : "text-white/30"
+                    input.trim() && !isLoading ? "text-white" : "text-midnight/30"
                   }`}
                 />
               </button>
             </div>
-            <p className="text-[0.6rem] text-white/15 text-center mt-2">
+            <p className="text-[0.6rem] text-midnight/35 text-center mt-2">
               AI assistant — not a licensed financial advisor
             </p>
           </div>
