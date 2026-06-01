@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal, RevealStagger } from "@/components/ui/reveal";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Hourglass, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Our Team | Birchtree Financial",
@@ -58,14 +58,17 @@ const team = [
 
 const values = [
   {
+    icon: ShieldCheck,
     title: "Fiduciary First",
     description: "We are legally and ethically bound to act in your best interest — always.",
   },
   {
+    icon: Hourglass,
     title: "Patient Counsel",
     description: "We favor steady, long-term thinking over reactive, short-term moves.",
   },
   {
+    icon: Sparkles,
     title: "Radical Clarity",
     description: "No jargon, no hidden fees — just honest guidance you can understand.",
   },
@@ -90,7 +93,7 @@ export default function TeamPage() {
               <h1
                 className="mt-5 font-heading font-bold tracking-tight text-midnight"
                 style={{
-                  fontSize: "clamp(2.5rem,1.6rem+3.4vw,4.5rem)",
+                  fontSize: "clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem)",
                   lineHeight: 1.04,
                 }}
               >
@@ -178,7 +181,7 @@ export default function TeamPage() {
             <Eyebrow>What Guides Us</Eyebrow>
             <h2
               className="mt-4 font-heading font-bold leading-[1.1] tracking-tight text-midnight"
-              style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
+              style={{ fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)" }}
             >
               The principles behind every conversation
             </h2>
@@ -191,10 +194,12 @@ export default function TeamPage() {
             />
           </Reveal>
           <RevealStagger className="mt-14 grid gap-8 sm:grid-cols-3">
-            {values.map((value, i) => (
+            {values.map((value) => {
+              const Icon = value.icon
+              return (
               <div key={value.title} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-midnight/[0.04] font-heading text-lg font-bold text-gold-dark ring-1 ring-midnight/[0.06]">
-                  {i + 1}
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-midnight/[0.04] ring-1 ring-midnight/[0.06]">
+                  <Icon className="h-5 w-5 text-gold-dark" strokeWidth={1.6} />
                 </div>
                 <h3 className="mt-5 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
                   {value.title}
@@ -203,7 +208,8 @@ export default function TeamPage() {
                   {value.description}
                 </p>
               </div>
-            ))}
+              )
+            })}
           </RevealStagger>
         </Container>
       </Section>
@@ -225,7 +231,7 @@ export default function TeamPage() {
               <div className="relative">
                 <h2
                   className="font-heading font-bold leading-[1.1] tracking-tight text-midnight"
-                  style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
+                  style={{ fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)" }}
                 >
                   Ready to meet your advisor?
                 </h2>

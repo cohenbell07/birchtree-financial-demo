@@ -11,17 +11,15 @@ import {
   Leaf,
   PieChart,
   BarChart3,
-  ClipboardList,
   Armchair,
   FileText,
-  Briefcase,
+  Calculator,
+  TrendingUp,
   UserCheck,
   Compass,
   Target,
   Users,
   Quote,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react"
 
 import { Container } from "@/components/ui/container"
@@ -29,43 +27,49 @@ import { Reveal, RevealStagger } from "@/components/ui/reveal"
 import MarketsCard from "@/components/home/MarketsCard"
 
 const stats = [
-  { icon: UserRound, value: "25+", label: "Years of trusted financial advice" },
-  { icon: UsersRound, value: "1,200+", label: "Clients and families served across Canada" },
-  { icon: Leaf, value: "100%", label: "Independent & Canadian owned" },
-  { icon: PieChart, value: "$1.6B+", label: "Assets under advice" },
+  { icon: UserRound, value: "30+", label: "Years of trusted financial advice" },
+  { icon: UsersRound, value: "500+", label: "Clients and families served across Canada" },
+  { icon: Leaf, value: "100%", label: "Canadian owned" },
+  { icon: PieChart, value: "$1B+", label: "Assets managed" },
   { icon: ShieldCheck, value: "Fiduciary", label: "Always acting in your best interest" },
 ]
 
 const services = [
   {
-    icon: BarChart3,
-    title: "Investment Management",
-    desc: "Evidence-based portfolio management designed to grow and protect your wealth.",
-    href: "/services/investment-management",
-  },
-  {
-    icon: ClipboardList,
-    title: "Financial Planning",
-    desc: "Integrated planning for your life goals—today and for generations to come.",
-    href: "/services",
-  },
-  {
     icon: Armchair,
     title: "Retirement Planning",
-    desc: "Confidently plan for the retirement you envision with a strategy that adapts.",
+    desc: "A roadmap to retire with confidence—income, CPP/OAS timing and tax-smart withdrawals.",
     href: "/services/retirement-planning",
   },
   {
-    icon: FileText,
-    title: "Tax & Estate Planning",
-    desc: "Smart tax strategies and estate plans that preserve what matters most.",
+    icon: BarChart3,
+    title: "Investment Management",
+    desc: "Disciplined, evidence-based portfolios built to grow and protect your wealth.",
+    href: "/services/investment-management",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Insurance Strategies",
+    desc: "Protect your family and assets with coverage tailored to your needs.",
+    href: "/services/insurance-strategies",
+  },
+  {
+    icon: Calculator,
+    title: "Tax Optimization",
+    desc: "Keep more of what you earn with year-round, tax-efficient planning.",
     href: "/services/tax-optimization-strategies",
   },
   {
-    icon: Briefcase,
-    title: "Business Owner Solutions",
-    desc: "Strategic advice for business owners to grow, transition and leave a lasting legacy.",
-    href: "/services",
+    icon: TrendingUp,
+    title: "Wealth Building",
+    desc: "Strategic advice to build, preserve and transfer wealth across generations.",
+    href: "/services/wealth-building-advisory",
+  },
+  {
+    icon: FileText,
+    title: "Estate Planning",
+    desc: "Pass on your legacy smoothly while minimizing taxes and probate.",
+    href: "/services/estate-planning-guidance",
   },
 ]
 
@@ -95,23 +99,23 @@ const whyChoose = [
 const testimonials = [
   {
     quote:
-      "Birchtree Financial has been instrumental in helping us navigate our financial future with confidence. Their team is knowledgeable, responsive and truly cares.",
-    name: "Sarah & Michael T.",
-    location: "Calgary, AB",
-    initials: "SM",
+      "We'd been putting off retirement planning for years—honestly, it felt too complicated. Melissa sat down with us, walked us through everything in plain English, and now we actually feel excited about retiring next year instead of scared.",
+    name: "Karen & Doug M.",
+    location: "Retired Couple · Olds, AB",
+    initials: "KD",
   },
   {
     quote:
-      "We value the comprehensive advice and clear guidance we receive. It gives us peace of mind knowing our plan is built for today and tomorrow.",
-    name: "James L.",
-    location: "Vancouver, BC",
-    initials: "JL",
+      "Running a ranch doesn't leave a lot of time to think about RRSPs and tax strategy. The Birchtree team took that off my plate completely. They set everything up, check in regularly, and I trust them like family at this point.",
+    name: "Tyler Brandt",
+    location: "Ranch Owner · Sundre, AB",
+    initials: "TB",
   },
   {
     quote:
-      "As a business owner, I appreciate their strategic insight and how they help me balance growth today with our legacy for the future.",
-    name: "Priya S.",
-    location: "Toronto, ON",
+      "I switched to Birchtree after my old advisor kept pushing products I didn't need. Here, it actually feels like they're working for me. They helped me set up a group plan for my employees too, which was a game-changer.",
+    name: "Priya Sandhu",
+    location: "Small Business Owner · Red Deer, AB",
     initials: "PS",
   },
 ]
@@ -125,18 +129,11 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden bg-white">
       {/* ============================ HERO ============================ */}
-      <section className="relative overflow-hidden pt-28 sm:pt-32">
-        {/* Atmospheric wash — kept to the left, behind the headline, so the
-            white-background hero image blends seamlessly on the right. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(48% 45% at 8% 6%, rgba(215,195,138,0.08) 0%, transparent 60%)",
-          }}
-        />
-
+      {/* True-white background (#FFFFFF) — the site's `bg-white` token is the
+          cool off-white #F5F7FA, so we use `bg-white-pure` here so the
+          white-background hero image blends in with no visible seam. The bottom
+          padding gives the stats bar room to breathe before the next section. */}
+      <section className="relative overflow-hidden bg-white-pure pt-28 pb-20 sm:pt-32 sm:pb-24">
         <Container size="wide" className="relative">
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-8">
             {/* Left — copy */}
@@ -204,11 +201,16 @@ export default function Home() {
             >
               <div className="xl:min-w-0 xl:flex-1">
                 <Image
-                  src="/birchtree-hero.webp"
+                  src="/birchtree-hero-chart.webp"
                   alt="Growth illustration — ascending chart with marble and gold accents"
-                  width={1313}
-                  height={893}
+                  width={1255}
+                  height={941}
                   priority
+                  // Served as-is (no Next re-encode): the optimizer's q75 pass
+                  // shifts the pure-white background to ~248 and creates a
+                  // visible rectangle against the section's #FFFFFF. The source
+                  // webp is already 82KB with a true-255 white field.
+                  unoptimized
                   sizes="(max-width: 1280px) 460px, 440px"
                   className="mx-auto h-auto w-full max-w-[460px] object-contain xl:mx-0"
                 />
@@ -251,8 +253,13 @@ export default function Home() {
       </section>
 
       {/* ========================= SERVICES ========================= */}
-      <section className="bg-[#F7F5EF] py-20 sm:py-24">
-        <Container size="wide">
+      <section className="relative bg-[#F7F5EF] py-20 sm:py-24">
+        {/* Soft blend from the white hero into the cream section — no hard seam */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white-pure to-transparent"
+        />
+        <Container size="wide" className="relative">
           <Reveal>
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -289,7 +296,7 @@ export default function Home() {
 
           <RevealStagger
             stagger={0.06}
-            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service) => {
               const Icon = service.icon
@@ -444,34 +451,6 @@ export default function Home() {
               </figure>
             ))}
           </RevealStagger>
-
-          {/* Carousel affordances (decorative) */}
-          <div className="mt-10 flex items-center justify-center gap-5">
-            <button
-              type="button"
-              aria-label="Previous testimonials"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-midnight/15 text-midnight/55 transition-colors hover:border-midnight/30 hover:text-midnight"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <div className="flex items-center gap-2">
-              {[0, 1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 rounded-full transition-all ${
-                    i === 0 ? "w-5 bg-gold-dark" : "w-1.5 bg-midnight/15"
-                  }`}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              aria-label="Next testimonials"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-midnight/15 text-midnight/55 transition-colors hover:border-midnight/30 hover:text-midnight"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
         </Container>
       </section>
 

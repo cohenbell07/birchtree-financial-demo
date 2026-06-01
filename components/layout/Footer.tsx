@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, MapPin } from "lucide-react"
+import BirchtreeLogo from "@/components/brand/BirchtreeLogo"
 
 const footerLinks = {
   company: [
@@ -67,12 +68,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-4">
             <Link href="/" className="inline-block" aria-label="Birchtree Financial — home">
-              <Image
-                src="/birchtree logo22.png"
-                alt="Birchtree Financial"
-                width={500}
-                height={150}
-                className="h-14 w-auto object-contain sm:h-16"
+              <BirchtreeLogo
+                markClassName="h-[2.6rem] sm:h-[3rem]"
+                textClassName="text-[1.5rem] sm:text-[1.75rem]"
               />
             </Link>
             <p className="mt-6 max-w-xs text-[0.92rem] leading-relaxed text-midnight/60">

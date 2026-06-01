@@ -5,11 +5,11 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
   ArrowRight,
-  Target,
-  TrendingUp,
-  Shield,
+  Armchair,
+  BarChart3,
+  ShieldCheck,
   Calculator,
-  Building2,
+  TrendingUp,
   FileText,
 } from "lucide-react"
 
@@ -59,7 +59,7 @@ const servicesFaqs = [
 const services = [
   {
     slug: "retirement-planning",
-    icon: Target,
+    icon: Armchair,
     title: "Retirement Planning",
     description:
       "Create a comprehensive retirement strategy that ensures financial security and peace of mind during your golden years.",
@@ -69,11 +69,10 @@ const services = [
       "RRSP and TFSA management",
       "Withdrawal strategies",
     ],
-    number: "01",
   },
   {
     slug: "investment-management",
-    icon: TrendingUp,
+    icon: BarChart3,
     title: "Investment Management",
     description:
       "Expert portfolio management designed to grow and protect your wealth through disciplined investment strategies.",
@@ -83,11 +82,10 @@ const services = [
       "Risk management",
       "Performance monitoring",
     ],
-    number: "02",
   },
   {
     slug: "insurance-strategies",
-    icon: Shield,
+    icon: ShieldCheck,
     title: "Insurance Strategies",
     description:
       "Protect what matters most with customized insurance solutions tailored to your unique needs and circumstances.",
@@ -97,7 +95,6 @@ const services = [
       "Long-term care planning",
       "Policy review and optimization",
     ],
-    number: "03",
   },
   {
     slug: "tax-optimization-strategies",
@@ -111,11 +108,10 @@ const services = [
       "Tax-loss harvesting",
       "Charitable giving strategies",
     ],
-    number: "04",
   },
   {
     slug: "wealth-building-advisory",
-    icon: Building2,
+    icon: TrendingUp,
     title: "Wealth Building & Advisory",
     description:
       "Strategic advisory services to build, preserve, and transfer your wealth effectively across generations.",
@@ -125,7 +121,6 @@ const services = [
       "Multi-generational planning",
       "Philanthropic planning",
     ],
-    number: "05",
   },
   {
     slug: "estate-planning-guidance",
@@ -139,7 +134,6 @@ const services = [
       "Beneficiary planning",
       "Legacy planning",
     ],
-    number: "06",
   },
 ]
 
@@ -218,11 +212,11 @@ export default function ServicesPage() {
             <div className="hidden lg:col-span-2 lg:block">
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { icon: Target, label: "Retirement" },
-                  { icon: TrendingUp, label: "Investing" },
-                  { icon: Shield, label: "Insurance" },
+                  { icon: Armchair, label: "Retirement" },
+                  { icon: BarChart3, label: "Investing" },
+                  { icon: ShieldCheck, label: "Insurance" },
                   { icon: Calculator, label: "Tax" },
-                  { icon: Building2, label: "Wealth" },
+                  { icon: TrendingUp, label: "Wealth" },
                   { icon: FileText, label: "Estate" },
                 ].map((item, i) => {
                   const Icon = item.icon
@@ -260,7 +254,7 @@ export default function ServicesPage() {
 
           <RevealStagger
             stagger={0.07}
-            className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
+            className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
           >
             {services.map((service) => {
               const Icon = service.icon
@@ -268,37 +262,38 @@ export default function ServicesPage() {
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-midnight/10 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_18px_40px_rgba(11,26,44,0.09)]"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-midnight/10 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-midnight/15 hover:shadow-[0_22px_50px_rgba(11,26,44,0.10)] sm:p-9"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-midnight/[0.04] ring-1 ring-midnight/[0.05]">
-                      <Icon className="h-[20px] w-[20px] text-midnight/80" strokeWidth={1.6} />
-                    </span>
-                    <span
-                      aria-hidden
-                      className="font-heading text-2xl font-bold text-gold-dark/70"
-                    >
-                      {service.number}
-                    </span>
-                  </div>
+                  {/* Gold hairline that draws across the top on hover */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-gold/70 via-gold/40 to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100"
+                  />
 
-                  <h3 className="mt-7 font-heading text-[1.6rem] font-bold leading-[1.18] tracking-tight text-midnight">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-midnight/[0.08] bg-gradient-to-b from-midnight/[0.05] to-midnight/[0.01] transition-all duration-300 group-hover:border-gold/45 group-hover:from-gold/[0.14] group-hover:to-gold/[0.03]">
+                    <Icon
+                      className="h-6 w-6 text-midnight/75 transition-colors duration-300 group-hover:text-gold-dark"
+                      strokeWidth={1.6}
+                    />
+                  </span>
+
+                  <h3 className="mt-7 font-heading text-[1.6rem] font-bold leading-[1.16] tracking-tight text-midnight">
                     {service.title}
                   </h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-midnight/60">
+                  <p className="mt-3.5 text-[0.95rem] leading-relaxed text-midnight/60">
                     {service.description}
                   </p>
 
-                  <ul className="mt-5 space-y-2 text-sm text-midnight/55">
+                  <ul className="mt-6 space-y-2.5 border-t border-midnight/[0.07] pt-6 text-[0.9rem] text-midnight/65">
                     {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2.5">
+                      <li key={feature} className="flex items-center gap-3">
                         <span aria-hidden className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-dark/70" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <span className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-midnight">
+                  <span className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold text-midnight">
                     <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">
                       Learn more
                     </span>

@@ -20,7 +20,7 @@ export default function NotFound() {
         </p>
         <h1
           className="mt-4 font-heading font-bold tracking-tight text-midnight"
-          style={{ fontSize: "clamp(2.5rem,1.6rem+3.4vw,4.5rem)", lineHeight: 1.04 }}
+          style={{ fontSize: "clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem)", lineHeight: 1.04 }}
         >
           Page not found
         </h1>

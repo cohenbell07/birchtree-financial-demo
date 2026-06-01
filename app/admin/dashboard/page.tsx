@@ -100,7 +100,7 @@ export default function AdminDashboard() {
               <Eyebrow>Lead Generation</Eyebrow>
               <h1
                 className="mt-4 font-heading font-bold leading-[1.1] tracking-tight text-midnight"
-                style={{ fontSize: "clamp(1.85rem,1.3rem+1.8vw,2.6rem)" }}
+                style={{ fontSize: "clamp(1.85rem, 1.3rem + 1.8vw, 2.6rem)" }}
               >
                 Admin Dashboard
               </h1>

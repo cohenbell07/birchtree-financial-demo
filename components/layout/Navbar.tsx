@@ -24,16 +24,7 @@ type NavChild = { href: string; label: string; desc: string; icon: LucideIcon }
 type NavItem = { href: string; label: string; children?: NavChild[] }
 
 const nav: NavItem[] = [
-  {
-    href: "/about",
-    label: "About",
-    children: [
-      { href: "/about", label: "About Us", desc: "Our story & values", icon: Landmark },
-      { href: "/team", label: "Our Team", desc: "Meet your advisors", icon: Users },
-    ],
-  },
   { href: "/services", label: "Services" },
-  { href: "/blog", label: "Blog" },
   {
     href: "/resources",
     label: "Resources",
@@ -44,6 +35,15 @@ const nav: NavItem[] = [
       { href: "/faq", label: "FAQ", desc: "Common questions", icon: HelpCircle },
     ],
   },
+  {
+    href: "/about",
+    label: "About",
+    children: [
+      { href: "/about", label: "About Us", desc: "Our story & values", icon: Landmark },
+      { href: "/team", label: "Our Team", desc: "Meet your advisors", icon: Users },
+    ],
+  },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ]
 
@@ -160,7 +160,7 @@ export default function Navbar() {
                 style={{ transform: scrolled ? "scale(0.87)" : "scale(1)" }}
               >
                 <BirchtreeLogo
-                  markClassName="h-[2.7rem] sm:h-[3.15rem]"
+                  markClassName="h-[2.35rem] sm:h-[2.75rem]"
                   textClassName="text-[1.32rem] sm:text-[1.7rem]"
                 />
               </span>

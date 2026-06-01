@@ -28,11 +28,14 @@ export default function BirchtreeLogo({
   const tone = variant === "white" ? "text-white" : "text-midnight"
 
   return (
-    <span className={cn("inline-flex items-center gap-[0.62rem]", className)}>
+    <span className={cn("inline-flex items-end gap-[0.5rem]", className)}>
       <BirchTreeMark className={cn(markClassName, tone)} />
       <span
         className={cn(
-          "font-heading font-normal leading-none tracking-[-0.012em]",
+          // Nudged down a hair so the wordmark's baseline sits level with the
+          // base of the tree mark (the lockup reads cleaner bottom-aligned than
+          // centered, where the taller tree made the text float).
+          "font-heading font-normal leading-none tracking-[-0.012em] translate-y-[0.12em]",
           textClassName,
           tone,
         )}
