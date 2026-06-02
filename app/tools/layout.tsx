@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "tax optimization calculator",
     "mortgage calculator Canada",
   ],
+  alternates: { canonical: "/tools" },
   openGraph: {
     title: "Financial Calculators | Birchtree Financial",
     description:

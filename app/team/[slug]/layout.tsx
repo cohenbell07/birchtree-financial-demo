@@ -48,13 +48,24 @@ export async function generateMetadata({
 
   if (!member) {
     return {
-      title: "Team Member Not Found | Birchtree Financial",
+      title: "Team Member Not Found",
     }
   }
 
   return {
-    title: `${member.name} - ${member.role} | Birchtree Financial`,
-    description: member.bio,
+    // Absolute title: the root template doesn't cascade to this grandchild
+    // segment (the /team layout sets a plain string title), so include the
+    // brand here explicitly.
+    title: { absolute: `${member.name} — ${member.role} | Birchtree Financial` },
+    description: `${member.bio} Based in Olds, Alberta.`,
+    alternates: { canonical: `/team/${member.slug}` },
+    openGraph: {
+      title: `${member.name} — ${member.role} | Birchtree Financial`,
+      description: member.bio,
+      type: "profile",
+      locale: "en_CA",
+      url: `/team/${member.slug}`,
+    },
   }
 }
 

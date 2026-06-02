@@ -26,6 +26,8 @@ import { Section } from "@/components/ui/section"
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Reveal, RevealStagger } from "@/components/ui/reveal"
+import JsonLd from "@/components/seo/JsonLd"
+import { serviceSchema, breadcrumbSchema, graph } from "@/lib/schema"
 
 const serviceDetails: Record<
   string,
@@ -228,6 +230,20 @@ export default function ServiceDetailPage() {
 
   return (
     <>
+      <JsonLd
+        data={graph([
+          serviceSchema({
+            slug: serviceSlug,
+            name: service.title,
+            description: service.description,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path: `/services/${serviceSlug}` },
+          ]),
+        ])}
+      />
       <PageHeader
         eyebrow="Our Services"
         title={service.title}

@@ -41,6 +41,7 @@ export async function generateMetadata({
   return {
     title: `${resource.title} | Birchtree Financial`,
     description: resource.description,
+    alternates: { canonical: `/resources/${resolvedParams.slug}` },
   }
 }
 

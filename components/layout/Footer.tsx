@@ -8,6 +8,7 @@ const footerLinks = {
     { href: "/about", label: "About Us" },
     { href: "/team", label: "Our Team" },
     { href: "/services", label: "Services" },
+    { href: "/financial-advisor-olds-alberta", label: "Financial Advisor in Olds" },
     { href: "/contact", label: "Contact" },
   ],
   resources: [

@@ -13,8 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/resources',
     '/contact',
     '/blog',
+    '/faq',
+    '/tools',
     '/helpful-tools',
     '/why-you-need-a-will',
+    '/financial-advisor-olds-alberta',
   ]
 
   // Team members

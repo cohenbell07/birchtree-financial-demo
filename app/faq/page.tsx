@@ -16,6 +16,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import JsonLd from "@/components/seo/JsonLd"
+import { faqSchema, breadcrumbSchema, graph } from "@/lib/schema"
 
 const faqs = [
   {
@@ -96,6 +98,15 @@ const faqs = [
 export default function FAQPage() {
   return (
     <>
+      <JsonLd
+        data={graph([
+          faqSchema(faqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQ", path: "/faq" },
+          ]),
+        ])}
+      />
       <PageHeader
         eyebrow="Help Center"
         title="Frequently Asked Questions"

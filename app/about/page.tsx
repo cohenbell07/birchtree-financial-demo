@@ -18,6 +18,8 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { SectionHeader } from "@/components/ui/section-header"
 import { Reveal, RevealStagger } from "@/components/ui/reveal"
 import RevealText from "@/components/RevealText"
+import JsonLd from "@/components/seo/JsonLd"
+import { faqSchema, breadcrumbSchema, graph } from "@/lib/schema"
 
 const aboutFaqs = [
   {
@@ -85,6 +87,15 @@ const communityLogos = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={graph([
+          faqSchema(aboutFaqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        ])}
+      />
       {/* ============ HERO — Centered headline + stat bar ============ */}
       <section
         className="relative overflow-hidden bg-[#FBFAF6] text-midnight"

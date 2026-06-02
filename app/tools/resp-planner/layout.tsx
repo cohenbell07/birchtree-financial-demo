@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_CA",
   },
+  alternates: { canonical: "/tools/resp-planner" },
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

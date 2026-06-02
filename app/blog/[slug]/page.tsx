@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import PageHeader from "@/components/layout/PageHeader"
+import JsonLd from "@/components/seo/JsonLd"
+import { articleSchema, breadcrumbSchema, graph } from "@/lib/schema"
 
 // Generate static pages for all blog posts at build time
 export async function generateStaticParams() {
@@ -53,29 +55,24 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  // JSON-LD structured data for Google rich results
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.publishedAt,
-    author: {
-      "@type": "Organization",
-      name: "Birchtree Financial",
-      url: "https://birchtreefinancial.ca",
+  // JSON-LD structured data for Google rich results + AI answer engines.
+  // articleSchema ties author/publisher to the global Organization @id.
+  const jsonLd = graph([
+    {
+      ...articleSchema({
+        slug: post.slug,
+        title: post.title,
+        description: post.description,
+        publishedAt: post.publishedAt,
+      }),
+      keywords: post.tags.join(", "),
     },
-    publisher: {
-      "@type": "Organization",
-      name: "Birchtree Financial",
-      url: "https://birchtreefinancial.ca",
-    },
-    keywords: post.tags.join(", "),
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://birchtreefinancial.ca/blog/${post.slug}`,
-    },
-  }
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+  ])
 
   // Estimate reading time
   const wordCount = post.content.split(/\s+/).length
@@ -83,11 +80,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   return (
     <div>
-      {/* JSON-LD for search engines */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* JSON-LD for search engines + AI answer engines */}
+      <JsonLd data={jsonLd} />
 
       <PageHeader title={post.title} subtitle={post.description} accent="blue" />
 

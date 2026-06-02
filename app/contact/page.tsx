@@ -14,6 +14,8 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
 import RevealText from "@/components/RevealText"
 import FAQSection from "@/components/FAQSection"
+import JsonLd from "@/components/seo/JsonLd"
+import { faqSchema, breadcrumbSchema, graph } from "@/lib/schema"
 
 const contactFaqs = [
   {
@@ -102,6 +104,15 @@ export default function ContactPage() {
 
   return (
     <div>
+      <JsonLd
+        data={graph([
+          faqSchema(contactFaqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+        ])}
+      />
       <PageHeader
         eyebrow="Get In Touch"
         title="Contact Us"

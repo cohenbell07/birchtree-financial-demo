@@ -7,6 +7,9 @@ import PageHeader from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Mail, Phone, ArrowLeft, ArrowRight, Award, BookOpen, Briefcase, CheckCircle2 } from "lucide-react"
+import JsonLd from "@/components/seo/JsonLd"
+import { personSchema, breadcrumbSchema, graph } from "@/lib/schema"
+import { team as teamConfig } from "@/lib/siteConfig"
 
 const teamMembers = [
   {
@@ -99,8 +102,22 @@ export default function TeamMemberPage() {
     notFound()
   }
 
+  const memberConfig = teamConfig.find((m) => m.slug === slug)
+
   return (
     <div className="bg-white">
+      {memberConfig && (
+        <JsonLd
+          data={graph([
+            personSchema(memberConfig),
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Team", path: "/team" },
+              { name: memberConfig.name, path: `/team/${slug}` },
+            ]),
+          ])}
+        />
+      )}
       <PageHeader
         eyebrow="Our Team"
         title={member.name}

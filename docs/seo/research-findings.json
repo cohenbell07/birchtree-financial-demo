@@ -1,0 +1,1897 @@
+[
+  {
+    "area": "Local SEO (Olds + Central Alberta)",
+    "summary": "Birchtree Financial has no local SEO foundation: metadata is generic and non-local (root and per-page titles/descriptions never mention Olds, Alberta, or surrounding towns), there is zero LocalBusiness/FinancialService JSON-LD anywhere (only the blog has Article schema), and there are no city/town landing pages. For a single-location financial advisory firm in a small market like Olds (pop. ~9,300), the single highest-leverage channel is a fully optimized, verified Google Business Profile (GBP) backed by NAP-consistent Canadian citations, a steady stream of genuine local Google reviews, and a handful of genuinely differentiated town/service landing pages. The firm's real community sponsorships (Olds Grizzlys, BGC Olds & Area, 4-H Canada, MVESS) are an underused local link-building asset that competitors cannot easily replicate. Priority order: (1) claim/optimize GBP with correct category + LLQP licensing details, (2) add LocalBusiness/FinancialService JSON-LD with precise geo coordinates and areaServed, (3) localize metadata site-wide, (4) build the core Canadian citations with identical NAP, (5) launch a compliant review-generation routine, (6) earn local sponsorship backlinks, (7) build differentiated town landing pages. Note: the widely-cited SEC Marketing Rule is US-specific — for this Canadian LLQP firm the governing review-conduct principles come from provincial insurance council / CIRO conduct rules, but the practical rules are the same (genuine reviews only, no incentives, no cherry-picking, don't script clients).",
+    "tactics": [
+      {
+        "title": "Claim, verify, and fully optimize the Google Business Profile",
+        "description": "GBP is the #1 local ranking factor for a single-location advisory firm. Claim and verify the listing (video verification is now common in Canada). Set primary category to 'Financial Planner' (closest specific match to the firm's core retirement/investment work); add secondary categories 'Financial Consultant', 'Insurance Agency', and 'Investment Service'. Fill every field: exact NAP (4914 50 Ave, Olds, AB T4H 1P5 / (403) 556-7777), hours, website, appointment link, full 'from the business' description mentioning Olds + central Alberta + the 6 services, and add all 6 services with descriptions under the Services section. Because 'Financial Advisor'-type categories can trigger licensing/verification, have LLQP licensing details ready.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "GBP is managed in the Google dashboard, not in code. Use the contact page address verbatim as the NAP master record so the website and GBP match exactly."
+      },
+      {
+        "title": "Add LocalBusiness/FinancialService JSON-LD with geo coordinates and areaServed",
+        "description": "There is currently NO LocalBusiness schema on the site (only Article schema on blog posts). Add a FinancialService (subtype of LocalBusiness) JSON-LD block to the root layout/home page with: legal name, full PostalAddress, telephone, url, the precise geo latitude/longitude for 4914 50 Ave Olds (geo is the single most impactful and most-omitted field for 'near me' and AI-search resolution), hasMap link to the GBP/Google Maps listing, openingHoursSpecification, priceRange, and an areaServed array listing Olds, Sundre, Didsbury, Carstairs, Bowden, Innisfail, Red Deer and central Alberta. Add sameAs links to GBP, Facebook, and citation profiles once live. Render as a <script type=application/ld+json> in a server component.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "In Next.js App Router, inject via a server component that returns <script type=\"application/ld+json\" dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}} />. Use type 'FinancialService' (NOT generic LocalBusiness) for stronger category matching. Validate with Google's Rich Results Test and schema.org validator."
+      },
+      {
+        "title": "Localize metadata site-wide (titles, descriptions, OG) with Olds + central Alberta",
+        "description": "Root metadata and every per-page layout.tsx use generic non-local copy ('Premium Financial Advisory Services', 'Canadian financial advisory firm') with no city mention. Rewrite the root title/description and key page titles to include 'Olds, Alberta' and 'central Alberta'. E.g. home title 'Financial Advisor in Olds, Alberta | Birchtree Financial'; about/team/contact/services titles all geo-tagged. Update keywords and OpenGraph. Set locale en_CA (already correct).",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Edit the Metadata exports in app/layout.tsx and each app/*/layout.tsx. The template '%s | Birchtree Financial' is fine — just make the per-page title segments local. Keep titles under ~60 chars."
+      },
+      {
+        "title": "Build core Canadian local citations with identical NAP",
+        "description": "Submit identical NAP to the highest-authority Canadian directories. Priority tier: Apple Business Connect (Apple Maps/Siri), Bing Places, Facebook Business Page, YellowPages.ca, Yelp.ca, Foursquare. Second tier (Canada-specific): n49, Cylex.ca, HotFrog.ca, Brownbook, Opendi.ca, ProfileCanada, CanadaOne, Canada411, FoundLocally, iBegin. Finance-relevant: Better Business Bureau (BBB). Every listing must use the exact same business name, '4914 50 Ave, Olds, AB T4H 1P5', and '(403) 556-7777' — NAP inconsistency is the most common local-SEO mistake.",
+        "priority": "high",
+        "effort": "substantial",
+        "implementationNote": "Maintain one canonical NAP record (a spreadsheet) and copy it verbatim everywhere. Note the website footer email is melissa.birch@birchtreefinancial.ca — keep email consistent too. Do these manually rather than via bulk-submit services to avoid sloppy data."
+      },
+      {
+        "title": "Launch a compliant local Google review-generation routine",
+        "description": "Review quantity, quality, and recency are primary drivers of map-pack placement on 'financial advisor near me' searches. Build a systematic, non-cherry-picked routine: after onboarding, annual reviews, or plan delivery, send a short personal email with a direct GBP review short-link to EVERY client on a CRM rotation (not just happy ones). Never incentivize, script, or pressure clients; do not selectively solicit — these conduct rules apply under Canadian provincial insurance-council/CIRO standards just as they do under the US SEC Marketing Rule. Aim for a steady drip of genuine reviews rather than a one-time burst.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Generate the GBP 'review us' short link from the Google dashboard and embed it in a post-meeting email template. Do NOT publicly respond to or curate reviews in a way that looks like control. This is a process/operations task, not a code change."
+      },
+      {
+        "title": "Earn local backlinks from real community sponsorships",
+        "description": "The firm sponsors/supports Olds Grizzlys (Jr A hockey), BGC Olds & Area, 4-H Canada, and MVESS shelter — these are authentic, hard-to-replicate local link sources. Request a sponsor listing with a backlink on each organization's website, and join the Olds & District Chamber of Commerce (oldsalberta.com, 403-556-7070) for a member-directory listing on the Chamber Market platform. Also pursue InvestOlds.ca and local Olds news/event sites. Local .ca sponsorship links carry strong geographic relevance signals.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Confirm each sponsorship is current, then email each org's webmaster requesting a logo + link on their sponsors/partners page. Chamber membership also yields a citation. These are off-site, no code required."
+      },
+      {
+        "title": "Build genuinely differentiated town + service-area landing pages",
+        "description": "Create a small number of high-value local pages — e.g. /retirement-planning-olds, plus town pages for Sundre, Didsbury, Innisfail, Red Deer — but ONLY with unique, locally-specific content (real client outcomes/testimonials from that town, local landmarks/context, town-specific FAQs, references to local employers/retirement realities). Do NOT mass-produce near-duplicate pages that only swap the town name — Google penalizes these as doorway pages. Start with 3-5 quality pages, each adding LocalBusiness schema and internal links from the home/services pages.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Add as new routes under app/ (e.g. app/retirement-planning-olds/page.tsx). Reuse existing testimonial data (clients in Olds, Sundre, Red Deer already exist) to keep each page genuinely unique. Canonicalize properly. Quality over quantity."
+      },
+      {
+        "title": "Optimize for 'near me' and voice/AI local search",
+        "description": "Capture 'financial advisor near me' style and conversational queries by combining the GBP geo signals, areaServed schema, and on-page natural-language phrasing. Add a localized FAQ block (FAQ schema) answering 'Where is Birchtree Financial located?', 'Do you serve [Sundre/Red Deer]?', 'Is there a financial advisor near me in Olds?'. Ensure the contact page exposes a crawlable text NAP and an embedded Google Map. AI engines (AI Overviews, ChatGPT Search, Perplexity) lean on geo + areaServed + sameAs to resolve the business.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "The contact page already has an iframe map (geolocation allow attr present). Add FAQPage JSON-LD to the contact/FAQ pages and ensure the textual address is in the DOM, not just inside the iframe."
+      },
+      {
+        "title": "Use Google Business Profile Posts, Q&A, and photos continuously",
+        "description": "Keep GBP active: publish Posts (offers, RRSP/TFSA-deadline updates, community sponsorship news, blog reshares) at least monthly; seed and answer the GBP Q&A section with real questions ('Do you do retirement planning for central Alberta?'); upload genuine, geotagged photos of the Olds office exterior/interior, team, and community events. Activity and fresh photos are positive engagement signals and improve conversion from the listing.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "GBP dashboard task, not code. Repurpose existing blog content into Posts. Real exterior photos of 4914 50 Ave help Google confirm the location."
+      },
+      {
+        "title": "Run periodic NAP-consistency and citation audits",
+        "description": "After citations are built, audit quarterly for NAP mismatches, duplicate listings, and outdated data (the footer historically had an email change in commit a7c3dec — such drift is exactly what to catch). Inconsistent or duplicate listings dilute local ranking authority. Tools like BrightLocal/Whitespark or manual spot-checks of the top 10 citations keep the profile clean.",
+        "priority": "low",
+        "effort": "quick-win",
+        "implementationNote": "Maintain the canonical NAP spreadsheet as the single source of truth and diff listings against it. Suppress/merge any duplicate GBP listings via Google support."
+      }
+    ],
+    "keywords": [
+      {
+        "keyword": "financial advisor Olds",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home page"
+      },
+      {
+        "keyword": "financial advisor Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home page"
+      },
+      {
+        "keyword": "financial planner Olds AB",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home page"
+      },
+      {
+        "keyword": "financial advisor near me",
+        "intent": "commercial",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "GBP + FAQ schema"
+      },
+      {
+        "keyword": "financial advisor near me Olds",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "GBP + contact page"
+      },
+      {
+        "keyword": "retirement planning Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "service landing page"
+      },
+      {
+        "keyword": "retirement planning central Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "service landing page"
+      },
+      {
+        "keyword": "investment management Olds",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "service page"
+      },
+      {
+        "keyword": "insurance advisor Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "service page"
+      },
+      {
+        "keyword": "estate planning Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "service page"
+      },
+      {
+        "keyword": "RRSP TFSA advisor central Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "service/blog"
+      },
+      {
+        "keyword": "financial advisor Sundre",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial advisor Didsbury",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial advisor Carstairs Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial advisor Bowden Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial advisor Innisfail",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial advisor Red Deer",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "hard",
+        "contentType": "town landing page"
+      },
+      {
+        "keyword": "financial planner near me central Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "GBP + landing page"
+      },
+      {
+        "keyword": "fee-only financial advisor Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "about/services page"
+      },
+      {
+        "keyword": "retirement advisor near me",
+        "intent": "commercial",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "GBP + FAQ"
+      },
+      {
+        "keyword": "local financial advisor Olds reviews",
+        "intent": "navigational",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "GBP reviews"
+      },
+      {
+        "keyword": "Birchtree Financial Olds",
+        "intent": "navigational",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home page"
+      }
+    ],
+    "schemaRecommendations": [
+      {
+        "type": "FinancialService",
+        "whereToApply": "Root layout or home page (app/layout.tsx or app/page.tsx) as a server-rendered JSON-LD script",
+        "notes": "Use FinancialService (a LocalBusiness subtype) rather than generic LocalBusiness for stronger category matching. Include: name 'Birchtree Financial', PostalAddress (streetAddress '4914 50 Ave', addressLocality 'Olds', addressRegion 'AB', postalCode 'T4H 1P5', addressCountry 'CA'), telephone '+14035567777', url, geo (latitude/longitude for 4914 50 Ave Olds — single most impactful field for 'near me'/AI resolution), hasMap (Google Maps URL), openingHoursSpecification, priceRange, areaServed array (Olds, Sundre, Didsbury, Carstairs, Bowden, Innisfail, Red Deer, 'central Alberta'), and sameAs (GBP, Facebook, citation profiles)."
+      },
+      {
+        "type": "Organization",
+        "whereToApply": "Site-wide via root layout",
+        "notes": "Establish the brand entity with logo, founder/family info, knowsAbout (retirement planning, investment management, insurance, tax optimization, wealth building, estate planning), and the same sameAs links. Can be merged with the FinancialService node via @graph."
+      },
+      {
+        "type": "Service (x6)",
+        "whereToApply": "Each service page (app/services/[service])",
+        "notes": "Mark up each of the 6 services with Service schema, provider pointing back to the FinancialService node, and areaServed = central Alberta towns. Reinforces topical + local relevance."
+      },
+      {
+        "type": "FAQPage",
+        "whereToApply": "Contact page, FAQ page, and any town landing pages",
+        "notes": "Answer location questions ('Where are you located?', 'Do you serve Sundre/Red Deer?', 'Is there a financial advisor near me in Olds?') to win 'near me' and voice/AI queries and rich results."
+      },
+      {
+        "type": "BreadcrumbList",
+        "whereToApply": "Service, team, and town landing pages",
+        "notes": "Helps Google understand site hierarchy and can produce breadcrumb rich results, reinforcing the local page structure."
+      },
+      {
+        "type": "Person",
+        "whereToApply": "Team member pages (app/team/[slug])",
+        "notes": "Mark up each advisor (Melissa, Kevin, Kaleb, Art Birch, Crystal) with worksFor pointing to the FinancialService node and jobTitle; only assert LLQP/credentials the firm actually holds — do NOT add CFP/CFA."
+      }
+    ],
+    "competitors": [
+      {
+        "name": "Olds & District Chamber of Commerce member directory",
+        "url": "https://oldsalberta.com/",
+        "notes": "Not a competitor but a key local citation + backlink source. Join for a member-directory listing on the Chamber Market platform; phone 403-556-7070."
+      },
+      {
+        "name": "InvestOlds.ca",
+        "url": "https://investolds.ca/",
+        "notes": "Local economic-development site; potential local citation/backlink and reference for Olds business context on landing pages."
+      }
+    ],
+    "contentIdeas": [
+      {
+        "title": "Retirement Planning in Olds, Alberta: A Local Guide",
+        "targetKeyword": "retirement planning Olds Alberta",
+        "format": "local service landing page",
+        "geo": "local-olds",
+        "whyItMatters": "Captures high-intent local commercial searches and serves as the canonical 'final destination' page Google rewards over thin doorway pages."
+      },
+      {
+        "title": "Financial Advisor Serving Sundre & Central Alberta",
+        "targetKeyword": "financial advisor Sundre",
+        "format": "town landing page (unique local content + Sundre client testimonial)",
+        "geo": "central-alberta",
+        "whyItMatters": "The firm already has Sundre testimonial clients — real local proof makes this page genuinely differentiated and doorway-safe."
+      },
+      {
+        "title": "How Central Alberta Families Plan Retirement: RRSP, TFSA & CPP/OAS Timing",
+        "targetKeyword": "retirement planning central Alberta",
+        "format": "blog/pillar article",
+        "geo": "central-alberta",
+        "whyItMatters": "Builds topical authority for the central-Alberta region and feeds internal links to local service pages and the CPP/OAS optimizer tool."
+      },
+      {
+        "title": "FAQ: Where Is Birchtree Financial and Which Towns Do You Serve?",
+        "targetKeyword": "financial advisor near me Olds",
+        "format": "FAQ section with FAQPage schema on contact page",
+        "geo": "aeo",
+        "whyItMatters": "Directly answers 'near me' and voice/AI-assistant queries and supplies the structured answers AI Overviews/ChatGPT Search cite."
+      },
+      {
+        "title": "Our Community: Supporting Olds Grizzlys, BGC Olds & Area, 4-H, and MVESS",
+        "targetKeyword": "Birchtree Financial Olds community",
+        "format": "about/community page",
+        "geo": "local-olds",
+        "whyItMatters": "Surfaces authentic local ties for E-E-A-T and creates natural anchor pages for reciprocal sponsor backlinks from those organizations."
+      }
+    ],
+    "sources": [
+      "https://www.getsomethinggreat.com/post/the-2025-google-business-profile-guide-for-financial-advisors",
+      "https://support.google.com/business/answer/7249669?hl=en",
+      "https://support.google.com/business/answer/3038177?hl=en",
+      "https://avintivmedia.com/blog/google-business-profile-optimization-2025/",
+      "https://www.altastreet.com/how-to-master-local-seo-for-financial-advisors-a-step-by-step-success-guide/",
+      "https://www.intentlyfs.com/post/local-seo-for-financial-advisors-a-complete-guide-to-dominating-your-area",
+      "https://whitespark.ca/top-local-citation-sources-by-country/canada/",
+      "https://www.brightlocal.com/resources/top-citation-sites/location/canada/",
+      "https://support.google.com/localservices/answer/12174778?hl=en&co=GENIE.CountryCode%3DCA",
+      "https://birdeye.com/blog/google-business-profile-guidelines-2025/",
+      "https://mapatlas.eu/blog/json-ld-schema-local-business-ai-citations",
+      "https://whitespark.ca/blog/the-json-ld-markup-guide-to-local-business-schema/",
+      "https://www.kitces.com/blog/financial-advisor-google-reviews-sec-marketing-rule-testimonials-advertisements/",
+      "https://www.billgoodmarketing.com/resources/financial-advisor-google-reviews/",
+      "https://oldsalberta.com/",
+      "https://investolds.ca/olds-district-chamber-of-commerce-benefits/",
+      "https://searchengineland.com/guide/service-area-pages",
+      "https://www.manningmarketing.com/articles/location-pages-vs-doorway-pages-seo-best-practices-and-pitfalls/",
+      "https://www.ignitingbusiness.com/blog/what-is-apple-business-connect-and-how-can-it-benefit-your-small-business",
+      "https://businessconnect.apple.com/"
+    ]
+  },
+  {
+    "area": "provincial-national",
+    "summary": "Birchtree Financial's biggest organic-search opportunity beyond its Olds/local base is to own a deep library of Canadian + Alberta registered-account and retirement-income content. National head terms (e.g. \"RRSP vs TFSA\", \"FHSA\") are dominated by banks, robo-advisors (Wealthsimple), and large publishers — a small site will not rank for these quickly. The realistic, winnable space is (1) Alberta-specific long-tail queries where national publishers stay generic (Alberta tax brackets, Alberta seniors benefits, farm/ranch succession, oil & gas commuted-value/pension decisions, no-PST planning angles) and (2) conversational, life-stage, decision-framed questions (\"Should I take CPP at 60 or 65 in Alberta?\", \"How does the OAS clawback work in 2026?\") that win in AI Overviews / answer engines (AEO). Demand is strongly seasonal: RRSP queries peak Dec–Mar 1 (the 60-day deadline, March 2, 2026 for the 2025 tax year), tax-optimization Mar–Apr, RESP/year-end giving in Dec. The site currently has zero JSON-LD and generic non-local metadata, so the fastest wins are: build FinancialService + LocalBusiness + FAQPage + Article schema, rewrite metadata with Alberta/Canada geo-modifiers, and publish a structured, question-driven blog/resource cluster. Crucially, only LLQP (life + A&S insurance) is held — content must avoid implying CFP/CFA designations or giving specific tax-preparation advice, framing tax/estate topics as planning guidance coordinated with accountants/lawyers. Keyword set below targets geo=alberta and geo=canada with intent + difficulty flagged so the team prioritizes long-tail wins first.",
+    "keywords": [
+      {
+        "keyword": "RRSP contribution deadline 2026",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "RRSP vs TFSA which is better Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "low",
+        "difficulty": "hard",
+        "contentType": "pillar-guide"
+      },
+      {
+        "keyword": "FHSA first home savings account explained",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "how does the OAS clawback work 2026",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "faq-article"
+      },
+      {
+        "keyword": "should I take CPP at 60 or 65",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "decision-guide"
+      },
+      {
+        "keyword": "CPP and OAS optimization strategies",
+        "intent": "commercial",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "service-page"
+      },
+      {
+        "keyword": "RESP CESG grant maximum 2026",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "how much can I contribute to RESP per year",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "faq-article"
+      },
+      {
+        "keyword": "retirement income planning Canada",
+        "intent": "commercial",
+        "geo": "canada",
+        "opportunity": "low",
+        "difficulty": "hard",
+        "contentType": "service-page"
+      },
+      {
+        "keyword": "RRIF withdrawal rules and minimums 2026",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "income splitting for retirees Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "tax-efficient investing strategies Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "low",
+        "difficulty": "hard",
+        "contentType": "pillar-guide"
+      },
+      {
+        "keyword": "how to reduce taxes in retirement Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "estate planning checklist Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "do I need a financial advisor in my 30s",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "faq-article"
+      },
+      {
+        "keyword": "fee-only vs commission financial advisor Canada",
+        "intent": "commercial",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "Alberta tax brackets 2026",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "Alberta no provincial sales tax planning advantage",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "Alberta seniors benefit eligibility 2026",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "faq-article"
+      },
+      {
+        "keyword": "financial advisor Olds Alberta",
+        "intent": "transactional",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home/contact-page"
+      },
+      {
+        "keyword": "financial advisor central Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "service-area-page"
+      },
+      {
+        "keyword": "financial planner Red Deer",
+        "intent": "transactional",
+        "geo": "central-alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "service-area-page"
+      },
+      {
+        "keyword": "retirement planning Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "service-page"
+      },
+      {
+        "keyword": "oil and gas pension commuted value decision Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "should I commute my pension or keep it",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "decision-guide"
+      },
+      {
+        "keyword": "farm succession planning Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "pillar-guide"
+      },
+      {
+        "keyword": "intergenerational farm transfer tax rules Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "business succession planning Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "service-page"
+      },
+      {
+        "keyword": "estate planning probate Alberta",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "why you need a will in Alberta",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "life insurance vs critical illness insurance Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "how much life insurance do I need",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "faq-article"
+      },
+      {
+        "keyword": "group benefits plan for small business Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "service-page"
+      },
+      {
+        "keyword": "best financial advisor near me Olds",
+        "intent": "transactional",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "home/contact-page"
+      },
+      {
+        "keyword": "last minute RRSP contribution tips",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      },
+      {
+        "keyword": "year end tax planning Canada",
+        "intent": "informational",
+        "geo": "canada",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "blog-article"
+      }
+    ],
+    "contentIdeas": [
+      {
+        "title": "Alberta Tax Brackets 2026: What Every Albertan Should Know (and How to Plan Around Them)",
+        "targetKeyword": "Alberta tax brackets 2026",
+        "format": "blog-article",
+        "geo": "alberta",
+        "whyItMatters": "Province-specific, refreshable annually, peaks Feb-Apr. National sites stay generic; a focused Alberta post with the 8% first-bracket and highest-in-Canada BPA ($22,769) angles can rank and earn AI citations. Frame as planning guidance, not tax prep."
+      },
+      {
+        "title": "RRSP Deadline 2026: Your Last-60-Days Checklist (Deadline March 2, 2026)",
+        "targetKeyword": "RRSP contribution deadline 2026",
+        "format": "checklist-article",
+        "geo": "canada",
+        "whyItMatters": "Captures the Jan-Feb seasonal surge. Dated, checklist-style content ranks and is AEO-friendly; publish by early January and update yearly."
+      },
+      {
+        "title": "Should You Take CPP at 60, 65, or 70? A Decision Guide for Albertans",
+        "targetKeyword": "should I take CPP at 60 or 65",
+        "format": "decision-guide",
+        "geo": "alberta",
+        "whyItMatters": "Decision-framed conversational query ideal for AI Overviews; high intent from near-retirees in the firm's core demographic. Include a simple comparison table for citation."
+      },
+      {
+        "title": "The OAS Clawback Explained: 2026 Thresholds and How to Reduce It",
+        "targetKeyword": "how does the OAS clawback work 2026",
+        "format": "faq-article",
+        "geo": "canada",
+        "whyItMatters": "Number-specific ($95,323) conversational query with strong AEO potential and lower competition than head terms; pairs with income-splitting content."
+      },
+      {
+        "title": "Commuting Your Pension in Alberta's Energy Sector: Commuted Value vs Staying In",
+        "targetKeyword": "oil and gas pension commuted value decision Alberta",
+        "format": "decision-guide",
+        "geo": "alberta",
+        "whyItMatters": "High-value, underserved Alberta niche tied to oil & gas pensions; a specialized lead magnet for high-net-worth prospects facing a commute-or-keep decision."
+      },
+      {
+        "title": "Farm & Ranch Succession Planning in Alberta: A Step-by-Step Guide",
+        "targetKeyword": "farm succession planning Alberta",
+        "format": "pillar-guide",
+        "geo": "alberta",
+        "whyItMatters": "Only ~8.5% of Alberta farms have a formal plan — large underserved market with high lifetime value. Anchors a content cluster (intergenerational rollover, estate freeze, wills for farmers)."
+      },
+      {
+        "title": "RESP and the CESG Grant in 2026: How to Get the Full $7,200 of Free Money",
+        "targetKeyword": "RESP CESG grant maximum 2026",
+        "format": "blog-article",
+        "geo": "canada",
+        "whyItMatters": "Clear numeric answers ($500/yr, $7,200 lifetime) make it AEO-friendly; December year-end and back-to-school seasonal pushes for the family demographic."
+      },
+      {
+        "title": "Do You Need a Financial Advisor in Your 30s, 40s, or 50s? Life-Stage Guide for Albertans",
+        "targetKeyword": "do I need a financial advisor in my 30s",
+        "format": "blog-article",
+        "geo": "alberta",
+        "whyItMatters": "Conversational life-stage query explicitly cited as an AEO winner; low competition, builds top-of-funnel and showcases the firm's fiduciary, no-direct-fee model."
+      },
+      {
+        "title": "Fee-Only and Fiduciary: How Birchtree Financial Gets Paid (and Why It Matters)",
+        "targetKeyword": "fee-only vs commission financial advisor Canada",
+        "format": "blog-article",
+        "geo": "canada",
+        "whyItMatters": "AEO research shows AI engines cite firms that clearly describe fees, fiduciary status, and process. Turns the firm's compensation model into a discoverability and trust asset."
+      },
+      {
+        "title": "Why You Need a Will in Alberta: Probate, Executors, and Protecting Your Family",
+        "targetKeyword": "why you need a will in Alberta",
+        "format": "blog-article",
+        "geo": "alberta",
+        "whyItMatters": "Localizes the existing /why-you-need-a-will page with Alberta probate specifics for an easy, on-brand win; pairs with the estate-planning service and FAQ schema."
+      },
+      {
+        "title": "How Much Life Insurance Do You Actually Need? A Simple Canadian Framework",
+        "targetKeyword": "how much life insurance do I need",
+        "format": "faq-article",
+        "geo": "canada",
+        "whyItMatters": "Squarely within LLQP scope, high-volume conversational query, strong AEO and top-of-funnel; supports the Insurance Strategies service page."
+      },
+      {
+        "title": "Group Benefits for Small Businesses in Central Alberta: What Owners Should Know",
+        "targetKeyword": "group benefits plan for small business Alberta",
+        "format": "service-page",
+        "geo": "central-alberta",
+        "whyItMatters": "The firm offers group/individual benefit packages; province + B2B niche has low competition and high-value lead intent. Strengthens a currently underexposed service line."
+      }
+    ],
+    "tactics": [
+      {
+        "title": "Add FinancialService + LocalBusiness JSON-LD sitewide via the root layout",
+        "description": "There is zero structured data on the site today. Add a FinancialService node (subtype of LocalBusiness) with name, full Olds NAP (4914 50 Ave, Olds, AB T4H 1P5; (403) 556-7777), geo coordinates, url, areaServed (Olds, Sundre, Red Deer, central Alberta, Canada), and a clear description of fiduciary/no-direct-fee positioning. This is the single biggest AEO/local lever — Google Business Profile + LocalBusiness schema are the strongest signals for AI local answers. Do NOT add CFP/CFA or aggregateRating you can't substantiate.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "In Next.js App Router, render a <script type=\"application/ld+json\"> with dangerouslySetInnerHTML in app/layout.tsx (or a reusable <JsonLd> component). Escape '<' as < to prevent XSS. Validate in Google Rich Results Test."
+      },
+      {
+        "title": "Rewrite all page metadata with Alberta + Canada geo-modifiers",
+        "description": "Current metadata is generic and non-local. Update each layout.tsx's title/description to include 'Olds', 'central Alberta', and service terms — e.g. 'Retirement & Investment Planning in Olds & Central Alberta | Birchtree Financial'. Add explicit fee/fiduciary language in descriptions since AI engines cite firms that state fees and fiduciary status plainly.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Edit the metadata export in each app/**/layout.tsx. Set metadataBase and openGraph locale en_CA. Keep titles under ~60 chars and descriptions ~150-160."
+      },
+      {
+        "title": "Build a seasonal content calendar anchored to the Canadian financial year",
+        "description": "Demand is sharply seasonal: RRSP Dec-Mar 1 (deadline March 2, 2026), tax optimization Mar-Apr, RESP/year-end giving in Dec. Schedule and pre-publish dated, refreshable articles ahead of each spike and republish/update annually rather than writing once.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Map each pillar/seasonal post to a publish-by date 4-6 weeks before its peak. Add 'Last updated' dates and update yearly; the existing lib/blog.ts blog pipeline can host these."
+      },
+      {
+        "title": "Write conversational, question-led headings and add FAQPage schema where Q&A is visible",
+        "description": "AEO rewards natural-language questions over keyword strings. Use real questions as H2/H3s ('How does the OAS clawback work in 2026?') with concise 40-60 word answers, then mirror them in FAQPage JSON-LD. Critically, only mark up FAQs that are visibly answered on the page — mismatched FAQ schema risks a manual penalty.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "The existing FAQSection component already renders visible Q&A on /services and /faq; generate matching FAQPage JSON-LD from the same data array so content and markup never drift."
+      },
+      {
+        "title": "Create dedicated service-area pages for central Alberta towns",
+        "description": "Add lightweight, genuinely differentiated pages for Olds, Sundre, and Red Deer (and a 'central Alberta' hub) referencing local community ties (Olds Grizzlys, 4-H, BGC Olds, MVESS) and real client testimonials from those towns. Captures 'financial advisor [town]' and 'near me' queries with near-zero small-town competition.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Use the App Router with a /service-areas/[town] route or static pages; each needs unique copy and its own LocalBusiness/areaServed schema. Avoid thin doorway pages — make each substantively different."
+      },
+      {
+        "title": "Build pillar-and-cluster topic hubs instead of chasing national head terms",
+        "description": "A small site won't beat banks/Wealthsimple for 'RRSP vs TFSA' quickly. Instead, build pillar pages (Retirement Income, Estate Planning, Farm Succession, Tax Optimization) and link out to many long-tail, Alberta-specific and question-based supporting posts that ARE winnable, passing authority upward.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Each pillar = one service/resource page with internal links to 5-10 cluster posts and back. Use descriptive anchor text with geo and intent modifiers."
+      },
+      {
+        "title": "Add Article/BlogPosting + BreadcrumbList schema to every blog post",
+        "description": "Structured Article data (headline, author, datePublished, dateModified, publisher) plus breadcrumbs increases eligibility for rich results and AI citation, reportedly lifting CTR meaningfully. Pair with an author bio that states LLQP licensing and Canadian registration to reinforce E-E-A-T without overclaiming designations.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Add a <JsonLd> to the blog post template fed by the post's frontmatter/CMS fields in lib/blog.ts. Keep author/publisher consistent with the LocalBusiness node's @id."
+      },
+      {
+        "title": "Audit and tighten the XML sitemap and internal linking for the new content",
+        "description": "app/sitemap.ts already exists — ensure every new resource/service-area/blog URL is included with sensible lastModified dates, and that new posts are internally linked from relevant service pages so they're discovered and pass authority.",
+        "priority": "low",
+        "effort": "quick-win",
+        "implementationNote": "Extend app/sitemap.ts to pull blog and service-area slugs dynamically; confirm robots.ts allows crawling and references the sitemap."
+      }
+    ],
+    "schemaRecommendations": [
+      {
+        "type": "FinancialService",
+        "whereToApply": "Root layout (app/layout.tsx) so it appears sitewide",
+        "notes": "Subtype of LocalBusiness. Include name, url, full NAP (4914 50 Ave, Olds, AB T4H 1P5; phone +1-403-556-7777), geo, areaServed (Olds, Sundre, Red Deer, central Alberta, Canada), and a description stating fiduciary/no-direct-fee positioning and LLQP licensing. Do NOT include CFP/CFA or unverifiable aggregateRating."
+      },
+      {
+        "type": "LocalBusiness",
+        "whereToApply": "Contact page and any service-area pages",
+        "notes": "Reinforce NAP, openingHours, and areaServed per town. Share a consistent @id with the FinancialService node so engines treat them as one entity."
+      },
+      {
+        "type": "FAQPage",
+        "whereToApply": "/services, /faq, and any article with a visible Q&A block",
+        "notes": "Generate from the same data array the visible FAQSection renders so content and markup match exactly. Only mark up questions actually answered on the page to avoid penalties."
+      },
+      {
+        "type": "Article / BlogPosting",
+        "whereToApply": "Every blog post template",
+        "notes": "Include headline, description, datePublished, dateModified, author, and publisher. Add an author bio noting LLQP licensing and Canadian registration to support E-E-A-T without overclaiming designations."
+      },
+      {
+        "type": "BreadcrumbList",
+        "whereToApply": "All nested pages (services subpages, blog posts, service-area pages)",
+        "notes": "Improves rich-result eligibility and helps AI understand site structure; mirror the visible nav hierarchy."
+      },
+      {
+        "type": "Service",
+        "whereToApply": "Each of the 6 service pages and group-benefits page",
+        "notes": "Use serviceType (e.g. 'Retirement Planning'), provider (@id of the FinancialService node), and areaServed = central Alberta / Canada to tie services to the local entity."
+      },
+      {
+        "type": "WebSite + SearchAction",
+        "whereToApply": "Root layout",
+        "notes": "Optional but cheap; declares the site entity and enables potential sitelinks searchbox. Set inLanguage en-CA."
+      }
+    ],
+    "competitors": [
+      {
+        "name": "Wealthsimple",
+        "url": "https://www.wealthsimple.com/en-ca/learn",
+        "notes": "National robo-advisor with a massive, authoritative learn/library that dominates head terms (RRSP, TFSA, FHSA, contribution deadlines). Do not compete head-on; win on Alberta-specific and personal-advice angles they can't localize."
+      },
+      {
+        "name": "RBC / National Bank / Sun Life (bank & insurer content hubs)",
+        "url": "https://www.rbcroyalbank.com/en-ca/my-money-matters/",
+        "notes": "Banks and insurers own generic registered-account and RRSP-deadline content with high domain authority. Beat them only on niche, local, and conversational long-tail queries."
+      },
+      {
+        "name": "TaxTips.ca",
+        "url": "https://www.taxtips.ca/taxrates/ab.htm",
+        "notes": "Ranks strongly for Alberta tax brackets, OAS clawback, and CESG. Differentiate by adding planning interpretation and advisor CTAs rather than raw tables."
+      },
+      {
+        "name": "ATB Financial / ATB Wealth",
+        "url": "https://www.atb.com/business/good-advice/",
+        "notes": "Alberta-rooted institution producing farm-succession and Alberta-specific wealth content — the most direct provincial content competitor. Compete on personal, small-firm, central-Alberta positioning and community ties."
+      },
+      {
+        "name": "Spring Financial / Alitis / KWBLLP and regional AB firms",
+        "url": "https://springfinancial.ca/blog/tax-tips/alberta-tax-brackets/",
+        "notes": "Mid-size Canadian/Alberta firms ranking for 'Alberta tax brackets 2026' and similar refreshable posts — the realistic peer set to outrank with fresher, more localized, question-led content."
+      }
+    ],
+    "sources": [
+      "https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/whats-new.html",
+      "https://whealth.ca/blog/registered-plans-2026-updated-limits-cra-rules/",
+      "https://www.bnnbloomberg.ca/investing/opinion/2025/12/31/cra-sets-new-savings-and-pension-plan-limits-for-2026-dale-jackson/",
+      "https://ia.ca/advice-zone/finances/fhsa-tfsa-rrsp-contribution-deadlines",
+      "https://www.taxtips.ca/taxrates/ab.htm",
+      "https://www.alberta.ca/personal-income-tax",
+      "https://www.alitis.ca/insights/tax-rates-alberta/",
+      "https://springfinancial.ca/blog/tax-tips/alberta-tax-brackets/",
+      "https://www.taxtips.ca/seniors/oas-clawback.htm",
+      "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-education-savings-plans-resps/canada-education-savings-programs-cesp/canada-education-savings-grant-cesg.html",
+      "https://wealthnorth.ca/investing/resp-cesg-grant-limit/",
+      "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/important-dates-rrsp-rrif-rdsp.html",
+      "https://www.wealthsimple.com/en-ca/learn/rrsp-contribution-deadline",
+      "https://springfinancial.ca/blog/save-invest/rrsp-contribution-deadline-and-rrsp-contribution-limits/",
+      "https://paladindigitalmarketing.com/ai/why-will-aeo-reshape-financial-advisor-search-in-2026/",
+      "https://www.xyplanningnetwork.com/advisor-blog/from-seo-to-aeo-a-checklist-for-financial-advisors-who-want-to-be-found-first",
+      "https://www.wealthmanagement.com/marketing/answer-engine-optimization-is-a-top-priority-for-advisors-in-2026",
+      "https://knapsackcreative.com/blog/seo/local-seo-aeo-trends",
+      "https://nextjs.org/docs/app/guides/json-ld",
+      "https://www.inbuild.io/blog/json-ld-examples-2026",
+      "https://getzcollins.com/farm-and-ranch-succession-planning-in-alberta-avoiding-family-fallout/",
+      "https://www.atb.com/business/good-advice/agribusiness/atb-farm-succession-guide/",
+      "https://cba.org/sections/wills-estates-and-trusts/resources/succession-planning-for-family-farms/",
+      "https://www.fidelity.ca/content/dam/fidelity/en/documents/other-pdfs/2026-tax-facts-sheet-e.pdf"
+    ]
+  },
+  {
+    "area": "AI / Answer-Engine Optimization (AEO / GEO / LLM SEO)",
+    "summary": "Birchtree's site is further along than expected: lib/schema.ts already builds Organization (FinancialService+LocalBusiness), WebSite, Person, Service, FAQPage, Breadcrumb and Article JSON-LD, and the global Org/WebSite graph is injected in app/layout.tsx. The AEO opportunity is therefore NOT \"add schema from scratch\" — it is (1) WIRE UP the schema builders that already exist but are never called (FAQPage on /faq, Service on /services/[slug], Person on /team/[slug], Breadcrumbs sitewide, and the richer articleSchema on /blog/[slug] which currently uses an ad-hoc inline BlogPosting), (2) FILL the empty sameAs[] in siteConfig with real entity profiles (Google Business Profile, Facebook, LinkedIn) so AI engines can resolve \"Birchtree Financial\" as a known entity, and (3) restructure prose into answer-first, question-led, extractable blocks with Canadian-specific data. The single biggest evidence-based lever for THIS business: Yext's 2025 study of 6.8M AI citations found 88% of financial-services AI citations come from brand-managed sources, websites are 48% of finance citations, and OpenAI/ChatGPT leans heavily on third-party DIRECTORY LISTINGS — so claiming and NAP-syncing Google Business Profile + finance directories is as important as on-page work. On crawler policy: explicitly ALLOW the citation-oriented AI bots (OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) rather than relying on the current bare wildcard, because each blocked bot is estimated to cost 18-34% of potential citations on that engine, and ~27% of sites accidentally block them at the CDN layer. llms.txt is worth a small, low-effort implementation (no major AI vendor acts on it yet and 8/9 sites saw no traffic change, but it is cheap insurance + helps dev/agent tooling). Two factual corrections needed for trust/E-E-A-T: the live /faq copy claims \"fee-only fiduciary\" and \"registered investment advisor\" which contradict the LLQP-only, company-compensated reality in the brief — AI engines penalize YMYL inconsistency, so this should be corrected before amplifying it via schema. All file paths below are absolute and tie to the real codebase.",
+    "tactics": [
+      {
+        "title": "Wire up the FAQPage JSON-LD that already exists but is never emitted on /faq",
+        "description": "The /faq page renders 13 rich Q&As as visible accordion text but injects NO FAQPage structured data — yet lib/schema.ts already exports a ready faqSchema() builder. FAQ schema is the single highest-ROI AEO markup for a YMYL site: a 2025 study found pages with FAQPage schema hit a 41% AI-citation rate vs 15% without (~2.7x). Google deprecated FAQ *rich results* (May 2026) but still parses the markup, and ChatGPT/Perplexity/AI Overviews actively extract these labelled Q-A pairs.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "In /Users/marnibell/Documents/Birch tree financial/app/faq/page.tsx, move the faqs array into a shared module (or app/faq/layout.tsx), import { faqSchema, graph } from '@/lib/schema' and JsonLd from '@/components/seo/JsonLd', and render <JsonLd data={graph([faqSchema(faqs)])} /> in the page. The page is a client component, but JsonLd just renders a <script> so it works either place; cleanest is to emit it from app/faq/layout.tsx (a server component) so it is in the initial HTML. Keep on-screen text and schema text IDENTICAL (Google requires the marked-up answer to match visible content)."
+      },
+      {
+        "title": "Fix the two YMYL accuracy contradictions before amplifying them with schema",
+        "description": "The live /faq copy states Birchtree is a 'fee-only fiduciary' and a 'registered investment advisor / registered investment advisor... held to a fiduciary standard'. The business source-of-truth says LLQP-only (no RIA/CFP), compensated through the company (not fee-only), describing itself as fiduciary-minded. AI engines weight E-E-A-T heavily for YMYL/financial content and prioritize internally-consistent, authoritative brand-owned sources; a factual mismatch between page copy, schema, and reality undermines citation trust and creates regulatory exposure.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Edit /Users/marnibell/Documents/Birch tree financial/app/faq/page.tsx: change 'As a registered investment advisor, Birchtree Financial is held to a fiduciary standard' and 'As a fee-only fiduciary' to language matching reality (e.g. 'We act in a fiduciary-minded, client-first way; our advisors hold the Life License Qualification Program (LLQP) license and we are a registered financial advisory firm in Canada. We are compensated through the company, not by direct fees to you.'). Confirm the exact compliant wording with Melissa Birch. Keep terminology consistent across /faq, /about, /services, and the personSchema credential (already correctly LLQP-only in siteConfig.ts)."
+      },
+      {
+        "title": "Populate the empty sameAs[] with real entity profiles for knowledge-graph resolution",
+        "description": "siteConfig.ts ships sameAs: [] (empty on purpose) and the Organization schema only adds sameAs when non-empty — so today AI engines get zero corroborating identity signals. Entity resolution is the backbone of how LLMs recognize and confidently cite a brand: a populated sameAs linking the official site to Google Business Profile, Facebook, and LinkedIn lets ChatGPT/Gemini/Perplexity disambiguate 'Birchtree Financial, Olds AB' from any other entity. Yext's 6.8M-citation study found 88% of financial-services AI citations come from brand-MANAGED sources, so these owned profiles directly feed citations.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Collect the REAL, verified profile URLs only (do not invent): claimed Google Business Profile URL, Facebook page, LinkedIn company page, and Instagram if active. Add them to the sameAs array in /Users/marnibell/Documents/Birch tree financial/lib/siteConfig.ts. The organizationSchema() in lib/schema.ts already wires sameAs in automatically once non-empty. Use the exact same NAP (name, '4914 50 Ave, Olds, AB T4H 1P5', '+14035567777') everywhere to reinforce one entity."
+      },
+      {
+        "title": "Claim/optimize Google Business Profile and sync NAP across finance directories",
+        "description": "The Yext 2025 study (6.8M AI citations, 1.6M queries/model) found OpenAI/ChatGPT leans heavily on third-party DIRECTORY LISTINGS for financial-services answers (more than half of its finance citations), while Gemini favours first-party sites — so listings + website together cover the field. Listings are 42% of all AI citations and 48% of finance citations come from websites. For a local Olds AB firm, a complete, review-rich Google Business Profile plus consistent listings (Yelp, Yellow Pages CA, local Olds/Mountain View County business directories, FP Canada/advisor directories the firm legitimately qualifies for) are prime AI-citation fuel and reinforce the local entity.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Off-site work, not code: (1) Claim/verify the Google Business Profile for 4914 50 Ave Olds; fill categories ('Financial planner', 'Financial consultant'), services (the 6 service names), hours (Mon-Fri 9-5 MST), and gather client reviews. (2) Ensure byte-identical NAP on every directory. (3) Once the GBP URL exists, add it to siteConfig sameAs (see prior tactic). (4) List in reputable Canadian directories only where the firm genuinely qualifies. This is the highest-leverage OFF-page AEO move per the financial-services citation data."
+      },
+      {
+        "title": "Switch /blog/[slug] from ad-hoc inline BlogPosting to the richer articleSchema builder + add real author entity",
+        "description": "app/blog/[slug]/page.tsx hand-rolls a thin BlogPosting (headline, description, datePublished, Organization author/publisher) and ignores the already-built articleSchema() in lib/schema.ts. More importantly for YMYL, the author is the Organization, not a named human expert. Google and AI engines reward financial content with a credentialed, identifiable author (Experience/Expertise). Attributing posts to Melissa Birch (LLQP) with a link to her /team/melissa-birch person entity materially strengthens E-E-A-T and citation-worthiness.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "In /Users/marnibell/Documents/Birch tree financial/app/blog/[slug]/page.tsx replace the inline jsonLd object with articleSchema(post) from '@/lib/schema'. Extend articleSchema() in lib/schema.ts to accept an optional author and set author to { '@type':'Person','@id': `${url}/team/melissa-birch#person`, name:'Melissa Birch' } referencing the existing person node, keeping publisher as { '@id': ORG_ID }. Add an author byline + short credentialed bio visibly on the post template. Also add a dateModified field (blog.ts/post frontmatter) and surface 'Last updated' on-page — Perplexity and AI Overviews favour freshness."
+      },
+      {
+        "title": "Restructure key pages into answer-first, question-led, 40-60 word answer blocks",
+        "description": "AI engines extract the first 1-2 sentences under a heading to decide if a section answers a query. The GEO consensus (incl. the Princeton GEO study) is: phrase H2/H3s as the exact question a user asks an AI, then open each section with a 40-60 word direct 'answer capsule' before elaborating. The Princeton work found adding statistics lifts AI visibility ~41%, and cited/quantified content earns ~30-40% more LLM visibility. This restructuring is what converts existing Birchtree service/FAQ/blog prose into extractable, citable units.",
+        "priority": "high",
+        "effort": "substantial",
+        "implementationNote": "Apply to /services/[slug], /faq, /why-you-need-a-will, and new blog posts. Convert headings to questions ('How much can I contribute to a TFSA in 2026?', 'When should I start CPP in Alberta?'). Under each, lead with a 1-2 sentence direct answer (40-60 words) including a concrete Canadian number (e.g. 2026 TFSA limit $7,000; 2026 RRSP limit 18% of earned income up to the annual max) with an inline link to the authoritative source (canada.ca/CRA). Then add depth. Use bulleted/numbered lists liberally — lists are among the most-cited AI formats (listicles ~32% of citations)."
+      },
+      {
+        "title": "Replace the bare wildcard robots with explicit AI-crawler allow rules (citation bots) + verify no CDN-layer block",
+        "description": "app/robots.ts only emits a single userAgent:'*' allow rule. While that technically permits AI bots, AEO best practice in 2025-2026 is to explicitly ALLOW the citation/search-oriented bots so policy is unambiguous and survives future tightening: OAI-SearchBot (ChatGPT citations), ClaudeBot, PerplexityBot, Google-Extended (Gemini). Each blocked bot is estimated to cost 18-34% of potential citations on that engine, and ~27% of sites accidentally block these at the CDN/WAF layer even when robots.txt is fine — a high-priority audit for a Vercel-hosted site.",
+        "priority": "medium",
+        "effort": "quick-win",
+        "implementationNote": "In /Users/marnibell/Documents/Birch tree financial/app/robots.ts return an array of rules: keep the existing { userAgent:'*', allow:'/', disallow:['/admin/','/api/'] }, then add explicit allow rules for userAgents ['GPTBot','OAI-SearchBot','ChatGPT-User','ClaudeBot','Claude-SearchBot','PerplexityBot','Perplexity-User','Google-Extended'] each with allow:'/' and disallow:['/admin/','/api/']. Then verify on Vercel that no firewall/WAF or bot-protection rule blocks these user agents (curl -A 'OAI-SearchBot' the homepage and confirm 200). Decision note for the owner: allowing training crawlers (GPTBot, Google-Extended) trades content training for long-term brand familiarity in models — recommended here since the goal is visibility, not content protection."
+      },
+      {
+        "title": "Add a lightweight llms.txt at the site root",
+        "description": "No major AI vendor (OpenAI, Anthropic, Google, Meta) currently reads or acts on llms.txt in production, and analyses (8/9 sites saw no traffic change; 300k-domain study showed no citation impact) confirm it is not a magic lever today. But it is genuinely low-effort, helps AI dev/agent tooling fetch the right pages with less token waste, and is cheap insurance if adoption grows. Worth doing as a small, clearly-scoped task — not a priority.",
+        "priority": "low",
+        "effort": "quick-win",
+        "implementationNote": "Create /Users/marnibell/Documents/Birch tree financial/app/llms.txt/route.ts (a Next.js Route Handler returning text/plain) OR a static /public/llms.txt. Content: an H1 '# Birchtree Financial', a one-line blockquote summary (family-run financial advisory firm, Olds AB, serving central Alberta & Canada; retirement, investment, insurance, tax, wealth, estate planning), then markdown link sections '## Core pages' (home, /about, /services + each /services/[slug], /team, /contact), '## Helpful answers' (/faq, /why-you-need-a-will, top blog posts), '## Tools' (the calculator pages). Keep it short and link-only. Optionally also generate llms-full.txt with expanded service/FAQ text."
+      },
+      {
+        "title": "Emit Service + BreadcrumbList JSON-LD on service pages and Person + Breadcrumb on team pages",
+        "description": "lib/schema.ts already exports serviceSchema(), personSchema(member) and breadcrumbSchema() but NONE are called on /services/[slug] or /team/[slug]. Service schema tells AI engines exactly what Birchtree offers, to whom (audience), and where (areaServed), and Person schema (with the LLQP credential node already built) supplies the named-expert E-E-A-T signal AI engines want for YMYL finance. BreadcrumbList helps engines understand site structure and is a cheap, sitewide win.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "In the service detail page (or its layout.tsx) call graph([serviceSchema(service), breadcrumbSchema([{name:'Home',path:'/'},{name:'Services',path:'/services'},{name:service.name,path:`/services/${service.slug}`}])]) and render via <JsonLd>. Do the equivalent on /team/[slug] with personSchema(member) + breadcrumbs. Prefer emitting from the sibling layout.tsx server components so it is in initial HTML. Confirm the /services/[slug] route exists (sitemap lists service slugs but app/services has only page.tsx + layout.tsx — if there are no per-service detail routes, create them so each service is its own citable URL)."
+      },
+      {
+        "title": "Pursue a Wikidata entity (and corroborating directory/registry references) for long-term entity authority",
+        "description": "LLMs heavily weight Wikidata + Wikipedia for factual grounding; entities with a Wikidata item are recognized, attributed, and cited more confidently, and Wikidata is part of most major models' training data and live retrieval. A small local firm won't meet Wikipedia notability, but Wikidata has lower bars and a presence in a government business registry, Crunchbase, or an authoritative directory can justify a Wikidata item linking back to birchtreefinancial.ca.",
+        "priority": "low",
+        "effort": "substantial",
+        "implementationNote": "Off-site/long-horizon: (1) Ensure consistent NAP + a clear 'official website' across the firm's Alberta corporate registry record and any directory listings. (2) Create a Wikidata item for 'Birchtree Financial' (instance of: business/financial services company; located in Olds, Alberta; official website; founder Art Birch) once 2-3 independent corroborating references exist — do NOT fabricate references. (3) Add the Wikidata URL to siteConfig sameAs once it exists. This compounds slowly but is the strongest durable entity signal."
+      },
+      {
+        "title": "Publish original, Canadian-specific data/answer content to become the primary citable source",
+        "description": "Original research/data is 'GEO gold' — if you publish a number or comparison no one else has, AI engines must cite you as the primary source, and statistics raise AI visibility ~41% (Princeton GEO study). For a YMYL finance niche, brand-owned authoritative answer pages dominate (88% of financial citations are brand-managed). Birchtree can own central-Alberta-specific, current-year answer content (2026 limits, CPP/OAS timing for Albertans, RRSP vs TFSA decision tables) that generic national sites don't localize.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Create answer-first blog/resource pages (use the existing /blog and /resources/[slug] systems and articleSchema). Each: question-led title, 40-60 word answer capsule, a comparison TABLE or numbered steps, one hyperlinked CRA/canada.ca statistic per ~150-200 words, current year ('2026') in title/slug/H1, named LLQP author byline, and 'Last updated' date. Topics map to the geo=aeo keywords below (RRSP vs TFSA, CPP timing, RRIF conversion, estate/will basics in Alberta, free vs fee advisor models). Add an FAQ block (with faqSchema) at the bottom of each."
+      }
+    ],
+    "schemaRecommendations": [
+      {
+        "type": "FAQPage",
+        "whereToApply": "/Users/marnibell/Documents/Birch tree financial/app/faq/page.tsx (emit from app/faq/layout.tsx server component). Also embed a small FAQPage block at the bottom of each /services/[slug] and key blog/resource pages.",
+        "notes": "Builder faqSchema() already exists in lib/schema.ts but is NEVER called. Highest-ROI AEO markup (~2.7x AI-citation rate). Marked-up answer text MUST match visible text. Google deprecated FAQ rich results but still parses it; ChatGPT/Perplexity/AI Overviews extract it directly."
+      },
+      {
+        "type": "Service + Offer",
+        "whereToApply": "/Users/marnibell/Documents/Birch tree financial/app/services/[slug] (page or layout). One Service node per service URL.",
+        "notes": "serviceSchema() exists but is unused. Already includes provider->#organization, areaServed (Olds + central Alberta towns + AB + Canada) and audience. Makes each of the 6 services an explicitly machine-readable, locally-scoped offering. Verify per-service detail routes exist; create them if not so each service is its own citable URL."
+      },
+      {
+        "type": "Person + EducationalOccupationalCredential (LLQP)",
+        "whereToApply": "/Users/marnibell/Documents/Birch tree financial/app/team/[slug] (page or layout), and reference the person @id as author on /blog/[slug].",
+        "notes": "personSchema() exists but is unused. Already emits the LLQP credential node for Melissa and Art only (correct — do NOT add CFP/CFA). worksFor -> #organization. Named, credentialed authors are a core YMYL E-E-A-T signal for AI citation."
+      },
+      {
+        "type": "BlogPosting / Article (with named author + dateModified)",
+        "whereToApply": "/Users/marnibell/Documents/Birch tree financial/app/blog/[slug]/page.tsx",
+        "notes": "Currently a thin inline BlogPosting with Organization-only author. Replace with the richer articleSchema() from lib/schema.ts; add a Person author referencing /team/melissa-birch#person, a real dateModified, and surface 'Last updated' on-page for freshness (Perplexity/AI Overviews weight recency)."
+      },
+      {
+        "type": "BreadcrumbList",
+        "whereToApply": "All deep pages: /services/[slug], /team/[slug], /blog/[slug], /resources/[slug].",
+        "notes": "breadcrumbSchema() exists but is unused. Cheap sitewide win that helps AI engines understand site hierarchy and context."
+      },
+      {
+        "type": "FinancialService + LocalBusiness (Organization) — enrich existing node",
+        "whereToApply": "Already global via app/layout.tsx -> globalGraph() -> organizationSchema() in lib/schema.ts. Enrichment only.",
+        "notes": "Strong already (NAP, geo, areaServed, openingHours, makesOffer, founder, knowsAbout, ReserveAction). The ONE missing high-value field is sameAs (currently empty []). Populate siteConfig.sameAs with verified Google Business Profile / Facebook / LinkedIn (and later Wikidata) URLs — the node auto-includes them once non-empty."
+      },
+      {
+        "type": "WebSite + SearchAction (optional)",
+        "whereToApply": "lib/schema.ts websiteSchema(), already global.",
+        "notes": "WebSite node is fine. If the site adds working on-site search, add a potentialAction SearchAction with a urlTemplate so engines can surface a sitelinks searchbox; otherwise leave as-is."
+      }
+    ],
+    "keywords": [
+      {
+        "keyword": "is birchtree financial a good financial advisor in olds alberta",
+        "intent": "commercial",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "About/Reviews page + GBP + sameAs entity signals"
+      },
+      {
+        "keyword": "who is the best financial advisor near olds alberta",
+        "intent": "commercial",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "LocalBusiness schema + GBP + directory listings"
+      },
+      {
+        "keyword": "should i contribute to an rrsp or a tfsa in 2026",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "Answer-first blog post with comparison table + FAQPage"
+      },
+      {
+        "keyword": "what is the tfsa contribution limit for 2026 in canada",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "40-60 word answer capsule with CRA-linked stat"
+      },
+      {
+        "keyword": "when should i start taking cpp and oas in alberta",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "Question-led article + steps + FAQ block"
+      },
+      {
+        "keyword": "how do i convert my rrsp to a rrif",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "Answer-first guide with numbered steps"
+      },
+      {
+        "keyword": "do i need a will in alberta and what happens without one",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "easy",
+        "contentType": "Expand /why-you-need-a-will into answer blocks + FAQPage"
+      },
+      {
+        "keyword": "how are financial advisors paid in canada commission vs fee",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "FAQ answer (must match corrected compensation copy)"
+      },
+      {
+        "keyword": "what does llqp licensed mean for a financial advisor",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "easy",
+        "contentType": "Definition snippet + Person credential schema"
+      },
+      {
+        "keyword": "how much do i need to retire in alberta",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "high",
+        "difficulty": "moderate",
+        "contentType": "Data-led answer article + retirement calculator tool link"
+      },
+      {
+        "keyword": "rrsp vs tfsa for self employed business owner in alberta",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "Audience-specific answer page + Service schema"
+      },
+      {
+        "keyword": "what insurance do i need for my family in canada",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "Question-led guide (life/disability/critical illness) + FAQ"
+      },
+      {
+        "keyword": "financial advisor for retirement planning red deer",
+        "intent": "commercial",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate",
+        "contentType": "areaServed schema + local landing content"
+      },
+      {
+        "keyword": "how to minimize tax on rrsp withdrawals in retirement",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "hard",
+        "contentType": "Original strategy article with worked Canadian example"
+      }
+    ],
+    "contentIdeas": [
+      {
+        "title": "RRSP vs TFSA in 2026: Which Should an Albertan Choose? (with a decision table)",
+        "targetKeyword": "should i contribute to an rrsp or a tfsa in 2026",
+        "format": "Answer-first blog post with comparison table, FAQ block, LLQP author byline",
+        "geo": "aeo",
+        "whyItMatters": "High-volume evergreen Canadian question AIs answer constantly; a localized, current-year, table-driven page with FAQPage schema is highly citable and routes to the existing TFSA/RRSP analyzer tool."
+      },
+      {
+        "title": "2026 Canadian Contribution Limits Cheat Sheet (TFSA, RRSP, RESP, FHSA)",
+        "targetKeyword": "what is the tfsa contribution limit for 2026 in canada",
+        "format": "Short reference page, each limit as a 40-60 word capsule with a CRA link",
+        "geo": "aeo",
+        "whyItMatters": "Pure-fact, freshness-sensitive content AIs love to extract; one CRA-linked stat per item maximizes citation power and the current-year slug signals freshness."
+      },
+      {
+        "title": "When Should You Start CPP and OAS? A Timing Guide for Albertans",
+        "targetKeyword": "when should i start taking cpp and oas in alberta",
+        "format": "Question-led article with numbered decision steps + FAQ",
+        "geo": "aeo",
+        "whyItMatters": "Complex, contextual retirement question where AIs seek an authoritative brand-owned answer; ties to retirement planning service and CPP/OAS optimizer tool."
+      },
+      {
+        "title": "Dying Without a Will in Alberta: What Actually Happens",
+        "targetKeyword": "do i need a will in alberta and what happens without one",
+        "format": "Expand existing /why-you-need-a-will into answer blocks + FAQPage schema",
+        "geo": "aeo",
+        "whyItMatters": "Existing page can be restructured into extractable Q&A; province-specific intestacy detail is exactly the localized angle generic national sites miss."
+      },
+      {
+        "title": "How Birchtree Financial Is Paid (and Why It Means No Fees to You)",
+        "targetKeyword": "how are financial advisors paid in canada commission vs fee",
+        "format": "Plain-language explainer + FAQ, aligned to corrected compensation language",
+        "geo": "aeo",
+        "whyItMatters": "Builds trust/E-E-A-T, answers a common 'how do advisors get paid' AI query, and fixes the fiduciary/fee-only contradiction so schema and copy stay consistent."
+      },
+      {
+        "title": "Retirement in Alberta: How Much Do You Really Need?",
+        "targetKeyword": "how much do i need to retire in alberta",
+        "format": "Data-led article with worked example + link to retirement calculator",
+        "geo": "aeo",
+        "whyItMatters": "Statistics/original framing lift AI visibility ~41%; pairs a citable answer with the firm's own interactive tool to capture and convert the query."
+      }
+    ],
+    "competitors": [],
+    "sources": [
+      "https://searchengineland.com/llms-txt-proposed-standard-453676",
+      "https://seranking.com/blog/llms-txt/",
+      "https://www.semrush.com/blog/llms-txt/",
+      "https://www.frase.io/blog/what-is-answer-engine-optimization-the-complete-guide-to-getting-cited-by-ai",
+      "https://almcorp.com/blog/answer-engine-optimization-2026/",
+      "https://www.tryprofound.com/resources/articles/answer-engine-optimization-aeo-guide-for-marketers-2025",
+      "https://capston.ai/robots-txt-for-ai-bots/",
+      "https://www.mersel.ai/blog/how-to-block-or-allow-ai-bots-on-your-website",
+      "https://www.soar.sh/blog/ai-bots-robots-txt-guide",
+      "https://www.yext.com/blog/ai-relies-on-brand-managed-sources-for-88-percent-of-financial-services-citations",
+      "https://www.yext.com/about/news-media/ai-citations-release",
+      "https://www.yext.com/research/article/ai-citations-user-locations-query-context",
+      "https://www.frase.io/blog/faq-schema-ai-search-geo-aeo",
+      "https://developers.google.com/search/docs/appearance/structured-data/faqpage",
+      "https://developers.google.com/search/docs/appearance/structured-data/qapage",
+      "https://www.frase.io/blog/how-to-get-cited-by-ai-search-engines-the-complete-geo-playbook",
+      "https://www.uxtigers.com/post/geo-guidelines",
+      "https://www.mlforseo.com/knowledge-graph-strategy/wikidata-for-brands-notability-criteria-and-a-realistic-path/",
+      "https://seoengico.com/blog/wikipedia-brand-seo-llm-citations-2026",
+      "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/before.html",
+      "https://money.ca/managing-money/retirement/should-canadians-trust-ai-for-retirement-planning"
+    ]
+  },
+  {
+    "area": "Technical SEO & Structured Data (schema.org JSON-LD) for a YMYL financial-advisory site on Next.js 14 App Router",
+    "summary": "Birchtree already has a strong foundation: a single-source siteConfig, a typed lib/schema.ts that correctly models the business as [\"FinancialService\",\"LocalBusiness\"] in an @id graph with a WebSite node, a dynamic opengraph-image.tsx, metadataBase, a sitemap and robots route. The biggest gap is that the per-page builders (personSchema, serviceSchema, faqSchema, breadcrumbSchema, articleSchema) are DEAD CODE — only globalGraph() (Organization + WebSite) is injected in app/layout.tsx, so service pages, team pages, the FAQ page and the blog all ship without their structured data. The blog [slug] page even re-defines its own inferior inline BlogPosting (Organization author, no dateModified, no @id graph). Because the service-detail, team-detail and FAQ pages are \"use client\" with metadata in sibling layouts, the fix is to inject JSON-LD from the layout.tsx (a server component) — JSON-LD does not need to live in the client page. Highest-value moves: (1) wire up the existing builders, (2) add BreadcrumbList everywhere, (3) add WebSite SearchAction, (4) add per-route canonicals (missing on [service]/[slug] and most layouts), (5) add author Person + correct BlogPosting for E-E-A-T, (6) populate sameAs once Google Business Profile/Facebook/LinkedIn URLs are confirmed. Two important 2025-2026 reality checks: Google FULLY removed FAQ rich results (May 2026; report + Rich Results Test support dropped June 2026) — keep FAQPage ONLY where content is genuinely Q&A-shaped, now purely as an AEO/AI-citation signal, not for a Google rich result; and Review/AggregateRating on your own Organization/LocalBusiness is a self-serving-review policy violation and is especially dangerous on a YMYL site — do NOT fabricate ratings, surface real Google reviews on your Business Profile instead. For a YMYL financial site, E-E-A-T trust signals (real author bylines with Person schema, LLQP hasCredential, clean entity/sameAs, accurate NAP) and Core Web Vitals discipline around framer-motion/next-image matter more than chasing rich-result decorations.",
+    "schemaRecommendations": [
+      {
+        "type": "Organization + FinancialService + LocalBusiness (combined @type array)",
+        "whereToApply": "Sitewide, injected once in app/layout.tsx via globalGraph() — already done in lib/schema.ts organizationSchema(). Keep as the single canonical business node with @id = {url}/#organization.",
+        "notes": "CORRECT as built: \"@type\": [\"FinancialService\",\"LocalBusiness\"] is the right combine — FinancialService is a subtype of LocalBusiness (which is itself Organization + Place), so one node satisfies local-pack, the 'financial advisor' entity, and the Organization knowledge panel. There is no schema.org 'FinancialAdvisor' type, so FinancialService is the most specific valid choice. Keep: name, legalName, url, logo (ImageObject ideally), telephone, email, address (PostalAddress), geo, areaServed, openingHoursSpecification, founder, knowsAbout, makesOffer. FIXES: (a) priceRange is currently the string 'Free initial consultation' — priceRange expects a symbolic value like '$$'; move 'Free initial consultation' to a dedicated Offer/description and set priceRange:'$$' or omit. (b) Add sameAs[] once you confirm the Google Business Profile, Facebook, LinkedIn, X URLs (siteConfig.sameAs is intentionally empty — do not invent). (c) Make logo a full ImageObject with width/height and consider adding image as a real photo of the office, not the 512px icon. (d) Add foundingDate if known. (e) Consider numberOfEmployees and slogan(tagline). Do NOT add aggregateRating/review here (self-serving, prohibited)."
+      },
+      {
+        "type": "WebSite (with optional SearchAction)",
+        "whereToApply": "Sitewide in globalGraph(), @id = {url}/#website, publisher references #organization.",
+        "notes": "Already present and correct (url, name, description, inLanguage en-CA, publisher). OPTIONAL ADD: potentialAction SearchAction with target a urlTemplate like {url}/blog?q={search_term_string} and query-input 'required name=search_term_string' — ONLY if you actually build a working search/blog-filter endpoint at that URL; do not add a SearchAction that 404s. This can power a sitelinks search box. Low priority for a small site without site search."
+      },
+      {
+        "type": "Person (team members, E-E-A-T author entities)",
+        "whereToApply": "app/team/[slug]/layout.tsx (server component) — inject personSchema(member) which already exists but is never called. Also reference the relevant Person as author on blog posts they write.",
+        "notes": "Builder exists in lib/schema.ts (personSchema): name, jobTitle, worksFor->#organization, url, knowsAbout, and hasCredential EducationalOccupationalCredential for the two LLQP holders (Melissa, Art). This is the core YMYL E-E-A-T signal — Google AI Mode and answer engines use Person + worksFor + knowsAbout + hasCredential to resolve author authority. ADD when available: sameAs (LinkedIn/professional profile), image (real headshot), description (the bio). IMPORTANT: only assert LLQP — never CFP/CFA. The page is 'use client' so render the <script> from the layout, not the page."
+      },
+      {
+        "type": "Service (per service page)",
+        "whereToApply": "app/services/[service]/layout.tsx — inject serviceSchema() (exists, never called). One Service node per service slug.",
+        "notes": "Builder exists: name, description, serviceType, provider->#organization, areaServed, url, audience. ADD: areaServed already good; consider hasOfferCatalog or offers with a 'Free initial consultation' Offer, and provider as @id reference (already). Link each Service @id back to the makesOffer entries on the Organization node so the graph is internally consistent. serviceType should map to a recognizable category (e.g. 'Retirement Planning'). Keep descriptions factual and non-promissory (YMYL)."
+      },
+      {
+        "type": "BlogPosting / Article (blog posts)",
+        "whereToApply": "app/blog/[slug]/page.tsx — REPLACE the hand-written inline JSON-LD with articleSchema() from lib/schema.ts.",
+        "notes": "The page currently re-declares its own BlogPosting with author/publisher as Organization, no dateModified, no @id graph, keywords as a string. The lib/schema.ts articleSchema() is better (has @id, dateModified, inLanguage, mainEntityOfPage) but still uses Organization as author. For YMYL E-E-A-T, set author to a Person (@id of the actual writer, e.g. {url}/team/melissa-birch#person) when a real human wrote it, with publisher staying #organization. ADD real dateModified (currently mirrors datePublished — track true modified dates), image as a real 1200x630 article image (ImageObject with width/height), and wordCount. Use the article's own OG image (see opengraph-image rec). Inject from the page or a small server wrapper since the page reads the post by slug."
+      },
+      {
+        "type": "FAQPage",
+        "whereToApply": "app/faq/layout.tsx and the FAQ blocks on contact/services pages — inject faqSchema() (exists, never called) ONLY where the on-page content is genuinely visible Q&A.",
+        "notes": "2025-2026 REALITY: Google removed the FAQ rich result entirely (rolled out May 7 2026; FAQ report + Rich Results Test support dropped June 2026; Search Console API support removed Aug 2026). The FAQPage TYPE is NOT deprecated and won't harm rankings. Keep it PURELY as an AEO / AI-answer-engine signal (ChatGPT, Perplexity, Google AI Overviews can extract clean Q&A pairs) — not for a Google star/dropdown. Rules that still apply: each Question must contain the full question text, each Answer the full answer text, and the markup must match visible on-page content exactly. Do NOT add FAQPage to pages that aren't truly Q&A-shaped. Net: implement on the real FAQ page; treat as optional/low-priority elsewhere."
+      },
+      {
+        "type": "BreadcrumbList",
+        "whereToApply": "Every non-home page: /services, /services/[service], /team, /team/[slug], /blog, /blog/[slug], /tools/*, /about, etc. breadcrumbSchema() exists but is never called.",
+        "notes": "This is a still-supported rich result AND a strong navigational signal for crawlers and AI. Cheap, high-value, zero risk. Build the items list per route (Home -> Services -> Retirement Planning). Inject from each layout.tsx. Ensure each item.item is an absolute URL (builder already prefixes siteConfig.url). Position is 1-indexed (correct in builder)."
+      },
+      {
+        "type": "WebPage / ProfilePage / CollectionPage (optional refinement)",
+        "whereToApply": "Optionally type key pages: ProfilePage for /team/[slug], CollectionPage for /blog and /services index, ContactPage for /contact.",
+        "notes": "Low priority but helps entity clarity for AI. Each WebPage can carry breadcrumb, primaryImageOfPage, and isPartOf->#website, and ProfilePage can wrap the Person mainEntity. Keep it lightweight; don't over-nest."
+      },
+      {
+        "type": "Review / AggregateRating",
+        "whereToApply": "DO NOT add to Organization/LocalBusiness/Service nodes on your own site.",
+        "notes": "Self-serving reviews (a review about you, hosted/controlled by you) are explicitly disallowed for LocalBusiness/Organization rich results, and fabricating ratings on a YMYL financial site risks manual action and erodes trust. Instead: (1) collect real reviews on your Google Business Profile (those power stars in Maps/local pack natively, no markup needed), and (2) if you later display genuine, verifiable client testimonials, surface them as plain text — do not wrap your own homepage testimonials in AggregateRating. Advise the client explicitly against any review-schema shortcut."
+      }
+    ],
+    "tactics": [
+      {
+        "title": "Wire up the dead schema builders (biggest single win)",
+        "description": "lib/schema.ts already exports personSchema, serviceSchema, faqSchema, breadcrumbSchema, articleSchema — but grep confirms NONE are imported anywhere except globalGraph() in app/layout.tsx. So service pages, team pages, the FAQ page and (properly) the blog ship without their structured data. Inject the right node(s) from each route's server-side layout.tsx (or page for the blog).",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Because /faq, /services/[service] and /team/[slug] page.tsx are 'use client', render the <script type=\"application/ld+json\"> from the sibling layout.tsx (a server component) — JSON-LD never needs to be in the client component. Pattern: build a graph([breadcrumbSchema(...), serviceSchema(...)]) and pass to the existing <JsonLd> component. Reuse the same @id graph so Service/Person nodes reference {url}/#organization."
+      },
+      {
+        "title": "De-duplicate and upgrade the blog BlogPosting schema",
+        "description": "app/blog/[slug]/page.tsx hand-writes its own BlogPosting (Organization author, no dateModified, no @id, keywords-as-string). Replace it with the superior articleSchema() builder, and set author to the real human Person @id for E-E-A-T on this YMYL content.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Delete the inline jsonLd object in the blog page; import articleSchema from lib/schema. Extend the builder/post frontmatter to carry a real authorSlug -> author:{'@id':`${url}/team/${slug}#person`} with publisher staying #organization, plus a true dateModified and a real 1200x630 image. Add a BreadcrumbList (Home>Blog>Post) to the same graph."
+      },
+      {
+        "title": "Add per-route canonical URLs on every layout",
+        "description": "alternates.canonical is only set on root, /blog and /blog/[slug]. The [service] and [slug] dynamic layouts and most static layouts (services, team, about, contact, tools, faq, resources) set title/description but NO canonical, so Google has to guess. Add alternates.canonical to each.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "metadataBase is already set in root layout, so canonical can be a relative path: e.g. in app/services/[service]/layout.tsx return alternates:{canonical:`/services/${serviceSlug}`}; in app/team/[slug]/layout.tsx canonical:`/team/${resolvedParams.slug}`. Do the same for /services, /team, /about, /contact, /faq, /tools/* layouts. Centralize the base in siteConfig (already there)."
+      },
+      {
+        "title": "Add BreadcrumbList sitewide",
+        "description": "Still a supported rich result and a clear hierarchy signal for crawlers and AI answer engines. breadcrumbSchema() already exists; just call it on every non-home route.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Define a tiny per-route items array (Home -> Section -> Page) in each layout and inject graph([breadcrumbSchema(items), ...]). Keep names matching the visible page H1/title."
+      },
+      {
+        "title": "Treat FAQPage as an AEO signal, not a Google rich result",
+        "description": "Google fully removed FAQ rich results (May 2026; report + Rich Results Test support dropped June 2026). Implement faqSchema() ONLY on the genuine /faq page (and any truly Q&A page), purely to feed AI answer engines clean question-answer pairs. Do not sprinkle FAQPage on non-Q&A pages chasing a dropdown that no longer exists.",
+        "priority": "medium",
+        "effort": "quick-win",
+        "implementationNote": "Inject from app/faq/layout.tsx. Each Question.name must be the full question and acceptedAnswer.text the full answer, matching visible on-page text exactly. Validate with validator.schema.org (not the soon-removed FAQ path of Rich Results Test). Keep answers factual and compliant for YMYL."
+      },
+      {
+        "title": "Populate sameAs and complete the NAP/entity trust signals",
+        "description": "siteConfig.sameAs is intentionally empty. Confirm and add the real Google Business Profile, Facebook, LinkedIn (and X if any) URLs — sameAs is one of the strongest entity-disambiguation and E-E-A-T signals for both Google Knowledge Graph and AI citation, and is what ties your site to your Google reviews/local pack.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Add verified URLs to siteConfig.sameAs (organizationSchema already conditionally emits sameAs). Ensure the NAP (name/address/phone) in schema EXACTLY matches the Google Business Profile string-for-string. Also add per-person sameAs (LinkedIn) on team Person nodes. Never invent profiles."
+      },
+      {
+        "title": "Harden JSON-LD serialization against XSS",
+        "description": "components/seo/JsonLd.tsx uses JSON.stringify(data) with dangerouslySetInnerHTML. Per official Next.js guidance, JSON.stringify does NOT escape '<', allowing potential script-breakout if any field ever contains user/CMS input (e.g. blog frontmatter, FAQ answers).",
+        "priority": "medium",
+        "effort": "quick-win",
+        "implementationNote": "Change to JSON.stringify(data).replace(/</g,'\\\\u003c') in JsonLd.tsx (Next.js's documented mitigation), or adopt serialize-javascript. Low effort, removes a real injection vector as content becomes CMS-driven."
+      },
+      {
+        "title": "Add schema-dts typing to lib/schema.ts",
+        "description": "Builders return Record<string,unknown>, so typos in property names (e.g. areaServed vs areasServed) won't be caught. The official Next.js docs recommend typing JSON-LD with schema-dts.",
+        "priority": "low",
+        "effort": "moderate",
+        "implementationNote": "npm i -D schema-dts and type builders as WithContext<FinancialService>, Person, Service, BlogPosting, etc. Catches invalid/misspelled properties at build time. Optional but valuable as schema grows."
+      },
+      {
+        "title": "Per-route OpenGraph/Twitter images (and explicit canonical OG URLs)",
+        "description": "There is one global app/opengraph-image.tsx (good, on-brand, factual) and no twitter-image. For a content/E-E-A-T play, generate route-specific OG images for blog posts (title + author + date) and optionally service/team pages, improving click-through from social and AI surfaces.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Add app/blog/[slug]/opengraph-image.tsx using next/og ImageResponse + generateImageMetadata if needed, reading the post by slug to render the title/author. Next auto-emits the og:image and twitter:image tags. The global opengraph-image already cascades to routes without their own. Add a twitter-image.tsx (or rely on Next mapping OG to Twitter when card=summary_large_image). Keep <=8MB OG / <=5MB Twitter or the build fails."
+      },
+      {
+        "title": "Set hreflang/locale alternates for en-CA",
+        "description": "Schema declares inLanguage en-CA and OpenGraph locale en_CA, html lang is 'en'. There is no alternates.languages (hreflang). For a single-language site this is minor, but tightening the locale signal helps Canadian targeting.",
+        "priority": "low",
+        "effort": "quick-win",
+        "implementationNote": "Set <html lang=\"en-CA\"> in app/layout.tsx, and optionally alternates:{languages:{'en-CA':'/'}} in root metadata + x-default. Only add multiple hreflang entries if/when a fr-CA version exists — don't fabricate alternates."
+      },
+      {
+        "title": "Core Web Vitals discipline for the framer-motion + next/image stack",
+        "description": "framer-motion (v11) ships meaningful client JS and above-the-fold animations can delay LCP and hurt INP — the metrics Google and the 2025 Web Almanac flag as hardest to pass. next.config.js already does optimizePackageImports for lucide-react and good image formats; extend the discipline.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "1) Give the LCP hero image priority + explicit width/height (reserve space -> CLS 0) and avoid animating it in. 2) Keep heavy framer-motion sections below the fold and lazy/viewport-gated; respect prefers-reduced-motion. 3) Convert 'use client' marketing pages (services/[service], team/[slug], faq) to server components where possible so content is in the initial HTML (better LCP + crawlability + lets JSON-LD live on the page) — these read static data and don't need useParams. 4) Add optimizePackageImports for framer-motion and recharts; lazy-load recharts/Chart tool pages with next/dynamic. 5) Self-host or preconnect fonts (already next/font with display swap). Measure with PageSpeed Insights field data, target LCP<2.5s, INP<200ms, CLS<0.1."
+      },
+      {
+        "title": "Strengthen YMYL E-E-A-T technical signals around authorship",
+        "description": "For a 'Your Money' site, Google and AI answer engines weight author expertise and trust heavily. Tie every advice-bearing page to a real, credentialed human and a transparent firm.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Give blog posts a visible byline linking to /team/[slug] whose Person schema carries jobTitle, LLQP hasCredential, knowsAbout and sameAs. Add a 'reviewed by'/last-updated line on financial guidance pages (and reflect it in dateModified). Ensure About/Team pages state the LLQP licensing and registered-advisory status (no CFP/CFA). Add an Organization knowsAbout/areaServed that matches the real service set. These are the technical hooks Google AI Mode uses to verify claims and assess source credibility."
+      },
+      {
+        "title": "Tidy sitemap & robots accuracy",
+        "description": "app/sitemap.ts sets lastModified:new Date() (today) on every static page each build, which dilutes the signal, and hardcodes the tool/service/team slug lists separately from siteConfig (drift risk). robots.ts is fine (allows all, disallows /admin /api, points to sitemap).",
+        "priority": "low",
+        "effort": "moderate",
+        "implementationNote": "Drive sitemap entries from siteConfig.services/team and the blog index so lists never drift. Use real lastModified (git mtime or post.publishedAt/updatedAt) instead of new Date() for static pages so 'changed' actually means changed. Confirm the live sitemap is submitted in Google Search Console. priority/changeFrequency are weak hints — fine as-is."
+      }
+    ],
+    "sources": [
+      "https://schema.org/FinancialService",
+      "https://schema.org/docs/financial.html",
+      "https://developers.google.com/search/docs/appearance/structured-data/faqpage",
+      "https://developers.google.com/search/blog/2023/08/howto-faq-changes",
+      "https://alevdigital.com/blog/faq-structured-data-2026/",
+      "https://developers.google.com/search/docs/appearance/structured-data/review-snippet",
+      "https://www.brightlocal.com/learn/review-schema/",
+      "https://www.seroundtable.com/google-nesting-reviews-aggregate-ratings-40428.html",
+      "https://nextjs.org/docs/app/guides/json-ld",
+      "https://nextjs.org/docs/app/api-reference/functions/generate-metadata",
+      "https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image",
+      "https://nextjs.org/docs/app/api-reference/functions/generate-image-metadata",
+      "https://developers.google.com/search/docs/appearance/structured-data/article",
+      "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+      "https://developers.google.com/search/docs/appearance/core-web-vitals",
+      "https://www.digitalapplied.com/blog/structured-data-seo-2026-rich-results-guide",
+      "https://www.frase.io/blog/faq-schema-ai-search-geo-aeo",
+      "https://seosherpa.com/google-ai-search-guidelines/",
+      "https://www.capconvert.com/learn/blog/how-to-create-person-schema",
+      "https://www.npmjs.com/package/schema-dts"
+    ]
+  },
+  {
+    "area": "Competitor Scan — financial advisor SEO/AEO competition for Olds & central Alberta",
+    "summary": "Birchtree competes on three fronts. (1) LOCAL Olds rivals are the real threat: ATB Financial's Anna Conway is Olds-based, CFP-credentialed, and explicitly serves the exact same towns Birchtree's testimonials come from (Olds, Sundre, Didsbury, Carstairs, Linden) — she is the single strongest local SEO/relevance competitor. Desjardins (DFSI) advisors Sabrina Oad and Sergio Colin sit on the same block (5016 50 Ave vs Birchtree's 4914 50 Ave). Pierce Insurance Financial Group (Co-operators, QAFP, Olds) owns farm estate/succession + insurance. Servus Credit Union has Olds-branch wealth advisors. These hold or can hold the Google map pack for \"financial advisor Olds.\" (2) REGIONAL Red Deer firms — Thiessen & Associates (IG Wealth), Giesbrecht & Associates, Krall & Williams, Krips (Manulife), Core Wealth, TD Wealth — all run polished \"Red Deer financial planner\" sites with blogs/insights hubs and list Olds/central Alberta in their service areas; they own the organic mid-funnel. (3) NATIONAL online — Wealthsimple owns the informational keyword space (RRSP vs TFSA, FHSA, RRIF conversion, robo vs advisor) via its Learn/Magazine library, and Canada.ca/CRA own calculator/definition queries. KEY GAPS Birchtree can win: no competitor has a strong, schema-marked, town-specific local landing page for Olds/Sundre/Didsbury; the regional firms publish generic content but ignore central-Alberta-specific, AEO-friendly answer content (farm/ag succession, Olds-specific retirement, fee-only/fiduciary explainers); and the branch/commission advisors (ATB, Desjardins, IG, Co-operators) cannot credibly claim the fee-only/fiduciary positioning Birchtree can own. Birchtree's path to win: dominate hyperlocal town pages + GBP + LocalBusiness/FinancialService schema (no local rival has done this well), publish central-Alberta-flavoured AEO content the Red Deer firms skip, and capture Wealthsimple-style informational keywords with a local, human, fiduciary angle.",
+    "competitors": [
+      {
+        "name": "ATB Financial — Anna Conway (Senior Financial Advisor, ATB Wealth)",
+        "url": "https://www.atb.com/wealth/services/find-an-advisor/anna-conway/",
+        "notes": "MOST DIRECT LOCAL COMPETITOR. Olds-based; CFP + PFP + BA. Services five branches — Olds, Linden, Carstairs, Sundre, Didsbury — i.e. nearly the exact footprint of Birchtree's testimonial towns (Olds/Sundre/Red Deer). Backed by ATB's strong .com domain authority, so her advisor profile can outrank a small site for 'financial advisor Olds' and 'Olds financial planner.' Owns the CFP-credential trust signal and the bank-brand + local-name combination. GAP for Birchtree: ATB's page is a thin profile on a corporate domain — Birchtree can out-depth it with a real Olds landing page, FAQs, schema, and a fiduciary/fee-only angle ATB (a bank) cannot claim."
+      },
+      {
+        "name": "Desjardins Financial Security Investments (DFSI) — Sabrina Oad & Sergio Colin Pulido",
+        "url": "https://www.dfsi.ca/en/advisors.html",
+        "notes": "Hyperlocal: both advisors listed at 5016 50th Avenue, Olds AB — the same street and block as Birchtree (4914 50 Ave). Branded as 'Personal Financial Planner / Financial Advisor.' Commission/product-tied (Desjardins funds + insurance). They occupy the same 50 Ave geographic cluster that Google ties to 'Olds financial advisor' queries. GAP: little visible original content or local-SEO depth; vulnerable to a content + schema + review-volume play."
+      },
+      {
+        "name": "Pierce Insurance Financial Group Inc. (Co-operators) — Olds, AB",
+        "url": "https://local.cooperators.ca/pierce-insurance-financial-en",
+        "notes": "Olds-based Co-operators agency, owner holds QAFP plus Life/A&S/General licences. Sells home/life/auto insurance + mutual funds via Co-operators Financial Investment Services. Explicitly specializes in FARM ESTATE & SUCCESSION PLANNING and retirement income — directly relevant to central Alberta's farming clientele and a topic Birchtree should also own. Carries 15+ Birdeye reviews, so holds review/social-proof signals. GAP: insurance-first brand; Birchtree can win on independent/fee-only investment + holistic planning depth and on ag-succession educational content."
+      },
+      {
+        "name": "Servus Credit Union — Wealth (Servus Wealth Strategies, Olds area)",
+        "url": "https://servus.ca/personal/invest-plan/investing/senior-wealth-advisors",
+        "notes": "Member-owned credit union with wealth advisors covering Olds, Sundre, Eckville, Red Deer, Didsbury. Offers financial planning, life insurance, investments. Strong local brand trust in rural Alberta and high domain authority. GAP: product/branch model, generic provincial content; Birchtree can differentiate on independent advice and town-specific, personality-driven content."
+      },
+      {
+        "name": "Thiessen & Associates Private Wealth Management (IG Wealth Management) — Red Deer",
+        "url": "https://www.thiessenpwm.com/",
+        "notes": "STRONGEST REGIONAL ORGANIC COMPETITOR. Red Deer-based, lists Olds, Rocky Mountain House, Stettler (and Calgary/Edmonton) as service areas. Polished site with a BLOG + insights/resources hub, testimonials/case studies, and 9 service pillars (retirement, tax, investment, insurance, estate, business succession, charitable giving, wealth transfer). Targets life-stage + location keywords ('Red Deer financial planner', retirement, succession, legacy) and family-office positioning. This is the content-marketing benchmark Birchtree must match. GAP: content is Red-Deer-centric and generic-national in tone; Birchtree can own Olds/Sundre/Didsbury town queries and central-Alberta-specific angles they treat as secondary."
+      },
+      {
+        "name": "Giesbrecht & Associates Private Wealth Management — Red Deer",
+        "url": "https://www.nathangiesbrechtpwm.ca/",
+        "notes": "Red Deer private wealth firm serving central Alberta (Stettler to Rocky Mountain House, Edmonton to Calgary). Competes for the same 'central Alberta wealth management' organic terms and ranks for fee-only/CFP/independent-style queries. GAP: no town-level pages for Olds/Sundre; Birchtree can out-localize."
+      },
+      {
+        "name": "Krall & Williams Group — Red Deer",
+        "url": "https://www.krallwilliamsgroup.ca/",
+        "notes": "Red Deer advisors positioning on high-net-worth, business owners and high-income professionals across central Alberta. Competes for HNW/business-owner organic terms. GAP: HNW-only positioning leaves mass-affluent + retiree + farm-family Olds segment open for Birchtree."
+      },
+      {
+        "name": "Krips Financial — Kelvin Krips (Manulife Wealth) — Red Deer",
+        "url": "https://kripsfinancial.ca/",
+        "notes": "Manulife Wealth advisor in Red Deer covering insurance, investments, retirement and tax solutions. Competes for 'Red Deer financial advisor' + insurance/retirement terms. GAP: product-channel (Manulife) vs Birchtree's independent/fee-only claim."
+      },
+      {
+        "name": "TD Wealth — Investment Advisors, Red Deer",
+        "url": "https://advisors.td.com/reddeer/",
+        "notes": "Bank-brand advisor pages with very high domain authority that can outrank small sites for broad 'Red Deer investment advisor' queries. GAP: impersonal corporate profiles; loses on local human story, fiduciary framing, and town-specific content — all Birchtree strengths."
+      },
+      {
+        "name": "Wealthsimple (national online / robo-advisor)",
+        "url": "https://www.wealthsimple.com/en-ca/learn",
+        "notes": "DOMINATES THE INFORMATIONAL/AEO KEYWORD SPACE. Owns top SERP + AI-answer positions for 'RRSP vs TFSA', 'FHSA vs TFSA vs RRSP', 'RRIF / convert RRSP at 71', 'robo-advisor vs financial advisor' via its Learn + Magazine library, plus a pricing/fees page that frames the fee conversation. Not a local rival but it captures the top-of-funnel research traffic before a prospect ever searches locally. GAP: Wealthsimple content is national, self-directed and impersonal — Birchtree can answer the same questions with a local, human, fiduciary, central-Alberta lens and capture searchers who want a real advisor, not an app."
+      },
+      {
+        "name": "Canada.ca / CRA (informational & calculators)",
+        "url": "https://www.canada.ca/en/services/benefits/publicpensions/cpp/retirement-income-calculator.html",
+        "notes": "Government pages own definition and calculator queries (CPP/OAS, Canadian Retirement Income Calculator, RRSP/TFSA contribution rules). Authoritative and effectively un-outrankable for pure definitions. GAP: Birchtree should not fight these head-on; instead target the 'how does this apply to ME in Alberta / near retirement / as a farm owner' interpretive layer and cite CRA as a source to build E-E-A-T and AEO eligibility."
+      }
+    ],
+    "keywords": [
+      {
+        "keyword": "financial advisor Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "financial planner Olds AB",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "retirement planning Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "easy"
+      },
+      {
+        "keyword": "financial advisor Sundre Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "easy"
+      },
+      {
+        "keyword": "financial advisor Didsbury Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "easy"
+      },
+      {
+        "keyword": "fee-only financial advisor central Alberta",
+        "intent": "commercial",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "fiduciary financial advisor Alberta",
+        "intent": "commercial",
+        "geo": "alberta",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "farm succession planning Alberta",
+        "intent": "informational",
+        "geo": "central-alberta",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "RRSP vs TFSA Alberta which is better",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "hard"
+      },
+      {
+        "keyword": "convert RRSP to RRIF at 71 rules Canada",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "robo advisor vs financial advisor Canada",
+        "intent": "informational",
+        "geo": "aeo",
+        "opportunity": "medium",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "tax optimization strategies retirement Alberta",
+        "intent": "informational",
+        "geo": "alberta",
+        "opportunity": "medium",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "estate planning Olds central Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "easy"
+      },
+      {
+        "keyword": "life insurance advisor Olds Alberta",
+        "intent": "commercial",
+        "geo": "local-olds",
+        "opportunity": "medium",
+        "difficulty": "moderate"
+      },
+      {
+        "keyword": "best financial advisor near me Olds",
+        "intent": "navigational",
+        "geo": "local-olds",
+        "opportunity": "high",
+        "difficulty": "moderate"
+      }
+    ],
+    "tactics": [
+      {
+        "title": "Build dedicated, schema-marked town landing pages (Olds, Sundre, Didsbury, Red Deer)",
+        "description": "No local competitor — not ATB's Anna Conway, Desjardins, Servus, or the Red Deer IG firms — has a deep, indexable landing page for each town. ATB/Servus merely list the towns in service-area text. Create one rich page per town (Olds primary) with localized H1, town-specific copy, embedded GBP map, the relevant local testimonial (Olds/Sundre/Red Deer clients already exist), FAQs, and LocalBusiness/FinancialService JSON-LD. This is the single highest-leverage gap.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "In Next.js App Router, create app/(locations)/financial-advisor-olds/page.tsx etc. as client components with a sibling layout.tsx exporting page-specific metadata (title/description with town + 'financial advisor'). Inject JSON-LD via a <script type='application/ld+json'> in the layout or a server component wrapper. Use the real NAP: 4914 50 Ave, Olds, AB T4H 1P5, (403) 556-7777."
+      },
+      {
+        "title": "Claim and fully optimize the Google Business Profile to enter the Olds map pack",
+        "description": "The map pack for 'financial advisor Olds' / 'near me' is held/contestable by ATB's Anna Conway, Desjardins (5016 50 Ave), Servus and Pierce. Birchtree must claim its GBP, set primary category 'Financial Consultant'/'Financial Planner', add services matching its 6 pillars, post photos, and systematically gather reviews from existing Olds/Sundre/Red Deer clients. Reviews + NAP consistency drive local rank more than on-page content.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Ensure NAP on the site footer + town pages exactly matches the GBP (4914 50 Ave, Olds, AB T4H 1P5; (403) 556-7777; https://birchtreefinancial.ca). Add sameAs links and aggregateRating only if real reviews exist — never fabricate."
+      },
+      {
+        "title": "Own the fee-only / fiduciary positioning every local rival lacks",
+        "description": "ATB (bank), Desjardins, IG/Thiessen, Co-operators/Pierce and Manulife/Krips are all commission or product-channel advisors and cannot credibly claim fee-only/fiduciary. Birchtree describes itself as fiduciary/fee-only — build a dedicated 'Our fiduciary, fee-only approach' page and an FAQ ('What is a fiduciary advisor?', 'How do you get paid?') to capture differentiator keywords and AI answers. This converts price/trust-sensitive searchers the branch advisors can't address.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Keep claims accurate to Birchtree's actual model (LLQP-licensed, registered advisory). Do NOT imply CFP/CFA designations the firm doesn't hold. Add FAQPage JSON-LD for AEO eligibility."
+      },
+      {
+        "title": "Publish a central-Alberta farm/ag succession + retirement pillar the Red Deer firms treat generically",
+        "description": "Farm estate/succession is a live local intent (Pierce/Co-operators and MNP/AFSC target it) and central Alberta is farm country, yet the Red Deer wealth firms cover it with generic national content. Birchtree can win a pillar guide on 'Farm & business succession + retirement for central Alberta families' with current specifics (post-June-2024 capital gains inclusion, $1.25M lifetime capital gains exemption), framed as advisory guidance that coordinates with legal/CPA partners (stay within Birchtree's Estate Planning Guidance scope).",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Author content with clear E-E-A-T (named advisor, credentials accurate to LLQP/registered status), cite CRA/AFSC, and add Article + FAQPage schema. Avoid giving specific legal/tax filing advice — position as planning guidance."
+      },
+      {
+        "title": "Counter Wealthsimple in the informational/AEO layer with a local, human, fiduciary angle",
+        "description": "Wealthsimple owns 'RRSP vs TFSA', 'FHSA', 'RRIF at 71', 'robo vs advisor' nationally — Birchtree won't outrank head-on but can capture the 'should I use a robo-advisor or a real advisor', 'RRSP vs TFSA for someone near retirement in Alberta', and 'what to do with my RRSP at 71' refinements with advisor-authored answers that earn the local consult and AI-answer citations.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Structure each article as a direct-answer intro (40-60 words) + supporting detail + FAQ block with FAQPage JSON-LD, and end with a local CTA. Cite Wealthsimple/CRA where useful to build trust rather than competing on definition alone."
+      },
+      {
+        "title": "Match the regional content benchmark (Thiessen/IG) with a structured Insights/blog hub",
+        "description": "Thiessen & Associates and Giesbrecht run blogs/insights hubs and rank for life-stage + central-Alberta organic terms. Birchtree currently has no JSON-LD and generic non-local metadata. Stand up an Insights hub mapped to its 6 services, each post optimized for a specific Alberta-flavoured keyword, to compete for the mid-funnel organic traffic the Red Deer firms currently absorb.",
+        "priority": "medium",
+        "effort": "substantial",
+        "implementationNote": "Use App Router app/insights/[slug] with per-post metadata exports and Article/BlogPosting JSON-LD. Internally link each post to the relevant service page and the Olds town page to concentrate topical authority."
+      },
+      {
+        "title": "Add Organization + FinancialService + Person schema sitewide (none exists today)",
+        "description": "Birchtree has no JSON-LD anywhere while bank competitors benefit from corporate structured data. Adding Organization/FinancialService schema (with NAP, geo, areaServed = Olds + central Alberta towns + Canada, services) plus Person schema for the advisor(s) makes Birchtree eligible for rich results and AI-answer extraction — a low-effort, high-coverage win across the whole site.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Add a single JSON-LD block in the root layout.tsx for Organization/FinancialService, and per-page blocks for LocalBusiness (town pages), FAQPage (FAQ sections), and Article (blog). areaServed should list Olds, Sundre, Didsbury, Carstairs, Linden, Red Deer and 'Canada'. Keep all facts to the verified business details."
+      }
+    ],
+    "sources": [
+      "https://www.atb.com/wealth/services/find-an-advisor/anna-conway/",
+      "https://www.dfsi.ca/en/advisors.html",
+      "https://local.cooperators.ca/pierce-insurance-financial-en",
+      "https://local.cooperators.ca/pierce-insurance-financial-en/our-team",
+      "https://reviews.birdeye.com/co-operators-pierce-insurance-financial-group-inc-173504286892330",
+      "https://servus.ca/personal/invest-plan/investing/senior-wealth-advisors",
+      "https://www.visioncu.ca/en/personal-homepage/invest-personal",
+      "https://www.thiessenpwm.com/",
+      "https://www.nathangiesbrechtpwm.ca/",
+      "https://www.krallwilliamsgroup.ca/",
+      "https://kripsfinancial.ca/",
+      "https://www.corewealthsolutions.com/about-us",
+      "https://advisors.td.com/reddeer/",
+      "https://www.canaccordgenuity.com/wealth-management-canada/find-an-advisor/",
+      "https://www.edwardjones.ca/ca-en/find-a-financial-advisor/locations/alberta",
+      "https://www.ig.ca/en",
+      "https://www.wealthsimple.com/en-ca/learn/rrsp-vs-tfsa",
+      "https://www.wealthsimple.com/en-ca/learn/fhsa-tfsa-rrsp",
+      "https://www.wealthsimple.com/en-ca/pricing",
+      "https://www.savvynewcanadians.com/guide-to-robo-advisors-canada-and-comparison/",
+      "https://www.canada.ca/en/services/benefits/publicpensions/cpp/retirement-income-calculator.html",
+      "https://www.canada.ca/en/financial-consumer-agency/services/retirement-planning.html",
+      "https://www.mnp.ca/en/clients/agriculture/transitionsmart",
+      "https://afsc.ca/news/planning-for-the-future-navigating-farm-succession/",
+      "https://www.yellowpages.ca/search/si/1/Investment+Advisors/Olds+AB",
+      "https://investolds.ca/financial-capital/"
+    ]
+  },
+  {
+    "area": "Content Strategy — Topic Clusters & Blog Calendar",
+    "summary": "Birchtree Financial has 8 existing blog posts (RRSP/TFSA/RESP limits, CPP/OAS, estate planning, investment, mortgage, tax-saving) but no pillar-and-cluster architecture, no local/Alberta angle, and no internal-linking spine connecting blog posts to its 6 services or 9 existing /tools/* calculators. The opportunity is to convert flat blog posts into 6 service-anchored topic clusters, add a 7th \"Olds & Central Alberta\" local pillar and an 8th \"Farm, Ranch & Business-Owner Planning\" pillar (justified by Olds/Sundre/Red Deer testimonial clients and the agricultural region), then layer a seasonal calendar (RRSP season Jan-Feb, tax season Mar-Apr, mid-year reviews, year-end Oct-Dec). Google's 2025 core updates reward topical depth and consistent internal linking; FAQ-structured, question-led content is 3.2x more likely to surface in AI Overviews, so every brief is written for both human readers and answer engines. Below are 8 pillar pages plus 18 net-new cluster/landing/tool/glossary briefs (26 total contentIdeas) that fill genuine gaps without duplicating existing posts. Every dollar figure is flagged VERIFY against current CRA because limits change annually and the firm must not publish stale numbers.",
+    "tactics": [
+      {
+        "title": "Build 8 pillar pages as the architecture spine (6 service + 2 strategic)",
+        "description": "Create one long-form pillar page (2,000-3,500 words) per cluster: (1) Retirement Planning, (2) Investment Management, (3) Insurance Strategies, (4) Tax Optimization, (5) Wealth Building & Advisory, (6) Estate Planning Guidance — each living at or linked from the matching /services/[service] page — plus two strategic pillars: (7) 'Financial Planning in Olds & Central Alberta' (local hub) and (8) 'Farm, Ranch & Business-Owner Succession in Alberta'. Each pillar gives a broad overview and links DOWN to every cluster post; each cluster post links UP to its pillar with descriptive anchor text. This is the model Google's June 2025 core update rewards (topical authority, ~30% more organic traffic, rankings hold 2.5x longer than standalone posts).",
+        "priority": "high",
+        "effort": "substantial",
+        "implementationNote": "In Next.js App Router, pillars can be static pages under /services/[service] (already exists) or dedicated routes like /financial-planning-olds-alberta. Reuse the existing MDX pipeline in content/blog for cluster posts. Add a typed 'pillar' and 'cluster' field to MDX frontmatter so you can auto-render 'Part of: [Pillar]' breadcrumbs and a cluster index on each pillar."
+      },
+      {
+        "title": "Map the existing 8 posts into clusters before writing anything new",
+        "description": "Slot current posts under pillars so no work is wasted: understanding-rrsp-contribution-limits + cpp-oas-changes -> Retirement pillar; tfsa-contribution-limits + tax-saving-strategies -> Tax Optimization pillar; investment-strategies -> Investment pillar; estate-planning-essentials -> Estate pillar; resp-contribution-guide -> Wealth Building pillar; mortgage-planning -> Wealth Building pillar. Retrofit each with an up-link to its pillar and 2-3 sibling links. This instantly creates topical structure from content you already own.",
+        "priority": "high",
+        "effort": "quick-win",
+        "implementationNote": "Edit frontmatter + add a closing 'Related at Birchtree' link block to each of the 8 existing .mdx files. No new copy required beyond link sections."
+      },
+      {
+        "title": "Wire blog/cluster posts to the 9 existing /tools/* calculators and /contact",
+        "description": "The site already has retirement-calculator, resp-planner, risk-profiler, tfsa-rrsp-analyzer, tax-optimization-calculator, cpp-oas-optimizer, savings-calculator, net-worth-tracker, bank-loan-calculator. Every relevant cluster post should embed a contextual CTA to the matching tool (e.g. RRSP post -> tfsa-rrsp-analyzer + retirement-calculator) and every tool result screen should link back to the explanatory pillar. This builds an internal-linking loop (content -> tool -> service -> contact) that lifts both rankings and conversions.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Create a reusable <ToolCTA tool='...' /> client component that renders a card linking to /tools/[tool]. Drop it into MDX via the existing MDX component map so editors can add it inline."
+      },
+      {
+        "title": "Make every post answer-engine ready (AEO) with a 40-60 word answer block + FAQPage schema",
+        "description": "Open each post and pillar with a concise 40-60 word direct answer to the title question, use real questions as H2/H3 headings, and add 3-5 FAQs with FAQPage JSON-LD. Pages with FAQ schema are ~3.2x more likely to appear in Google AI Overviews and saw materially higher citation rates in ChatGPT/Perplexity in 2025. This is the single highest-leverage AEO move and pairs with the geo content to win 'financial advisor near me / in Olds' style queries.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "The site has NO JSON-LD yet. Add Article + FAQPage + (for service pages) Service schema via Next.js by rendering a <script type='application/ld+json'> in each route. Build a small schema helper in /lib so the blog [slug] layout injects Article+FAQPage automatically from frontmatter."
+      },
+      {
+        "title": "Run the seasonal calendar so timely posts publish before peak search demand",
+        "description": "Publish/refresh on the Canadian finance calendar: RRSP-season content live by early January (deadline ~late Feb/early March — VERIFY), tax-filing content by mid-February (filing deadline ~April 30 — VERIFY), FHSA/first-home content in spring, mid-year portfolio + insurance reviews in June-July, and year-end tax-loss-selling / TFSA-top-up / charitable-giving content in October-November. Refresh the contribution-limit posts every January when CRA confirms new numbers. One thoroughly-researched post per month outperforms weekly thin content.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Maintain an editorial calendar (even a simple JSON or CMS field) keyed to publishedAt. Set a recurring January task to update all dollar figures the moment CRA confirms limits, so the site is never the stale result."
+      },
+      {
+        "title": "Establish E-E-A-T and YMYL trust signals on every money page",
+        "description": "Finance is YMYL (Your Money Your Life); Google and AI engines weight author expertise and trust heavily. Attribute every post to a named Birchtree advisor with a bio linking to their /team/[slug] page, state LLQP licensing and the fiduciary/fee-only positioning, add 'reviewed/updated' dates, and cite primary sources (CRA, Canada.ca) inline. Do NOT claim CFP/CFA or any designation the firm does not hold.",
+        "priority": "high",
+        "effort": "moderate",
+        "implementationNote": "Add author + reviewedDate frontmatter fields; render an author card pulling from the existing /team data. Add Person/author to the Article JSON-LD."
+      },
+      {
+        "title": "Create a finance glossary hub to capture long-tail + definitional AI queries",
+        "description": "A /glossary or /resources glossary of 30-50 Canadian finance terms (LCGE, FHSA, attribution rules, spousal RRSP, eligible vs non-eligible dividends, segregated funds, probate, RRIF) gives short, schema-friendly definition blocks that answer engines love to cite and that internally link to the relevant pillar/cluster. Each entry is a natural internal-linking anchor target.",
+        "priority": "medium",
+        "effort": "moderate",
+        "implementationNote": "Build one /glossary route rendering DefinedTerm JSON-LD per entry; cross-link each term to its parent pillar. Reuse the existing /resources/[slug] dynamic route pattern."
+      },
+      {
+        "title": "Differentiate from generic national content with a defensible local + niche moat",
+        "description": "National competitors out-resource Birchtree on generic 'what is a TFSA' content, but cannot credibly own 'Olds', 'Sundre', 'Red Deer', 'central Alberta farm succession', or 'Alberta business-owner planning'. Concentrate net-new effort on the local pillar (7) and farm/ranch/business pillar (8) where intent is high, competition is thin, and the firm has real client proof (testimonial clients in Olds/Sundre/Red Deer; agricultural region). Keep community ties (Olds Grizzlys, 4-H, BGC Olds, MVESS) for an About/community page that reinforces local relevance, not as blog filler.",
+        "priority": "high",
+        "effort": "substantial",
+        "implementationNote": "Geo-modify titles, H1s, and metadata ('in Olds, Alberta' / 'for central Alberta families'). Pair with LocalBusiness/FinancialService JSON-LD (NAP: 4914 50 Ave, Olds, AB T4H 1P5; (403) 556-7777) on the local pillar and homepage."
+      }
+    ],
+    "contentIdeas": [
+      {
+        "title": "Retirement Planning in Canada: A Complete Guide for Albertans",
+        "targetKeyword": "retirement planning Canada",
+        "format": "pillar",
+        "geo": "alberta",
+        "whyItMatters": "Anchor pillar for the Retirement service; links down to RRSP, CPP/OAS, RRIF, and decumulation cluster posts. Mention any CPP/OAS/RRSP dollar amounts only with VERIFY against current CRA. Reinforces LLQP/fiduciary positioning, no CFP/CFA claims."
+      },
+      {
+        "title": "RRIF Withdrawals Explained: Converting Your RRSP to Retirement Income",
+        "targetKeyword": "RRIF withdrawal rules Canada",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Net-new gap — existing posts cover RRSP accumulation but not the decumulation/RRIF conversion phase that retiring clients ask about. Minimum-withdrawal percentages and age-71 conversion deadline are CRA-set: flag VERIFY against current CRA. Links up to Retirement pillar, across to cpp-oas-changes, and to /tools/retirement-calculator."
+      },
+      {
+        "title": "CPP and OAS Timing: Should You Take Benefits at 60, 65, or 70?",
+        "targetKeyword": "when to take CPP OAS Canada",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Deepens the existing cpp-oas-changes post with a decision-focused angle (deferral premiums, OAS clawback threshold). All benefit/clawback dollar figures VERIFY against current CRA. Links to /tools/cpp-oas-optimizer — drives tool usage and leads."
+      },
+      {
+        "title": "How Much Do You Need to Retire in Alberta? A Realistic Framework",
+        "targetKeyword": "how much to retire Alberta",
+        "format": "blog",
+        "geo": "central-alberta",
+        "whyItMatters": "Local-intent retirement query with thin competition; ties Alberta cost-of-living to a planning framework. Keep any figures illustrative/general and flag VERIFY against current CRA for contribution-room references. Strong CTA to /tools/retirement-calculator and /contact."
+      },
+      {
+        "title": "Investment Management for Canadians: Portfolios, Risk, and Registered Accounts",
+        "targetKeyword": "investment management Canada",
+        "format": "pillar",
+        "geo": "canada",
+        "whyItMatters": "Anchor pillar for the Investment service; absorbs existing investment-strategies post as a cluster. General education only (no securities/return promises). Links to /tools/risk-profiler and /tools/net-worth-tracker."
+      },
+      {
+        "title": "TFSA vs RRSP: Which Should You Prioritize in 2026?",
+        "targetKeyword": "TFSA vs RRSP",
+        "format": "comparison",
+        "geo": "canada",
+        "whyItMatters": "High-volume evergreen comparison the firm does not yet own as a head-to-head; complements (does not duplicate) the separate TFSA and RRSP limit posts. 2026 TFSA $7,000 / RRSP $33,810 figures cited only with VERIFY against current CRA. Links to /tools/tfsa-rrsp-analyzer."
+      },
+      {
+        "title": "FHSA Explained: The First Home Savings Account for Canadian Buyers",
+        "targetKeyword": "FHSA first home savings account",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Major gap — no FHSA content exists despite high search demand and relevance to younger Olds/central-Alberta families. $8,000/year, $40,000 lifetime limits flag VERIFY against current CRA. Links up to Wealth Building pillar and to /tools/savings-calculator."
+      },
+      {
+        "title": "Understanding Investment Risk: How to Find Your Risk Tolerance",
+        "targetKeyword": "investment risk tolerance",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Definitional/AEO-friendly post that feeds the Investment pillar and routes readers directly into /tools/risk-profiler, tightening the content-to-tool-to-contact loop."
+      },
+      {
+        "title": "Insurance Strategies for Canadian Families: Life, Critical Illness & Disability",
+        "targetKeyword": "life insurance strategies Canada",
+        "format": "pillar",
+        "geo": "canada",
+        "whyItMatters": "Anchor pillar for the Insurance service and the firm's core LLQP-licensed competency (life + accident & sickness) — currently NO insurance blog content exists, a significant gap. Education only; no product/price guarantees. Links to Estate and Farm/Business pillars (key-person and buy-sell insurance)."
+      },
+      {
+        "title": "Term vs Permanent Life Insurance: Which Is Right for You?",
+        "targetKeyword": "term vs permanent life insurance Canada",
+        "format": "comparison",
+        "geo": "canada",
+        "whyItMatters": "Directly showcases Birchtree's LLQP licensing; high commercial intent. Frame as education, not a sales pitch, to satisfy E-E-A-T and YMYL trust signals. Links up to Insurance pillar."
+      },
+      {
+        "title": "Do You Need Critical Illness or Disability Insurance in Alberta?",
+        "targetKeyword": "critical illness insurance Alberta",
+        "format": "blog",
+        "geo": "alberta",
+        "whyItMatters": "Geo-modified insurance query with low competition; relevant to farmers/ranchers and business owners whose income depends on their ability to work. Reinforces accident & sickness licensing. Links to Farm/Business pillar."
+      },
+      {
+        "title": "Tax Optimization for Canadians: Strategies to Keep More of What You Earn",
+        "targetKeyword": "tax optimization Canada",
+        "format": "pillar",
+        "geo": "canada",
+        "whyItMatters": "Anchor pillar for the Tax service; absorbs existing tax-saving-strategies and tfsa-contribution-limits posts. All bracket/credit figures flag VERIFY against current CRA. Links to /tools/tax-optimization-calculator. Position as fee-only/fiduciary guidance, not tax-prep."
+      },
+      {
+        "title": "Income Splitting in Canada: Spousal RRSPs, Pension Splitting & Family Tax Moves",
+        "targetKeyword": "income splitting Canada",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Net-new high-value topic for retired couples and business families; covers spousal RRSP, pension income splitting, attribution rules. Any threshold figures VERIFY against current CRA. Links to Tax and Retirement pillars."
+      },
+      {
+        "title": "Year-End Tax Planning Checklist for Albertans",
+        "targetKeyword": "year end tax planning checklist Canada",
+        "format": "blog",
+        "geo": "alberta",
+        "whyItMatters": "Seasonal Oct-Dec anchor (tax-loss selling, TFSA top-up, charitable giving, RRSP timing). Checklist/FAQ format is AEO-friendly. Every deadline and dollar figure flags VERIFY against current CRA. Republish/refresh annually."
+      },
+      {
+        "title": "Wealth Building & Financial Advisory: Your Roadmap by Life Stage",
+        "targetKeyword": "wealth building Canada",
+        "format": "pillar",
+        "geo": "canada",
+        "whyItMatters": "Anchor pillar for the Wealth Building & Advisory service; absorbs resp-contribution-guide and mortgage-planning posts. Frames the firm's holistic, fee-only advisory value. Links to /tools/net-worth-tracker and /tools/savings-calculator."
+      },
+      {
+        "title": "RESP and the Canada Education Savings Grant: Maximizing Government Money",
+        "targetKeyword": "RESP grant CESG Canada",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Complements existing resp-contribution-guide with a grant-maximization angle for young Olds/central-Alberta families. CESG match rate and lifetime grant maximum flag VERIFY against current CRA. Links to /tools/resp-planner."
+      },
+      {
+        "title": "Estate Planning Guidance for Canadians: Wills, POAs, Probate & Legacy",
+        "targetKeyword": "estate planning Canada",
+        "format": "pillar",
+        "geo": "canada",
+        "whyItMatters": "Anchor pillar for the Estate service; absorbs estate-planning-essentials and the existing /why-you-need-a-will page as cluster members. Bridges to Insurance (estate liquidity) and Farm/Business (succession) pillars. Note: guidance, not legal advice."
+      },
+      {
+        "title": "Probate in Alberta: How It Works and How to Plan Around It",
+        "targetKeyword": "probate Alberta",
+        "format": "blog",
+        "geo": "alberta",
+        "whyItMatters": "Strong local-intent estate query; Alberta probate fees/process differ by province, making this a defensible geo post. Any fee figures flag VERIFY against current Alberta court fee schedule. Links up to Estate pillar."
+      },
+      {
+        "title": "Financial Planning in Olds & Central Alberta: Local Guide",
+        "targetKeyword": "financial advisor Olds Alberta",
+        "format": "landing",
+        "geo": "local-olds",
+        "whyItMatters": "The primary LOCAL pillar/landing page to win 'financial advisor Olds / near me' searches. Carries LocalBusiness/FinancialService JSON-LD with verified NAP (4914 50 Ave, Olds, AB T4H 1P5; (403) 556-7777), service-area mentions of Olds, Sundre, Red Deer, and links to all service pillars. Highest local-conversion asset."
+      },
+      {
+        "title": "Financial Advisor in Red Deer & Sundre: Serving Central Alberta Families",
+        "targetKeyword": "financial advisor Red Deer Sundre",
+        "format": "landing",
+        "geo": "central-alberta",
+        "whyItMatters": "Captures the firm's real testimonial-client geographies (Red Deer, Sundre) with dedicated service-area pages — proven local-SEO tactic. Links up to the Olds local pillar; avoid fabricating offices the firm does not have (service-area framing only)."
+      },
+      {
+        "title": "Farm & Ranch Succession Planning in Alberta: Passing Down the Family Operation",
+        "targetKeyword": "farm succession planning Alberta",
+        "format": "pillar",
+        "geo": "alberta",
+        "whyItMatters": "Strategic niche pillar justified by the agricultural region and the firm's central-Alberta clientele. Covers intergenerational transfer, Bill C-208 rules, and the Lifetime Capital Gains Exemption — all dollar amounts (LCGE, QFFP limits) flag VERIFY against current CRA. Coordinate-with-your-accountant framing; Birchtree advises on insurance/investment/estate side, not tax filing. Very low competition, high intent."
+      },
+      {
+        "title": "The Lifetime Capital Gains Exemption for Farmers and Business Owners",
+        "targetKeyword": "lifetime capital gains exemption farm Canada",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Cluster under the Farm/Business pillar; explains the LCGE for qualified farm/fishing property and small-business shares. The LCGE amount changes annually and differs by property type — flag VERIFY against current CRA prominently. Links to Estate and Tax pillars."
+      },
+      {
+        "title": "Salary vs Dividends: How Alberta Business Owners Should Pay Themselves",
+        "targetKeyword": "salary vs dividends Alberta",
+        "format": "comparison",
+        "geo": "alberta",
+        "whyItMatters": "High-intent Alberta business-owner query (real testimonial client type). Covers RRSP-room, CPP, and dividend-tax-credit trade-offs. Alberta small-business (11%) and general (23%) corporate rates, CPP/YMPE, and LCGE figures all flag VERIFY against current CRA. Frame as coordinate-with-your-accountant; Birchtree handles the personal investment/insurance side."
+      },
+      {
+        "title": "When Should You Incorporate Your Alberta Business?",
+        "targetKeyword": "when to incorporate Alberta",
+        "format": "blog",
+        "geo": "alberta",
+        "whyItMatters": "Net-new business-owner topic feeding the Farm/Business pillar; income-threshold guidance must stay general and flag VERIFY against current CRA / advise consulting an accountant. Bridges to insurance (key-person) and estate (succession) services."
+      },
+      {
+        "title": "Canadian Personal Finance Glossary: Key Terms Explained",
+        "targetKeyword": "Canadian finance terms glossary",
+        "format": "glossary",
+        "geo": "canada",
+        "whyItMatters": "AEO/long-tail hub of 30-50 DefinedTerm entries (LCGE, FHSA, spousal RRSP, attribution rules, eligible vs non-eligible dividends, segregated funds, RRIF, probate). Each entry is a schema-rich definition block and an internal-linking anchor to the relevant pillar. Definitions referencing limits flag VERIFY against current CRA."
+      },
+      {
+        "title": "RRSP Season Checklist: Make Your Contribution Count Before the Deadline",
+        "targetKeyword": "RRSP deadline 2026 checklist",
+        "format": "blog",
+        "geo": "canada",
+        "whyItMatters": "Seasonal Jan-Feb anchor timed to the RRSP contribution deadline; checklist/FAQ format wins featured snippets and AI Overviews. Deadline date and contribution-limit figures flag VERIFY against current CRA. Links to existing RRSP posts and /tools/tfsa-rrsp-analyzer."
+      }
+    ],
+    "schemaRecommendations": [
+      {
+        "type": "FAQPage",
+        "whereToApply": "Every blog/cluster post and pillar page (3-5 Q&As each)",
+        "notes": "Highest-leverage AEO move: FAQ-schema pages are ~3.2x more likely to appear in Google AI Overviews and are cited more in ChatGPT/Perplexity. Pair with a 40-60 word direct-answer block at the top of each page."
+      },
+      {
+        "type": "Article",
+        "whereToApply": "All blog [slug] pages",
+        "notes": "Render from MDX frontmatter (headline, datePublished, dateModified, author). Include author Person linking to /team/[slug] to carry E-E-A-T for YMYL finance content."
+      },
+      {
+        "type": "LocalBusiness / FinancialService",
+        "whereToApply": "Homepage, /contact, and the Olds local landing pillar",
+        "notes": "Use verified NAP only: Birchtree Financial, 4914 50 Ave, Olds, AB T4H 1P5, (403) 556-7777, https://birchtreefinancial.ca. Add areaServed for Olds, Sundre, Red Deer, central Alberta. The site currently has NO JSON-LD — this is a from-zero win."
+      },
+      {
+        "type": "Service",
+        "whereToApply": "Each of the 6 /services/[service] pillar pages",
+        "notes": "Mark up each service with provider = the LocalBusiness entity; do not assert designations (CFP/CFA) the firm does not hold."
+      },
+      {
+        "type": "DefinedTerm",
+        "whereToApply": "Each entry in the finance glossary hub",
+        "notes": "Makes definition blocks machine-readable and citable by answer engines; each term links to its parent pillar."
+      },
+      {
+        "type": "BreadcrumbList",
+        "whereToApply": "All pillar and cluster pages",
+        "notes": "Reinforces the pillar->cluster hierarchy for crawlers and earns breadcrumb rich results, strengthening topical-authority signals."
+      }
+    ],
+    "sources": [
+      "https://searchengineland.com/guide/topic-clusters",
+      "https://webwej.com/pillar-cluster-content-strategy-2025/",
+      "https://www.siteimprove.com/blog/pillar-and-cluster-content-strategy/",
+      "https://www.frase.io/blog/faq-schema-ai-search-geo-aeo",
+      "https://cxl.com/blog/answer-engine-optimization-aeo-the-comprehensive-guide/",
+      "https://www.kitces.com/blog/seo-financial-advisor-google-local-search-intent-best-keywords/",
+      "https://onewebcare.com/blog/local-seo-for-financial-advisors/",
+      "https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/whats-new.html",
+      "https://www.bnnbloomberg.ca/investing/opinion/2025/12/31/cra-sets-new-savings-and-pension-plan-limits-for-2026-dale-jackson/",
+      "https://www.fcc-fac.ca/en/knowledge/bill-c208",
+      "https://www.bdo.ca/insights/government-proposes-changes-to-tax-rules-farm-transfer",
+      "https://www.mckercher.ca/en/news/posts/time-sensitive-tax-changes-for-family-farm-succession-planning-bill-c-208",
+      "https://swiftltd.ca/blog/when-to-incorporate-alberta/",
+      "https://shajani.ca/salary-vs-dividends-the-ultimate-guide-to-paying-yourself-as-a-business-owner-in-2025/",
+      "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html"
+    ]
+  }
+]

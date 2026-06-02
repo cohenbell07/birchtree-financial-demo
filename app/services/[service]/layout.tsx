@@ -47,8 +47,18 @@ export async function generateMetadata({
   }
 
   return {
-    title: service.title,
-    description: service.description,
+    // Absolute title: the root template doesn't cascade past the /services
+    // layout's string title, so include the brand here explicitly.
+    title: { absolute: `${service.title} in Olds & Alberta | Birchtree Financial` },
+    description: `${service.description} Birchtree Financial serves Olds, central Alberta, and clients across Canada.`,
+    alternates: { canonical: `/services/${serviceSlug}` },
+    openGraph: {
+      title: `${service.title} | Birchtree Financial`,
+      description: service.description,
+      type: "website",
+      locale: "en_CA",
+      url: `/services/${serviceSlug}`,
+    },
   }
 }
 

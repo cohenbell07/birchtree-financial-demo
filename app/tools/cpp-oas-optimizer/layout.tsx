@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_CA",
   },
+  alternates: { canonical: "/tools/cpp-oas-optimizer" },
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

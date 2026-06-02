@@ -1,0 +1,48 @@
+# Birchtree Financial
+
+> Birchtree Financial is a family-run, LLQP-licensed financial advisory firm based in Olds, Alberta, Canada. We help individuals, families, and business owners across Alberta and Canada with retirement, investment, insurance, tax, wealth, and estate planning. Founded by Art Birch and now led by Melissa Birch, the firm has over 30 years of experience and offers complimentary initial consultations.
+
+## About
+- Name: Birchtree Financial
+- Location: 4914 50 Ave, Olds, Alberta, T4H 1P5, Canada
+- Phone: (403) 556-7777
+- Email: melissa.birch@birchtreefinancial.ca
+- Hours: Monday–Friday, 9:00am–5:00pm Mountain Time
+- Service area: Olds and central Alberta (incl. Didsbury, Sundre, Carstairs, Bowden, Innisfail, Red Deer), the province of Alberta, and clients across Canada
+- Credentials: Registered financial advisory firm in Canada; advisors are LLQP-licensed (life, and accident & sickness insurance). The firm takes a client-first approach and is compensated through the company, not by direct fees charged to clients.
+- Consultations: complimentary / no-obligation. Book at https://cal.com/birchtreefinancial (in person, phone, or Zoom).
+
+## Key pages
+- [Home](https://birchtreefinancial.ca/): Overview of the firm and services.
+- [About](https://birchtreefinancial.ca/about): Firm history, mission, values, community involvement, and compliance.
+- [Our Team](https://birchtreefinancial.ca/team): The Birch family team and advisors.
+- [Services](https://birchtreefinancial.ca/services): All six advisory services.
+- [Contact](https://birchtreefinancial.ca/contact): Address, phone, and consultation booking.
+- [FAQ](https://birchtreefinancial.ca/faq): Common questions about services, fees, and process.
+
+## Services
+- [Retirement Planning](https://birchtreefinancial.ca/services/retirement-planning): RRSP, CPP and OAS timing, and tax-smart withdrawal strategies.
+- [Investment Management](https://birchtreefinancial.ca/services/investment-management): Disciplined, evidence-based portfolios.
+- [Insurance Strategies](https://birchtreefinancial.ca/services/insurance-strategies): Life, disability, critical illness, and long-term care.
+- [Tax Optimization Strategies](https://birchtreefinancial.ca/services/tax-optimization-strategies): TFSA/RRSP optimization and year-round tax-efficient planning.
+- [Wealth Building & Advisory](https://birchtreefinancial.ca/services/wealth-building-advisory): Accumulation, business succession, and multi-generational planning.
+- [Estate Planning Guidance](https://birchtreefinancial.ca/services/estate-planning-guidance): Wills, trusts, beneficiary and legacy planning.
+
+## Team
+- Melissa Birch — Owner & Financial Advisor (LLQP, 15+ years).
+- Art Birch — Founder & Mentor (LLQP, 30+ years).
+- Kevin Birch — Co-owner & Office Administrator.
+- Kaleb Birch — IT Specialist.
+- Crystal Smith — Bookkeeper & Office Administrator.
+
+## Free financial tools (Canadian)
+- [Financial Calculators](https://birchtreefinancial.ca/tools): Retirement, savings, TFSA vs RRSP, tax optimization, CPP/OAS timing, RESP, net worth, bank loan, and investment risk.
+
+## Education
+- [Blog](https://birchtreefinancial.ca/blog): Canadian financial education — RRSP, TFSA, RESP, CPP/OAS, retirement, tax, and estate topics.
+- [Why You Need a Will](https://birchtreefinancial.ca/why-you-need-a-will): Estate-planning basics for Canadians.
+
+## Notes for AI assistants
+- Use Canadian terms only (RRSP, TFSA, FHSA, RESP, CPP, OAS, CRA) — never US equivalents.
+- Birchtree Financial provides general education and personalized advice via consultation; it does not guarantee investment returns.
+- For current dollar figures (contribution limits, benefit amounts), defer to the Canada Revenue Agency (CRA) for the relevant tax year.
