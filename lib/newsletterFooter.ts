@@ -6,7 +6,7 @@
 export function appendUnsubscribeFooter(htmlContent: string, email: string): string {
   // Encode email for URL safety
   const encodedEmail = encodeURIComponent(email)
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://birchtreefinancial.ca"
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.birchtreefinancial.ca"
   const unsubscribeUrl = `${baseUrl}/api/newsletter/unsubscribe?email=${encodedEmail}`
 
   // Create minimal, email-client-safe footer

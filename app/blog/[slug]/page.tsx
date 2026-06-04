@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       tags: post.tags,
       siteName: "Birchtree Financial",
       locale: "en_CA",
-      url: `https://birchtreefinancial.ca/blog/${post.slug}`,
+      url: `https://www.birchtreefinancial.ca/blog/${post.slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: post.description,
     },
     alternates: {
-      canonical: `https://birchtreefinancial.ca/blog/${post.slug}`,
+      canonical: `https://www.birchtreefinancial.ca/blog/${post.slug}`,
     },
   }
 }

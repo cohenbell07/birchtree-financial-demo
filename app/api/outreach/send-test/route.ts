@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
                   <p>Hi ${name || "there"},</p>
                   <p>We noticed you might be interested in professional financial advisory services.</p>
                   <p>Birchtree Financial offers comprehensive financial advisory and investment management tailored to your unique needs.</p>
-                  <a href="https://birchtreefinancial.ca/contact" class="button">Learn More</a>
+                  <a href="https://www.birchtreefinancial.ca/contact" class="button">Learn More</a>
                   <p style="margin-top: 30px; font-size: 12px; color: #666;">
                     Best regards,<br>
                     The Birchtree Financial Team

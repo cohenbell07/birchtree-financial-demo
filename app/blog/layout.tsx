@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     description: "Expert Canadian financial advice and strategies for your financial journey.",
     type: "website",
     locale: "en_CA",
-    url: "https://birchtreefinancial.ca/blog",
+    url: "https://www.birchtreefinancial.ca/blog",
   },
   alternates: {
-    canonical: "https://birchtreefinancial.ca/blog",
+    canonical: "https://www.birchtreefinancial.ca/blog",
   },
 }
 

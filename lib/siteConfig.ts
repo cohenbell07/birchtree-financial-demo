@@ -10,7 +10,7 @@
 export const siteConfig = {
   name: "Birchtree Financial",
   legalName: "Birchtree Financial",
-  url: "https://birchtreefinancial.ca",
+  url: "https://www.birchtreefinancial.ca",
   // Short, plain-language description used for default meta + schema.
   description:
     "Birchtree Financial is a family-run financial advisory firm in Olds, Alberta, helping Canadians with retirement, investment, insurance, tax, wealth, and estate planning.",

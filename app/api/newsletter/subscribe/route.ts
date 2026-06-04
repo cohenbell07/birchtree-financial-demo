@@ -108,7 +108,7 @@ async function sendNewsletterWelcomeEmail(email: string) {
             <p>Thank you for subscribing to our newsletter!</p>
             <p>You'll now receive monthly financial insights, market updates, and exclusive resources delivered straight to your inbox.</p>
             <p>We're committed to providing you with valuable information to help you make informed financial decisions.</p>
-            <a href="https://birchtreefinancial.ca/resources" class="button">Explore Our Resources</a>
+            <a href="https://www.birchtreefinancial.ca/resources" class="button">Explore Our Resources</a>
             <p style="margin-top: 30px; font-size: 12px; color: #666;">
               If you have any questions or need personalized financial guidance, don't hesitate to reach out.<br><br>
               Best regards,<br>

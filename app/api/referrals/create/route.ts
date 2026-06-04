@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     // Send referral email
     const referralData = referralResult.data as Referral | null
-    const referralLink = `https://birchtreefinancial.ca/referral?ref=${referralData?.id || ""}`
+    const referralLink = `https://www.birchtreefinancial.ca/referral?ref=${referralData?.id || ""}`
     const emailResult = await sendReferralInviteEmail(
       { name: yourName, email: yourEmail },
       friendEmail,

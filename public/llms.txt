@@ -13,20 +13,20 @@
 - Consultations: complimentary / no-obligation. Book at https://cal.com/birchtreefinancial (in person, phone, or Zoom).
 
 ## Key pages
-- [Home](https://birchtreefinancial.ca/): Overview of the firm and services.
-- [About](https://birchtreefinancial.ca/about): Firm history, mission, values, community involvement, and compliance.
-- [Our Team](https://birchtreefinancial.ca/team): The Birch family team and advisors.
-- [Services](https://birchtreefinancial.ca/services): All six advisory services.
-- [Contact](https://birchtreefinancial.ca/contact): Address, phone, and consultation booking.
-- [FAQ](https://birchtreefinancial.ca/faq): Common questions about services, fees, and process.
+- [Home](https://www.birchtreefinancial.ca/): Overview of the firm and services.
+- [About](https://www.birchtreefinancial.ca/about): Firm history, mission, values, community involvement, and compliance.
+- [Our Team](https://www.birchtreefinancial.ca/team): The Birch family team and advisors.
+- [Services](https://www.birchtreefinancial.ca/services): All six advisory services.
+- [Contact](https://www.birchtreefinancial.ca/contact): Address, phone, and consultation booking.
+- [FAQ](https://www.birchtreefinancial.ca/faq): Common questions about services, fees, and process.
 
 ## Services
-- [Retirement Planning](https://birchtreefinancial.ca/services/retirement-planning): RRSP, CPP and OAS timing, and tax-smart withdrawal strategies.
-- [Investment Management](https://birchtreefinancial.ca/services/investment-management): Disciplined, evidence-based portfolios.
-- [Insurance Strategies](https://birchtreefinancial.ca/services/insurance-strategies): Life, disability, critical illness, and long-term care.
-- [Tax Optimization Strategies](https://birchtreefinancial.ca/services/tax-optimization-strategies): TFSA/RRSP optimization and year-round tax-efficient planning.
-- [Wealth Building & Advisory](https://birchtreefinancial.ca/services/wealth-building-advisory): Accumulation, business succession, and multi-generational planning.
-- [Estate Planning Guidance](https://birchtreefinancial.ca/services/estate-planning-guidance): Wills, trusts, beneficiary and legacy planning.
+- [Retirement Planning](https://www.birchtreefinancial.ca/services/retirement-planning): RRSP, CPP and OAS timing, and tax-smart withdrawal strategies.
+- [Investment Management](https://www.birchtreefinancial.ca/services/investment-management): Disciplined, evidence-based portfolios.
+- [Insurance Strategies](https://www.birchtreefinancial.ca/services/insurance-strategies): Life, disability, critical illness, and long-term care.
+- [Tax Optimization Strategies](https://www.birchtreefinancial.ca/services/tax-optimization-strategies): TFSA/RRSP optimization and year-round tax-efficient planning.
+- [Wealth Building & Advisory](https://www.birchtreefinancial.ca/services/wealth-building-advisory): Accumulation, business succession, and multi-generational planning.
+- [Estate Planning Guidance](https://www.birchtreefinancial.ca/services/estate-planning-guidance): Wills, trusts, beneficiary and legacy planning.
 
 ## Team
 - Melissa Birch — Owner & Financial Advisor (LLQP, 15+ years).
@@ -36,11 +36,11 @@
 - Crystal Smith — Bookkeeper & Office Administrator.
 
 ## Free financial tools (Canadian)
-- [Financial Calculators](https://birchtreefinancial.ca/tools): Retirement, savings, TFSA vs RRSP, tax optimization, CPP/OAS timing, RESP, net worth, bank loan, and investment risk.
+- [Financial Calculators](https://www.birchtreefinancial.ca/tools): Retirement, savings, TFSA vs RRSP, tax optimization, CPP/OAS timing, RESP, net worth, bank loan, and investment risk.
 
 ## Education
-- [Blog](https://birchtreefinancial.ca/blog): Canadian financial education — RRSP, TFSA, RESP, CPP/OAS, retirement, tax, and estate topics.
-- [Why You Need a Will](https://birchtreefinancial.ca/why-you-need-a-will): Estate-planning basics for Canadians.
+- [Blog](https://www.birchtreefinancial.ca/blog): Canadian financial education — RRSP, TFSA, RESP, CPP/OAS, retirement, tax, and estate topics.
+- [Why You Need a Will](https://www.birchtreefinancial.ca/why-you-need-a-will): Estate-planning basics for Canadians.
 
 ## Notes for AI assistants
 - Use Canadian terms only (RRSP, TFSA, FHSA, RESP, CPP, OAS, CRA) — never US equivalents.

@@ -7,15 +7,43 @@ container (`html,body{height:100%}` in globals.css) — in Playwright/devtools u
 screenshots (they expose the dark `html` bg as a fake dark band — use viewport
 shots or scroll).
 
-## Where we are right now (2026-05-31)
-The **entire site was just redesigned to a light "private-bank" aesthetic** and
-committed. This is the current state.
+## Where we are right now (2026-06-04)
+The light "private-bank" redesign is done AND a full **SEO + AI/answer-engine
+optimization pass** has landed on top of it. Verified production-ready.
 
-- **Branch:** `redesign/site-refresh` (HEAD = `30ed27b`). **NEVER commit to or
-  touch `main`** — it stays at the safe/live commit `7e979a8`. Don't push
-  without the user explicitly asking.
-- Working tree clean. TypeScript passes (`npx tsc --noEmit` → 0 errors).
-  All routes return 200.
+- **Branch:** `seo/optimization` (HEAD = `bbe0e05`), pushed to origin, **12
+  commits ahead of `main`** (0 behind). **NEVER commit to or touch `main`** — it
+  stays at the safe/live commit `7e979a8`. Don't push/merge without the user
+  explicitly asking.
+- Working tree clean. Verified 2026-06-04: `npx tsc --noEmit` → 0 errors;
+  `npm run build` → exit 0, "Compiled successfully", 69/69 static pages. Served
+  the prod build and confirmed all routes 200, robots.txt/sitemap.xml(42 urls)/
+  manifest/opengraph-image all render, homepage emits canonical + OG + 2 JSON-LD
+  blocks (`FinancialService` etc.). Only build noise is one cosmetic Tailwind
+  "ambiguous `ease-[cubic-bezier(...)]`" warning — not a failure.
+- **Lineage since redesign:** `30ed27b` light redesign → `3c6eabb` design
+  touch-ups → `c80ad93` mobile-menu rebuild → `bbe0e05` SEO/AEO pass.
+
+### What's ACTUALLY live in production (verified 2026-06-04, ground truth)
+Deploys via **Vercel** project `birchtree-financial-demo`
+(`prj_gSZt8TR9Duai2Ly3UZMJ9fuc6XDA`, team `team_hTXfnqbSw3ULuJOTORDEzME9`).
+- **LIVE = the OLD pre-redesign site (`7e979a8`).** Neither the redesign nor the
+  SEO pass is live. Confirmed against `www.birchtreefinancial.ca`: hero "Your
+  Financial Future,", title "...Premium Financial Advisory Services", **0 JSON-LD,
+  37-url sitemap, no AI-crawler robots, `/financial-advisor-olds-alberta`→404,
+  `/opengraph-image`→404**, no "Markets at a glance" card, no light footer.
+- History: the redesign chain WAS pushed to `main` and deployed to prod once
+  (`c80ad93`), then **rolled back** — prod was promoted back to the `7e979a8`
+  deployment and `main`/`origin/main` were reset to `7e979a8`. (Resetting the git
+  ref doesn't redeploy; the rollback is what put the old site back live.) So the
+  whole redesign+SEO (12 commits) still needs to actually ship.
+- **Domain gotcha:** apex `birchtreefinancial.ca` **307-redirects to `www.`** —
+  but the SEO config (`lib/siteConfig.ts` url, `sitemap.ts`, `robots.ts`) uses the
+  **non-www apex**. So canonicals/sitemap would point at a host that redirects.
+  Before launch, either flip the Vercel redirect (www→apex) OR switch the SEO
+  base URL to `www`. Pick one canonical host and make all three agree.
+- **Going live = deploy the `seo/optimization` branch to production** (PR→`main`
+  or FF `main`, since `main` is a clean ancestor). Only do it on explicit user go.
 
 ### Run it
 ```bash
@@ -52,6 +80,21 @@ Eyebrow, Reveal/RevealStagger, Card, Button) and `components/layout/PageHeader`
   — redesigned navy badge favicon (regenerate via rsvg-convert; browsers cache
   favicons hard, hard-refresh to see)
 
+## SEO / AEO system (the `bbe0e05` pass)
+- **Single source of truth = `lib/siteConfig.ts`** — all NAP/brand facts (name,
+  url `https://birchtreefinancial.ca`, address 4914 50 Ave Olds AB T4H 1P5, phone
+  (403) 556-7777, team, services, areaServed, hours, geo). Mirrors
+  `docs/seo/BRAND_SOURCE_OF_TRUTH.md`. **Don't invent facts not verified live.**
+- `lib/schema.ts` builds JSON-LD graphs from siteConfig; rendered via
+  `components/seo/JsonLd.tsx`. Homepage = `FinancialService`+`WebSite`; the
+  `/financial-advisor-olds-alberta` local landing page adds `FAQPage` +
+  `BreadcrumbList`. Per-page `metadata` lives in each route's `layout.tsx`.
+- `app/sitemap.ts` (42 urls), `app/robots.ts` (welcomes AI crawlers — GPTBot,
+  ClaudeBot, PerplexityBot, etc.; disallows /admin /api), `app/manifest.ts`,
+  `app/opengraph-image.tsx`. Root metadata + `metadataBase` in `app/layout.tsx`.
+- **If you change the live domain, base URL is hardcoded in `app/sitemap.ts` and
+  `app/robots.ts`** (not just siteConfig) — update all three.
+
 ## Gotchas / lessons (IMPORTANT)
 - **Multi-agent workflows fabricated/dropped real content** on content-heavy
   pages during the redesign (team page had ALL real staff replaced with invented
@@ -70,8 +113,19 @@ Eyebrow, Reveal/RevealStagger, Card, Button) and `components/layout/PageHeader`
   `public/birchtree logo22.png`, `public/newtreeicon.png`.
 - `.preview/` and `.playwright-mcp/` are gitignored local scratch (screenshots,
   the workflow scripts `.preview/*.js`). Fuller history: `SESSION-NOTES.md`.
-- `npm audit`: 14 vulns (7 moderate/7 high), untouched.
+- `npm audit`: transitive vulns were patched in `45376c5` (`npm audit fix`, no
+  app/code change). Re-run `npm audit` if you need the current count.
 
-## Next up
-User wants a few more **design touch-ups** (light theme already in place).
-Make changes against the design system above; keep content/data byte-identical.
+## Next up — GO LIVE
+Code is verified production-ready on `seo/optimization`. Remaining work is the
+**deploy decision**, not more building:
+1. Confirm where "live" is — this repo deploys via **Vercel** (`@vercel/analytics`
+   is wired in `app/layout.tsx`). Check which branch/project Vercel serves to
+   production and whether `birchtreefinancial.ca` points at it.
+2. Get the 12 commits to production: typically open a PR `seo/optimization` →
+   `main` (or fast-forward `main`), since `main` is the safe/live baseline.
+   **Only push/merge `main` when the user explicitly says go.**
+3. Post-launch SEO: submit `sitemap.xml` in Google Search Console; verify the
+   live `robots.txt`/canonical/OG render on the real domain.
+Design touch-ups against the system above are still fair game; keep content/data
+byte-identical (see Gotchas).

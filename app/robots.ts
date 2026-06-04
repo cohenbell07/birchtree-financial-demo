@@ -30,8 +30,8 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin/', '/api/'],
       },
     ],
-    sitemap: 'https://birchtreefinancial.ca/sitemap.xml',
-    host: 'https://birchtreefinancial.ca',
+    sitemap: 'https://www.birchtreefinancial.ca/sitemap.xml',
+    host: 'https://www.birchtreefinancial.ca',
   }
 }
 

@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
       const referralData = referralResult.data as Referral | null
       if (referralData) {
-        const referralLink = body.referral_link || `https://birchtreefinancial.ca/referral?ref=${referralData.id}`
+        const referralLink = body.referral_link || `https://www.birchtreefinancial.ca/referral?ref=${referralData.id}`
         await sendReferralInviteEmail(lead, body.referral_email, referralLink)
       }
     }

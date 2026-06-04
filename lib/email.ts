@@ -86,7 +86,7 @@ export async function sendLeadWelcomeEmail(lead: Lead) {
             <p>Hi ${lead.name},</p>
             <p>Thank you for your interest in Birchtree Financial. We're excited to help you on your financial journey.</p>
             <p>Our team will review your information and reach out shortly to discuss how we can assist you.</p>
-            <a href="https://birchtreefinancial.ca/contact" class="button">Schedule a Consultation</a>
+            <a href="https://www.birchtreefinancial.ca/contact" class="button">Schedule a Consultation</a>
             <p style="margin-top: 30px; font-size: 12px; color: #666;">
               Best regards,<br>
               The Birchtree Financial Team
@@ -128,7 +128,7 @@ export async function sendToolResultsEmail(lead: Lead, toolResult: ToolResult) {
               <p>${toolResult.summary}</p>
             </div>
             <p>For personalized financial advice tailored to your specific situation, we recommend scheduling a consultation with one of our advisors.</p>
-            <a href="https://birchtreefinancial.ca/contact" class="button">Schedule a Consultation</a>
+            <a href="https://www.birchtreefinancial.ca/contact" class="button">Schedule a Consultation</a>
             <p style="margin-top: 30px; font-size: 12px; color: #666;">
               Best regards,<br>
               The Birchtree Financial Team
@@ -161,7 +161,7 @@ export async function sendDripSequenceEmail({
           <p><strong>RRSP (Registered Retirement Savings Plan):</strong> Contributions reduce your taxable income, and investments grow tax-deferred until withdrawal.</p>
           <p><strong>TFSA (Tax-Free Savings Account):</strong> Contributions are made with after-tax dollars, but all growth and withdrawals are tax-free.</p>
           <p>Our advisors can help you optimize both accounts based on your income, goals, and timeline.</p>
-          <a href="https://birchtreefinancial.ca/contact" class="button">Learn More</a>
+          <a href="https://www.birchtreefinancial.ca/contact" class="button">Learn More</a>
         `,
       },
       2: {
@@ -170,7 +170,7 @@ export async function sendDripSequenceEmail({
           <p>Hi ${lead.name},</p>
           <p>We hope you've found our resources helpful. Are you ready to take the next step?</p>
           <p>Schedule a complimentary consultation to discuss your financial goals and discover how Birchtree Financial can help you achieve them.</p>
-          <a href="https://birchtreefinancial.ca/contact" class="button">Book Your Consultation</a>
+          <a href="https://www.birchtreefinancial.ca/contact" class="button">Book Your Consultation</a>
           <p>Our team is here to provide personalized guidance tailored to your unique situation.</p>
         `,
       },
@@ -277,7 +277,7 @@ export async function sendReferralInviteEmail(lead: Lead, referredEmail: string,
             <p>Hi there,</p>
             <p>${lead.name} thought you might be interested in Birchtree Financial's comprehensive financial planning services.</p>
             <p>We help individuals and families across Canada achieve their financial goals through personalized, intelligent advisory services.</p>
-            ${referralLink ? `<a href="${referralLink}" class="button">Learn More</a>` : '<a href="https://birchtreefinancial.ca" class="button">Learn More</a>'}
+            ${referralLink ? `<a href="${referralLink}" class="button">Learn More</a>` : '<a href="https://www.birchtreefinancial.ca" class="button">Learn More</a>'}
             <p style="margin-top: 30px; font-size: 12px; color: #666;">
               Best regards,<br>
               The Birchtree Financial Team
