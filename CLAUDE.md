@@ -24,26 +24,26 @@ optimization pass** has landed on top of it. Verified production-ready.
 - **Lineage since redesign:** `30ed27b` light redesign → `3c6eabb` design
   touch-ups → `c80ad93` mobile-menu rebuild → `bbe0e05` SEO/AEO pass.
 
-### What's ACTUALLY live in production (verified 2026-06-04, ground truth)
+### What's live in production (LAUNCHED 2026-06-04)
 Deploys via **Vercel** project `birchtree-financial-demo`
 (`prj_gSZt8TR9Duai2Ly3UZMJ9fuc6XDA`, team `team_hTXfnqbSw3ULuJOTORDEzME9`).
-- **LIVE = the OLD pre-redesign site (`7e979a8`).** Neither the redesign nor the
-  SEO pass is live. Confirmed against `www.birchtreefinancial.ca`: hero "Your
-  Financial Future,", title "...Premium Financial Advisory Services", **0 JSON-LD,
-  37-url sitemap, no AI-crawler robots, `/financial-advisor-olds-alberta`→404,
-  `/opengraph-image`→404**, no "Markets at a glance" card, no light footer.
-- History: the redesign chain WAS pushed to `main` and deployed to prod once
-  (`c80ad93`), then **rolled back** — prod was promoted back to the `7e979a8`
-  deployment and `main`/`origin/main` were reset to `7e979a8`. (Resetting the git
-  ref doesn't redeploy; the rollback is what put the old site back live.) So the
-  whole redesign+SEO (12 commits) still needs to actually ship.
-- **Domain gotcha:** apex `birchtreefinancial.ca` **307-redirects to `www.`** —
-  but the SEO config (`lib/siteConfig.ts` url, `sitemap.ts`, `robots.ts`) uses the
-  **non-www apex**. So canonicals/sitemap would point at a host that redirects.
-  Before launch, either flip the Vercel redirect (www→apex) OR switch the SEO
-  base URL to `www`. Pick one canonical host and make all three agree.
-- **Going live = deploy the `seo/optimization` branch to production** (PR→`main`
-  or FF `main`, since `main` is a clean ancestor). Only do it on explicit user go.
+- **LIVE = redesign + SEO + designed OG image (`9e43d3b`).** Shipped this session;
+  `main` = `origin/main` = `9e43d3b`. Verified on `www.birchtreefinancial.ca`:
+  hero "...Elevated", title "Financial Advisor in Olds, Alberta",
+  FinancialService+WebSite JSON-LD, 42-url www sitemap, AI-crawler robots,
+  `/financial-advisor-olds-alberta`→200, `/opengraph-image.jpg`→200 (1200×630
+  designed share card; see `app/opengraph-image.jpg` + `.alt.txt`).
+- Canonical host = **`www`** (apex 307-redirects to www; all SEO signals use www —
+  `lib/siteConfig.ts`, `sitemap.ts`, `robots.ts`).
+- **CRITICAL deploy gotcha — production is "instant-rollback" pinned.** Because
+  prod was instant-rolled-back earlier, the production domain is PINNED to a
+  chosen deployment. Pushing to `main` builds a **READY production deployment but
+  does NOT auto-take the domain** — the old one keeps serving. To actually go
+  live you must **`vercel promote <deployment-url>`** (CLI authed as
+  cohenbell07-5541). That's how `9e43d3b` launched. Expect this on every release
+  until the pinned-rollback state is cleared in the Vercel dashboard.
+- Post-launch SEO TODO: submit `https://www.birchtreefinancial.ca/sitemap.xml` in
+  Google Search Console; confirm the GSC property is the **www** host.
 
 ### Run it
 ```bash
@@ -116,16 +116,13 @@ Eyebrow, Reveal/RevealStagger, Card, Button) and `components/layout/PageHeader`
 - `npm audit`: transitive vulns were patched in `45376c5` (`npm audit fix`, no
   app/code change). Re-run `npm audit` if you need the current count.
 
-## Next up — GO LIVE
-Code is verified production-ready on `seo/optimization`. Remaining work is the
-**deploy decision**, not more building:
-1. Confirm where "live" is — this repo deploys via **Vercel** (`@vercel/analytics`
-   is wired in `app/layout.tsx`). Check which branch/project Vercel serves to
-   production and whether `birchtreefinancial.ca` points at it.
-2. Get the 12 commits to production: typically open a PR `seo/optimization` →
-   `main` (or fast-forward `main`), since `main` is the safe/live baseline.
-   **Only push/merge `main` when the user explicitly says go.**
-3. Post-launch SEO: submit `sitemap.xml` in Google Search Console; verify the
-   live `robots.txt`/canonical/OG render on the real domain.
-Design touch-ups against the system above are still fair game; keep content/data
-byte-identical (see Gotchas).
+## Next up — POST-LAUNCH
+The redesign + SEO + OG image are LIVE (`9e43d3b`). Open follow-ups:
+1. **Submit the sitemap in Google Search Console** (www property) and watch
+   indexing of the new pages (esp. `/financial-advisor-olds-alberta`).
+2. **Clear the instant-rollback pin** in the Vercel dashboard so future
+   `main` pushes auto-promote again (until then, every release needs a manual
+   `vercel promote` — see the deploy gotcha above).
+3. More **design touch-ups** are fair game against the design system above; keep
+   content/data byte-identical (see Gotchas). Each release: push `main`, wait for
+   READY, then `vercel promote <url>` to actually go live.
