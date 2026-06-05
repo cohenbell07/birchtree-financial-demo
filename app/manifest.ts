@@ -7,7 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Family-run financial advisory firm in Olds, Alberta — retirement, investment, insurance, tax, and estate planning.",
     start_url: "/",
-    display: "standalone",
+    // "browser" (not "standalone") keeps the manifest's metadata — theme color,
+    // name, home-screen icon — WITHOUT making the site an installable PWA, so
+    // Chrome/Edge no longer show the "install app / download" prompt.
+    display: "browser",
     background_color: "#FBFAF6",
     theme_color: "#0B1A2C",
     icons: [
